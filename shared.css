@@ -87,12 +87,18 @@ body > nav {
 }
 .nav-burger-btn span {
   display: block; width: 22px; height: 1.5px;
-  background: var(--noir);
   transition: transform .32s cubic-bezier(.76,0,.24,1), opacity .2s;
 }
-.nav-burger-btn.open span:nth-child(1) { transform: rotate(45deg) translate(4.5px, 4.5px); }
-.nav-burger-btn.open span:nth-child(2) { opacity: 0; }
-.nav-burger-btn.open span:nth-child(3) { transform: rotate(-45deg) translate(4.5px, -4.5px); }
+/* 4 lignes = 4 entités */
+.nav-burger-btn span:nth-child(1) { background: #4A82DC; } /* Le Studio   */
+.nav-burger-btn span:nth-child(2) { background: #5DA16B; } /* L'Atelier   */
+.nav-burger-btn span:nth-child(3) { background: #F1CB4F; } /* Bleu Cobalt */
+.nav-burger-btn span:nth-child(4) { background: #BB3B34; } /* Le Média    */
+/* Animation X — lignes 1 & 4 se croisent, 2 & 3 s'effacent */
+.nav-burger-btn.open span:nth-child(1) { transform: translateY(9.75px) rotate(45deg); }
+.nav-burger-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-burger-btn.open span:nth-child(3) { opacity: 0; transform: scaleX(0); }
+.nav-burger-btn.open span:nth-child(4) { transform: translateY(-9.75px) rotate(-45deg); }
 
 /* ══════════════════════════════════════════
    NAV OVERLAY — style bandes éditoriales
