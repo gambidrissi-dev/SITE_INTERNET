@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23F3EFD7'/><text x='4' y='24' font-size='22' font-family='sans-serif' font-weight='900' fill='%234A82DC'>c.</text></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#F3EFD7">
+  <title>Le Programme — Bleu de Cobalt · Collectif Cobalt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    :root { --accent: var(--jaune); }
+    .stripe { background: linear-gradient(90deg, var(--jaune) 25%, var(--noir) 25% 50%, var(--jaune) 50% 75%, var(--noir) 75%); }
+
+    /* Mini-dropdown Missions ▾ */
+    .nav-missions { position: relative; }
+    .nav-missions-trigger {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: none; border: none; padding: 0;
+      font-family: var(--f-body); font-size: .72rem; font-weight: 600;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: rgba(26,26,26,.45); cursor: none; transition: color .15s;
+    }
+    .nav-missions-trigger:hover, .nav-missions-trigger.open { color: var(--noir); }
+    .nav-missions-trigger .ch { display: inline-block; font-size: .55rem; line-height: 1; transition: transform .25s ease; }
+    .nav-missions-trigger.open .ch { transform: rotate(180deg); }
+    .nav-missions-menu {
+      position: absolute; top: calc(100% + 14px); left: -14px;
+      background: var(--cream); border: 1px solid rgba(26,26,26,.12);
+      border-radius: var(--r-md); padding: 10px; min-width: 220px;
+      box-shadow: var(--shadow); display: none; flex-direction: column; gap: 2px;
+      z-index: 510;
+    }
+    .nav-missions-menu.open { display: flex; }
+    .nav-missions-menu a { display: flex; flex-direction: column; gap: 2px; padding: 12px 14px; border-radius: var(--r-sm); transition: background .15s; }
+    .nav-missions-menu a:hover { background: rgba(241,203,79,.18); }
+    .nav-missions-menu a .nm-name { font-size: .78rem; font-weight: 700; letter-spacing: .04em; color: var(--noir); text-transform: none; }
+    .nav-missions-menu a .nm-desc { font-size: .64rem; font-weight: 400; color: rgba(26,26,26,.5); letter-spacing: 0; text-transform: none; }
+
+    /* HERO */
+    .pg-hero {
+      min-height: 92vh; background: var(--noir);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 140px 44px 90px; position: relative; overflow: hidden;
+    }
+    .pg-bg-num {
+      position: absolute; right: -60px; bottom: -80px;
+      font-family: var(--f-display); font-size: clamp(280px,40vw,500px);
+      color: rgba(241,203,79,.06); line-height: 1; pointer-events: none; user-select: none;
+    }
+    .pg-eyebrow { font-size: .62rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--jaune); display: flex; align-items: center; gap: 14px; margin-bottom: 32px; }
+    .pg-eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--jaune); }
+    .pg-title { font-family: var(--f-display); font-size: clamp(72px,12vw,160px); line-height: .82; color: var(--cream); margin-bottom: 36px; }
+    .pg-title em { font-family: var(--f-serif); font-style: italic; color: var(--jaune); font-weight: 400; }
+    .pg-sub { max-width: 600px; font-size: 1.05rem; line-height: 1.85; font-weight: 300; color: rgba(240,235,216,.55); margin-bottom: 44px; }
+    .pg-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    /* CE QUE CHANGE BLEU */
+    .change { background: var(--jaune); padding: 100px 44px; border-top: 2px solid var(--noir); }
+    .ch-header { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 56px; }
+    .ch-title { font-family: var(--f-display); font-size: clamp(48px,7vw,100px); line-height: .88; color: var(--noir); }
+    .ch-title em { font-family: var(--f-serif); font-style: italic; color: var(--cream); font-weight: 400; }
+    .ch-intro { font-size: .95rem; line-height: 1.85; font-weight: 300; color: rgba(26,26,26,.7); }
+    .ch-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; border-top: 2px solid var(--noir); border-bottom: 2px solid var(--noir); }
+    .ch-cell { padding: 48px 32px; border-right: 2px solid var(--noir); background: var(--cream); }
+    .ch-cell:last-child { border-right: none; }
+    .ch-cell-num { font-family: var(--f-display); font-size: 56px; color: rgba(241,203,79,.5); line-height: 1; margin-bottom: 18px; }
+    .ch-cell-bar { width: 32px; height: 3px; background: var(--noir); margin-bottom: 18px; }
+    .ch-cell-name { font-size: .82rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--noir); margin-bottom: 14px; }
+    .ch-cell-desc { font-size: .9rem; line-height: 1.75; font-weight: 300; color: rgba(26,26,26,.65); }
+
+    /* FORMAT — comment se passe une mission */
+    .format-section { background: var(--cream); padding: 100px 44px; border-top: 2px solid var(--noir); }
+    .fs-title { font-family: var(--f-display); font-size: clamp(48px,7vw,100px); line-height: .88; margin-bottom: 56px; }
+    .fs-title em { font-family: var(--f-serif); font-style: italic; color: var(--jaune); font-weight: 400; }
+    .fs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 2px solid var(--noir); border-bottom: 2px solid var(--noir); }
+    .fs-row { padding: 32px 44px; border-bottom: 1px solid rgba(26,26,26,.1); display: grid; grid-template-columns: 200px 1fr; gap: 32px; align-items: center; }
+    .fs-row:nth-last-child(-n+2) { border-bottom: none; }
+    .fs-row:nth-child(2n+1) { border-right: 2px solid var(--noir); }
+    .fs-key { font-family: var(--f-display); font-size: 22px; line-height: 1; color: var(--jaune); }
+    .fs-val { font-size: .9rem; line-height: 1.7; font-weight: 300; color: rgba(26,26,26,.65); }
+    .fs-val strong { font-weight: 700; color: var(--noir); }
+
+    /* POUR QUI — profils */
+    .profils { background: var(--noir); padding: 100px 44px; }
+    .pf-title { font-family: var(--f-display); font-size: clamp(48px,7vw,100px); line-height: .88; color: var(--cream); margin-bottom: 56px; }
+    .pf-title em { font-family: var(--f-serif); font-style: italic; color: var(--jaune); font-weight: 400; }
+    .pf-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+    .pf-card {
+      background: rgba(241,203,79,.06); border: 1px solid rgba(241,203,79,.2);
+      border-radius: var(--r-md); padding: 36px 30px;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .pf-card-num { font-family: var(--f-display); font-size: 44px; color: var(--jaune); line-height: 1; }
+    .pf-card-name { font-family: var(--f-display); font-size: 22px; color: var(--cream); }
+    .pf-card-desc { font-size: .88rem; line-height: 1.7; font-weight: 300; color: rgba(240,235,216,.55); }
+    .pf-card-list { list-style: none; display: flex; flex-direction: column; gap: 8px; padding-top: 14px; border-top: 1px solid rgba(241,203,79,.18); margin-top: 4px; }
+    .pf-card-list li { font-size: .8rem; line-height: 1.55; color: rgba(240,235,216,.45); display: flex; gap: 10px; padding-left: 16px; position: relative; }
+    .pf-card-list li::before { content: ''; position: absolute; left: 0; top: 9px; width: 8px; height: 2px; background: var(--jaune); }
+
+    /* CANDIDATER — formulaire */
+    .candidater { background: var(--jaune); padding: 100px 44px; border-top: 2px solid var(--noir); }
+    .cd-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .cd-eyebrow { font-size: .62rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--noir); display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+    .cd-eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--noir); }
+    .cd-title { font-family: var(--f-display); font-size: clamp(40px,5vw,64px); line-height: .9; color: var(--noir); margin-bottom: 20px; }
+    .cd-title em { font-family: var(--f-serif); font-style: italic; color: var(--cream); font-weight: 400; }
+    .cd-body { font-size: .92rem; line-height: 1.85; font-weight: 300; color: rgba(26,26,26,.7); margin-bottom: 22px; }
+    .cd-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .cd-list li { font-size: .82rem; color: rgba(26,26,26,.7); padding-left: 22px; position: relative; line-height: 1.55; }
+    .cd-list li::before { content: '→'; position: absolute; left: 0; top: 0; color: var(--noir); font-weight: 700; }
+    .cd-form { display: flex; flex-direction: column; gap: 18px; background: var(--cream); padding: 40px; border-radius: var(--r-md); border: 1.5px solid var(--noir); }
+    .cd-field { display: flex; flex-direction: column; gap: 6px; }
+    .cd-lbl { font-size: .58rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(26,26,26,.5); }
+    .cd-input, .cd-ta {
+      background: transparent; border: none; border-bottom: 1.5px solid rgba(26,26,26,.2);
+      padding: 10px 0; font-family: var(--f-body); font-size: .92rem;
+      color: var(--noir); outline: none; transition: border-color .2s;
+    }
+    .cd-ta { resize: none; min-height: 80px; }
+    .cd-input:focus, .cd-ta:focus { border-color: var(--jaune); border-bottom-width: 2px; }
+
+    @media (max-width: 960px) {
+      .pg-hero { padding: 110px 20px 60px; min-height: 0; }
+      .pg-title { font-size: clamp(56px, 13vw, 110px); }
+      .pg-sub { font-size: .92rem; }
+      .change { padding: 64px 20px; }
+      .ch-header { grid-template-columns: 1fr; gap: 22px; margin-bottom: 36px; }
+      .ch-title { font-size: clamp(36px, 10vw, 64px); }
+      .ch-grid { grid-template-columns: 1fr; }
+      .ch-cell { border-right: none; border-bottom: 2px solid var(--noir); padding: 36px 24px; }
+      .ch-cell:last-child { border-bottom: none; }
+      .format-section { padding: 64px 20px; }
+      .fs-title { font-size: clamp(36px, 10vw, 64px); margin-bottom: 36px; }
+      .fs-grid { grid-template-columns: 1fr; }
+      .fs-row { grid-template-columns: 1fr; gap: 8px; padding: 24px 20px; border-right: none !important; }
+      .profils { padding: 64px 20px; }
+      .pf-title { font-size: clamp(36px, 10vw, 64px); margin-bottom: 36px; }
+      .pf-grid { grid-template-columns: 1fr; }
+      .candidater { padding: 64px 20px; }
+      .cd-grid { grid-template-columns: 1fr; gap: 32px; }
+    }
+    @media (max-width: 560px) {
+      .pg-hero { padding: 96px 18px 48px; }
+      .pg-title { font-size: clamp(48px, 14vw, 80px); margin-bottom: 26px; }
+      .pg-sub { font-size: .88rem; }
+      .pg-actions { gap: 12px; }
+      .change { padding: 52px 18px; }
+      .ch-cell { padding: 28px 20px; }
+      .format-section { padding: 52px 18px; }
+      .fs-row { padding: 22px 18px; }
+      .profils { padding: 52px 18px; }
+      .pf-card { padding: 28px 22px; }
+      .candidater { padding: 52px 18px; }
+      .cd-form { padding: 28px 22px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stripe"></div>
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo"><img src="assets/LOGO/LOGO_COBALT.svg" alt="Collectif Cobalt" class="nav-logo-img" width="200" height="45"></a>
+    <button class="nav-burger-btn" id="nav-burger" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+<!-- HERO -->
+  <section class="pg-hero">
+    <div class="pg-bg-num" aria-hidden="true">03·P</div>
+    <div class="pg-eyebrow sr">Bleu de Cobalt — Le Programme</div>
+    <h1 class="pg-title sr">REJOINDRE<br><em>Bleu</em>.</h1>
+    <p class="pg-sub sr sr-d2">Un format hybride freelance + intérim + alternance. Vous êtes encadré·e par le collectif, formé·e en continu, et placé·e sur des missions réelles chez des cabinets partenaires ou des particuliers à budget serré. Vous sortez avec un portfolio qui sent le terrain, pas l'atelier d'école.</p>
+    <div class="pg-actions sr sr-d3">
+      <a href="#candidater" class="btn btn-cream"><span>Candidater →</span></a>
+      <a href="#format" class="btn btn-outline" style="color:var(--cream); border-color:rgba(240,235,216,.4)"><span>Comment ça marche</span></a>
+    </div>
+  </section>
+
+  <!-- CE QUE CHANGE BLEU -->
+  <section class="change">
+    <div class="ch-header sr">
+      <h2 class="ch-title">CE QUE BLEU <em>change</em>.</h2>
+      <p class="ch-intro">L'alternance classique te fait dessiner les WC pendant 18 mois. Bleu te place sur des projets variés, courts, encadrés. Tu accumules des livrables réels. Tu vois plusieurs cabinets, plusieurs façons de travailler. Tu négocies tes conditions plutôt que d'attendre la fin du contrat.</p>
+    </div>
+    <div class="ch-grid sr sr-d1">
+      <div class="ch-cell">
+        <div class="ch-cell-num">01</div>
+        <div class="ch-cell-bar"></div>
+        <div class="ch-cell-name">Plusieurs cabinets, plusieurs cultures</div>
+        <p class="ch-cell-desc">Tu rotates entre 3 à 6 missions par an, dans des structures différentes. Tu comprends ce qui te correspond avant de signer un CDI les yeux fermés.</p>
+      </div>
+      <div class="ch-cell">
+        <div class="ch-cell-num">02</div>
+        <div class="ch-cell-bar"></div>
+        <div class="ch-cell-name">Encadrement Cobalt, pas l'oubli total</div>
+        <p class="ch-cell-desc">Un référent du collectif te suit en parallèle de la mission — point hebdo, retour critique, accès à l'atelier et au studio si besoin. Tu n'es jamais seul·e face au cabinet d'accueil.</p>
+      </div>
+      <div class="ch-cell">
+        <div class="ch-cell-num">03</div>
+        <div class="ch-cell-bar"></div>
+        <div class="ch-cell-name">Portfolio qui parle</div>
+        <p class="ch-cell-desc">Chaque mission produit un livrable documenté que tu peux montrer. À la sortie, ton portfolio raconte un parcours, pas une attestation administrative.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMAT — comment se passe une mission -->
+  <section id="format" class="format-section">
+    <h2 class="fs-title sr">LE <em>format</em>, en clair.</h2>
+    <div class="fs-grid sr sr-d1">
+      <div class="fs-row">
+        <div class="fs-key">Durée mission</div>
+        <div class="fs-val"><strong>3 à 12 semaines</strong> selon le brief. Pas de contrats à rallonge — chaque mission a un début et une fin nets.</div>
+      </div>
+      <div class="fs-row">
+        <div class="fs-key">Statut</div>
+        <div class="fs-val"><strong>Convention associative</strong> via Bleu de Cobalt + statut étudiant ou alternant maintenu. On gère la paperasse à ta place.</div>
+      </div>
+      <div class="fs-row">
+        <div class="fs-key">Rémunération</div>
+        <div class="fs-val"><strong>Indemnité par mission</strong> — barème public, fonction du niveau d'études et de la complexité. Pas de stage gratuit.</div>
+      </div>
+      <div class="fs-row">
+        <div class="fs-key">Encadrement</div>
+        <div class="fs-val"><strong>1 référent Cobalt</strong> dédié + accès à l'atelier et au studio. Point hebdo, retour critique sur livrable, recadrage si besoin.</div>
+      </div>
+      <div class="fs-row">
+        <div class="fs-key">Lieu</div>
+        <div class="fs-val">Présentiel chez le cabinet, ou hybride (Cobalt + cabinet), ou full distant — selon la mission. Base Bleu : <strong>Bordeaux + Nouvelle-Aquitaine</strong>.</div>
+      </div>
+      <div class="fs-row">
+        <div class="fs-key">Livrable</div>
+        <div class="fs-val"><strong>Documenté pour le portfolio</strong>. Chaque mission produit une fiche projet validée par le cabinet d'accueil et par Cobalt.</div>
+      </div>
+      <div class="fs-row">
+        <div class="fs-key">Engagement</div>
+        <div class="fs-val">Mission par mission. Tu peux faire <strong>une seule mission</strong> ou <strong>une année complète</strong> en enchaînant. Ton choix, on s'adapte.</div>
+      </div>
+      <div class="fs-row">
+        <div class="fs-key">À la sortie</div>
+        <div class="fs-val">Recommandation Cobalt + cabinets traversés, portfolio enrichi, réseau pro, et souvent une <strong>proposition d'embauche</strong> d'un des cabinets.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POUR QUI -->
+  <section class="profils">
+    <h2 class="pf-title sr">POUR <em>qui</em> ?</h2>
+    <div class="pf-grid">
+      <div class="pf-card sr">
+        <div class="pf-card-num">01</div>
+        <div class="pf-card-name">Étudiant·e en archi / design d'espace</div>
+        <p class="pf-card-desc">Bac +3 à Bac +5, école d'archi, BTS design d'espace, Master design. Tu cherches une alternance qui ne soit pas un parking.</p>
+        <ul class="pf-card-list">
+          <li>Au moins une année d'études validée</li>
+          <li>Maîtrise basique des outils (Archicad, Revit, SketchUp, Suite Adobe)</li>
+          <li>Capacité à produire un livrable autonome</li>
+        </ul>
+      </div>
+      <div class="pf-card sr sr-d1">
+        <div class="pf-card-num">02</div>
+        <div class="pf-card-name">Reconversion vers le métier</div>
+        <p class="pf-card-desc">Tu as 25, 35 ou 45 ans, tu basculé·e ou en formation reconversion vers l'archi. Tu cherches du terrain rapidement, pas un nouveau diplôme avant 5 ans.</p>
+        <ul class="pf-card-list">
+          <li>Formation en cours (école certifiée RNCP) ou récente</li>
+          <li>Premier book / portfolio même modeste</li>
+          <li>Engagement clair sur le métier</li>
+        </ul>
+      </div>
+      <div class="pf-card sr sr-d2">
+        <div class="pf-card-num">03</div>
+        <div class="pf-card-name">Jeune diplômé·e cherchant du terrain</div>
+        <p class="pf-card-desc">Tu es sorti·e d'école il y a 0 à 24 mois, tu galères à trouver un poste qui ne soit pas du dessin technique mal payé. Bleu te fait varier les contextes avant d'engager un CDI.</p>
+        <ul class="pf-card-list">
+          <li>Diplôme archi / design / scénographie</li>
+          <li>Portfolio existant</li>
+          <li>Disponibilité immédiate</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CANDIDATER -->
+  <section id="candidater" class="candidater">
+    <div class="cd-grid">
+      <div class="sr">
+        <div class="cd-eyebrow">Postuler à Bleu</div>
+        <h2 class="cd-title">Envoie-nous <em>3 choses</em>.</h2>
+        <p class="cd-body">Pas de CV obligatoire, pas de lettre de motivation type. On préfère du concret. Si ce que tu envoies nous donne envie, on te recontacte sous 7 jours pour un entretien court.</p>
+        <ul class="cd-list">
+          <li><strong>Ton portfolio</strong> ou 3 projets que tu trouves représentatifs (PDF ou lien web)</li>
+          <li><strong>3 phrases</strong> sur pourquoi Bleu et pas une alternance classique</li>
+          <li><strong>Ta dispo</strong> — quand tu peux commencer, sur combien de temps</li>
+        </ul>
+      </div>
+      <form class="cd-form sr sr-d1" onsubmit="alert('Merci ! On revient vers toi sous 7 jours.'); return false;">
+        <div class="cd-field">
+          <label class="cd-lbl">Prénom · Nom</label>
+          <input class="cd-input" type="text" placeholder="Camille Dupont" required>
+        </div>
+        <div class="cd-field">
+          <label class="cd-lbl">Email</label>
+          <input class="cd-input" type="email" placeholder="camille@mail.fr" required>
+        </div>
+        <div class="cd-field">
+          <label class="cd-lbl">Lien portfolio · ou PDF (à envoyer à bleu@collectifcobalt.eu)</label>
+          <input class="cd-input" type="url" placeholder="https://…">
+        </div>
+        <div class="cd-field">
+          <label class="cd-lbl">Pourquoi Bleu ? (3 phrases)</label>
+          <textarea class="cd-ta" placeholder="Sois honnête, court, et précis." required></textarea>
+        </div>
+        <div class="cd-field">
+          <label class="cd-lbl">Dispo</label>
+          <input class="cd-input" type="text" placeholder="Septembre 2026, 6 mois, mi-temps possible" required>
+        </div>
+        <button type="submit" class="btn btn-dark" style="margin-top:8px; align-self:flex-start"><span>Envoyer ma candidature →</span></button>
+      </form>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <div class="marquee-item">PROGRAMME<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--jaune)">ALTERNANCE 2.0</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">MISSIONS COURTES<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--jaune)">ENCADRÉ</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">PORTFOLIO RÉEL<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--jaune)">BLEU DE COBALT</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">PROGRAMME<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--jaune)">ALTERNANCE 2.0</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">MISSIONS COURTES<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--jaune)">ENCADRÉ</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">PORTFOLIO RÉEL<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--jaune)">BLEU DE COBALT</span><div class="marquee-sep"></div></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-stripe"></div>
+    <div class="footer-silhouette" aria-hidden="true">
+      <svg width="500" height="340" viewBox="0 0 750 450" fill="rgba(240,235,216,1)"><rect x="0" y="220" width="750" height="230"/><path d="M375 0 A375 220 0 0 1 750 220 L0 220Z"/></svg>
+    </div>
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">cobalt<span class="dot">.</span></div>
+        <p class="footer-tagline">Penser. Faire. Transmettre.<br>Studio de design d'espace, Nouvelle-Aquitaine.</p>
+        <div class="footer-socials">
+          <a href="https://www.instagram.com/collectifcobalt_/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/company/collectif-cobalt" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Le Collectif</div>
+        <nav class="footer-nav">
+          <a href="studio.html">Studio</a>
+          <a href="atelier.html">L'Atelier</a>
+          <a href="bleu-de-cobalt.html">Bleu de Cobalt</a>
+          <a href="media.html">Le Média</a>
+        </nav>
+      </div>
+      <div>
+        <div class="footer-col-title">Bleu de Cobalt</div>
+        <nav class="footer-nav">
+          <a href="bleu-projets.html">Projets</a>
+          <a href="bleu-cabinets.html">Missions · Cabinets</a>
+          <a href="bleu-particuliers.html">Missions · Particuliers</a>
+          <a href="bleu-programme.html">Le Programme</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Collectif Cobalt. Tous droits réservés.</p>
+      <p class="footer-legal">Bleu de Cobalt — École-atelier, Nouvelle-Aquitaine</p>
+    </div>
+  </footer>
+
+  <script src="shared.js"></script>
+  <script>
+    const mTrigger = document.querySelector('.nav-missions-trigger');
+    const mMenu = document.querySelector('.nav-missions-menu');
+    if (mTrigger && mMenu) {
+      mTrigger.addEventListener('click', e => {
+        e.preventDefault(); e.stopPropagation();
+        const open = !mMenu.classList.contains('open');
+        mMenu.classList.toggle('open', open);
+        mTrigger.classList.toggle('open', open);
+      });
+      document.addEventListener('click', e => {
+        if (!mMenu.contains(e.target) && e.target !== mTrigger && !mTrigger.contains(e.target)) {
+          mMenu.classList.remove('open');
+          mTrigger.classList.remove('open');
+        }
+      });
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') { mMenu.classList.remove('open'); mTrigger.classList.remove('open'); }
+      });
+    }
+  </script>
+</body>
+</html>

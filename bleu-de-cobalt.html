@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23F3EFD7'/><text x='4' y='24' font-size='22' font-family='sans-serif' font-weight='900' fill='%234A82DC'>c.</text></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#F3EFD7">
+  <title>Bleu de Cobalt — Collectif Cobalt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    /* stripe jaune */
+    .stripe { background: linear-gradient(90deg, var(--jaune) 25%, var(--noir) 25% 50%, var(--jaune) 50% 75%, var(--noir) 75%); }
+
+    /* ── HERO ── */
+    .bdc-hero {
+      min-height: 100vh; background: var(--jaune);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 140px 44px 80px; position: relative; overflow: hidden;
+      border-bottom: 2px solid var(--noir);
+    }
+    .bdc-bg-num {
+      position: absolute; right: -60px; bottom: -80px;
+      font-family: var(--f-display); font-size: clamp(300px,40vw,500px);
+      color: rgba(26,26,26,.05); line-height: 1; pointer-events: none; user-select: none;
+    }
+    .bdc-label { font-size: .62rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: rgba(26,26,26,.45); display: flex; align-items: center; gap: 14px; margin-bottom: 32px; }
+    .bdc-label::before { content: ''; width: 24px; height: 2px; background: rgba(26,26,26,.45); }
+    .bdc-title { font-family: var(--f-display); font-size: clamp(72px,11vw,150px); line-height: .84; color: var(--noir); margin-bottom: 40px; }
+    .bdc-sub { max-width: 560px; font-size: 1rem; line-height: 1.85; font-weight: 300; color: rgba(26,26,26,.6); margin-bottom: 48px; }
+    .bdc-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .bdc-cta { display: inline-flex; align-items: center; gap: 16px; font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--noir); transition: gap .2s; }
+    .bdc-cta::after { content: '→'; font-size: 1.1em; }
+    .bdc-cta:hover { gap: 24px; }
+
+    /* ── MISSION SPLIT ── */
+    .mission-split {
+      background: var(--noir); padding: 100px 44px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .ms-label { font-size: .62rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: rgba(240,235,216,.3); display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+    .ms-label::before { content: ''; width: 24px; height: 2px; background: rgba(240,235,216,.3); }
+    .ms-title { font-family: var(--f-display); font-size: clamp(48px,6vw,80px); line-height: .88; color: var(--cream); margin-bottom: 28px; }
+    .ms-title span { color: var(--jaune); }
+    .ms-body { font-size: .9rem; line-height: 1.9; font-weight: 300; color: rgba(240,235,216,.5); }
+    .ms-right { display: flex; flex-direction: column; gap: 24px; }
+    .ms-stat { padding: 32px; border: 1px solid rgba(240,235,216,.1); border-radius: var(--r-md); }
+    .ms-stat-num { font-family: var(--f-display); font-size: 56px; color: var(--jaune); line-height: 1; margin-bottom: 8px; }
+    .ms-stat-lbl { font-size: .72rem; font-weight: 300; color: rgba(240,235,216,.4); }
+
+    /* ── POURQUOI — comparatif ── */
+    .why-section { background: var(--cream); padding: 100px 44px; border-top: 2px solid var(--noir); }
+    .why-header { max-width: 720px; margin-bottom: 64px; }
+    .why-title { font-family: var(--f-display); font-size: clamp(48px,7vw,100px); line-height: .88; margin-bottom: 28px; }
+    .why-intro { font-size: .95rem; line-height: 1.85; font-weight: 300; color: rgba(26,26,26,.6); }
+    .why-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 2px solid var(--noir); border-bottom: 2px solid var(--noir); }
+    .why-col { padding: 48px 36px; }
+    .why-col-old { border-right: 2px solid var(--noir); background: rgba(26,26,26,.03); }
+    .why-col-new { background: var(--jaune); }
+    .why-col-tag { font-size: .62rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(26,26,26,.5); margin-bottom: 28px; padding-bottom: 14px; border-bottom: 1px solid rgba(26,26,26,.15); }
+    .why-col-new .why-col-tag { color: var(--noir); border-bottom-color: rgba(26,26,26,.3); }
+    .why-list { list-style: none; padding: 0; margin: 0; }
+    .why-list li { font-size: .9rem; line-height: 1.7; font-weight: 300; color: rgba(26,26,26,.6); padding: 12px 0; padding-left: 24px; position: relative; border-bottom: 1px solid rgba(26,26,26,.06); }
+    .why-list li:last-child { border-bottom: none; }
+    .why-col-old .why-list li::before { content: '×'; position: absolute; left: 0; top: 11px; color: var(--rouge); font-weight: 700; }
+    .why-col-new .why-list li::before { content: '✓'; position: absolute; left: 0; top: 11px; color: var(--noir); font-weight: 700; }
+    .why-col-new .why-list li { color: rgba(26,26,26,.85); border-bottom-color: rgba(26,26,26,.12); }
+
+    /* ── COMMENT ÇA MARCHE ── */
+    .comment-section { background: var(--cream); padding: 100px 44px; border-top: 2px solid var(--noir); }
+    .cc-title { font-family: var(--f-display); font-size: clamp(48px,7vw,100px); line-height: .88; margin-bottom: 64px; }
+    .cc-steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; border-top: 2px solid var(--noir); }
+    .cc-step { padding: 48px 32px; border-right: 2px solid var(--noir); position: relative; }
+    .cc-step:last-child { border-right: none; }
+    .cc-step-num { font-family: var(--f-display); font-size: 48px; color: rgba(241,203,79,.3); line-height: 1; margin-bottom: 20px; }
+    .cc-step-bar { width: 32px; height: 3px; background: var(--jaune); margin-bottom: 20px; }
+    .cc-step-name { font-size: .82rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--noir); margin-bottom: 12px; }
+    .cc-step-desc { font-size: .82rem; line-height: 1.75; font-weight: 300; color: rgba(26,26,26,.55); }
+
+    /* ── LE FORMAT, EN CLAIR ── */
+    .format-section { background: var(--noir); padding: 100px 44px; border-top: 2px solid rgba(240,235,216,.1); }
+    .fs-label { font-size: .62rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--jaune); display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+    .fs-label::before { content: ''; width: 24px; height: 2px; background: var(--jaune); }
+    .fs-title { font-family: var(--f-display); font-size: clamp(48px,7vw,100px); line-height: .88; color: var(--cream); margin-bottom: 56px; }
+    .fs-title em { font-family: var(--f-serif); font-style: italic; color: var(--jaune); font-weight: 400; }
+    .fs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid rgba(240,235,216,.1); border-bottom: 1px solid rgba(240,235,216,.1); }
+    .fs-row { padding: 28px 44px; border-bottom: 1px solid rgba(240,235,216,.06); display: grid; grid-template-columns: 200px 1fr; gap: 32px; align-items: center; }
+    .fs-row:nth-last-child(-n+2) { border-bottom: none; }
+    .fs-row:nth-child(2n+1) { border-right: 1px solid rgba(240,235,216,.1); }
+    .fs-key { font-family: var(--f-display); font-size: 20px; line-height: 1; color: var(--jaune); }
+    .fs-val { font-size: .88rem; line-height: 1.7; font-weight: 300; color: rgba(240,235,216,.5); }
+    .fs-val strong { font-weight: 700; color: var(--cream); }
+
+    /* ── POUR QUI — profils ── */
+    .profils { background: var(--jaune); padding: 100px 44px; border-top: 2px solid var(--noir); }
+    .pf-title { font-family: var(--f-display); font-size: clamp(48px,7vw,100px); line-height: .88; color: var(--noir); margin-bottom: 56px; }
+    .pf-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+    .pf-card {
+      background: var(--cream); border: 1.5px solid var(--noir);
+      border-radius: var(--r-md); padding: 36px 30px;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .pf-card-num { font-family: var(--f-display); font-size: 44px; color: rgba(26,26,26,.18); line-height: 1; }
+    .pf-card-name { font-family: var(--f-display); font-size: 20px; color: var(--noir); line-height: 1.1; }
+    .pf-card-desc { font-size: .88rem; line-height: 1.7; font-weight: 300; color: rgba(26,26,26,.6); }
+    .pf-card-list { list-style: none; display: flex; flex-direction: column; gap: 8px; padding-top: 14px; border-top: 1px solid rgba(26,26,26,.15); margin-top: 4px; }
+    .pf-card-list li { font-size: .78rem; line-height: 1.55; color: rgba(26,26,26,.5); display: flex; gap: 10px; padding-left: 16px; position: relative; }
+    .pf-card-list li::before { content: ''; position: absolute; left: 0; top: 9px; width: 8px; height: 2px; background: var(--noir); }
+
+    /* ── CANDIDATER ── */
+    .candidater { background: var(--cream); padding: 100px 44px; border-top: 2px solid var(--noir); }
+    .cd-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .cd-eyebrow { font-size: .62rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: rgba(26,26,26,.4); display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+    .cd-eyebrow::before { content: ''; width: 24px; height: 2px; background: rgba(26,26,26,.4); }
+    .cd-title { font-family: var(--f-display); font-size: clamp(40px,5vw,64px); line-height: .9; color: var(--noir); margin-bottom: 20px; }
+    .cd-title em { font-family: var(--f-serif); font-style: italic; color: rgba(26,26,26,.4); font-weight: 400; }
+    .cd-body { font-size: .92rem; line-height: 1.85; font-weight: 300; color: rgba(26,26,26,.6); margin-bottom: 22px; }
+    .cd-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .cd-list li { font-size: .82rem; color: rgba(26,26,26,.65); padding-left: 22px; position: relative; line-height: 1.55; }
+    .cd-list li::before { content: '→'; position: absolute; left: 0; top: 0; color: var(--noir); font-weight: 700; }
+    .cd-form { display: flex; flex-direction: column; gap: 18px; background: var(--noir); padding: 40px; border-radius: var(--r-md); border: 2px solid var(--noir); }
+    .cd-field { display: flex; flex-direction: column; gap: 6px; }
+    .cd-lbl { font-size: .58rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(240,235,216,.4); }
+    .cd-input, .cd-ta {
+      background: transparent; border: none; border-bottom: 1.5px solid rgba(240,235,216,.18);
+      padding: 10px 0; font-family: var(--f-body); font-size: .92rem;
+      color: var(--cream); outline: none; transition: border-color .2s;
+    }
+    .cd-ta { resize: none; min-height: 80px; }
+    .cd-input:focus, .cd-ta:focus { border-color: var(--jaune); border-bottom-width: 2px; }
+    .cd-input::placeholder, .cd-ta::placeholder { color: rgba(240,235,216,.25); }
+
+    /* ── CTA ── */
+    .cta-band {
+      background: var(--jaune); padding: 100px 44px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 2px solid var(--noir);
+    }
+    .cb-text { font-family: var(--f-display); font-size: clamp(32px,5vw,64px); color: var(--noir); line-height: .9; }
+    .cb-text em { font-family: var(--f-serif); font-style: italic; color: rgba(26,26,26,.4); }
+
+    /* ── NAV DROPDOWN MISSIONS ── */
+    .nav-missions { position: relative; }
+    .nav-missions-trigger {
+      display: inline-flex; align-items: center; gap: 6px; background: none; border: none; padding: 0;
+      font-family: var(--f-body); font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+      color: rgba(26,26,26,.45); cursor: none; transition: color .15s;
+    }
+    .nav-missions-trigger:hover, .nav-missions-trigger.open { color: var(--noir); }
+    .nav-missions-trigger .ch { display: inline-block; font-size: .55rem; transition: transform .25s ease; }
+    .nav-missions-trigger.open .ch { transform: rotate(180deg); }
+    .nav-missions-menu {
+      position: absolute; top: calc(100% + 14px); left: -14px;
+      background: var(--cream); border: 1px solid rgba(26,26,26,.12);
+      border-radius: var(--r-md); padding: 10px; min-width: 220px;
+      box-shadow: var(--shadow); display: none; flex-direction: column; gap: 2px; z-index: 510;
+    }
+    .nav-missions-menu.open { display: flex; }
+    .nav-missions-menu a { display: flex; flex-direction: column; gap: 2px; padding: 12px 14px; border-radius: var(--r-sm); transition: background .15s; }
+    .nav-missions-menu a:hover { background: rgba(241,203,79,.18); }
+    .nav-missions-menu a .nm-name { font-size: .78rem; font-weight: 700; color: var(--noir); text-transform: none; letter-spacing: 0; }
+    .nav-missions-menu a .nm-desc { font-size: .64rem; color: rgba(26,26,26,.5); text-transform: none; letter-spacing: 0; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .bdc-hero { padding: 110px 20px 56px; min-height: 0; }
+      .bdc-title { font-size: clamp(56px, 12vw, 110px); margin-bottom: 32px; }
+      .bdc-sub { font-size: .92rem; margin-bottom: 36px; }
+      .bdc-actions { gap: 12px; }
+      .mission-split { grid-template-columns: 1fr; gap: 44px; padding: 64px 20px; }
+      .ms-title { font-size: clamp(36px, 9vw, 56px); }
+      .ms-stat { padding: 26px; }
+      .ms-stat-num { font-size: 44px; }
+      .why-section { padding: 64px 20px; }
+      .why-title { font-size: clamp(36px, 10vw, 64px); }
+      .why-header { margin-bottom: 40px; }
+      .why-compare { grid-template-columns: 1fr; }
+      .why-col { padding: 36px 24px; }
+      .why-col-old { border-right: none; border-bottom: 2px solid var(--noir); }
+      .comment-section { padding: 64px 20px; }
+      .cc-title { font-size: clamp(36px, 10vw, 64px); margin-bottom: 44px; }
+      .cc-steps { grid-template-columns: 1fr 1fr; }
+      .cc-step:nth-child(2) { border-right: none; }
+      .cc-step:nth-child(1), .cc-step:nth-child(2) { border-bottom: 2px solid var(--noir); }
+      .cc-step { padding: 32px 22px; }
+      .format-section { padding: 64px 20px; }
+      .fs-title { font-size: clamp(36px, 10vw, 64px); margin-bottom: 36px; }
+      .fs-grid { grid-template-columns: 1fr; }
+      .fs-row { grid-template-columns: 1fr; gap: 8px; padding: 24px 20px; border-right: none !important; }
+      .profils { padding: 64px 20px; }
+      .pf-title { font-size: clamp(36px, 10vw, 64px); margin-bottom: 36px; }
+      .pf-grid { grid-template-columns: 1fr; }
+      .candidater { padding: 64px 20px; }
+      .cd-grid { grid-template-columns: 1fr; gap: 32px; }
+      .cta-band { flex-direction: column; gap: 32px; padding: 64px 20px; text-align: center; align-items: center; }
+      .cb-text { font-size: clamp(28px, 8vw, 44px); }
+    }
+    @media (max-width: 560px) {
+      .bdc-hero { padding: 96px 18px 48px; }
+      .bdc-title { font-size: clamp(48px, 14vw, 84px); }
+      .bdc-sub { font-size: .85rem; line-height: 1.75; }
+      .mission-split { padding: 52px 18px; gap: 36px; }
+      .ms-body { font-size: .85rem; }
+      .ms-right { gap: 16px; }
+      .ms-stat { padding: 22px; }
+      .ms-stat-num { font-size: 38px; }
+      .comment-section { padding: 52px 18px; }
+      .cc-title { font-size: clamp(32px, 11vw, 52px); }
+      .cc-steps { grid-template-columns: 1fr; }
+      .cc-step { border-right: none; border-bottom: 2px solid var(--noir); padding: 28px 18px; }
+      .cc-step:last-child { border-bottom: none; }
+      .format-section { padding: 52px 18px; }
+      .fs-row { padding: 22px 18px; }
+      .profils { padding: 52px 18px; }
+      .pf-card { padding: 28px 22px; }
+      .candidater { padding: 52px 18px; }
+      .cd-form { padding: 28px 22px; }
+      .cta-band { padding: 52px 18px; gap: 24px; }
+      .cb-text { font-size: clamp(26px, 9vw, 38px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="stripe"></div>
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo"><img src="assets/LOGO/LOGO_COBALT.svg" alt="Collectif Cobalt" class="nav-logo-img" width="200" height="45"></a>
+    <button class="nav-burger-btn" id="nav-burger" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <section class="bdc-hero">
+    <div class="bdc-bg-num" aria-hidden="true">03</div>
+    <div class="bdc-label sr">L'Association</div>
+    <h1 class="bdc-title sr">BLEU<br>DE COBALT.</h1>
+    <p class="bdc-sub sr sr-d2">L'alternance classique enferme les étudiants dans des tâches périphériques. Bleu de Cobalt propose un autre modèle : des missions réelles, courtes, encadrées par des praticiens — pour sortir d'une formation avec un portfolio qui porte du sens, pas une attestation de présence.</p>
+    <div class="bdc-actions sr sr-d3">
+      <a href="#candidater" class="btn btn-dark"><span>Candidater →</span></a>
+      <a href="#format" class="btn btn-outline"><span>Comment ça marche</span></a>
+    </div>
+  </section>
+
+  <!-- MISSION SPLIT -->
+  <div class="mission-split">
+    <div class="ms-left sr">
+      <div class="ms-label">Notre mission</div>
+      <h2 class="ms-title">TRANSMETTRE,<br><span>VRAIMENT.</span></h2>
+      <p class="ms-body">Bleu de Cobalt, c'est une passerelle entre l'école et la réalité du métier. Les étudiants ne font pas des stages classiques — ils travaillent sur de vraies commandes, avec de vraies contraintes, encadrés par des praticiens actifs. L'objectif : sortir de la formation avec un portfolio qui porte du sens.</p>
+    </div>
+    <div class="ms-right sr sr-d1">
+      <div class="ms-stat">
+        <div class="ms-stat-num">2026</div>
+        <div class="ms-stat-lbl">Lancement de la première cohorte</div>
+      </div>
+      <div class="ms-stat">
+        <div class="ms-stat-num">3<span style="font-size:.5em">→12</span></div>
+        <div class="ms-stat-lbl">Semaines par mission, format court</div>
+      </div>
+      <div class="ms-stat">
+        <div class="ms-stat-num">100<span style="font-size:.5em">%</span></div>
+        <div class="ms-stat-lbl">Missions sur projets réels du collectif</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POURQUOI UN NOUVEAU MODÈLE -->
+  <section class="why-section">
+    <div class="why-header sr">
+      <div class="s-label" style="color:rgba(26,26,26,.45)">Notre constat</div>
+      <h2 class="why-title">L'ALTERNANCE<br>EST CASSÉE.</h2>
+      <p class="why-intro">Les étudiants en design passent des mois à faire du copier-coller, à attendre, à exécuter sans comprendre. Les écoles signent des conventions sans suivi réel. Les entreprises paient pour de la main d'œuvre, pas pour transmettre. On propose autre chose.</p>
+    </div>
+    <div class="why-compare sr sr-d1">
+      <div class="why-col why-col-old">
+        <div class="why-col-tag">Alternance classique</div>
+        <ul class="why-list">
+          <li>Engagement long (1 à 3 ans)</li>
+          <li>Tâches périphériques, peu valorisantes</li>
+          <li>Suivi école distant ou inexistant</li>
+          <li>Encadrement entreprise variable</li>
+          <li>Sortie : attestation, peu de portfolio</li>
+          <li>Convention administrative lourde</li>
+        </ul>
+      </div>
+      <div class="why-col why-col-new">
+        <div class="why-col-tag">Bleu de Cobalt</div>
+        <ul class="why-list">
+          <li>Mission courte et cadrée (3 à 12 semaines)</li>
+          <li>Brief réel, livrable réel, contraintes réelles</li>
+          <li>Référent du collectif dédié, points hebdo</li>
+          <li>Accès à l'atelier et aux outils du studio</li>
+          <li>Sortie : pièce documentée pour le portfolio</li>
+          <li>Cadre associatif, conventions simplifiées</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMENT ÇA MARCHE -->
+  <section id="format" class="comment-section">
+    <h2 class="cc-title sr">COMMENT ÇA<br>MARCHE.</h2>
+    <div class="cc-steps">
+      <div class="cc-step sr">
+        <div class="cc-step-bar"></div>
+        <div class="cc-step-num">01</div>
+        <div class="cc-step-name">Sélection</div>
+        <p class="cc-step-desc">On identifie les étudiants motivés via les écoles partenaires ou les candidatures spontanées. Un entretien court pour comprendre les objectifs.</p>
+      </div>
+      <div class="cc-step sr sr-d1">
+        <div class="cc-step-bar"></div>
+        <div class="cc-step-num">02</div>
+        <div class="cc-step-name">Briefing</div>
+        <p class="cc-step-desc">Chaque étudiant reçoit un brief réel, issu d'un projet en cours. Contexte, contraintes, livrables attendus, deadline.</p>
+      </div>
+      <div class="cc-step sr sr-d2">
+        <div class="cc-step-bar"></div>
+        <div class="cc-step-num">03</div>
+        <div class="cc-step-name">Encadrement</div>
+        <p class="cc-step-desc">Un référent du collectif suit chaque mission — points hebdo, retours constructifs, accès à l'atelier si besoin. Tu n'es jamais seul·e face au cabinet d'accueil.</p>
+      </div>
+      <div class="cc-step sr sr-d3">
+        <div class="cc-step-bar"></div>
+        <div class="cc-step-num">04</div>
+        <div class="cc-step-name">Livraison & portfolio</div>
+        <p class="cc-step-desc">Le livrable est intégré au projet, l'étudiant reçoit une validation formelle et peut utiliser le travail dans son portfolio.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LE FORMAT, EN CLAIR -->
+  <section class="format-section">
+    <div class="fs-label sr">Les détails pratiques</div>
+    <h2 class="fs-title sr">LE <em>format</em>,<br>en clair.</h2>
+    <div class="fs-grid sr sr-d1">
+      <div class="fs-row">
+        <div class="fs-key">Durée mission</div>
+        <div class="fs-val"><strong>3 à 12 semaines</strong> selon le brief. Pas de contrats à rallonge — chaque mission a un début et une fin nets.</div>
+      </div>
+      <div class="fs-row">
+        <div class="fs-key">Statut</div>
+        <div class="fs-val"><strong>Convention associative</strong> via Bleu de Cobalt + statut étudiant ou alternant maintenu. On gère la paperasse à ta place.</div>
+      </div>
+      <div class="fs-row">
+        <div class="fs-key">Rémunération</div>
+        <div class="fs-val"><strong>Indemnité par mission</strong> — barème public, fonction du niveau d'études et de la complexité. Pas de stage gratuit.</div>
+      </div>
+      <div class="fs-row">
+        <div class="fs-key">Encadrement</div>
+        <div class="fs-val"><strong>1 référent Cobalt</strong> dédié + accès à l'atelier et au studio. Point hebdo, retour critique sur livrable, recadrage si besoin.</div>
+      </div>
+      <div class="fs-row">
+        <div class="fs-key">Lieu</div>
+        <div class="fs-val">Présentiel chez le cabinet, hybride (Cobalt + cabinet), ou full distant — selon la mission. Base Bleu : <strong>Bordeaux + Nouvelle-Aquitaine</strong>.</div>
+      </div>
+      <div class="fs-row">
+        <div class="fs-key">Livrable</div>
+        <div class="fs-val"><strong>Documenté pour le portfolio</strong>. Chaque mission produit une fiche projet validée par le cabinet d'accueil et par Cobalt.</div>
+      </div>
+      <div class="fs-row">
+        <div class="fs-key">Engagement</div>
+        <div class="fs-val">Mission par mission. Tu peux faire <strong>une seule mission</strong> ou <strong>une année complète</strong> en enchaînant. Ton choix, on s'adapte.</div>
+      </div>
+      <div class="fs-row">
+        <div class="fs-key">À la sortie</div>
+        <div class="fs-val">Recommandation Cobalt + cabinets traversés, portfolio enrichi, réseau pro, et souvent une <strong>proposition d'embauche</strong> d'un des cabinets.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POUR QUI -->
+  <section class="profils">
+    <h2 class="pf-title sr">POUR<br>QUI ?</h2>
+    <div class="pf-grid">
+      <div class="pf-card sr">
+        <div class="pf-card-num">01</div>
+        <div class="pf-card-name">Étudiant·e en archi / design d'espace</div>
+        <p class="pf-card-desc">Bac +3 à Bac +5, école d'archi, BTS design d'espace, Master design. Tu cherches une alternance qui ne soit pas un parking.</p>
+        <ul class="pf-card-list">
+          <li>Au moins une année d'études validée</li>
+          <li>Maîtrise basique des outils (Archicad, Revit, SketchUp, Suite Adobe)</li>
+          <li>Capacité à produire un livrable autonome</li>
+        </ul>
+      </div>
+      <div class="pf-card sr sr-d1">
+        <div class="pf-card-num">02</div>
+        <div class="pf-card-name">Reconversion vers le métier</div>
+        <p class="pf-card-desc">Tu as 25, 35 ou 45 ans, tu bascules vers l'archi. Tu cherches du terrain rapidement, pas un nouveau diplôme avant 5 ans.</p>
+        <ul class="pf-card-list">
+          <li>Formation en cours (école certifiée RNCP) ou récente</li>
+          <li>Premier book / portfolio même modeste</li>
+          <li>Engagement clair sur le métier</li>
+        </ul>
+      </div>
+      <div class="pf-card sr sr-d2">
+        <div class="pf-card-num">03</div>
+        <div class="pf-card-name">Jeune diplômé·e cherchant du terrain</div>
+        <p class="pf-card-desc">Tu es sorti·e d'école il y a 0 à 24 mois, tu galères à trouver un poste qui ne soit pas du dessin technique mal payé. Bleu te fait varier les contextes avant d'engager un CDI.</p>
+        <ul class="pf-card-list">
+          <li>Diplôme archi / design / scénographie</li>
+          <li>Portfolio existant</li>
+          <li>Disponibilité immédiate</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CANDIDATER -->
+  <section id="candidater" class="candidater">
+    <div class="cd-grid">
+      <div class="sr">
+        <div class="cd-eyebrow">Postuler à Bleu</div>
+        <h2 class="cd-title">Envoie-nous <em>3 choses</em>.</h2>
+        <p class="cd-body">Pas de CV obligatoire, pas de lettre de motivation type. On préfère du concret. Si ce que tu envoies nous donne envie, on te recontacte sous 7 jours pour un entretien court.</p>
+        <ul class="cd-list">
+          <li><strong>Ton portfolio</strong> ou 3 projets que tu trouves représentatifs (PDF ou lien web)</li>
+          <li><strong>3 phrases</strong> sur pourquoi Bleu et pas une alternance classique</li>
+          <li><strong>Ta dispo</strong> — quand tu peux commencer, sur combien de temps</li>
+        </ul>
+      </div>
+      <form class="cd-form sr sr-d1" onsubmit="alert('Merci ! On revient vers toi sous 7 jours.'); return false;">
+        <div class="cd-field">
+          <label class="cd-lbl">Prénom · Nom</label>
+          <input class="cd-input" type="text" placeholder="Camille Dupont" required>
+        </div>
+        <div class="cd-field">
+          <label class="cd-lbl">Email</label>
+          <input class="cd-input" type="email" placeholder="camille@mail.fr" required>
+        </div>
+        <div class="cd-field">
+          <label class="cd-lbl">Lien portfolio · ou PDF (à envoyer à bleu@collectifcobalt.eu)</label>
+          <input class="cd-input" type="url" placeholder="https://…">
+        </div>
+        <div class="cd-field">
+          <label class="cd-lbl">Pourquoi Bleu ? (3 phrases)</label>
+          <textarea class="cd-ta" placeholder="Sois honnête, court, et précis." required></textarea>
+        </div>
+        <div class="cd-field">
+          <label class="cd-lbl">Dispo</label>
+          <input class="cd-input" type="text" placeholder="Septembre 2026, 6 mois, mi-temps possible" required>
+        </div>
+        <button type="submit" class="btn btn-cream" style="margin-top:8px; align-self:flex-start"><span>Envoyer ma candidature →</span></button>
+      </form>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-band">
+    <div class="cb-text sr">DES QUESTIONS<br><em>sur le programme ?</em></div>
+    <a href="contact.html" class="btn btn-dark sr sr-d1"><span>Contactez-nous →</span></a>
+  </div>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <div class="marquee-item">TRANSMISSION<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi">DESIGN</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">MISSIONS RÉELLES<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi">ÉCOLE</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">BLEU DE COBALT<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi">PORTFOLIO</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">TRANSMISSION<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi">DESIGN</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">MISSIONS RÉELLES<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi">ÉCOLE</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">BLEU DE COBALT<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi">PORTFOLIO</span><div class="marquee-sep"></div></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-stripe"></div>
+    <div class="footer-silhouette" aria-hidden="true">
+      <svg width="500" height="340" viewBox="0 0 750 450" fill="rgba(240,235,216,1)"><rect x="0" y="220" width="750" height="230"/><path d="M375 0 A375 220 0 0 1 750 220 L0 220Z"/></svg>
+    </div>
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">cobalt<span class="dot">.</span></div>
+        <p class="footer-tagline">Penser. Faire. Transmettre.<br>Studio de design d'espace, Nouvelle-Aquitaine.</p>
+        <div class="footer-socials">
+          <a href="https://www.instagram.com/collectifcobalt_/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/company/collectif-cobalt" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Le Collectif</div>
+        <nav class="footer-nav">
+          <a href="studio.html">Studio</a>
+          <a href="atelier.html">L'Atelier</a>
+          <a href="bleu-de-cobalt.html">Bleu de Cobalt</a>
+          <a href="media.html">Le Média</a>
+        </nav>
+      </div>
+      <div>
+        <div class="footer-col-title">Bleu de Cobalt</div>
+        <nav class="footer-nav">
+          <a href="bleu-projets.html">Projets</a>
+          <a href="bleu-cabinets.html">Missions · Cabinets</a>
+          <a href="bleu-particuliers.html">Missions · Particuliers</a>
+          <a href="bleu-de-cobalt.html#candidater">Candidater</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Collectif Cobalt. Tous droits réservés.</p>
+      <p class="footer-legal">Bleu de Cobalt — École-atelier, Nouvelle-Aquitaine</p>
+    </div>
+  </footer>
+
+  <script src="shared.js"></script>
+  <script>
+    const mTrigger = document.querySelector('.nav-missions-trigger');
+    const mMenu = document.querySelector('.nav-missions-menu');
+    if (mTrigger && mMenu) {
+      mTrigger.addEventListener('click', e => {
+        e.preventDefault(); e.stopPropagation();
+        const open = !mMenu.classList.contains('open');
+        mMenu.classList.toggle('open', open);
+        mTrigger.classList.toggle('open', open);
+      });
+      document.addEventListener('click', e => {
+        if (!mMenu.contains(e.target) && e.target !== mTrigger && !mTrigger.contains(e.target)) {
+          mMenu.classList.remove('open');
+          mTrigger.classList.remove('open');
+        }
+      });
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') { mMenu.classList.remove('open'); mTrigger.classList.remove('open'); }
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23F3EFD7'/><text x='4' y='24' font-size='22' font-family='sans-serif' font-weight='900' fill='%234A82DC'>c.</text></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#F3EFD7">
+  <title>Le Journal — Le Média · Collectif Cobalt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    :root { --accent: var(--rouge); }
+    .stripe { background: linear-gradient(90deg, var(--rouge) 25%, var(--noir) 25% 50%, var(--rouge) 50% 75%, var(--noir) 75%); }
+
+    /* PAGE HERO */
+    .page-hero { padding: 140px 44px 80px; background: var(--noir); border-bottom: 2px solid rgba(240,235,216,.1); }
+    .page-hero .s-label { color: var(--rouge); }
+    .page-hero .s-label::before { background: var(--rouge); }
+    .ph-title { font-family: var(--f-display); font-size: clamp(64px,10vw,130px); line-height: .86; color: var(--cream); }
+    .ph-title em { font-family: var(--f-serif); font-style: italic; color: var(--rouge); font-weight: 400; }
+    .ph-sub { max-width: 540px; font-size: .92rem; line-height: 1.85; font-weight: 300; color: rgba(240,235,216,.55); margin-top: 32px; }
+
+    /* TABS — filtre par format */
+    .jrn-filters {
+      padding: 28px 44px; display: flex; gap: 8px; align-items: center;
+      border-bottom: 2px solid var(--noir); background: var(--cream); flex-wrap: wrap;
+    }
+    .jf-label { font-size: .62rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: rgba(26,26,26,.35); margin-right: 8px; }
+    .jf-btn {
+      padding: 7px 18px; border: 1.5px solid rgba(26,26,26,.2); border-radius: var(--r-pill);
+      font-family: var(--f-body); font-size: .68rem; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase; background: transparent;
+      color: rgba(26,26,26,.5); transition: all .2s;
+    }
+    .jf-btn:hover, .jf-btn.active { background: var(--noir); color: var(--cream); border-color: var(--noir); }
+    .jf-btn.fmt-architalk.active { background: var(--rouge); border-color: var(--rouge); }
+    .jf-btn.fmt-fragments.active { background: var(--bleu); border-color: var(--bleu); }
+    .jf-btn.fmt-carnet.active    { background: var(--noir); border-color: var(--noir); }
+    .jf-btn.fmt-petits.active    { background: var(--vert); border-color: var(--vert); }
+    .jf-btn.fmt-raccourci.active { background: var(--jaune); color: var(--noir); border-color: var(--jaune); }
+
+    /* FEATURED — gros article du moment */
+    .featured {
+      background: var(--cream); padding: 80px 44px;
+      display: grid; grid-template-columns: 1.4fr 1fr; gap: 60px; align-items: center;
+      border-bottom: 2px solid var(--noir);
+    }
+    .ft-img {
+      aspect-ratio: 16/10; background: var(--noir); border-radius: var(--r-md); overflow: hidden;
+      position: relative;
+    }
+    .ft-img img { width: 100%; height: 100%; object-fit: cover; }
+    .ft-img.placeholder {
+      background: repeating-linear-gradient(45deg, rgba(187,59,52,.10) 0 14px, rgba(187,59,52,.04) 14px 28px);
+      border: 1px dashed rgba(187,59,52,.45);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--f-display); font-size: 80px; color: rgba(187,59,52,.4);
+    }
+    .ft-tag { font-size: .58rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--rouge); margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
+    .ft-tag::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--rouge); }
+    .ft-title { font-family: var(--f-display); font-size: clamp(36px,5vw,64px); line-height: .95; margin-bottom: 22px; }
+    .ft-title em { font-family: var(--f-serif); font-style: italic; color: var(--rouge); font-weight: 400; }
+    .ft-desc { font-size: .95rem; line-height: 1.8; font-weight: 300; color: rgba(26,26,26,.6); margin-bottom: 26px; }
+    .ft-meta { display: flex; gap: 20px; font-size: .62rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: rgba(26,26,26,.45); margin-bottom: 28px; }
+    .ft-link { font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--noir); border-bottom: 2px solid var(--rouge); padding-bottom: 4px; display: inline-flex; align-items: center; gap: 12px; transition: gap .2s; }
+    .ft-link::after { content: '→'; }
+    .ft-link:hover { gap: 18px; }
+
+    /* JOURNAL ENTRIES — par format */
+    .journal-section { background: var(--cream); padding: 100px 44px; border-bottom: 2px solid var(--noir); }
+    .journal-section.dark { background: var(--noir); }
+    .journal-section.dark .js-title, .journal-section.dark .js-intro, .journal-section.dark .je-title, .journal-section.dark .je-desc { color: var(--cream); }
+    .journal-section.dark .js-intro { color: rgba(240,235,216,.6); }
+    .journal-section.dark .je-desc { color: rgba(240,235,216,.55); font-weight: 300; }
+    .journal-section.dark .je-card { background: rgba(240,235,216,.04); border-color: rgba(240,235,216,.1); }
+    .journal-section.dark .je-card:hover { background: rgba(240,235,216,.08); border-color: rgba(240,235,216,.2); }
+
+    .js-header { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 56px; }
+    .js-tag { font-size: .58rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; margin-bottom: 18px; display: flex; align-items: center; gap: 12px; }
+    .js-tag::before { content: ''; width: 24px; height: 2px; background: currentColor; }
+    .js-title { font-family: var(--f-display); font-size: clamp(48px,7vw,96px); line-height: .88; }
+    .js-title em { font-family: var(--f-serif); font-style: italic; font-weight: 400; }
+    .js-intro { font-size: .92rem; line-height: 1.85; font-weight: 300; color: rgba(26,26,26,.6); }
+    .js-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+
+    .je-card {
+      background: var(--cream); border: 1.5px solid rgba(26,26,26,.15); border-radius: var(--r-md);
+      overflow: hidden; display: flex; flex-direction: column;
+      transition: border-color .25s, transform .25s;
+    }
+    .je-card:hover { border-color: rgba(26,26,26,.4); transform: translateY(-2px); }
+    .je-thumb {
+      aspect-ratio: 16/10; background: var(--noir); position: relative; overflow: hidden;
+      display: flex; align-items: end; padding: 18px;
+    }
+    .je-thumb.placeholder-rouge { background: repeating-linear-gradient(45deg, rgba(187,59,52,.10) 0 14px, rgba(187,59,52,.04) 14px 28px); }
+    .je-thumb.placeholder-bleu  { background: repeating-linear-gradient(45deg, rgba(74,130,220,.10) 0 14px, rgba(74,130,220,.04) 14px 28px); }
+    .je-thumb.placeholder-noir  { background: repeating-linear-gradient(45deg, rgba(26,26,26,.10) 0 14px, rgba(26,26,26,.04) 14px 28px); }
+    .je-thumb.placeholder-vert  { background: repeating-linear-gradient(45deg, rgba(93,161,107,.10) 0 14px, rgba(93,161,107,.04) 14px 28px); }
+    .je-thumb.placeholder-jaune { background: repeating-linear-gradient(45deg, rgba(241,203,79,.18) 0 14px, rgba(241,203,79,.06) 14px 28px); }
+    .je-fmt-badge {
+      font-family: var(--f-display); font-size: 14px; padding: 5px 12px;
+      background: var(--cream); color: var(--noir); border-radius: 4px;
+      letter-spacing: .03em;
+    }
+    .je-body { padding: 22px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+    .je-meta-row { display: flex; gap: 12px; font-size: .56rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(26,26,26,.45); }
+    .je-title { font-family: var(--f-display); font-size: 18px; line-height: 1.2; color: var(--noir); }
+    .je-desc { font-size: .82rem; line-height: 1.65; font-weight: 300; color: rgba(26,26,26,.6); flex: 1; }
+    .je-foot { display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid rgba(26,26,26,.08); }
+    .journal-section.dark .je-foot { border-top-color: rgba(240,235,216,.08); }
+    .je-foot-date { font-size: .58rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: rgba(26,26,26,.4); }
+    .journal-section.dark .je-foot-date { color: rgba(240,235,216,.35); }
+    .je-foot-cta { font-size: .58rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--rouge); display: inline-flex; gap: 6px; transition: gap .2s; }
+    .je-foot-cta::after { content: '→'; }
+    .je-foot-cta:hover { gap: 12px; }
+
+    /* SOON — calendrier */
+    .soon { background: var(--rouge); padding: 80px 44px; border-bottom: 2px solid var(--noir); }
+    .soon-title { font-family: var(--f-display); font-size: clamp(40px,5vw,64px); line-height: .9; color: var(--cream); margin-bottom: 32px; }
+    .soon-title em { font-family: var(--f-serif); font-style: italic; color: var(--noir); font-weight: 400; }
+    .soon-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+    .soon-card {
+      background: rgba(240,235,216,.08); border: 1px solid rgba(240,235,216,.18);
+      padding: 22px; border-radius: var(--r-md); display: flex; flex-direction: column; gap: 10px;
+    }
+    .soon-fmt { font-family: var(--f-display); font-size: 14px; color: var(--cream); }
+    .soon-date { font-size: .58rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(240,235,216,.6); }
+    .soon-name { font-family: var(--f-serif); font-style: italic; font-size: 1rem; color: var(--cream); line-height: 1.3; }
+
+    /* SUIVRE */
+    .follow { background: var(--noir); padding: 80px 44px; border-bottom: 2px solid rgba(240,235,216,.06); }
+    .fl-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 56px; align-items: center; }
+    .fl-title { font-family: var(--f-display); font-size: clamp(32px,4vw,48px); line-height: .95; color: var(--cream); }
+    .fl-title em { font-family: var(--f-serif); font-style: italic; color: var(--rouge); font-weight: 400; }
+    .fl-channels { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+    .fl-ch {
+      padding: 22px; border: 1px solid rgba(240,235,216,.15);
+      border-radius: var(--r-md); display: block; transition: border-color .2s, background .2s;
+    }
+    .fl-ch:hover { border-color: var(--rouge); background: rgba(187,59,52,.08); }
+    .fl-ch-name { font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--cream); margin-bottom: 6px; }
+    .fl-ch-desc { font-size: .72rem; font-weight: 300; color: rgba(240,235,216,.4); line-height: 1.5; }
+
+    @media (max-width: 960px) {
+      .page-hero { padding: 110px 20px 56px; }
+      .ph-title { font-size: clamp(48px, 11vw, 90px); }
+      .ph-sub { font-size: .88rem; margin-top: 24px; }
+      .jrn-filters { padding: 22px 20px; gap: 6px; }
+      .jf-btn { padding: 6px 14px; font-size: .62rem; }
+      .featured { grid-template-columns: 1fr; gap: 32px; padding: 60px 20px; }
+      .ft-title { font-size: clamp(28px, 7vw, 44px); }
+      .journal-section { padding: 64px 20px; }
+      .js-header { grid-template-columns: 1fr; gap: 22px; margin-bottom: 36px; }
+      .js-title { font-size: clamp(36px, 10vw, 64px); }
+      .js-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+      .soon { padding: 60px 20px; }
+      .soon-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .follow { padding: 56px 20px; }
+      .fl-grid { grid-template-columns: 1fr; gap: 28px; }
+      .fl-channels { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .page-hero { padding: 96px 18px 44px; }
+      .ph-title { font-size: clamp(40px, 13vw, 64px); }
+      .featured { padding: 48px 18px; gap: 24px; }
+      .ft-title { font-size: clamp(24px, 8vw, 38px); }
+      .ft-desc { font-size: .88rem; }
+      .journal-section { padding: 52px 18px; }
+      .js-grid { grid-template-columns: 1fr; }
+      .je-body { padding: 18px; }
+      .soon { padding: 48px 18px; }
+      .soon-grid { grid-template-columns: 1fr; }
+      .follow { padding: 48px 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stripe"></div>
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo"><img src="assets/LOGO/LOGO_COBALT.svg" alt="Collectif Cobalt" class="nav-logo-img" width="200" height="45"></a>
+    <button class="nav-burger-btn" id="nav-burger" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+<!-- HERO -->
+  <div class="page-hero">
+    <div class="s-label sr">Le Média — Le Journal</div>
+    <h1 class="ph-title sr">LE<br><em>Journal.</em></h1>
+    <p class="ph-sub sr sr-d2">Articles, vidéos, photos, chroniques. Cinq formats, une seule ligne éditoriale : raconter le métier tel qu'il est, pas tel qu'on le vend. Mis à jour au fil des semaines.</p>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="jrn-filters">
+    <span class="jf-label">Format</span>
+    <button class="jf-btn active" data-fmt="all">Tous</button>
+    <button class="jf-btn fmt-architalk" data-fmt="architalk">ARCHITALK</button>
+    <button class="jf-btn fmt-fragments" data-fmt="fragments">FRAGMENTS</button>
+    <button class="jf-btn fmt-carnet" data-fmt="carnet">CARNET BLEU</button>
+    <button class="jf-btn fmt-petits" data-fmt="petits">PETITS PLANS</button>
+    <button class="jf-btn fmt-raccourci" data-fmt="raccourci">RACCOURCI</button>
+  </div>
+
+  <!-- FEATURED -->
+  <article class="featured" data-fmt="architalk">
+    <div class="ft-img placeholder sr">A·01</div>
+    <div class="sr sr-d1">
+      <div class="ft-tag">À la une — ARCHITALK · 01</div>
+      <h2 class="ft-title">Pourquoi designer d'espace, <em>pas architecte</em>.</h2>
+      <p class="ft-desc">Premier épisode du podcast vidéo. À trois autour d'une table, on pose le cadre légal, le métier, le terrain — sans détour. Pourquoi ce statut, ce que ça change pour le client, et ce que ça nous oblige à faire mieux.</p>
+      <div class="ft-meta">
+        <span>Vidéo · 30 min</span>
+        <span>Juin 2026</span>
+        <span>Pilote</span>
+      </div>
+      <a href="#" class="ft-link">Regarder l'épisode</a>
+    </div>
+  </article>
+
+  <!-- ARCHITALK -->
+  <section class="journal-section dark" data-section="architalk">
+    <div class="js-header sr">
+      <div>
+        <div class="js-tag" style="color:var(--rouge)">ARCHITALK · Conversations longues</div>
+        <h2 class="js-title">Une voix, <em>un métier</em>.</h2>
+      </div>
+      <p class="js-intro">Conversations longues avec des praticiens. Pas d'angle marketing, pas de promo de produit. Un format vidéo + audio, 30 à 60 minutes, dispo sur YouTube et en podcast.</p>
+    </div>
+    <div class="js-grid">
+      <a href="#" class="je-card" data-fmt="architalk">
+        <div class="je-thumb placeholder-rouge"><div class="je-fmt-badge">ARCHITALK · 01</div></div>
+        <div class="je-body">
+          <div class="je-meta-row"><span>Vidéo</span><span>30 min</span><span>Pilote</span></div>
+          <h3 class="je-title">Designer d'espace, pas architecte.</h3>
+          <p class="je-desc">Le cadre légal, ce que ça change, et ce que ça nous oblige à faire mieux. Conversation à trois autour d'une table.</p>
+          <div class="je-foot">
+            <span class="je-foot-date">Juin 2026</span>
+            <span class="je-foot-cta">Regarder</span>
+          </div>
+        </div>
+      </a>
+      <a href="#" class="je-card" data-fmt="architalk">
+        <div class="je-thumb placeholder-rouge"><div class="je-fmt-badge">ARCHITALK · 02</div></div>
+        <div class="je-body">
+          <div class="je-meta-row"><span>Vidéo</span><span>45 min</span><span>À venir</span></div>
+          <h3 class="je-title">L'erreur la plus chère que j'ai signée.</h3>
+          <p class="je-desc">Un confrère raconte le projet où il s'est trompé — ce qu'il a appris, ce qui a coûté, ce qu'il fait différemment depuis.</p>
+          <div class="je-foot">
+            <span class="je-foot-date">Juillet 2026</span>
+            <span class="je-foot-cta">Bientôt</span>
+          </div>
+        </div>
+      </a>
+      <a href="#" class="je-card" data-fmt="architalk">
+        <div class="je-thumb placeholder-rouge"><div class="je-fmt-badge">ARCHITALK · 03</div></div>
+        <div class="je-body">
+          <div class="je-meta-row"><span>Vidéo</span><span>50 min</span><span>À venir</span></div>
+          <h3 class="je-title">Travailler avec sa famille — la cuisine bordelaise.</h3>
+          <p class="je-desc">Trois générations dans le même atelier. Comment on s'engueule, comment on se transmet, comment on fait durer.</p>
+          <div class="je-foot">
+            <span class="je-foot-date">Août 2026</span>
+            <span class="je-foot-cta">Bientôt</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- FRAGMENTS -->
+  <section class="journal-section" data-section="fragments">
+    <div class="js-header sr">
+      <div>
+        <div class="js-tag" style="color:var(--bleu)">FRAGMENTS · Séries photos</div>
+        <h2 class="js-title">Ce qu'on <em>ne photographie</em><br>jamais.</h2>
+      </div>
+      <p class="js-intro">Les détails que les magazines coupent : jointures, raccords, lumières rasantes, chevilles apparentes. Une série visuelle par mois, sur Instagram et ici en archive.</p>
+    </div>
+    <div class="js-grid">
+      <a href="#" class="je-card" data-fmt="fragments">
+        <div class="je-thumb placeholder-bleu"><div class="je-fmt-badge">FRAGMENTS · 01</div></div>
+        <div class="je-body">
+          <div class="je-meta-row"><span>Photo</span><span>12 images</span></div>
+          <h3 class="je-title">Les jointures d'un appartement à Angoulême.</h3>
+          <p class="je-desc">Douze photos rapprochées des moments où la matière change : sol-plinthe, mur-plafond, bois-métal.</p>
+          <div class="je-foot">
+            <span class="je-foot-date">Juin 2026</span>
+            <span class="je-foot-cta">Voir la série</span>
+          </div>
+        </div>
+      </a>
+      <a href="#" class="je-card" data-fmt="fragments">
+        <div class="je-thumb placeholder-bleu"><div class="je-fmt-badge">FRAGMENTS · 02</div></div>
+        <div class="je-body">
+          <div class="je-meta-row"><span>Photo</span><span>10 images</span><span>À venir</span></div>
+          <h3 class="je-title">Lumière rasante sur tadelakt.</h3>
+          <p class="je-desc">Comment la lumière du soir révèle les défauts d'une finition vivante. Et pourquoi ces défauts sont la beauté.</p>
+          <div class="je-foot">
+            <span class="je-foot-date">Juillet 2026</span>
+            <span class="je-foot-cta">Bientôt</span>
+          </div>
+        </div>
+      </a>
+      <a href="#" class="je-card" data-fmt="fragments">
+        <div class="je-thumb placeholder-bleu"><div class="je-fmt-badge">FRAGMENTS · 03</div></div>
+        <div class="je-body">
+          <div class="je-meta-row"><span>Photo</span><span>15 images</span><span>À venir</span></div>
+          <h3 class="je-title">Chevilles apparentes — l'aveu honnête.</h3>
+          <p class="je-desc">Plutôt que de cacher la fixation, on l'expose. Pourquoi c'est plus solide, plus juste, et plus beau.</p>
+          <div class="je-foot">
+            <span class="je-foot-date">Août 2026</span>
+            <span class="je-foot-cta">Bientôt</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- CARNET BLEU -->
+  <section class="journal-section dark" data-section="carnet">
+    <div class="js-header sr">
+      <div>
+        <div class="js-tag" style="color:rgba(240,235,216,.6)">CARNET BLEU · Journal de chantier</div>
+        <h2 class="js-title">Notes brutes, <em>chaque semaine</em>.</h2>
+      </div>
+      <p class="js-intro">Le carnet de chantier d'un projet en cours. Ce qu'on ne dit pas dans les portfolios : les négociations, les doutes, les choix qu'on regrette, ceux qu'on défend.</p>
+    </div>
+    <div class="js-grid">
+      <a href="#" class="je-card" data-fmt="carnet">
+        <div class="je-thumb placeholder-noir"><div class="je-fmt-badge">CARNET · S01</div></div>
+        <div class="je-body">
+          <div class="je-meta-row"><span>Texte</span><span>1200 mots</span></div>
+          <h3 class="je-title">Semaine 1 : on nous demande l'impossible et on dit oui.</h3>
+          <p class="je-desc">Pourquoi on a accepté un délai trop court sur le projet Île-de-Ré. Et ce qu'on a déjà négocié pour réparer.</p>
+          <div class="je-foot">
+            <span class="je-foot-date">Juillet 2026</span>
+            <span class="je-foot-cta">Lire</span>
+          </div>
+        </div>
+      </a>
+      <a href="#" class="je-card" data-fmt="carnet">
+        <div class="je-thumb placeholder-noir"><div class="je-fmt-badge">CARNET · S02</div></div>
+        <div class="je-body">
+          <div class="je-meta-row"><span>Texte</span><span>900 mots</span><span>À venir</span></div>
+          <h3 class="je-title">Semaine 2 : le menuisier a raison.</h3>
+          <p class="je-desc">Quand l'artisan corrige le plan et a raison. Pourquoi on doit savoir reculer.</p>
+          <div class="je-foot">
+            <span class="je-foot-date">Juillet 2026</span>
+            <span class="je-foot-cta">Bientôt</span>
+          </div>
+        </div>
+      </a>
+      <a href="#" class="je-card" data-fmt="carnet">
+        <div class="je-thumb placeholder-noir"><div class="je-fmt-badge">CARNET · S03</div></div>
+        <div class="je-body">
+          <div class="je-meta-row"><span>Texte</span><span>1500 mots</span><span>À venir</span></div>
+          <h3 class="je-title">Semaine 3 : le client change tout au dernier moment.</h3>
+          <p class="je-desc">Comment on dit non. Comment on dit oui. La frontière entre service et servitude.</p>
+          <div class="je-foot">
+            <span class="je-foot-date">Août 2026</span>
+            <span class="je-foot-cta">Bientôt</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- PETITS PLANS -->
+  <section class="journal-section" data-section="petits">
+    <div class="js-header sr">
+      <div>
+        <div class="js-tag" style="color:var(--vert)">PETITS PLANS · Portraits d'artisans</div>
+        <h2 class="js-title">Ceux qui font <em>avec leurs mains</em>.</h2>
+      </div>
+      <p class="js-intro">Les invisibles du bel ouvrage : ferronnier, ébéniste, vitrier, tapissier. Un portrait par mois — vidéo courte de 4 minutes + texte long. Format double pour qu'il reste après.</p>
+    </div>
+    <div class="js-grid">
+      <a href="#" class="je-card" data-fmt="petits">
+        <div class="je-thumb placeholder-vert"><div class="je-fmt-badge">PETITS · 01</div></div>
+        <div class="je-body">
+          <div class="je-meta-row"><span>Vidéo + Texte</span><span>4 min</span></div>
+          <h3 class="je-title">Le ferronnier de Charente.</h3>
+          <p class="je-desc">Quarante ans à plier le métal pour des cabinets d'archi qui oublient son nom dans les crédits. On y remédie.</p>
+          <div class="je-foot">
+            <span class="je-foot-date">Septembre 2026</span>
+            <span class="je-foot-cta">Voir</span>
+          </div>
+        </div>
+      </a>
+      <a href="#" class="je-card" data-fmt="petits">
+        <div class="je-thumb placeholder-vert"><div class="je-fmt-badge">PETITS · 02</div></div>
+        <div class="je-body">
+          <div class="je-meta-row"><span>Vidéo + Texte</span><span>5 min</span><span>À venir</span></div>
+          <h3 class="je-title">L'ébéniste qui refuse les contreplaqués.</h3>
+          <p class="je-desc">Pourquoi il facture deux fois plus cher, et pourquoi ses clients reviennent quand même.</p>
+          <div class="je-foot">
+            <span class="je-foot-date">Octobre 2026</span>
+            <span class="je-foot-cta">Bientôt</span>
+          </div>
+        </div>
+      </a>
+      <a href="#" class="je-card" data-fmt="petits">
+        <div class="je-thumb placeholder-vert"><div class="je-fmt-badge">PETITS · 03</div></div>
+        <div class="je-body">
+          <div class="je-meta-row"><span>Vidéo + Texte</span><span>4 min</span><span>À venir</span></div>
+          <h3 class="je-title">La tapissière qui forme deux apprentis.</h3>
+          <p class="je-desc">Comment on transmet un métier qui ne paie plus assez pour être enseigné dans les écoles publiques.</p>
+          <div class="je-foot">
+            <span class="je-foot-date">Novembre 2026</span>
+            <span class="je-foot-cta">Bientôt</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- RACCOURCI -->
+  <section class="journal-section dark" data-section="raccourci">
+    <div class="js-header sr">
+      <div>
+        <div class="js-tag" style="color:var(--jaune)">RACCOURCI · Verticale, 60 secondes</div>
+        <h2 class="js-title">Une idée, <em>une minute</em>.</h2>
+      </div>
+      <p class="js-intro">Format vertical pour Instagram, TikTok et Shorts. Une notion d'archi par vidéo : une matière, une décision, une erreur fréquente. Court, direct, sans intro de 15 secondes.</p>
+    </div>
+    <div class="js-grid">
+      <a href="#" class="je-card" data-fmt="raccourci">
+        <div class="je-thumb placeholder-jaune"><div class="je-fmt-badge">RACCOURCI · 01</div></div>
+        <div class="je-body">
+          <div class="je-meta-row"><span>Vidéo verticale</span><span>52 sec</span></div>
+          <h3 class="je-title">Pourquoi votre porte ferme mal.</h3>
+          <p class="je-desc">Le défaut le plus courant en rénovation, et la mesure de cinq minutes pour le diagnostiquer.</p>
+          <div class="je-foot">
+            <span class="je-foot-date">À paraître</span>
+            <span class="je-foot-cta">Voir</span>
+          </div>
+        </div>
+      </a>
+      <a href="#" class="je-card" data-fmt="raccourci">
+        <div class="je-thumb placeholder-jaune"><div class="je-fmt-badge">RACCOURCI · 02</div></div>
+        <div class="je-body">
+          <div class="je-meta-row"><span>Vidéo verticale</span><span>48 sec</span><span>À venir</span></div>
+          <h3 class="je-title">Tadelakt, c'est quoi vraiment ?</h3>
+          <p class="je-desc">Une matière qu'on vend partout, qu'on comprend rarement. En 50 secondes, l'essentiel.</p>
+          <div class="je-foot">
+            <span class="je-foot-date">À paraître</span>
+            <span class="je-foot-cta">Bientôt</span>
+          </div>
+        </div>
+      </a>
+      <a href="#" class="je-card" data-fmt="raccourci">
+        <div class="je-thumb placeholder-jaune"><div class="je-fmt-badge">RACCOURCI · 03</div></div>
+        <div class="je-body">
+          <div class="je-meta-row"><span>Vidéo verticale</span><span>55 sec</span><span>À venir</span></div>
+          <h3 class="je-title">L'erreur des spots tous les mètres.</h3>
+          <p class="je-desc">Pourquoi votre plafond ressemble à un parking. Et la règle simple pour s'en sortir.</p>
+          <div class="je-foot">
+            <span class="je-foot-date">À paraître</span>
+            <span class="je-foot-cta">Bientôt</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- SOON — calendrier des prochaines sorties -->
+  <section class="soon">
+    <h2 class="soon-title sr">CE QUI ARRIVE <em>bientôt</em>.</h2>
+    <div class="soon-grid sr sr-d1">
+      <div class="soon-card">
+        <div class="soon-fmt">ARCHITALK · 02</div>
+        <div class="soon-date">Juillet 2026</div>
+        <div class="soon-name">L'erreur la plus chère que j'ai signée — un confrère parle.</div>
+      </div>
+      <div class="soon-card">
+        <div class="soon-fmt">FRAGMENTS · 02</div>
+        <div class="soon-date">Juillet 2026</div>
+        <div class="soon-name">Lumière rasante sur tadelakt — 10 photos.</div>
+      </div>
+      <div class="soon-card">
+        <div class="soon-fmt">CARNET BLEU</div>
+        <div class="soon-date">Hebdo · juillet</div>
+        <div class="soon-name">Suivi du chantier Île-de-Ré — semaine après semaine.</div>
+      </div>
+      <div class="soon-card">
+        <div class="soon-fmt">PETITS PLANS · 01</div>
+        <div class="soon-date">Septembre 2026</div>
+        <div class="soon-name">Portrait du ferronnier de Charente — vidéo + texte.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUIVRE -->
+  <section class="follow">
+    <div class="fl-grid sr">
+      <h2 class="fl-title">Pour <em>suivre</em><br>le journal.</h2>
+      <div class="fl-channels">
+        <a href="https://www.instagram.com/collectifcobalt_/" target="_blank" rel="noopener" class="fl-ch">
+          <div class="fl-ch-name">Instagram</div>
+          <div class="fl-ch-desc">@collectifcobalt_<br>FRAGMENTS, RACCOURCI, coulisses</div>
+        </a>
+        <a href="https://www.linkedin.com/company/collectif-cobalt" target="_blank" rel="noopener" class="fl-ch">
+          <div class="fl-ch-name">LinkedIn</div>
+          <div class="fl-ch-desc">Collectif Cobalt<br>ARCHITALK, écrits longs</div>
+        </a>
+        <a href="contact.html" class="fl-ch">
+          <div class="fl-ch-name">Newsletter</div>
+          <div class="fl-ch-desc">Bientôt — un envoi par mois<br>écrivez-nous pour être prévenu</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <div class="marquee-item">LE JOURNAL<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--rouge)">ARCHITALK</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">FRAGMENTS<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--rouge)">CARNET BLEU</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">PETITS PLANS<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--rouge)">RACCOURCI</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">LE JOURNAL<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--rouge)">ARCHITALK</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">FRAGMENTS<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--rouge)">CARNET BLEU</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">PETITS PLANS<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--rouge)">RACCOURCI</span><div class="marquee-sep"></div></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-stripe"></div>
+    <div class="footer-silhouette" aria-hidden="true">
+      <svg width="500" height="340" viewBox="0 0 750 450" fill="rgba(240,235,216,1)"><rect x="0" y="300" width="750" height="150"/><rect x="0" y="0" width="180" height="300"/><rect x="570" y="0" width="180" height="300"/><path d="M180 0 A195 300 0 0 1 570 0Z"/></svg>
+    </div>
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">cobalt<span class="dot">.</span></div>
+        <p class="footer-tagline">Penser. Faire. Transmettre.<br>Studio de design d'espace, Nouvelle-Aquitaine.</p>
+        <div class="footer-socials">
+          <a href="https://www.instagram.com/collectifcobalt_/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/company/collectif-cobalt" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Le Collectif</div>
+        <nav class="footer-nav">
+          <a href="studio.html">Studio</a>
+          <a href="atelier.html">L'Atelier</a>
+          <a href="bleu-de-cobalt.html">Bleu de Cobalt</a>
+          <a href="media.html">Le Média</a>
+        </nav>
+      </div>
+      <div>
+        <div class="footer-col-title">Le Média</div>
+        <nav class="footer-nav">
+          <a href="media.html">Présentation</a>
+          <a href="media-journal.html">Le Journal</a>
+          <a href="contact.html">Proposer un sujet</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Collectif Cobalt. Tous droits réservés.</p>
+      <p class="footer-legal">Le Média — Documenter, montrer, raconter.</p>
+    </div>
+  </footer>
+
+  <script src="shared.js"></script>
+  <script>
+    document.querySelectorAll('.jf-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.jf-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.fmt;
+
+        // Featured (only architalk shows when filtered to architalk or all)
+        const featured = document.querySelector('.featured');
+        if (featured) featured.style.display = (f === 'all' || featured.dataset.fmt === f) ? '' : 'none';
+
+        // Sections by data-section match
+        document.querySelectorAll('.journal-section').forEach(sec => {
+          sec.style.display = (f === 'all' || sec.dataset.section === f) ? '' : 'none';
+        });
+      });
+    });
+  </script>
+</body>
+</html>

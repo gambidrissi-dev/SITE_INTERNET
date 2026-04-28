@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23F3EFD7'/><text x='4' y='24' font-size='22' font-family='sans-serif' font-weight='900' fill='%234A82DC'>c.</text></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#F3EFD7">
+  <title>L'Atelier — Collectif Cobalt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    :root { --accent: var(--vert); }
+
+    /* stripe couleur */
+    .stripe { background: linear-gradient(90deg, var(--vert) 25%, var(--noir) 25% 50%, var(--vert) 50% 75%, var(--noir) 75%); }
+
+    /* HERO */
+    .atelier-hero {
+      min-height: 100vh; background: var(--noir);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 140px 44px 80px; position: relative; overflow: hidden;
+    }
+    .ah-bg-num {
+      position: absolute; right: -60px; bottom: -80px;
+      font-family: var(--f-display); font-size: clamp(300px,40vw,500px);
+      color: rgba(93,161,107,.06); line-height: 1; pointer-events: none; user-select: none;
+    }
+    .ah-label { font-size: .62rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--vert); display: flex; align-items: center; gap: 14px; margin-bottom: 32px; }
+    .ah-label::before { content: ''; width: 24px; height: 2px; background: var(--vert); }
+    .ah-title { font-family: var(--f-display); font-size: clamp(72px,12vw,160px); line-height: .84; color: var(--cream); margin-bottom: 40px; }
+    .ah-title span { color: var(--vert); }
+    .ah-sub { max-width: 560px; font-size: 1rem; line-height: 1.85; font-weight: 300; color: rgba(240,235,216,.5); margin-bottom: 48px; }
+    .ah-cta { display: inline-flex; align-items: center; gap: 16px; font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--vert); transition: gap .2s; }
+    .ah-cta::after { content: '→'; font-size: 1.1em; }
+    .ah-cta:hover { gap: 24px; }
+
+    /* MANIFESTE STRIP */
+    .manifeste-strip {
+      background: var(--vert); padding: 60px 44px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+      border-top: 2px solid var(--noir);
+    }
+    .ms-title { font-family: var(--f-serif); font-style: italic; font-size: clamp(2.5rem,4vw,4rem); line-height: 1; color: var(--noir); }
+    .ms-body { font-size: .9rem; line-height: 1.85; font-weight: 300; color: rgba(26,26,26,.65); }
+
+    /* SERVICES ATELIER */
+    .services-grid {
+      background: var(--cream); padding: 100px 44px;
+      border-top: 2px solid var(--noir);
+    }
+    .sg-title { font-family: var(--f-display); font-size: clamp(48px,7vw,100px); line-height: .88; margin-bottom: 64px; }
+    .sg-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; border-top: 2px solid var(--noir); }
+    .sg-item { padding: 48px 36px; border-right: 2px solid var(--noir); }
+    .sg-item:last-child { border-right: none; }
+    .sg-num { font-family: var(--f-display); font-size: 48px; color: rgba(93,161,107,.15); line-height: 1; margin-bottom: 20px; }
+    .sg-name { font-size: .82rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--noir); margin-bottom: 12px; }
+    .sg-desc { font-size: .82rem; line-height: 1.75; font-weight: 300; color: rgba(26,26,26,.55); }
+    .sg-bar { width: 32px; height: 3px; background: var(--vert); margin-bottom: 20px; }
+
+    /* CTA CONTACT */
+    .cta-band {
+      background: var(--noir); padding: 100px 44px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 2px solid rgba(240,235,216,.1);
+    }
+    .cb-text { font-family: var(--f-display); font-size: clamp(32px,5vw,64px); color: var(--cream); line-height: .9; }
+    .cb-text em { font-family: var(--f-serif); font-style: italic; color: var(--vert); }
+
+    /* PIÈCES RÉCENTES (galerie) */
+    .pieces { background: var(--cream); padding: 100px 44px; border-top: 2px solid var(--noir); }
+    .pieces-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 56px; gap: 32px; flex-wrap: wrap; }
+    .pieces-title { font-family: var(--f-display); font-size: clamp(48px,7vw,100px); line-height: .88; }
+    .pieces-sub { font-size: .82rem; line-height: 1.75; color: rgba(26,26,26,.5); max-width: 320px; font-weight: 300; }
+    .pieces-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+    .piece-card {
+      position: relative; aspect-ratio: 4/5; overflow: hidden;
+      background: var(--noir); border-radius: var(--r-md);
+      display: flex; align-items: flex-end;
+    }
+    .piece-card.placeholder {
+      background: repeating-linear-gradient(45deg, rgba(93,161,107,.08) 0 14px, rgba(93,161,107,.04) 14px 28px);
+      border: 1px dashed rgba(93,161,107,.4);
+    }
+    .piece-meta { padding: 22px; width: 100%; }
+    .piece-tag { font-size: .55rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--vert); margin-bottom: 8px; }
+    .piece-name { font-family: var(--f-display); font-size: 16px; line-height: 1.2; color: var(--noir); }
+    .piece-card.placeholder .piece-name { color: rgba(26,26,26,.55); }
+
+    /* LIEN STUDIO ↔ ATELIER */
+    .link-studio {
+      background: var(--cream); padding: 80px 44px 100px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    }
+    .ls-text {}
+    .ls-eyebrow { font-size: .62rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--vert); display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+    .ls-eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--vert); }
+    .ls-title { font-family: var(--f-display); font-size: clamp(36px,4.5vw,56px); line-height: .95; margin-bottom: 24px; }
+    .ls-title em { font-family: var(--f-serif); font-style: italic; color: var(--vert); font-weight: 400; }
+    .ls-body { font-size: .92rem; line-height: 1.85; font-weight: 300; color: rgba(26,26,26,.6); margin-bottom: 28px; }
+    .ls-link {
+      display: inline-flex; align-items: center; gap: 14px;
+      font-size: .72rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--noir); transition: gap .2s;
+      border-bottom: 2px solid var(--vert); padding-bottom: 4px;
+    }
+    .ls-link::after { content: '→'; }
+    .ls-link:hover { gap: 22px; }
+    .ls-visual {
+      aspect-ratio: 1/1; background: var(--noir); border-radius: var(--r-lg);
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .ls-visual-text {
+      font-family: var(--f-display); color: rgba(93,161,107,.6);
+      font-size: clamp(80px,10vw,140px); line-height: .9; text-align: center;
+    }
+    .ls-visual-text small { display: block; font-family: var(--f-body); font-size: .65rem; font-weight: 700; letter-spacing: .22em; color: rgba(240,235,216,.4); margin-top: 18px; }
+
+    @media (max-width: 960px) {
+      .atelier-hero { padding: 110px 20px 56px; min-height: 0; }
+      .ah-title { font-size: clamp(56px, 12vw, 110px); margin-bottom: 32px; }
+      .ah-sub { font-size: .92rem; margin-bottom: 36px; }
+      .manifeste-strip { grid-template-columns: 1fr; gap: 28px; padding: 52px 20px; }
+      .services-grid { padding: 64px 20px; }
+      .sg-title { font-size: clamp(36px, 10vw, 64px); margin-bottom: 40px; }
+      .sg-grid { grid-template-columns: 1fr; }
+      .sg-item { border-right: none; border-bottom: 2px solid var(--noir); padding: 36px 24px; }
+      .sg-item:last-child { border-bottom: none; }
+      .cta-band { flex-direction: column; gap: 32px; padding: 64px 20px; text-align: center; align-items: center; }
+      .cb-text { font-size: clamp(28px, 8vw, 44px); }
+      .pieces { padding: 64px 20px; }
+      .pieces-title { font-size: clamp(36px, 10vw, 64px); }
+      .pieces-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .link-studio { grid-template-columns: 1fr; gap: 36px; padding: 56px 20px 72px; }
+      .ls-title { font-size: clamp(28px, 7vw, 40px); }
+    }
+    @media (max-width: 560px) {
+      .atelier-hero { padding: 96px 18px 48px; }
+      .ah-title { font-size: clamp(48px, 14vw, 80px); }
+      .ah-sub { font-size: .85rem; line-height: 1.75; margin-bottom: 28px; }
+      .manifeste-strip { padding: 44px 18px; }
+      .ms-title { font-size: clamp(1.8rem, 8vw, 2.6rem); }
+      .ms-body { font-size: .85rem; }
+      .services-grid { padding: 52px 18px; }
+      .sg-title { font-size: clamp(32px, 11vw, 52px); }
+      .sg-item { padding: 28px 18px; }
+      .sg-num { font-size: 36px; }
+      .cta-band { padding: 52px 18px; gap: 26px; }
+      .cb-text { font-size: clamp(26px, 9vw, 38px); }
+      .pieces { padding: 52px 18px; }
+      .pieces-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .pieces-header { gap: 18px; margin-bottom: 36px; }
+      .link-studio { padding: 48px 18px 60px; gap: 28px; }
+      .ls-visual-text { font-size: clamp(56px, 16vw, 90px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="stripe"></div>
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo"><img src="assets/LOGO/LOGO_COBALT.svg" alt="Collectif Cobalt" class="nav-logo-img" width="200" height="45"></a>
+    <button class="nav-burger-btn" id="nav-burger" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+<!-- HERO -->
+  <section class="atelier-hero">
+    <div class="ah-bg-num" aria-hidden="true">02</div>
+    <div class="ah-label sr">La Fabrication</div>
+    <h1 class="ah-title sr">L'<span>ATELIER</span><br>DE COBALT.</h1>
+    <p class="ah-sub sr sr-d2">La pensée et la main ne sont jamais séparées. Nous construisons, façonnons, testons et prototypons nous-mêmes — du dessin à l'objet, du concept à l'usage.</p>
+    <a href="contact.html" class="ah-cta sr sr-d3">Démarrer une commande</a>
+  </section>
+
+  <!-- MANIFESTE STRIP -->
+  <div class="manifeste-strip">
+    <h2 class="ms-title sr">Faire, c'est aussi une façon de penser.</h2>
+    <p class="ms-body sr sr-d1">L'Atelier est le prolongement naturel du studio. Là où la conception s'arrête, la fabrication commence — avec la même exigence, la même rigueur, les mêmes personnes. Mobilier sur mesure, menuiserie, prototypage, signalétique : tout sort de nos mains.</p>
+  </div>
+
+  <!-- SERVICES ATELIER -->
+  <section class="services-grid">
+    <h2 class="sg-title sr">CE QUE<br>NOUS<br>FABRIQUONS.</h2>
+    <div class="sg-grid">
+      <div class="sg-item sr">
+        <div class="sg-bar"></div>
+        <div class="sg-num">01</div>
+        <div class="sg-name">Mobilier sur mesure</div>
+        <p class="sg-desc">Tables, rangements, banquettes, présentoirs — dessinés pour l'espace, fabriqués pour durer. Chaque pièce est unique et pensée avec le projet.</p>
+      </div>
+      <div class="sg-item sr sr-d1">
+        <div class="sg-bar"></div>
+        <div class="sg-num">02</div>
+        <div class="sg-name">Menuiserie & ébénisterie</div>
+        <p class="sg-desc">Bois massif, panneaux, contreplaqué — nous travaillons les essences locales et les matières en cohérence avec l'intention architecturale du projet.</p>
+      </div>
+      <div class="sg-item sr sr-d2">
+        <div class="sg-bar"></div>
+        <div class="sg-num">03</div>
+        <div class="sg-name">Prototypage & maquettage</div>
+        <p class="sg-desc">Avant la série, le prototype. Avant le chantier, la maquette. Tester grandeur nature pour valider les partis-pris avant d'engager les coûts.</p>
+      </div>
+      <div class="sg-item sr">
+        <div class="sg-bar"></div>
+        <div class="sg-num">04</div>
+        <div class="sg-name">Signalétique & décoration</div>
+        <p class="sg-desc">Enseignes, plaquettes, panneaux, habillages muraux. La marque s'inscrit dans l'espace par des éléments fabriqués avec soin.</p>
+      </div>
+      <div class="sg-item sr sr-d1">
+        <div class="sg-bar"></div>
+        <div class="sg-num">05</div>
+        <div class="sg-name">Coordination artisans</div>
+        <p class="sg-desc">Pour les savoir-faire qui dépassent notre atelier, nous mobilisons un réseau d'artisans locaux — ferronniers, vitriers, tapissiers — sélectionnés pour leur exigence.</p>
+      </div>
+      <div class="sg-item sr sr-d2">
+        <div class="sg-bar"></div>
+        <div class="sg-num">06</div>
+        <div class="sg-name">Pièces de collection</div>
+        <p class="sg-desc">Des objets pensés hors commande, fabriqués en série limitée. L'atelier comme lieu de recherche, pas seulement de production.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PIÈCES RÉCENTES -->
+  <section class="pieces">
+    <div class="pieces-header sr">
+      <div>
+        <div class="s-label" style="color:var(--vert)">Sorties d'atelier</div>
+        <h2 class="pieces-title">PIÈCES<br>RÉCENTES.</h2>
+      </div>
+      <p class="pieces-sub">Mobilier, agencements, prototypes — un échantillon de ce qui sort de l'atelier. Galerie en cours de constitution.</p>
+    </div>
+    <div class="pieces-grid sr sr-d1">
+      <div class="piece-card placeholder"><div class="piece-meta"><div class="piece-tag">À venir</div><div class="piece-name">Banquette chêne — Appt. Angoulême</div></div></div>
+      <div class="piece-card placeholder"><div class="piece-meta"><div class="piece-tag">À venir</div><div class="piece-name">Bibliothèque modulaire — Atelier Bordeaux</div></div></div>
+      <div class="piece-card placeholder"><div class="piece-meta"><div class="piece-tag">À venir</div><div class="piece-name">Comptoir massif — Boutique Bayonne</div></div></div>
+      <div class="piece-card placeholder"><div class="piece-meta"><div class="piece-tag">À venir</div><div class="piece-name">Présentoir signalétique — série limitée</div></div></div>
+    </div>
+    <div style="margin-top:36px; display:flex; gap:16px; flex-wrap:wrap;">
+      <a href="atelier-projets.html" class="btn btn-dark"><span>Voir tous les projets →</span></a>
+      <a href="atelier-services.html" class="btn btn-outline"><span>Voir les services →</span></a>
+      <a href="atelier-drops.html" class="btn btn-outline"><span>Drops en cours →</span></a>
+    </div>
+  </section>
+
+  <!-- LIEN STUDIO ↔ ATELIER -->
+  <section class="link-studio">
+    <div class="ls-text sr">
+      <div class="ls-eyebrow">Studio + Atelier</div>
+      <h2 class="ls-title">L'atelier <em>nourrit</em> les projets du studio.</h2>
+      <p class="ls-body">Chaque projet d'architecture intérieure peut s'accompagner de pièces fabriquées sur mesure ici. Pas de sous-traitance opaque, pas de meuble générique : ce qui est dessiné est fabriqué par les mêmes mains, dans le même atelier.</p>
+      <a href="projets.html" class="ls-link">Voir les projets du studio</a>
+    </div>
+    <div class="ls-visual sr sr-d1">
+      <div class="ls-visual-text">→<small>du dessin à l'objet</small></div>
+    </div>
+  </section>
+
+  <!-- CTA CONTACT -->
+  <div class="cta-band">
+    <div class="cb-text sr">UNE COMMANDE<br><em>en tête ?</em></div>
+    <a href="contact.html" class="btn btn-cream sr sr-d1"><span>Parlons-en →</span></a>
+  </div>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <div class="marquee-item">FABRICATION<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi">MENUISERIE</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">PROTOTYPAGE<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi">SUR MESURE</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">ATELIER<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi">COBALT</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">FABRICATION<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi">MENUISERIE</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">PROTOTYPAGE<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi">SUR MESURE</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">ATELIER<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi">COBALT</span><div class="marquee-sep"></div></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-stripe"></div>
+    <div class="footer-silhouette" aria-hidden="true">
+      <svg width="500" height="340" viewBox="0 0 750 450" fill="rgba(240,235,216,1)"><rect x="0" y="220" width="750" height="230"/><rect x="60" y="0" width="130" height="220"/><rect x="280" y="60" width="130" height="160"/><rect x="500" y="30" width="130" height="190"/></svg>
+    </div>
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">cobalt<span class="dot">.</span></div>
+        <p class="footer-tagline">Penser. Faire. Transmettre.<br>Studio de design d'espace, Nouvelle-Aquitaine.</p>
+        <div class="footer-socials"><a href="#">Instagram</a><a href="#">LinkedIn</a><a href="#">Behance</a></div>
+      </div>
+      <div>
+        <div class="footer-col-title">Le Collectif</div>
+        <nav class="footer-nav">
+          <a href="studio.html">Studio</a>
+          <a href="atelier.html">L'Atelier</a>
+          <a href="bleu-de-cobalt.html">Bleu de Cobalt</a>
+          <a href="media.html">Le Média</a>
+        </nav>
+      </div>
+      <div>
+        <div class="footer-col-title">L'Atelier</div>
+        <nav class="footer-nav">
+          <a href="atelier-projets.html">Projets</a>
+          <a href="atelier-services.html">Services</a>
+          <a href="atelier-drops.html">Drops</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Collectif Cobalt. Tous droits réservés.</p>
+      <p class="footer-legal">L'Atelier de Cobalt — Fabrication artisanale, Nouvelle-Aquitaine</p>
+    </div>
+  </footer>
+
+  <script src="shared.js"></script>
+</body>
+</html>

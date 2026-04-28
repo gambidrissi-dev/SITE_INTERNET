@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23F3EFD7'/><text x='4' y='24' font-size='22' font-family='sans-serif' font-weight='900' fill='%234A82DC'>c.</text></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#F3EFD7">
+  <title>Missions · Particuliers — Bleu de Cobalt · Collectif Cobalt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    :root { --accent: var(--jaune); }
+    .stripe { background: linear-gradient(90deg, var(--jaune) 25%, var(--noir) 25% 50%, var(--jaune) 50% 75%, var(--noir) 75%); }
+
+    /* Mini-dropdown Missions ▾ */
+    .nav-missions { position: relative; }
+    .nav-missions-trigger {
+      display: inline-flex; align-items: center; gap: 6px; background: none; border: none; padding: 0;
+      font-family: var(--f-body); font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--noir); cursor: none; transition: color .15s;
+    }
+    .nav-missions-trigger.is-current { color: var(--noir); }
+    .nav-missions-trigger.is-current::after { content: ''; display: block; height: 2px; background: var(--jaune); margin-top: 2px; }
+    .nav-missions-trigger .ch { display: inline-block; font-size: .55rem; transition: transform .25s ease; }
+    .nav-missions-trigger.open .ch { transform: rotate(180deg); }
+    .nav-missions-menu {
+      position: absolute; top: calc(100% + 14px); left: -14px;
+      background: var(--cream); border: 1px solid rgba(26,26,26,.12);
+      border-radius: var(--r-md); padding: 10px; min-width: 220px;
+      box-shadow: var(--shadow); display: none; flex-direction: column; gap: 2px; z-index: 510;
+    }
+    .nav-missions-menu.open { display: flex; }
+    .nav-missions-menu a { display: flex; flex-direction: column; gap: 2px; padding: 12px 14px; border-radius: var(--r-sm); transition: background .15s; }
+    .nav-missions-menu a:hover { background: rgba(241,203,79,.18); }
+    .nav-missions-menu a.is-here { background: rgba(241,203,79,.28); }
+    .nav-missions-menu a .nm-name { font-size: .78rem; font-weight: 700; color: var(--noir); text-transform: none; letter-spacing: 0; }
+    .nav-missions-menu a .nm-desc { font-size: .64rem; color: rgba(26,26,26,.5); text-transform: none; letter-spacing: 0; }
+
+    /* HERO chaleureux particulier */
+    .pt-hero {
+      background: var(--jaune); padding: 140px 44px 90px; position: relative; overflow: hidden;
+      display: grid; grid-template-columns: 1.1fr 1fr; gap: 60px; align-items: end; min-height: 80vh;
+      border-bottom: 2px solid var(--noir);
+    }
+    .pt-bg-num {
+      position: absolute; right: -40px; bottom: -60px;
+      font-family: var(--f-display); font-size: clamp(260px,32vw,420px);
+      color: rgba(26,26,26,.05); line-height: 1; pointer-events: none; user-select: none;
+    }
+    .pt-eyebrow { font-size: .62rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--noir); display: flex; align-items: center; gap: 14px; margin-bottom: 32px; }
+    .pt-eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--noir); }
+    .pt-title { font-family: var(--f-display); font-size: clamp(56px,9vw,140px); line-height: .82; color: var(--noir); margin-bottom: 36px; }
+    .pt-title em { font-family: var(--f-serif); font-style: italic; color: var(--cream); font-weight: 400; }
+    .pt-sub { font-size: 1rem; line-height: 1.85; font-weight: 300; color: rgba(26,26,26,.7); margin-bottom: 36px; }
+    .pt-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    .pt-card {
+      background: var(--noir); border-radius: var(--r-md); padding: 36px;
+      display: flex; flex-direction: column; gap: 18px;
+    }
+    .pt-card-tag { font-size: .58rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--jaune); }
+    .pt-card-quote { font-family: var(--f-serif); font-style: italic; font-size: 1.45rem; line-height: 1.4; color: var(--cream); }
+    .pt-card-author { font-size: .78rem; font-weight: 600; color: rgba(240,235,216,.55); padding-top: 16px; border-top: 1px solid rgba(240,235,216,.15); }
+
+    /* DIFF — pourquoi pas un archi classique */
+    .diff { background: var(--cream); padding: 100px 44px; border-top: 2px solid var(--noir); }
+    .df-header { max-width: 760px; margin-bottom: 56px; }
+    .df-title { font-family: var(--f-display); font-size: clamp(48px,7vw,100px); line-height: .88; margin-bottom: 24px; }
+    .df-title em { font-family: var(--f-serif); font-style: italic; color: var(--jaune); font-weight: 400; }
+    .df-intro { font-size: .95rem; line-height: 1.85; font-weight: 300; color: rgba(26,26,26,.65); }
+    .df-table {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; border-top: 2px solid var(--noir); border-bottom: 2px solid var(--noir);
+    }
+    .df-row { display: contents; }
+    .df-cell { padding: 24px 28px; border-right: 1px solid rgba(26,26,26,.1); border-bottom: 1px solid rgba(26,26,26,.06); }
+    .df-cell:nth-child(3n) { border-right: none; }
+    .df-cell.head { font-size: .58rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(26,26,26,.5); padding-top: 22px; padding-bottom: 22px; border-bottom: 2px solid var(--noir); }
+    .df-cell.head.col-bleu { background: var(--jaune); color: var(--noir); }
+    .df-cell.label { font-family: var(--f-display); font-size: 16px; color: var(--noir); }
+    .df-cell.val { font-size: .9rem; line-height: 1.6; font-weight: 300; color: rgba(26,26,26,.65); }
+    .df-cell.val.col-bleu { background: rgba(241,203,79,.12); color: var(--noir); font-weight: 500; }
+
+    /* OFFRES — 3 formules */
+    .offres { background: var(--noir); padding: 100px 44px; }
+    .of-header { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 56px; }
+    .of-title { font-family: var(--f-display); font-size: clamp(48px,7vw,100px); line-height: .88; color: var(--cream); }
+    .of-title em { font-family: var(--f-serif); font-style: italic; color: var(--jaune); font-weight: 400; }
+    .of-intro { font-size: .92rem; line-height: 1.85; font-weight: 300; color: rgba(240,235,216,.55); }
+    .of-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .of-card {
+      background: rgba(241,203,79,.05); border: 1px solid rgba(241,203,79,.18);
+      border-radius: var(--r-md); padding: 36px; display: flex; flex-direction: column; gap: 14px;
+      transition: border-color .25s, background .25s;
+    }
+    .of-card:hover { border-color: var(--jaune); background: rgba(241,203,79,.1); }
+    .of-card.featured { background: var(--jaune); border-color: var(--jaune); }
+    .of-card.featured * { color: var(--noir) !important; }
+    .of-card.featured .of-card-list li::before { color: var(--noir) !important; background: none !important; content: '✓'; }
+    .of-card-tag { font-size: .58rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--jaune); }
+    .of-card.featured .of-card-tag { color: rgba(26,26,26,.55); }
+    .of-card-name { font-family: var(--f-display); font-size: 26px; line-height: 1.05; color: var(--cream); }
+    .of-card-price { font-family: var(--f-display); font-size: 36px; color: var(--jaune); line-height: 1; }
+    .of-card-price small { font-family: var(--f-body); font-size: .58rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: rgba(240,235,216,.45); display: block; margin-top: 4px; }
+    .of-card-desc { font-size: .85rem; line-height: 1.7; font-weight: 300; color: rgba(240,235,216,.6); }
+    .of-card-list { list-style: none; display: flex; flex-direction: column; gap: 10px; padding-top: 14px; border-top: 1px solid rgba(241,203,79,.18); margin-top: 4px; }
+    .of-card.featured .of-card-list { border-top-color: rgba(26,26,26,.2); }
+    .of-card-list li { font-size: .82rem; line-height: 1.55; color: rgba(240,235,216,.55); padding-left: 22px; position: relative; }
+    .of-card-list li::before { content: ''; position: absolute; left: 0; top: 9px; width: 12px; height: 2px; background: var(--jaune); }
+
+    /* AVANT D'ÉCRIRE — petits scénarios */
+    .scenarios { background: var(--cream); padding: 100px 44px; border-top: 2px solid var(--noir); }
+    .sc-title { font-family: var(--f-display); font-size: clamp(48px,7vw,100px); line-height: .88; margin-bottom: 56px; }
+    .sc-title em { font-family: var(--f-serif); font-style: italic; color: var(--jaune); font-weight: 400; }
+    .sc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .sc-card {
+      background: var(--cream); border: 1.5px solid var(--noir); border-radius: var(--r-md);
+      padding: 28px;
+    }
+    .sc-card-q { font-family: var(--f-serif); font-style: italic; font-size: 1.2rem; line-height: 1.35; color: var(--noir); margin-bottom: 12px; }
+    .sc-card-a { font-size: .88rem; line-height: 1.7; font-weight: 300; color: rgba(26,26,26,.65); }
+    .sc-card-a strong { color: var(--noir); font-weight: 600; }
+
+    /* CONTACT */
+    .contact { background: var(--jaune); padding: 100px 44px; border-top: 2px solid var(--noir); }
+    .ct-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .ct-eyebrow { font-size: .62rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--noir); display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+    .ct-eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--noir); }
+    .ct-title { font-family: var(--f-display); font-size: clamp(40px,5vw,64px); line-height: .9; color: var(--noir); margin-bottom: 20px; }
+    .ct-title em { font-family: var(--f-serif); font-style: italic; color: var(--cream); font-weight: 400; }
+    .ct-body { font-size: .92rem; line-height: 1.85; font-weight: 300; color: rgba(26,26,26,.7); margin-bottom: 18px; }
+    .ct-form { display: flex; flex-direction: column; gap: 18px; background: var(--cream); padding: 40px; border-radius: var(--r-md); border: 1.5px solid var(--noir); }
+    .ct-field { display: flex; flex-direction: column; gap: 6px; }
+    .ct-lbl { font-size: .58rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(26,26,26,.5); }
+    .ct-input, .ct-ta {
+      background: transparent; border: none; border-bottom: 1.5px solid rgba(26,26,26,.2);
+      padding: 10px 0; font-family: var(--f-body); font-size: .92rem;
+      color: var(--noir); outline: none; transition: border-color .2s;
+    }
+    .ct-ta { resize: none; min-height: 80px; }
+    .ct-input:focus, .ct-ta:focus { border-color: var(--jaune); border-bottom-width: 2px; }
+    .ct-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+
+    @media (max-width: 960px) {
+      .pt-hero { padding: 110px 20px 60px; min-height: 0; grid-template-columns: 1fr; gap: 36px; }
+      .pt-title { font-size: clamp(48px, 12vw, 90px); }
+      .pt-card { padding: 28px; }
+      .pt-card-quote { font-size: 1.2rem; }
+      .diff { padding: 64px 20px; }
+      .df-title { font-size: clamp(36px, 10vw, 64px); }
+      .df-table { grid-template-columns: 1fr; border-top: none; }
+      .df-cell { border-right: none; }
+      .df-cell.head { display: none; }
+      .df-cell.label { background: rgba(26,26,26,.04); border-top: 2px solid var(--noir); padding: 18px 22px; }
+      .df-cell.val { padding: 18px 22px; }
+      .df-cell.val.col-archi::before { content: 'Archi classique : '; font-weight: 700; color: rgba(26,26,26,.45); display: block; font-size: .55rem; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 4px; }
+      .df-cell.val.col-bleu::before { content: 'Bleu : '; font-weight: 700; color: rgba(26,26,26,.7); display: block; font-size: .55rem; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 4px; }
+      .offres { padding: 64px 20px; }
+      .of-header { grid-template-columns: 1fr; gap: 22px; margin-bottom: 36px; }
+      .of-title { font-size: clamp(36px, 10vw, 64px); }
+      .of-grid { grid-template-columns: 1fr; }
+      .scenarios { padding: 64px 20px; }
+      .sc-title { font-size: clamp(36px, 10vw, 64px); margin-bottom: 36px; }
+      .sc-grid { grid-template-columns: 1fr; }
+      .contact { padding: 64px 20px; }
+      .ct-grid { grid-template-columns: 1fr; gap: 32px; }
+      .ct-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .pt-hero { padding: 96px 18px 48px; }
+      .pt-title { font-size: clamp(40px, 14vw, 72px); margin-bottom: 26px; }
+      .pt-card { padding: 24px; }
+      .pt-card-quote { font-size: 1.1rem; }
+      .diff { padding: 52px 18px; }
+      .offres { padding: 52px 18px; }
+      .of-card { padding: 28px 22px; }
+      .of-card-name { font-size: 22px; }
+      .scenarios { padding: 52px 18px; }
+      .sc-card { padding: 22px; }
+      .contact { padding: 52px 18px; }
+      .ct-form { padding: 28px 22px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stripe"></div>
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo"><img src="assets/LOGO/LOGO_COBALT.svg" alt="Collectif Cobalt" class="nav-logo-img" width="200" height="45"></a>
+    <button class="nav-burger-btn" id="nav-burger" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+<!-- HERO -->
+  <section class="pt-hero">
+    <div class="pt-bg-num" aria-hidden="true">B2C</div>
+    <div class="sr">
+      <div class="pt-eyebrow">Bleu de Cobalt — Missions · Particuliers</div>
+      <h1 class="pt-title">UN PROJET <em>simple</em>,<br>un budget serré.</h1>
+      <p class="pt-sub">Vous voulez réagencer un appartement, transformer un grenier, ouvrir une cuisine. Un cabinet d'archi vous demande 3 000 à 8 000 € pour les plans. Bleu vous propose la même chose à <strong>800 à 3 500 €</strong>, réalisée par un alternant encadré par le Collectif.</p>
+      <div class="pt-actions">
+        <a href="#contact" class="btn btn-dark"><span>Décrire mon projet →</span></a>
+        <a href="#offres" class="btn btn-outline"><span>Voir les formules</span></a>
+      </div>
+    </div>
+    <div class="pt-card sr sr-d2">
+      <div class="pt-card-tag">Témoignage · client Mérignac · 2026</div>
+      <p class="pt-card-quote">« Sept devis d'architectes entre 4 000 et 9 000 €. Bleu nous a fait des plans propres pour 1 200 €, en 6 semaines. L'alternante était sérieuse, son référent Cobalt présent à chaque étape. »</p>
+      <div class="pt-card-author">Marie + Théo · 3 pièces 65 m²</div>
+    </div>
+  </section>
+
+  <!-- DIFF — comparatif -->
+  <section class="diff">
+    <div class="df-header sr">
+      <h2 class="df-title">PAS UN ARCHI <em>au rabais</em>,<br>un autre format.</h2>
+      <p class="df-intro">Bleu n'est pas moins cher parce que c'est moins bien fait — c'est moins cher parce que le format est différent. Voici la comparaison honnête, point par point.</p>
+    </div>
+    <div class="df-table sr sr-d1">
+      <div class="df-cell head">Critère</div>
+      <div class="df-cell head col-archi">Cabinet d'archi classique</div>
+      <div class="df-cell head col-bleu">Bleu de Cobalt</div>
+
+      <div class="df-cell label">Qui dessine</div>
+      <div class="df-cell val col-archi">Architecte DPLG, parfois assisté d'un junior</div>
+      <div class="df-cell val col-bleu">Alternant Bac +3 à +5, encadré par un praticien Cobalt</div>
+
+      <div class="df-cell label">Tarif (T2/T3 réagencement)</div>
+      <div class="df-cell val col-archi">3 000 à 8 000 €</div>
+      <div class="df-cell val col-bleu">800 à 3 500 €</div>
+
+      <div class="df-cell label">Délai livraison plans</div>
+      <div class="df-cell val col-archi">6 à 12 semaines</div>
+      <div class="df-cell val col-bleu">3 à 8 semaines</div>
+
+      <div class="df-cell label">Suivi de chantier</div>
+      <div class="df-cell val col-archi">Inclus, défendu par le DPLG</div>
+      <div class="df-cell val col-bleu">Conseil technique en option, suivi confié au client</div>
+
+      <div class="df-cell label">Permis de construire</div>
+      <div class="df-cell val col-archi">Signé par le DPLG</div>
+      <div class="df-cell val col-bleu">Accompagnement déclaration préalable, permis simple sans signature DPLG</div>
+
+      <div class="df-cell label">Pour quel projet</div>
+      <div class="df-cell val col-archi">Tout — y compris extension >150 m², neuf, complexe</div>
+      <div class="df-cell val col-bleu">Réagencement, déco-archi, conseil aménagement, permis simple, &lt;150 m²</div>
+    </div>
+  </section>
+
+  <!-- OFFRES -->
+  <section id="offres" class="offres">
+    <div class="of-header sr">
+      <h2 class="of-title">TROIS <em>formules</em>.</h2>
+      <p class="of-intro">Trois formats clairs selon ce que vous cherchez. Devis ferme après 30 minutes d'échange — pas de surprise.</p>
+    </div>
+    <div class="of-grid sr sr-d1">
+      <div class="of-card">
+        <div class="of-card-tag">Conseil</div>
+        <h3 class="of-card-name">Diagnostic + plans simples</h3>
+        <div class="of-card-price">à partir de 800 €<small>livré sous 3 semaines</small></div>
+        <p class="of-card-desc">Visite, prise de cotes, plans existant + projeté, moodboard matières et conseils. Pour décider, pas pour construire.</p>
+        <ul class="of-card-list">
+          <li>Visite sur site (1h30)</li>
+          <li>Plans existant + projeté à l'échelle</li>
+          <li>Moodboard matières / inspirations</li>
+          <li>1 RDV de restitution</li>
+        </ul>
+      </div>
+      <div class="of-card featured">
+        <div class="of-card-tag">Le plus demandé</div>
+        <h3 class="of-card-name">Réagencement + permis</h3>
+        <div class="of-card-price">1 500 à 3 500 €<small>livré sous 6 semaines</small></div>
+        <p class="of-card-desc">Plans complets, choix matières, déclaration préalable ou permis simple. Vous repartez avec un dossier complet pour vos artisans.</p>
+        <ul class="of-card-list">
+          <li>Tout du Diagnostic</li>
+          <li>Plans techniques pour artisans</li>
+          <li>Déclaration préalable / permis simple</li>
+          <li>3 RDV : visite, mi-parcours, restitution</li>
+          <li>Référent Cobalt présent aux RDV clés</li>
+        </ul>
+      </div>
+      <div class="of-card">
+        <div class="of-card-tag">Suivi</div>
+        <h3 class="of-card-name">Réagencement + suivi chantier</h3>
+        <div class="of-card-price">3 000 à 6 000 €<small>chantier 3 à 6 mois</small></div>
+        <p class="of-card-desc">Tout du Réagencement, plus suivi des artisans pendant le chantier : devis, planning, validations matières, finitions.</p>
+        <ul class="of-card-list">
+          <li>Tout du Réagencement</li>
+          <li>Consultation 3 entreprises</li>
+          <li>Suivi chantier hebdo</li>
+          <li>Réunions de chantier</li>
+          <li>Réception finale + levée réserves</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCÉNARIOS — questions fréquentes -->
+  <section class="scenarios">
+    <h2 class="sc-title sr">CE QUE LES GENS <em>nous demandent</em>.</h2>
+    <div class="sc-grid sr sr-d1">
+      <div class="sc-card">
+        <p class="sc-card-q">« Vous êtes moins cher, c'est suspect non ? »</p>
+        <p class="sc-card-a">Non. Notre coût est la rémunération d'un alternant en formation + l'encadrement d'un praticien Cobalt. <strong>Vous ne payez pas la marge cabinet, le loyer d'agence, l'assistante.</strong> En contrepartie, vous acceptez qu'un alternant fasse le dessin (sous supervision).</p>
+      </div>
+      <div class="sc-card">
+        <p class="sc-card-q">« Et si l'alternant fait n'importe quoi ? »</p>
+        <p class="sc-card-a">Un référent Cobalt valide chaque livrable. Vous ne recevez rien que le référent n'a pas relu. Si l'alternant n'est pas à la hauteur, on rebascule la mission sur un autre profil — sans surcoût.</p>
+      </div>
+      <div class="sc-card">
+        <p class="sc-card-q">« Je peux avoir un permis pour construire une extension neuve ? »</p>
+        <p class="sc-card-a">Si l'extension fait <strong>moins de 150 m² SP</strong>, oui. Au-delà, la loi exige un architecte DPLG — on vous renvoie alors vers Cobalt+ Studio ou un confrère. Pour les déclarations préalables et permis simples, Bleu suffit.</p>
+      </div>
+      <div class="sc-card">
+        <p class="sc-card-q">« Je suis pressé. Vous tenez les délais ? »</p>
+        <p class="sc-card-a">Délais affichés tenus dans 90% des cas. Si on glisse, on vous prévient à mi-parcours, on vous propose une remise. <strong>Pas de glissement caché de 3 mois sans nouvelles.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <div class="ct-grid">
+      <div class="sr">
+        <div class="ct-eyebrow">Décrire votre projet</div>
+        <h2 class="ct-title">3 phrases <em>suffisent</em>.</h2>
+        <p class="ct-body">Pas besoin de plans, pas besoin de tout connaître. Quelques infos basiques sur votre logement et votre besoin — on revient sous 48 h avec un devis indicatif et un appel proposé.</p>
+        <p class="ct-body" style="font-size:.85rem; color:rgba(26,26,26,.55)">Ou écrivez à <strong style="color:var(--noir)">bleu@collectifcobalt.eu</strong>.</p>
+      </div>
+      <form class="ct-form sr sr-d1" onsubmit="alert('Merci ! Réponse sous 48 h.'); return false;">
+        <div class="ct-row">
+          <div class="ct-field">
+            <label class="ct-lbl">Prénom</label>
+            <input class="ct-input" type="text" placeholder="Camille" required>
+          </div>
+          <div class="ct-field">
+            <label class="ct-lbl">Email</label>
+            <input class="ct-input" type="email" placeholder="camille@mail.fr" required>
+          </div>
+        </div>
+        <div class="ct-row">
+          <div class="ct-field">
+            <label class="ct-lbl">Ville · code postal</label>
+            <input class="ct-input" type="text" placeholder="Bordeaux 33000" required>
+          </div>
+          <div class="ct-field">
+            <label class="ct-lbl">Surface (m²)</label>
+            <input class="ct-input" type="text" placeholder="65" required>
+          </div>
+        </div>
+        <div class="ct-field">
+          <label class="ct-lbl">Votre projet en 3 phrases</label>
+          <textarea class="ct-ta" placeholder="Réagencement T3 Mérignac, ouvrir cuisine sur séjour, refaire entrée. Budget travaux 25k. Démarrage idéalement avant l'été." required></textarea>
+        </div>
+        <div class="ct-field">
+          <label class="ct-lbl">Formule envisagée (optionnel)</label>
+          <input class="ct-input" type="text" placeholder="Diagnostic · Réagencement · Suivi chantier · Pas sûr">
+        </div>
+        <button type="submit" class="btn btn-dark" style="margin-top:8px; align-self:flex-start"><span>Envoyer →</span></button>
+      </form>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <div class="marquee-item">PROJET ACCESSIBLE<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--jaune)">800 → 3 500 €</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">RÉAGENCEMENT<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--jaune)">PERMIS SIMPLE</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">BLEU DE COBALT<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--jaune)">3 À 8 SEMAINES</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">PROJET ACCESSIBLE<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--jaune)">800 → 3 500 €</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">RÉAGENCEMENT<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--jaune)">PERMIS SIMPLE</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">BLEU DE COBALT<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--jaune)">3 À 8 SEMAINES</span><div class="marquee-sep"></div></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-stripe"></div>
+    <div class="footer-silhouette" aria-hidden="true">
+      <svg width="500" height="340" viewBox="0 0 750 450" fill="rgba(240,235,216,1)"><rect x="0" y="220" width="750" height="230"/><path d="M375 0 A375 220 0 0 1 750 220 L0 220Z"/></svg>
+    </div>
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">cobalt<span class="dot">.</span></div>
+        <p class="footer-tagline">Penser. Faire. Transmettre.<br>Studio de design d'espace, Nouvelle-Aquitaine.</p>
+        <div class="footer-socials">
+          <a href="https://www.instagram.com/collectifcobalt_/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/company/collectif-cobalt" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Le Collectif</div>
+        <nav class="footer-nav">
+          <a href="studio.html">Studio</a>
+          <a href="atelier.html">L'Atelier</a>
+          <a href="bleu-de-cobalt.html">Bleu de Cobalt</a>
+          <a href="media.html">Le Média</a>
+        </nav>
+      </div>
+      <div>
+        <div class="footer-col-title">Bleu de Cobalt</div>
+        <nav class="footer-nav">
+          <a href="bleu-projets.html">Projets</a>
+          <a href="bleu-cabinets.html">Missions · Cabinets</a>
+          <a href="bleu-particuliers.html">Missions · Particuliers</a>
+          <a href="bleu-de-cobalt.html#candidater">Le Programme</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Collectif Cobalt. Tous droits réservés.</p>
+      <p class="footer-legal">Bleu de Cobalt — École-atelier, Nouvelle-Aquitaine</p>
+    </div>
+  </footer>
+
+  <script src="shared.js"></script>
+  <script>
+    const mTrigger = document.querySelector('.nav-missions-trigger');
+    const mMenu = document.querySelector('.nav-missions-menu');
+    if (mTrigger && mMenu) {
+      mTrigger.addEventListener('click', e => {
+        e.preventDefault(); e.stopPropagation();
+        const open = !mMenu.classList.contains('open');
+        mMenu.classList.toggle('open', open);
+        mTrigger.classList.toggle('open', open);
+      });
+      document.addEventListener('click', e => {
+        if (!mMenu.contains(e.target) && e.target !== mTrigger && !mTrigger.contains(e.target)) {
+          mMenu.classList.remove('open');
+          mTrigger.classList.remove('open');
+        }
+      });
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') { mMenu.classList.remove('open'); mTrigger.classList.remove('open'); }
+      });
+    }
+  </script>
+</body>
+</html>

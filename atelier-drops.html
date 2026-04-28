@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23F3EFD7'/><text x='4' y='24' font-size='22' font-family='sans-serif' font-weight='900' fill='%234A82DC'>c.</text></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#F3EFD7">
+  <title>Drops — L'Atelier · Collectif Cobalt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    :root { --accent: var(--vert); }
+    .stripe { background: linear-gradient(90deg, var(--vert) 25%, var(--noir) 25% 50%, var(--vert) 50% 75%, var(--noir) 75%); }
+
+    /* HERO — minimal et fort */
+    .drops-hero {
+      min-height: 92vh; background: var(--noir);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 140px 44px 90px; position: relative; overflow: hidden;
+    }
+    .dh-bg-num {
+      position: absolute; right: -60px; bottom: -80px;
+      font-family: var(--f-display); font-size: clamp(280px,38vw,480px);
+      color: rgba(93,161,107,.07); line-height: 1; pointer-events: none; user-select: none;
+    }
+    .dh-eyebrow { font-size: .62rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--vert); display: flex; align-items: center; gap: 14px; margin-bottom: 32px; }
+    .dh-eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--vert); }
+    .dh-title { font-family: var(--f-display); font-size: clamp(72px,12vw,170px); line-height: .82; color: var(--cream); margin-bottom: 36px; letter-spacing: -.02em; }
+    .dh-title em { font-family: var(--f-serif); font-style: italic; color: var(--vert); font-weight: 400; }
+    .dh-sub { max-width: 600px; font-size: 1.05rem; line-height: 1.85; font-weight: 300; color: rgba(240,235,216,.55); margin-bottom: 48px; }
+    .dh-actions { display: flex; gap: 18px; flex-wrap: wrap; }
+
+    /* MANIFESTE DROP */
+    .what-strip {
+      background: var(--vert); padding: 70px 44px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+      border-top: 2px solid var(--noir);
+    }
+    .ws-title { font-family: var(--f-serif); font-style: italic; font-size: clamp(2.5rem,4vw,4rem); line-height: 1; color: var(--noir); }
+    .ws-body { font-size: .95rem; line-height: 1.85; font-weight: 300; color: rgba(26,26,26,.7); }
+    .ws-body strong { font-weight: 700; color: var(--noir); }
+
+    /* CURRENT DROP */
+    .current-drop { background: var(--cream); padding: 100px 44px; border-top: 2px solid var(--noir); }
+    .cd-header { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 64px; }
+    .cd-tag { font-size: .62rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--vert); margin-bottom: 18px; display: flex; align-items: center; gap: 12px; }
+    .cd-tag::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--vert); animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .5; transform: scale(1.3); } }
+    .cd-title { font-family: var(--f-display); font-size: clamp(56px,8vw,120px); line-height: .86; }
+    .cd-meta { font-size: .92rem; line-height: 1.85; font-weight: 300; color: rgba(26,26,26,.6); }
+    .cd-meta-row { display: flex; gap: 32px; flex-wrap: wrap; margin-top: 24px; padding-top: 24px; border-top: 1px solid rgba(26,26,26,.12); }
+    .cd-meta-item { display: flex; flex-direction: column; gap: 4px; }
+    .cd-meta-lbl { font-size: .55rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(26,26,26,.45); }
+    .cd-meta-val { font-family: var(--f-display); font-size: 22px; color: var(--noir); }
+
+    /* GRID DROP — pièces */
+    .drop-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+    .drop-card {
+      background: var(--cream); border: 1.5px solid var(--noir); border-radius: var(--r-md);
+      padding: 28px; display: flex; flex-direction: column; gap: 16px;
+      transition: background .25s, transform .25s;
+      position: relative; overflow: hidden;
+    }
+    .drop-card-img {
+      aspect-ratio: 4/5; border-radius: var(--r-sm); margin: -28px -28px 0;
+      background: repeating-linear-gradient(45deg, rgba(93,161,107,.10) 0 14px, rgba(93,161,107,.04) 14px 28px);
+      border-bottom: 1.5px solid var(--noir);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--f-display); font-size: 80px; color: rgba(93,161,107,.3);
+    }
+    .drop-card-tag { font-size: .58rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--vert); display: flex; justify-content: space-between; align-items: center; }
+    .drop-card-tag .badge-stock { padding: 3px 10px; border-radius: var(--r-pill); background: var(--noir); color: var(--cream); font-size: .52rem; }
+    .drop-card-tag .badge-stock.sold { background: var(--rouge); }
+    .drop-card-tag .badge-stock.last { background: var(--jaune); color: var(--noir); }
+    .drop-card-name { font-family: var(--f-display); font-size: 22px; line-height: 1.1; color: var(--noir); }
+    .drop-card-desc { font-size: .82rem; line-height: 1.65; font-weight: 300; color: rgba(26,26,26,.6); }
+    .drop-card-meta { display: flex; justify-content: space-between; align-items: baseline; margin-top: auto; padding-top: 16px; border-top: 1px solid rgba(26,26,26,.1); }
+    .drop-card-price { font-family: var(--f-display); font-size: 24px; color: var(--noir); }
+    .drop-card-price small { font-family: var(--f-body); font-size: .55rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: rgba(26,26,26,.45); display: block; margin-top: 2px; }
+    .drop-card-cta { font-size: .62rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--vert); display: inline-flex; align-items: center; gap: 8px; transition: gap .2s; }
+    .drop-card-cta::after { content: '→'; }
+    .drop-card-cta:hover { gap: 14px; }
+
+    /* COMMENT ÇA MARCHE — 4 étapes */
+    .how { background: var(--noir); padding: 100px 44px; }
+    .how-title { font-family: var(--f-display); font-size: clamp(48px,7vw,100px); line-height: .88; color: var(--cream); margin-bottom: 64px; }
+    .how-title em { font-family: var(--f-serif); font-style: italic; color: var(--vert); font-weight: 400; }
+    .how-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; border-top: 1px solid rgba(240,235,216,.12); }
+    .how-step { padding: 48px 32px; border-right: 1px solid rgba(240,235,216,.12); }
+    .how-step:last-child { border-right: none; }
+    .how-step-num { font-family: var(--f-display); font-size: 44px; color: rgba(93,161,107,.35); line-height: 1; margin-bottom: 18px; }
+    .how-step-bar { width: 28px; height: 3px; background: var(--vert); margin-bottom: 18px; }
+    .how-step-name { font-size: .82rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--cream); margin-bottom: 12px; }
+    .how-step-desc { font-size: .82rem; line-height: 1.7; font-weight: 300; color: rgba(240,235,216,.5); }
+
+    /* WAITLIST — formulaire simple */
+    .waitlist { background: var(--vert); padding: 100px 44px; border-top: 2px solid var(--noir); }
+    .wl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; max-width: 1200px; margin: 0 auto; }
+    .wl-eyebrow { font-size: .62rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--noir); display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+    .wl-eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--noir); }
+    .wl-title { font-family: var(--f-display); font-size: clamp(40px,5vw,64px); line-height: .9; color: var(--noir); margin-bottom: 20px; }
+    .wl-title em { font-family: var(--f-serif); font-style: italic; color: var(--cream); font-weight: 400; }
+    .wl-body { font-size: .92rem; line-height: 1.85; font-weight: 300; color: rgba(26,26,26,.7); }
+    .wl-form { display: flex; flex-direction: column; gap: 18px; background: var(--cream); padding: 36px; border-radius: var(--r-md); border: 1.5px solid var(--noir); }
+    .wl-field { display: flex; flex-direction: column; gap: 6px; }
+    .wl-lbl { font-size: .58rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(26,26,26,.5); }
+    .wl-input {
+      background: transparent; border: none; border-bottom: 1.5px solid rgba(26,26,26,.2);
+      padding: 10px 0; font-family: var(--f-body); font-size: .92rem; font-weight: 400;
+      color: var(--noir); outline: none; transition: border-color .2s;
+    }
+    .wl-input:focus { border-color: var(--vert); }
+    .wl-submit { margin-top: 8px; align-self: flex-start; }
+    .wl-note { font-family: var(--f-serif); font-style: italic; font-size: .82rem; color: rgba(26,26,26,.55); margin-top: 6px; }
+
+    /* CTA contact pour acheter */
+    .buy-band { background: var(--noir); padding: 70px 44px; border-top: 2px solid rgba(240,235,216,.1); }
+    .bb-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 60px; align-items: center; max-width: 1200px; margin: 0 auto; }
+    .bb-text { font-family: var(--f-display); font-size: clamp(28px,4vw,48px); color: var(--cream); line-height: 1; }
+    .bb-text em { font-family: var(--f-serif); font-style: italic; color: var(--vert); font-weight: 400; }
+    .bb-sub { font-size: .85rem; line-height: 1.7; font-weight: 300; color: rgba(240,235,216,.5); margin-top: 14px; }
+
+    @media (max-width: 960px) {
+      .drops-hero { padding: 110px 20px 60px; min-height: 0; }
+      .dh-title { font-size: clamp(56px, 13vw, 110px); }
+      .dh-sub { font-size: .92rem; }
+      .what-strip { grid-template-columns: 1fr; gap: 28px; padding: 56px 20px; }
+      .current-drop { padding: 64px 20px; }
+      .cd-header { grid-template-columns: 1fr; gap: 24px; margin-bottom: 40px; }
+      .cd-title { font-size: clamp(44px, 11vw, 80px); }
+      .drop-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+      .drop-card { padding: 22px; }
+      .drop-card-img { margin: -22px -22px 0; font-size: 60px; }
+      .how { padding: 64px 20px; }
+      .how-title { font-size: clamp(36px, 10vw, 64px); margin-bottom: 44px; }
+      .how-grid { grid-template-columns: 1fr 1fr; }
+      .how-step { padding: 32px 22px; border-right: none; border-bottom: 1px solid rgba(240,235,216,.12); }
+      .how-step:nth-child(2n+1) { border-right: 1px solid rgba(240,235,216,.12); }
+      .how-step:last-child { grid-column: 1 / -1; border-bottom: none; }
+      .waitlist { padding: 64px 20px; }
+      .wl-grid { grid-template-columns: 1fr; gap: 32px; }
+      .buy-band { padding: 56px 20px; }
+      .bb-grid { grid-template-columns: 1fr; gap: 24px; text-align: left; }
+    }
+    @media (max-width: 560px) {
+      .drops-hero { padding: 96px 18px 52px; }
+      .dh-title { font-size: clamp(48px, 14vw, 84px); margin-bottom: 26px; }
+      .dh-sub { font-size: .85rem; line-height: 1.75; margin-bottom: 32px; }
+      .dh-actions { gap: 12px; }
+      .what-strip { padding: 48px 18px; gap: 22px; }
+      .ws-title { font-size: clamp(1.8rem, 8vw, 2.6rem); }
+      .ws-body { font-size: .85rem; }
+      .current-drop { padding: 52px 18px; }
+      .cd-title { font-size: clamp(36px, 12vw, 60px); }
+      .drop-grid { grid-template-columns: 1fr; }
+      .drop-card { padding: 20px; }
+      .drop-card-img { margin: -20px -20px 0; aspect-ratio: 16/10; font-size: 52px; }
+      .how { padding: 52px 18px; }
+      .how-title { font-size: clamp(32px, 11vw, 52px); }
+      .how-grid { grid-template-columns: 1fr; }
+      .how-step { border-right: none !important; padding: 28px 18px; }
+      .waitlist { padding: 52px 18px; }
+      .wl-form { padding: 26px 22px; }
+      .buy-band { padding: 48px 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stripe"></div>
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo"><img src="assets/LOGO/LOGO_COBALT.svg" alt="Collectif Cobalt" class="nav-logo-img" width="200" height="45"></a>
+    <button class="nav-burger-btn" id="nav-burger" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+<!-- HERO -->
+  <section class="drops-hero">
+    <div class="dh-bg-num" aria-hidden="true">02·D</div>
+    <div class="dh-eyebrow sr">L'Atelier — Drops</div>
+    <h1 class="dh-title sr">PETITES SÉRIES,<br><em>par drops.</em></h1>
+    <p class="dh-sub sr sr-d2">L'atelier sort plusieurs fois par an des séries limitées de mobilier et d'objets. Quelques pièces, fabriquées d'un coup, vendues d'un coup. Quand c'est parti, c'est parti — la pièce ne sera pas refabriquée.</p>
+    <div class="dh-actions sr sr-d3">
+      <a href="#current" class="btn btn-cream"><span>Voir le drop en cours →</span></a>
+      <a href="#waitlist" class="btn btn-outline" style="color:var(--cream); border-color:rgba(240,235,216,.4)"><span>Liste d'attente</span></a>
+    </div>
+  </section>
+
+  <!-- WHAT — manifeste drop -->
+  <div class="what-strip">
+    <h2 class="ws-title sr">Une série, une fois.</h2>
+    <p class="ws-body sr sr-d1">On ne refait pas. On annonce un drop, on fabrique 6 à 30 pièces selon le modèle, on les vend, on passe au suivant. <strong>Pas de stock dormant, pas de réassort, pas de catalogue éternel.</strong> Si la pièce vous plaît, c'est maintenant.</p>
+  </div>
+
+  <!-- CURRENT DROP -->
+  <section id="current" class="current-drop">
+    <div class="cd-header sr">
+      <div>
+        <div class="cd-tag">Drop en cours · #001</div>
+        <h2 class="cd-title">CARNET<br>DE PIN.</h2>
+      </div>
+      <div>
+        <p class="cd-meta">Première sortie d'atelier : trois pièces autour du pin maritime de Gironde, brossé et huilé. Un tabouret, une table d'appoint, un porte-revues. Trois pièces, peu d'unités, du local.</p>
+        <div class="cd-meta-row">
+          <div class="cd-meta-item">
+            <span class="cd-meta-lbl">Annoncé</span>
+            <span class="cd-meta-val">Mai 2026</span>
+          </div>
+          <div class="cd-meta-item">
+            <span class="cd-meta-lbl">Pièces</span>
+            <span class="cd-meta-val">3 modèles · 28 unités</span>
+          </div>
+          <div class="cd-meta-item">
+            <span class="cd-meta-lbl">Matière</span>
+            <span class="cd-meta-val">Pin Gironde · huile dure</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="drop-grid sr sr-d1">
+      <div class="drop-card">
+        <div class="drop-card-img">01</div>
+        <div class="drop-card-tag">
+          <span>Tabouret</span>
+          <span class="badge-stock">12 / 12</span>
+        </div>
+        <h3 class="drop-card-name">Tabouret COB-01.</h3>
+        <p class="drop-card-desc">Tripied bas, assise tournée à la main. 42 cm de haut, finition huile naturelle. Empilable.</p>
+        <div class="drop-card-meta">
+          <div class="drop-card-price">180 €<small>livré · Nouvelle-Aquitaine</small></div>
+          <a href="https://instagram.com/collectifcobalt_" target="_blank" rel="noopener" class="drop-card-cta">Réserver</a>
+        </div>
+      </div>
+      <div class="drop-card">
+        <div class="drop-card-img">02</div>
+        <div class="drop-card-tag">
+          <span>Table d'appoint</span>
+          <span class="badge-stock last">3 / 8</span>
+        </div>
+        <h3 class="drop-card-name">Table COB-02.</h3>
+        <p class="drop-card-desc">Plateau rond Ø 42 cm, plateau bas pour magazines. 56 cm de haut. Pin brossé.</p>
+        <div class="drop-card-meta">
+          <div class="drop-card-price">340 €<small>livré · Nouvelle-Aquitaine</small></div>
+          <a href="https://instagram.com/collectifcobalt_" target="_blank" rel="noopener" class="drop-card-cta">Réserver</a>
+        </div>
+      </div>
+      <div class="drop-card">
+        <div class="drop-card-img">03</div>
+        <div class="drop-card-tag">
+          <span>Porte-revues</span>
+          <span class="badge-stock sold">Sold out</span>
+        </div>
+        <h3 class="drop-card-name">Porte-revues COB-03.</h3>
+        <p class="drop-card-desc">Format A4, deux compartiments, finition cire. La plus simple des trois — partie en premier.</p>
+        <div class="drop-card-meta">
+          <div class="drop-card-price">95 €<small>livré · Nouvelle-Aquitaine</small></div>
+          <a href="#waitlist" class="drop-card-cta">Liste d'attente</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMENT ÇA MARCHE -->
+  <section class="how">
+    <h2 class="how-title sr">RÉSERVER, <em>simple.</em></h2>
+    <div class="how-grid">
+      <div class="how-step sr">
+        <div class="how-step-bar"></div>
+        <div class="how-step-num">01</div>
+        <div class="how-step-name">Drop annoncé</div>
+        <p class="how-step-desc">On prévient la liste d'attente 48 h avant. Photos, cotes, prix, nombre d'unités — tout est posé.</p>
+      </div>
+      <div class="how-step sr sr-d1">
+        <div class="how-step-bar"></div>
+        <div class="how-step-num">02</div>
+        <div class="how-step-name">Vous réservez</div>
+        <p class="how-step-desc">Un DM Instagram ou un mail à <strong style="color:var(--cream)">atelier@collectifcobalt.eu</strong>. Premier arrivé, premier servi.</p>
+      </div>
+      <div class="how-step sr sr-d2">
+        <div class="how-step-bar"></div>
+        <div class="how-step-num">03</div>
+        <div class="how-step-name">Acompte 30 %</div>
+        <p class="how-step-desc">Virement ou Stripe. La pièce est mise de côté à votre nom. Solde à la livraison.</p>
+      </div>
+      <div class="how-step sr sr-d3">
+        <div class="how-step-bar"></div>
+        <div class="how-step-num">04</div>
+        <div class="how-step-name">Livraison</div>
+        <p class="how-step-desc">2 à 6 semaines. Transport en Nouvelle-Aquitaine inclus. Hors région : devis transport.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WAITLIST -->
+  <section id="waitlist" class="waitlist">
+    <div class="wl-grid">
+      <div class="sr">
+        <div class="wl-eyebrow">Prochain drop · été 2026</div>
+        <h2 class="wl-title">Premier <em>servi</em>,<br>premier prévenu.</h2>
+        <p class="wl-body">La liste d'attente reçoit chaque drop 48 h avant qu'il soit public. Pas de spam : un mail par drop, deux à trois fois par an. On vous prévient aussi quand une pièce vous intéresse revient en cas de désistement.</p>
+      </div>
+      <form class="wl-form sr sr-d1" onsubmit="alert('Merci ! On vous prévient au prochain drop.'); return false;">
+        <div class="wl-field">
+          <label class="wl-lbl">Prénom</label>
+          <input class="wl-input" type="text" placeholder="Camille" required>
+        </div>
+        <div class="wl-field">
+          <label class="wl-lbl">Email</label>
+          <input class="wl-input" type="email" placeholder="camille@mail.fr" required>
+        </div>
+        <div class="wl-field">
+          <label class="wl-lbl">Pièce qui vous intéresse (optionnel)</label>
+          <input class="wl-input" type="text" placeholder="Tabouret, table, porte-revues, autre…">
+        </div>
+        <button type="submit" class="btn btn-dark wl-submit"><span>Rejoindre la liste →</span></button>
+        <p class="wl-note">Aucun engagement. Désinscription d'un clic.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- BUY BAND -->
+  <div class="buy-band">
+    <div class="bb-grid">
+      <div class="sr">
+        <div class="bb-text">UNE PIÈCE <em>en stock ?</em></div>
+        <p class="bb-sub">Écrivez à atelier@collectifcobalt.eu ou DM @collectifcobalt_ sur Instagram. Réponse sous 48 h.</p>
+      </div>
+      <a href="mailto:atelier@collectifcobalt.eu" class="btn btn-cream sr sr-d1"><span>Écrire à l'atelier →</span></a>
+    </div>
+  </div>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <div class="marquee-item">DROP<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--vert)">SÉRIE LIMITÉE</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">FAIT MAIN<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--vert)">PIN GIRONDE</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">ATELIER<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--vert)">COBALT</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">DROP<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--vert)">SÉRIE LIMITÉE</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">FAIT MAIN<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--vert)">PIN GIRONDE</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">ATELIER<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--vert)">COBALT</span><div class="marquee-sep"></div></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-stripe"></div>
+    <div class="footer-silhouette" aria-hidden="true">
+      <svg width="500" height="340" viewBox="0 0 750 450" fill="rgba(240,235,216,1)"><rect x="0" y="220" width="750" height="230"/><rect x="60" y="0" width="130" height="220"/><rect x="280" y="60" width="130" height="160"/><rect x="500" y="30" width="130" height="190"/></svg>
+    </div>
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">cobalt<span class="dot">.</span></div>
+        <p class="footer-tagline">Penser. Faire. Transmettre.<br>Studio de design d'espace, Nouvelle-Aquitaine.</p>
+        <div class="footer-socials">
+          <a href="https://www.instagram.com/collectifcobalt_/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/company/collectif-cobalt" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Le Collectif</div>
+        <nav class="footer-nav">
+          <a href="studio.html">Studio</a>
+          <a href="atelier.html">L'Atelier</a>
+          <a href="bleu-de-cobalt.html">Bleu de Cobalt</a>
+          <a href="media.html">Le Média</a>
+        </nav>
+      </div>
+      <div>
+        <div class="footer-col-title">L'Atelier</div>
+        <nav class="footer-nav">
+          <a href="atelier-projets.html">Projets</a>
+          <a href="atelier-services.html">Services</a>
+          <a href="atelier-drops.html">Drops</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Collectif Cobalt. Tous droits réservés.</p>
+      <p class="footer-legal">Drops Atelier — séries limitées, Nouvelle-Aquitaine</p>
+    </div>
+  </footer>
+
+  <script src="shared.js"></script>
+</body>
+</html>

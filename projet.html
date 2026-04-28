@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23F3EFD7'/><text x='4' y='24' font-size='22' font-family='sans-serif' font-weight='900' fill='%234A82DC'>c.</text></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#F3EFD7">
+  <meta name="description" content="Projet — Collectif Cobalt">
+  <title>Projet — cobalt.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    /* La stripe et les accents prennent la couleur du projet via [data-accent] */
+    body[data-accent="bleu"]  .stripe { background: linear-gradient(90deg, var(--bleu) 25%, var(--noir) 25% 50%, var(--bleu) 50% 75%, var(--noir) 75%); }
+    body[data-accent="vert"]  .stripe { background: linear-gradient(90deg, var(--vert) 25%, var(--noir) 25% 50%, var(--vert) 50% 75%, var(--noir) 75%); }
+    body[data-accent="jaune"] .stripe { background: linear-gradient(90deg, var(--jaune) 25%, var(--noir) 25% 50%, var(--jaune) 50% 75%, var(--noir) 75%); }
+    body[data-accent="rouge"] .stripe { background: linear-gradient(90deg, var(--rouge) 25%, var(--noir) 25% 50%, var(--rouge) 50% 75%, var(--noir) 75%); }
+    body[data-accent="bleu"]  { --accent: var(--bleu); }
+    body[data-accent="vert"]  { --accent: var(--vert); }
+    body[data-accent="jaune"] { --accent: var(--jaune); }
+    body[data-accent="rouge"] { --accent: var(--rouge); }
+
+    /* ── BACK BAR ── */
+    .back-bar {
+      padding: 96px 44px 0; background: var(--cream);
+    }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-size: .68rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: rgba(26,26,26,.5);
+      transition: gap .2s, color .15s;
+    }
+    .back-link::before { content: '←'; font-size: 1.05em; }
+    .back-link:hover { color: var(--noir); gap: 18px; }
+
+    /* ── HERO ── */
+    .p-hero {
+      padding: 28px 44px 0; background: var(--cream);
+      border-bottom: 2px solid var(--noir);
+    }
+    .p-hero-meta {
+      display: flex; gap: 14px; align-items: center; flex-wrap: wrap;
+      font-size: .62rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: rgba(26,26,26,.4);
+      margin-bottom: 28px;
+    }
+    .p-cat { color: var(--accent); }
+    .p-cat::before { content: '·'; margin-right: 14px; color: rgba(26,26,26,.3); }
+    .badge { padding: 3px 10px; font-size: .56rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; border-radius: 4px; }
+    .badge-livré   { background: var(--vert);  color: var(--cream); }
+    .badge-cours   { background: var(--jaune); color: var(--noir); }
+    .badge-concept { background: var(--bleu);  color: var(--cream); }
+
+    .p-title {
+      font-family: var(--f-display);
+      font-size: clamp(56px, 9vw, 130px);
+      line-height: .86; letter-spacing: -.02em;
+      margin-bottom: 24px;
+    }
+    .p-tagline {
+      font-family: var(--f-serif); font-style: italic;
+      font-size: clamp(1.2rem, 2vw, 1.6rem);
+      color: rgba(26,26,26,.55); line-height: 1.4;
+      max-width: 32ch; margin-bottom: 56px;
+    }
+    .p-cover {
+      width: 100%; aspect-ratio: 16/9;
+      object-fit: cover; display: block;
+      border-radius: var(--r-md);
+      margin-bottom: -2px; /* mange le border-bottom du parent */
+    }
+
+    /* ── FICHE TECHNIQUE ── */
+    .p-fiche {
+      background: var(--cream); padding: 80px 44px;
+      border-bottom: 2px solid var(--noir);
+    }
+    .fiche-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0; border-top: 2px solid var(--noir);
+    }
+    .fiche-cell {
+      padding: 36px 28px;
+      border-right: 1px solid rgba(26,26,26,.12);
+    }
+    .fiche-cell:last-child { border-right: none; }
+    .fiche-lbl {
+      font-size: .58rem; font-weight: 700; letter-spacing: .2em;
+      text-transform: uppercase; color: rgba(26,26,26,.4);
+      margin-bottom: 12px;
+    }
+    .fiche-val {
+      font-family: var(--f-display); font-size: 1.4rem; line-height: 1.1;
+      color: var(--noir);
+    }
+    .fiche-val.small {
+      font-family: var(--f-body); font-size: .95rem; font-weight: 400;
+      color: rgba(26,26,26,.75);
+    }
+
+    /* ── BRIEF ── */
+    .p-brief {
+      padding: 100px 44px;
+      display: grid; grid-template-columns: 1fr 1.6fr; gap: 80px;
+      background: var(--cream); border-bottom: 2px solid var(--noir);
+    }
+    .brief-side {
+      position: sticky; top: 100px; align-self: flex-start;
+    }
+    .brief-num {
+      font-family: var(--f-display);
+      font-size: clamp(80px, 10vw, 140px);
+      line-height: 1; color: rgba(26,26,26,.07);
+      margin-bottom: 20px;
+    }
+    .brief-body p {
+      font-size: 1rem; line-height: 1.85;
+      font-weight: 300; color: rgba(26,26,26,.78);
+      margin-bottom: 24px;
+    }
+    .brief-body p:first-of-type::first-letter {
+      font-family: var(--f-serif); font-style: italic;
+      font-size: 3.2em; float: left; line-height: .85;
+      margin: 4px 12px 0 0; color: var(--accent);
+    }
+    .brief-quote {
+      font-family: var(--f-serif); font-style: italic;
+      font-size: clamp(1.3rem, 2vw, 1.7rem); line-height: 1.4;
+      border-left: 3px solid var(--accent);
+      padding: 8px 0 8px 24px;
+      margin: 36px 0 0;
+      color: rgba(26,26,26,.65);
+    }
+
+    /* ── GALERIE ── */
+    .p-gallery {
+      background: var(--noir); padding: 100px 44px;
+    }
+    .gal-head {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      margin-bottom: 56px; flex-wrap: wrap; gap: 20px;
+    }
+    .gal-title {
+      font-family: var(--f-display);
+      font-size: clamp(40px, 5vw, 64px); line-height: .9;
+      color: var(--cream);
+    }
+    .gal-count {
+      font-size: .62rem; font-weight: 700; letter-spacing: .2em;
+      text-transform: uppercase; color: rgba(240,235,216,.4);
+    }
+    .gal-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 16px;
+      grid-auto-rows: 220px; grid-auto-flow: dense;
+    }
+    .gal-item {
+      position: relative; overflow: hidden; border-radius: var(--r-sm);
+      cursor: pointer; background: rgba(240,235,216,.05);
+    }
+    .gal-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .6s cubic-bezier(.25,.46,.45,.94);
+    }
+    .gal-item:hover img { transform: scale(1.04); }
+    .gal-item::after {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(26,26,26,.0); transition: background .25s;
+      pointer-events: none;
+    }
+    .gal-item:hover::after { background: rgba(26,26,26,.18); }
+    .gal-item:nth-child(1)  { grid-column: span 2; grid-row: span 2; }
+    .gal-item:nth-child(4)  { grid-column: span 2; }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 9000;
+      background: rgba(26,26,26,.96);
+      display: none; align-items: center; justify-content: center;
+      padding: 60px;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 100%; max-height: 100%; width: auto; height: auto;
+      object-fit: contain; border-radius: var(--r-sm);
+    }
+    .lb-close {
+      position: absolute; top: 24px; right: 28px;
+      width: 44px; height: 44px; border: none; background: transparent;
+      color: var(--cream); font-size: 1.5rem; font-family: var(--f-body);
+      transition: opacity .15s;
+    }
+    .lb-close:hover { opacity: .7; }
+    .lb-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 56px; height: 56px; border: 1px solid rgba(240,235,216,.2);
+      background: transparent; color: var(--cream); border-radius: 50%;
+      font-size: 1.4rem; transition: background .15s, border-color .15s;
+    }
+    .lb-nav:hover { background: rgba(240,235,216,.08); border-color: rgba(240,235,216,.5); }
+    .lb-prev { left: 28px; }
+    .lb-next { right: 28px; }
+    .lb-count {
+      position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+      font-size: .62rem; font-weight: 600; letter-spacing: .14em;
+      text-transform: uppercase; color: rgba(240,235,216,.5);
+    }
+
+    /* ── PROCESS ── */
+    .p-process {
+      background: var(--cream); padding: 100px 44px;
+      border-top: 2px solid var(--noir);
+    }
+    .pr-head { margin-bottom: 56px; }
+    .pr-title {
+      font-family: var(--f-display);
+      font-size: clamp(40px, 5vw, 64px); line-height: .9;
+    }
+    .pr-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0; border-top: 2px solid var(--noir);
+    }
+    .pr-step {
+      padding: 40px 28px; border-right: 1px solid rgba(26,26,26,.12);
+      display: flex; flex-direction: column;
+    }
+    .pr-step:last-child { border-right: none; }
+    .pr-num {
+      font-family: var(--f-display); font-size: 40px; line-height: 1;
+      color: rgba(26,26,26,.18); margin-bottom: 18px;
+    }
+    .pr-bar { width: 28px; height: 3px; background: var(--accent); margin-bottom: 18px; }
+    .pr-name {
+      font-size: .82rem; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--noir); margin-bottom: 12px;
+    }
+    .pr-txt {
+      font-size: .82rem; line-height: 1.75; font-weight: 300;
+      color: rgba(26,26,26,.6);
+    }
+
+    /* ── PROJETS LIÉS ── */
+    .p-related {
+      background: var(--cream); padding: 100px 44px;
+      border-top: 2px solid var(--noir);
+    }
+    .rel-head { margin-bottom: 36px; }
+    .rel-title {
+      font-family: var(--f-display);
+      font-size: clamp(36px, 4vw, 52px); line-height: .9;
+    }
+    .rel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .rel-card {
+      position: relative; overflow: hidden; display: block;
+      border-radius: var(--r-md); aspect-ratio: 4/5; background: var(--noir);
+    }
+    .rel-card img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .6s cubic-bezier(.25,.46,.45,.94);
+    }
+    .rel-card:hover img { transform: scale(1.04); }
+    .rel-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(26,26,26,.85) 0%, transparent 50%);
+    }
+    .rel-meta {
+      position: absolute; bottom: 0; left: 0; right: 0; padding: 24px;
+      color: var(--cream);
+    }
+    .rel-card-title {
+      font-family: var(--f-serif); font-style: italic;
+      font-size: 1.4rem; line-height: 1.05; margin-bottom: 8px;
+    }
+    .rel-card-meta {
+      font-size: .58rem; font-weight: 600; letter-spacing: .12em;
+      text-transform: uppercase; color: rgba(240,235,216,.55);
+    }
+
+    /* ── CTA ── */
+    .p-cta {
+      background: var(--noir); padding: 100px 44px;
+      display: flex; align-items: center; justify-content: space-between; gap: 40px;
+    }
+    .cta-text {
+      font-family: var(--f-display); font-size: clamp(32px, 5vw, 60px);
+      line-height: .92; color: var(--cream);
+    }
+    .cta-text em {
+      font-family: var(--f-serif); font-style: italic; color: var(--accent);
+    }
+
+    /* ── ÉTATS DE CHARGEMENT ── */
+    .p-loading, .p-empty {
+      min-height: 60vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 16px; padding: 120px 28px; text-align: center;
+    }
+    .p-empty h2 { font-family: var(--f-display); font-size: clamp(40px, 6vw, 72px); }
+    .p-empty p { font-size: .92rem; color: rgba(26,26,26,.55); max-width: 40ch; line-height: 1.7; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1100px) {
+      .back-bar, .p-hero, .p-fiche, .p-brief, .p-gallery, .p-process, .p-related, .p-cta {
+        padding-left: 28px; padding-right: 28px;
+      }
+    }
+    @media (max-width: 960px) {
+      .back-bar { padding: 84px 20px 0; }
+      .p-hero { padding: 24px 20px 0; }
+      .p-title { font-size: clamp(48px, 11vw, 88px); }
+      .p-tagline { font-size: 1.1rem; margin-bottom: 40px; }
+      .p-cover { aspect-ratio: 4/3; border-radius: var(--r-sm); }
+      .p-fiche { padding: 56px 20px; }
+      .fiche-grid { grid-template-columns: 1fr 1fr; }
+      .fiche-cell { padding: 26px 20px; }
+      .fiche-cell:nth-child(2) { border-right: none; }
+      .fiche-cell:nth-child(1), .fiche-cell:nth-child(2) { border-bottom: 1px solid rgba(26,26,26,.12); }
+      .fiche-val { font-size: 1.2rem; }
+      .p-brief { grid-template-columns: 1fr; gap: 28px; padding: 64px 20px; }
+      .brief-side { position: static; }
+      .brief-num { font-size: clamp(60px, 18vw, 96px); margin-bottom: 12px; }
+      .brief-body p { font-size: .92rem; }
+      .p-gallery { padding: 64px 20px; }
+      .gal-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 180px; gap: 12px; }
+      .gal-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+      .gal-item:nth-child(4) { grid-column: span 2; }
+      .p-process { padding: 64px 20px; }
+      .pr-grid { grid-template-columns: 1fr 1fr; }
+      .pr-step:nth-child(2) { border-right: none; }
+      .pr-step:nth-child(1), .pr-step:nth-child(2) { border-bottom: 1px solid rgba(26,26,26,.12); }
+      .p-related { padding: 64px 20px; }
+      .rel-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+      .rel-grid .rel-card:nth-child(3) { display: none; }
+      .p-cta { flex-direction: column; align-items: flex-start; padding: 64px 20px; gap: 28px; }
+      .lightbox { padding: 24px; }
+      .lb-prev { left: 12px; } .lb-next { right: 12px; }
+      .lb-nav { width: 44px; height: 44px; }
+    }
+    @media (max-width: 560px) {
+      .back-bar { padding: 76px 18px 0; }
+      .p-hero { padding: 20px 18px 0; }
+      .p-hero-meta { gap: 10px; margin-bottom: 22px; font-size: .58rem; }
+      .p-cat::before { margin-right: 10px; }
+      .p-title { font-size: clamp(40px, 13vw, 64px); margin-bottom: 18px; }
+      .p-tagline { font-size: 1rem; margin-bottom: 28px; }
+      .p-fiche { padding: 44px 18px; }
+      .fiche-cell { padding: 22px 16px; }
+      .fiche-val { font-size: 1.05rem; }
+      .fiche-val.small { font-size: .85rem; }
+      .p-brief { padding: 52px 18px; }
+      .brief-num { font-size: clamp(48px, 22vw, 80px); }
+      .brief-body p { font-size: .88rem; line-height: 1.75; }
+      .brief-body p:first-of-type::first-letter { font-size: 2.6em; }
+      .brief-quote { font-size: 1.05rem; padding-left: 18px; }
+      .p-gallery { padding: 52px 18px; }
+      .gal-head { margin-bottom: 32px; }
+      .gal-grid { grid-template-columns: 1fr; grid-auto-rows: 200px; }
+      .gal-item:nth-child(1), .gal-item:nth-child(4) { grid-column: span 1; grid-row: span 1; }
+      .p-process { padding: 52px 18px; }
+      .pr-grid { grid-template-columns: 1fr; }
+      .pr-step { border-right: none !important; border-bottom: 1px solid rgba(26,26,26,.12); padding: 28px 18px; }
+      .pr-step:last-child { border-bottom: none; }
+      .p-related { padding: 52px 18px; }
+      .rel-grid { grid-template-columns: 1fr; }
+      .rel-grid .rel-card:nth-child(3) { display: block; }
+      .rel-card { aspect-ratio: 16/10; }
+      .p-cta { padding: 52px 18px; gap: 22px; }
+      .cta-text { font-size: clamp(26px, 8vw, 40px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="stripe"></div>
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo"><img src="assets/LOGO/LOGO_COBALT.svg" alt="Collectif Cobalt" class="nav-logo-img" width="200" height="45"></a>
+    <button class="nav-burger-btn" id="nav-burger" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+<!-- Conteneur dynamique : tout le contenu projet est injecté ici -->
+  <main id="projet-root">
+    <div class="p-loading" id="loading-state">
+      <div class="s-label" style="margin:0">Chargement…</div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-stripe"></div>
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">cobalt<span class="dot">.</span></div>
+        <p class="footer-tagline">Penser. Faire. Transmettre.<br>Studio de design d'espace, Nouvelle-Aquitaine.</p>
+        <div class="footer-socials">
+          <a href="https://www.instagram.com/collectifcobalt_/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/company/collectif-cobalt" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Navigation</div>
+        <nav class="footer-nav">
+          <a href="projets.html">Projets</a>
+          <a href="services.html">Services</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact direct</div>
+        <div class="footer-contact-item">
+          <div class="footer-contact-name">Gambi</div>
+          <a href="mailto:gambi@collectifcobalt.eu" class="footer-contact-email">gambi@collectifcobalt.eu</a>
+        </div>
+        <div class="footer-contact-item">
+          <div class="footer-contact-name">Lola</div>
+          <a href="mailto:lola@collectifcobalt.eu" class="footer-contact-email">lola@collectifcobalt.eu</a>
+        </div>
+        <div class="footer-contact-item">
+          <div class="footer-contact-name">Lou-Ann</div>
+          <a href="mailto:louann@collectifcobalt.eu" class="footer-contact-email">louann@collectifcobalt.eu</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Collectif Cobalt. Tous droits réservés.</p>
+      <p class="footer-legal">Studio de design d'espace — surfaces inférieures à 150 m²</p>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lb-close" id="lb-close" aria-label="Fermer">✕</button>
+    <button class="lb-nav lb-prev" id="lb-prev" aria-label="Précédent">←</button>
+    <img id="lb-img" alt="">
+    <button class="lb-nav lb-next" id="lb-next" aria-label="Suivant">→</button>
+    <div class="lb-count" id="lb-count"></div>
+  </div>
+
+  <script src="shared.js"></script>
+  <script>
+    /* ─────────── PROJECT PAGE LOGIC ─────────── */
+    const params = new URLSearchParams(location.search);
+    const projetId = params.get('id');
+    const root = document.getElementById('projet-root');
+
+    function escapeHTML(str) {
+      return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+
+    function statusBadge(s) {
+      if (s === 'livré')   return '<span class="badge badge-livré">Livré</span>';
+      if (s === 'cours')   return '<span class="badge badge-cours">En cours</span>';
+      if (s === 'concept') return '<span class="badge badge-concept">Concept</span>';
+      return '';
+    }
+
+    function renderEmpty(msg) {
+      root.innerHTML = `
+        <div class="p-empty">
+          <h2>Projet introuvable</h2>
+          <p>${escapeHTML(msg || "Ce projet n'existe pas ou a été déplacé.")}</p>
+          <a href="projets.html" class="btn btn-dark"><span>← Voir tous les projets</span></a>
+        </div>`;
+    }
+
+    function renderProjet(p, related) {
+      document.title = `${p.title} — cobalt.`;
+      document.body.dataset.accent = p.accent || 'bleu';
+      const desc = document.querySelector('meta[name="description"]');
+      if (desc) desc.setAttribute('content', `${p.title} — ${p.tagline}`);
+
+      const galleryHTML = p.gallery.map((src, i) => `
+        <div class="gal-item" data-idx="${i}">
+          <img src="${escapeHTML(src)}" alt="${escapeHTML(p.title)} — vue ${i + 1}" loading="lazy">
+        </div>`).join('');
+
+      const processHTML = (p.process || []).map((step, i) => `
+        <div class="pr-step sr sr-d${Math.min(i, 3) + 1}">
+          <div class="pr-num">${String(i + 1).padStart(2, '0')}</div>
+          <div class="pr-bar"></div>
+          <div class="pr-name">${escapeHTML(step.titre)}</div>
+          <p class="pr-txt">${escapeHTML(step.txt)}</p>
+        </div>`).join('');
+
+      const briefHTML = (p.brief || []).map(par => `<p>${escapeHTML(par)}</p>`).join('');
+
+      const relatedHTML = related.map(r => `
+        <a href="projet.html?id=${escapeHTML(r.id)}" class="rel-card">
+          <img src="${escapeHTML(r.cover)}" alt="${escapeHTML(r.title)}" loading="lazy">
+          <div class="rel-overlay"></div>
+          <div class="rel-meta">
+            <div class="rel-card-title">${escapeHTML(r.title)}.</div>
+            <div class="rel-card-meta">${escapeHTML(r.lieu)} · ${escapeHTML(r.annee)}</div>
+          </div>
+        </a>`).join('');
+
+      root.innerHTML = `
+        <!-- BACK -->
+        <div class="back-bar">
+          <a href="projets.html" class="back-link">Tous les projets</a>
+        </div>
+
+        <!-- HERO -->
+        <section class="p-hero">
+          <div class="p-hero-meta sr">
+            <span>${escapeHTML(p.lieu)}</span>
+            <span class="p-cat">${escapeHTML(p.category)}</span>
+            ${statusBadge(p.status)}
+          </div>
+          <h1 class="p-title sr">${escapeHTML(p.title)}.</h1>
+          <p class="p-tagline sr sr-d1">${escapeHTML(p.tagline)}</p>
+          <img class="p-cover sr sr-d2" src="${escapeHTML(p.cover)}" alt="${escapeHTML(p.title)}">
+        </section>
+
+        <!-- FICHE TECHNIQUE -->
+        <section class="p-fiche">
+          <div class="s-label">Fiche technique</div>
+          <div class="fiche-grid">
+            <div class="fiche-cell">
+              <div class="fiche-lbl">Lieu</div>
+              <div class="fiche-val small">${escapeHTML(p.lieu)}</div>
+            </div>
+            <div class="fiche-cell">
+              <div class="fiche-lbl">Surface</div>
+              <div class="fiche-val">${escapeHTML(p.surface)}</div>
+            </div>
+            <div class="fiche-cell">
+              <div class="fiche-lbl">Année</div>
+              <div class="fiche-val">${escapeHTML(p.annee)}</div>
+            </div>
+            <div class="fiche-cell">
+              <div class="fiche-lbl">Durée</div>
+              <div class="fiche-val small">${escapeHTML(p.duree)}</div>
+            </div>
+          </div>
+          <div class="fiche-grid" style="border-top:1px solid rgba(26,26,26,.12)">
+            <div class="fiche-cell" style="grid-column: span 2">
+              <div class="fiche-lbl">Mission</div>
+              <div class="fiche-val small">${escapeHTML(p.mission)}</div>
+            </div>
+            <div class="fiche-cell" style="grid-column: span 2">
+              <div class="fiche-lbl">Client</div>
+              <div class="fiche-val small">${escapeHTML(p.client)}</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- BRIEF -->
+        <section class="p-brief">
+          <div class="brief-side sr">
+            <div class="brief-num">01</div>
+            <div class="s-label">Brief & intention</div>
+          </div>
+          <div class="brief-body sr sr-d1">
+            ${briefHTML}
+            ${p.quote ? `<blockquote class="brief-quote">« ${escapeHTML(p.quote)} »</blockquote>` : ''}
+          </div>
+        </section>
+
+        <!-- GALERIE -->
+        <section class="p-gallery">
+          <div class="gal-head">
+            <div>
+              <div class="s-label on-dark">Galerie</div>
+              <h2 class="gal-title">VOIR<br>LE PROJET.</h2>
+            </div>
+            <div class="gal-count">${p.gallery.length} vues</div>
+          </div>
+          <div class="gal-grid">${galleryHTML}</div>
+        </section>
+
+        <!-- PROCESS -->
+        <section class="p-process">
+          <div class="pr-head sr">
+            <div class="s-label">Process · Making-of</div>
+            <h2 class="pr-title">COMMENT<br>ON L'A FAIT.</h2>
+          </div>
+          <div class="pr-grid">${processHTML}</div>
+        </section>
+
+        ${related.length ? `
+        <!-- PROJETS LIÉS -->
+        <section class="p-related">
+          <div class="rel-head">
+            <div class="s-label">À voir aussi</div>
+            <h2 class="rel-title">D'AUTRES PROJETS.</h2>
+          </div>
+          <div class="rel-grid">${relatedHTML}</div>
+        </section>` : ''}
+
+        <!-- CTA -->
+        <section class="p-cta">
+          <div class="cta-text">Un projet <em>comme celui-ci</em> ?<br>Parlons-en.</div>
+          <a href="contact.html" class="btn btn-cream"><span>Démarrer un projet →</span></a>
+        </section>
+      `;
+
+      // Ré-observer les .sr injectés dynamiquement
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+      }, { threshold: 0.08 });
+      root.querySelectorAll('.sr').forEach(el => obs.observe(el));
+
+      // Lightbox
+      setupLightbox(p.gallery, p.title);
+    }
+
+    function setupLightbox(images, title) {
+      const lb     = document.getElementById('lightbox');
+      const lbImg  = document.getElementById('lb-img');
+      const lbCnt  = document.getElementById('lb-count');
+      const close  = document.getElementById('lb-close');
+      const prev   = document.getElementById('lb-prev');
+      const next   = document.getElementById('lb-next');
+      let cur = 0;
+
+      const update = () => {
+        lbImg.src = images[cur];
+        lbImg.alt = `${title} — vue ${cur + 1}`;
+        lbCnt.textContent = `${cur + 1} / ${images.length}`;
+      };
+      const open = (i) => {
+        cur = i; update();
+        lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      };
+      const closeIt = () => {
+        lb.classList.remove('open');
+        document.body.style.overflow = '';
+      };
+      const go = (delta) => {
+        cur = (cur + delta + images.length) % images.length;
+        update();
+      };
+
+      document.querySelectorAll('.gal-item').forEach(el => {
+        el.addEventListener('click', () => open(+el.dataset.idx));
+      });
+      close.addEventListener('click', closeIt);
+      prev.addEventListener('click', () => go(-1));
+      next.addEventListener('click', () => go(+1));
+      lb.addEventListener('click', e => { if (e.target === lb) closeIt(); });
+      document.addEventListener('keydown', e => {
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape') closeIt();
+        if (e.key === 'ArrowLeft')  go(-1);
+        if (e.key === 'ArrowRight') go(+1);
+      });
+    }
+
+    if (!projetId) {
+      renderEmpty("Aucun identifiant de projet n'a été fourni dans l'URL.");
+    } else {
+      fetch('projets.json', { cache: 'no-cache' })
+        .then(r => {
+          if (!r.ok) throw new Error('JSON inaccessible');
+          return r.json();
+        })
+        .then(data => {
+          const p = data.projets.find(x => x.id === projetId);
+          if (!p) { renderEmpty(); return; }
+          // 3 projets liés (les autres, hors lui-même)
+          const related = data.projets.filter(x => x.id !== p.id).slice(0, 3);
+          renderProjet(p, related);
+        })
+        .catch(err => {
+          console.error(err);
+          renderEmpty('Erreur lors du chargement des données projet.');
+        });
+    }
+  </script>
+</body>
+</html>

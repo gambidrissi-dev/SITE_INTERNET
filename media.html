@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23F3EFD7'/><text x='4' y='24' font-size='22' font-family='sans-serif' font-weight='900' fill='%234A82DC'>c.</text></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#F3EFD7">
+  <title>Le Média — Collectif Cobalt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    /* stripe rouge */
+    .stripe { background: linear-gradient(90deg, var(--rouge) 25%, var(--noir) 25% 50%, var(--rouge) 50% 75%, var(--noir) 75%); }
+
+    /* HERO */
+    .media-hero {
+      min-height: 100vh; background: var(--rouge);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 140px 44px 80px; position: relative; overflow: hidden;
+      border-bottom: 2px solid var(--noir);
+    }
+    .mh-bg-num {
+      position: absolute; right: -60px; bottom: -80px;
+      font-family: var(--f-display); font-size: clamp(300px,40vw,500px);
+      color: rgba(26,26,26,.08); line-height: 1; pointer-events: none; user-select: none;
+    }
+    .mh-label { font-size: .62rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: rgba(240,235,216,.5); display: flex; align-items: center; gap: 14px; margin-bottom: 32px; }
+    .mh-label::before { content: ''; width: 24px; height: 2px; background: rgba(240,235,216,.5); }
+    .mh-title { font-family: var(--f-display); font-size: clamp(72px,12vw,160px); line-height: .84; color: var(--cream); margin-bottom: 40px; }
+    .mh-sub { max-width: 560px; font-size: 1rem; line-height: 1.85; font-weight: 300; color: rgba(240,235,216,.65); margin-bottom: 48px; }
+    .mh-cta { display: inline-flex; align-items: center; gap: 16px; font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--cream); transition: gap .2s; }
+    .mh-cta::after { content: '→'; font-size: 1.1em; }
+    .mh-cta:hover { gap: 24px; }
+
+    /* EDITORIAL */
+    .editorial { background: var(--cream); padding: 100px 44px; border-top: 2px solid var(--noir); }
+    .ed-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 56px; }
+    .ed-title { font-family: var(--f-display); font-size: clamp(48px,7vw,100px); line-height: .88; }
+    .ed-sub { font-size: .82rem; line-height: 1.75; color: rgba(26,26,26,.5); max-width: 320px; font-weight: 300; }
+    .ed-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 0; border-top: 2px solid var(--noir); }
+    .ed-main { border-right: 2px solid var(--noir); }
+    .ed-main-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; background: var(--noir); display: block; }
+    .ed-main-content { padding: 40px; }
+    .ed-main-tag { font-size: .58rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--rouge); margin-bottom: 16px; }
+    .ed-main-title { font-family: var(--f-display); font-size: clamp(22px,2.5vw,32px); line-height: 1.05; margin-bottom: 16px; }
+    .ed-main-desc { font-size: .82rem; line-height: 1.75; font-weight: 300; color: rgba(26,26,26,.55); }
+    .ed-list { display: flex; flex-direction: column; }
+    .ed-item { padding: 32px; border-bottom: 1px solid rgba(26,26,26,.1); transition: background .2s; }
+    .ed-item:hover { background: rgba(26,26,26,.03); }
+    .ed-item:last-child { border-bottom: none; }
+    .ed-item-tag { font-size: .55rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--rouge); margin-bottom: 10px; }
+    .ed-item-title { font-family: var(--f-display); font-size: 15px; line-height: 1.2; margin-bottom: 8px; }
+    .ed-item-desc { font-size: .75rem; line-height: 1.6; font-weight: 300; color: rgba(26,26,26,.45); }
+
+    /* FORMATS */
+    .formats { background: var(--noir); padding: 100px 44px; }
+    .fmt-title { font-family: var(--f-display); font-size: clamp(48px,6vw,80px); line-height: .88; color: var(--cream); margin-bottom: 64px; }
+    .fmt-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; border-top: 1px solid rgba(240,235,216,.1); }
+    .fmt-item { padding: 48px 28px; border-right: 1px solid rgba(240,235,216,.1); }
+    .fmt-item:last-child { border-right: none; }
+    .fmt-num { font-family: var(--f-display); font-size: 40px; color: var(--rouge); line-height: 1; margin-bottom: 16px; }
+    .fmt-bar { width: 24px; height: 2px; background: var(--rouge); margin-bottom: 16px; }
+    .fmt-name { font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--cream); margin-bottom: 12px; }
+    .fmt-desc { font-size: .75rem; line-height: 1.7; font-weight: 300; color: rgba(240,235,216,.35); }
+
+    /* CALENDRIER PREMIERS ÉPISODES */
+    .calendar { background: var(--cream); padding: 100px 44px; border-top: 2px solid var(--noir); }
+    .cal-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 56px; gap: 32px; flex-wrap: wrap; }
+    .cal-title { font-family: var(--f-display); font-size: clamp(48px,7vw,100px); line-height: .88; }
+    .cal-sub { font-size: .82rem; line-height: 1.75; color: rgba(26,26,26,.5); max-width: 360px; font-weight: 300; }
+    .cal-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 18px; }
+    .cal-card {
+      background: var(--cream); border: 1.5px solid var(--noir); border-radius: var(--r-md);
+      padding: 32px; display: flex; flex-direction: column; gap: 14px;
+      transition: background .2s, transform .2s;
+    }
+    .cal-card:hover { background: var(--noir); }
+    .cal-card:hover * { color: var(--cream) !important; }
+    .cal-card:hover .cal-card-format { color: var(--rouge) !important; }
+    .cal-card-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+    .cal-card-format { font-family: var(--f-display); font-size: 22px; color: var(--noir); letter-spacing: -.01em; }
+    .cal-card-date { font-size: .62rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--rouge); white-space: nowrap; }
+    .cal-card-title { font-family: var(--f-serif); font-style: italic; font-size: 1.15rem; line-height: 1.3; color: rgba(26,26,26,.85); }
+    .cal-card-desc { font-size: .82rem; line-height: 1.7; font-weight: 300; color: rgba(26,26,26,.55); }
+    .cal-card-meta { display: flex; gap: 12px; font-size: .58rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(26,26,26,.4); margin-top: 4px; }
+    .cal-card-meta span { padding: 4px 10px; border: 1px solid rgba(26,26,26,.15); border-radius: var(--r-pill); }
+
+    /* SUIVRE — chaînes */
+    .follow { background: var(--noir); padding: 80px 44px; border-top: 1px solid rgba(240,235,216,.06); }
+    .follow-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 56px; align-items: center; }
+    .follow-title { font-family: var(--f-display); font-size: clamp(32px,4vw,48px); line-height: .95; color: var(--cream); }
+    .follow-title em { font-family: var(--f-serif); font-style: italic; color: var(--rouge); font-weight: 400; }
+    .follow-channels { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+    .follow-ch {
+      padding: 22px; border: 1px solid rgba(240,235,216,.15);
+      border-radius: var(--r-md); display: block; transition: border-color .2s, background .2s;
+    }
+    .follow-ch:hover { border-color: var(--rouge); background: rgba(187,59,52,.08); }
+    .follow-ch-name { font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--cream); margin-bottom: 6px; }
+    .follow-ch-desc { font-size: .72rem; font-weight: 300; color: rgba(240,235,216,.4); line-height: 1.5; }
+
+    /* CTA */
+    .cta-band {
+      background: var(--cream); padding: 100px 44px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 2px solid var(--noir);
+    }
+    .cb-text { font-family: var(--f-display); font-size: clamp(32px,5vw,64px); color: var(--noir); line-height: .9; }
+    .cb-text em { font-family: var(--f-serif); font-style: italic; color: var(--rouge); }
+
+    @media (max-width: 960px) {
+      .media-hero { padding: 110px 20px 56px; min-height: 0; }
+      .mh-title { font-size: clamp(56px, 12vw, 110px); margin-bottom: 32px; }
+      .mh-sub { font-size: .92rem; margin-bottom: 36px; }
+      .editorial { padding: 64px 20px; }
+      .ed-title { font-size: clamp(36px, 10vw, 64px); }
+      .ed-header { flex-direction: column; gap: 18px; align-items: flex-start; margin-bottom: 36px; }
+      .ed-grid { grid-template-columns: 1fr; }
+      .ed-main { border-right: none; border-bottom: 2px solid var(--noir); }
+      .ed-main-content { padding: 32px 24px; }
+      .ed-item { padding: 26px 24px; }
+      .formats { padding: 64px 20px; }
+      .fmt-title { font-size: clamp(36px, 9vw, 56px); margin-bottom: 44px; }
+      .fmt-grid { grid-template-columns: 1fr 1fr; }
+      .fmt-item { padding: 36px 22px; }
+      .calendar { padding: 64px 20px; }
+      .cal-title { font-size: clamp(36px, 10vw, 64px); }
+      .cal-grid { grid-template-columns: 1fr; gap: 14px; }
+      .cal-card { padding: 24px; }
+      .follow { padding: 56px 20px; }
+      .follow-grid { grid-template-columns: 1fr; gap: 28px; }
+      .follow-channels { grid-template-columns: 1fr; }
+      .fmt-item:nth-child(2) { border-right: none; }
+      .fmt-item:nth-child(3), .fmt-item:nth-child(4) { border-top: 1px solid rgba(240,235,216,.1); }
+      .cta-band { flex-direction: column; gap: 32px; padding: 64px 20px; text-align: center; align-items: center; }
+      .cb-text { font-size: clamp(28px, 8vw, 44px); }
+    }
+    @media (max-width: 560px) {
+      .media-hero { padding: 96px 18px 48px; }
+      .mh-title { font-size: clamp(48px, 14vw, 84px); }
+      .mh-sub { font-size: .85rem; line-height: 1.75; }
+      .editorial { padding: 52px 18px; }
+      .ed-title { font-size: clamp(32px, 11vw, 52px); }
+      .ed-main-content { padding: 26px 20px; }
+      .ed-main-title { font-size: 1.15rem; }
+      .ed-item { padding: 22px 20px; }
+      .formats { padding: 52px 18px; }
+      .fmt-title { font-size: clamp(32px, 10vw, 48px); }
+      .fmt-grid { grid-template-columns: 1fr; }
+      .fmt-item { padding: 26px 18px; border-right: none !important; border-top: 1px solid rgba(240,235,216,.1) !important; }
+      .fmt-item:first-child { border-top: none !important; }
+      .cta-band { padding: 52px 18px; gap: 24px; }
+      .cb-text { font-size: clamp(26px, 9vw, 38px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="stripe"></div>
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo"><img src="assets/LOGO/LOGO_COBALT.svg" alt="Collectif Cobalt" class="nav-logo-img" width="200" height="45"></a>
+    <button class="nav-burger-btn" id="nav-burger" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+<!-- HERO -->
+  <section class="media-hero">
+    <div class="mh-bg-num" aria-hidden="true">04</div>
+    <div class="mh-label sr">La Voix</div>
+    <h1 class="mh-title sr">LE<br>MÉDIA.</h1>
+    <p class="mh-sub sr sr-d2">Donner de la visibilité à ce qui est fait avec exigence. Nous documentons les projets, les gestes, les talents — pour que le travail bien fait existe au-delà du chantier.</p>
+    <a href="media-journal.html" class="mh-cta sr sr-d3">Lire le Journal</a>
+  </section>
+
+  <!-- ÉDITORIAL -->
+  <section class="editorial">
+    <div class="ed-header sr">
+      <h2 class="ed-title">NOS<br>CONTENUS.</h2>
+      <p class="ed-sub">Articles, reportages, portraits d'artisans, chroniques d'espaces — une ligne éditoriale au service de la création.</p>
+    </div>
+    <div class="ed-grid">
+      <div class="ed-main sr">
+        <img class="ed-main-img" src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=900&q=80" alt="ARCHITALK — Épisode 01">
+        <div class="ed-main-content">
+          <div class="ed-main-tag">ARCHITALK — Série</div>
+          <h3 class="ed-main-title">Ce que l'espace dit de nous : conversations sur le design d'intérieur.</h3>
+          <p class="ed-main-desc">Chaque épisode, un praticien. Une conversation longue, sans filtre, sur la pratique, l'erreur, le choix. ARCHITALK c'est la voix du métier, telle qu'elle est.</p>
+        </div>
+      </div>
+      <div class="ed-list sr sr-d1">
+        <div class="ed-item">
+          <div class="ed-item-tag">FRAGMENTS — Série photo</div>
+          <div class="ed-item-title">Les détails que personne ne photographie — matières, jointures, lumières.</div>
+          <p class="ed-item-desc">Une série visuelle sur les micro-décisions qui font les grands espaces.</p>
+        </div>
+        <div class="ed-item">
+          <div class="ed-item-tag">CARNET BLEU — Chronique</div>
+          <div class="ed-item-title">Le journal de chantier : ce qu'on n'apprend pas à l'école.</div>
+          <p class="ed-item-desc">Notes brutes d'un projet en cours, semaine après semaine.</p>
+        </div>
+        <div class="ed-item">
+          <div class="ed-item-tag">PETITS PLANS — Portraits</div>
+          <div class="ed-item-title">Artisans de Nouvelle-Aquitaine : ceux qui font avec leurs mains.</div>
+          <p class="ed-item-desc">Portraits de ferronnier, ébéniste, vitrier — les invisibles du bel ouvrage.</p>
+        </div>
+        <div class="ed-item">
+          <div class="ed-item-tag">DOCUMENTATION</div>
+          <div class="ed-item-title">Chaque projet du collectif, documenté de la première esquisse à la livraison.</div>
+          <p class="ed-item-desc">Processus, matériaux, décisions — le making-of complet.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMATS -->
+  <section class="formats">
+    <h2 class="fmt-title sr">NOS<br>FORMATS.</h2>
+    <div class="fmt-grid">
+      <div class="fmt-item sr">
+        <div class="fmt-bar"></div>
+        <div class="fmt-num">01</div>
+        <div class="fmt-name">Vidéo</div>
+        <p class="fmt-desc">Documentaires courts, time-lapse de chantier, portraits filmés. Format 16:9 et vertical pour les réseaux.</p>
+      </div>
+      <div class="fmt-item sr sr-d1">
+        <div class="fmt-bar"></div>
+        <div class="fmt-num">02</div>
+        <div class="fmt-name">Photographie</div>
+        <p class="fmt-desc">Reportages d'architecture, photos de chantier, portraits d'artisans. Argentique et numérique.</p>
+      </div>
+      <div class="fmt-item sr sr-d2">
+        <div class="fmt-bar"></div>
+        <div class="fmt-num">03</div>
+        <div class="fmt-name">Texte & Blog</div>
+        <p class="fmt-desc">Chroniques longues, interviews, essais sur le design d'espace et l'architecture intérieure.</p>
+      </div>
+      <div class="fmt-item sr sr-d3">
+        <div class="fmt-bar"></div>
+        <div class="fmt-num">04</div>
+        <div class="fmt-name">Réseaux sociaux</div>
+        <p class="fmt-desc">Instagram, LinkedIn — une présence éditoriale régulière, cohérente, au service de la visibilité du collectif.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALENDRIER PREMIERS ÉPISODES -->
+  <section class="calendar">
+    <div class="cal-header sr">
+      <div>
+        <div class="s-label" style="color:var(--rouge)">Prochainement</div>
+        <h2 class="cal-title">PREMIERS<br>ÉPISODES.</h2>
+      </div>
+      <p class="cal-sub">Le média est en lancement. Voici ce qui arrive dans les prochains mois — un format par mois, posé sur des sujets concrets.</p>
+    </div>
+    <div class="cal-grid sr sr-d1">
+      <div class="cal-card">
+        <div class="cal-card-head">
+          <div class="cal-card-format">ARCHITALK · 01</div>
+          <div class="cal-card-date">Juin 2026</div>
+        </div>
+        <div class="cal-card-title">Pourquoi designer d'espace, pas architecte — une conversation à trois.</div>
+        <p class="cal-card-desc">Premier épisode pilote du collectif. On pose le cadre légal, le métier, le terrain — sans détour.</p>
+        <div class="cal-card-meta"><span>Vidéo</span><span>30 min</span></div>
+      </div>
+      <div class="cal-card">
+        <div class="cal-card-head">
+          <div class="cal-card-format">FRAGMENTS · 01</div>
+          <div class="cal-card-date">Juin 2026</div>
+        </div>
+        <div class="cal-card-title">Les jointures d'un appartement à Angoulême — détails qu'on ne photographie jamais.</div>
+        <p class="cal-card-desc">Série visuelle inaugurale : 12 photos de matières, raccords, lumières — tout ce qui se joue à l'échelle 1:1.</p>
+        <div class="cal-card-meta"><span>Photo</span><span>Série de 12</span></div>
+      </div>
+      <div class="cal-card">
+        <div class="cal-card-head">
+          <div class="cal-card-format">CARNET BLEU · 01</div>
+          <div class="cal-card-date">Juillet 2026</div>
+        </div>
+        <div class="cal-card-title">Journal de chantier : ce qu'on n'apprend pas à l'école.</div>
+        <p class="cal-card-desc">Notes brutes d'un projet en cours — décisions, doutes, négociations avec les artisans, semaine après semaine.</p>
+        <div class="cal-card-meta"><span>Texte</span><span>Hebdo</span></div>
+      </div>
+      <div class="cal-card">
+        <div class="cal-card-head">
+          <div class="cal-card-format">PETITS PLANS · 01</div>
+          <div class="cal-card-date">Septembre 2026</div>
+        </div>
+        <div class="cal-card-title">Portrait d'un ferronnier de Charente — celui qui sait encore plier le métal.</div>
+        <p class="cal-card-desc">Premier portrait de la série dédiée aux artisans de Nouvelle-Aquitaine. Format vidéo court + texte long.</p>
+        <div class="cal-card-meta"><span>Vidéo</span><span>Portrait</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUIVRE -->
+  <section class="follow">
+    <div class="follow-grid sr">
+      <h2 class="follow-title">Pour <em>suivre</em><br>le média.</h2>
+      <div class="follow-channels">
+        <a href="https://www.instagram.com/collectifcobalt_/" target="_blank" rel="noopener" class="follow-ch">
+          <div class="follow-ch-name">Instagram</div>
+          <div class="follow-ch-desc">@collectifcobalt_<br>FRAGMENTS, coulisses</div>
+        </a>
+        <a href="https://www.linkedin.com/company/collectif-cobalt" target="_blank" rel="noopener" class="follow-ch">
+          <div class="follow-ch-name">LinkedIn</div>
+          <div class="follow-ch-desc">Collectif Cobalt<br>ARCHITALK, écrits longs</div>
+        </a>
+        <a href="contact.html" class="follow-ch">
+          <div class="follow-ch-name">Newsletter</div>
+          <div class="follow-ch-desc">Bientôt — un envoi par mois<br>écrivez-nous pour être prévenu</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-band">
+    <div class="cb-text sr">UN PROJET À<br><em>documenter ?</em></div>
+    <a href="contact.html" class="btn btn-dark sr sr-d1"><span>Parlons-en →</span></a>
+  </div>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <div class="marquee-item">DOCUMENTATION<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi">VIDÉO</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">PHOTOGRAPHIE<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi">ARCHITALK</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">LE MÉDIA<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi">COBALT</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">DOCUMENTATION<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi">VIDÉO</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">PHOTOGRAPHIE<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi">ARCHITALK</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">LE MÉDIA<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi">COBALT</span><div class="marquee-sep"></div></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-stripe"></div>
+    <div class="footer-silhouette" aria-hidden="true">
+      <svg width="500" height="340" viewBox="0 0 750 450" fill="rgba(240,235,216,1)"><rect x="0" y="300" width="750" height="150"/><rect x="0" y="0" width="180" height="300"/><rect x="570" y="0" width="180" height="300"/><path d="M180 0 A195 300 0 0 1 570 0Z"/></svg>
+    </div>
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">cobalt<span class="dot">.</span></div>
+        <p class="footer-tagline">Penser. Faire. Transmettre.<br>Studio de design d'espace, Nouvelle-Aquitaine.</p>
+        <div class="footer-socials"><a href="#">Instagram</a><a href="#">LinkedIn</a><a href="#">Behance</a></div>
+      </div>
+      <div>
+        <div class="footer-col-title">Le Collectif</div>
+        <nav class="footer-nav">
+          <a href="studio.html">Studio</a>
+          <a href="atelier.html">L'Atelier</a>
+          <a href="bleu-de-cobalt.html">Bleu de Cobalt</a>
+          <a href="media.html">Le Média</a>
+        </nav>
+      </div>
+      <div>
+        <div class="footer-col-title">Le Média</div>
+        <nav class="footer-nav">
+          <a href="media.html">Présentation</a>
+          <a href="media-journal.html">Le Journal</a>
+          <a href="contact.html">Proposer un sujet</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Collectif Cobalt. Tous droits réservés.</p>
+      <p class="footer-legal">Le Média — Documenter, montrer, raconter.</p>
+    </div>
+  </footer>
+
+  <script src="shared.js"></script>
+</body>
+</html>

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23F3EFD7'/><text x='4' y='24' font-size='22' font-family='sans-serif' font-weight='900' fill='%234A82DC'>c.</text></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#F3EFD7">
+  <title>Services — L'Atelier · Collectif Cobalt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    :root { --accent: var(--vert); }
+
+    /* stripe vert */
+    .stripe { background: linear-gradient(90deg, var(--vert) 25%, var(--noir) 25% 50%, var(--vert) 50% 75%, var(--noir) 75%); }
+
+    /* PAGE HERO */
+    .page-hero { padding: 140px 44px 80px; background: var(--noir); border-bottom: 2px solid rgba(240,235,216,.1); }
+    .page-hero .s-label { color: var(--vert); }
+    .page-hero .s-label::before { background: var(--vert); }
+    .ph-title { font-family: var(--f-display); font-size: clamp(64px,10vw,130px); line-height: .86; color: var(--cream); }
+    .ph-title em { font-family: var(--f-serif); font-style: italic; color: var(--vert); font-weight: 400; }
+    .ph-sub { max-width: 540px; font-size: .92rem; line-height: 1.85; font-weight: 300; color: rgba(240,235,216,.55); margin-top: 32px; }
+
+    /* BLOCS DE SERVICE — split */
+    .service-block {
+      display: grid; grid-template-columns: 1fr 1fr;
+      border-top: 2px solid var(--noir); min-height: 520px;
+    }
+    .sb-info { padding: 80px 60px; background: var(--cream); display: flex; flex-direction: column; justify-content: center; }
+    .sb-lbl { font-size: .62rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--vert); margin-bottom: 20px; }
+    .sb-title { font-family: var(--f-display); font-size: clamp(48px,6vw,80px); line-height: .88; margin-bottom: 28px; }
+    .sb-quote { font-family: var(--f-serif); font-style: italic; font-size: 1.05rem; line-height: 1.55; border-left: 3px solid var(--vert); padding-left: 18px; margin-bottom: 24px; color: rgba(26,26,26,.7); }
+    .sb-body { font-size: .88rem; line-height: 1.85; font-weight: 300; color: rgba(26,26,26,.6); margin-bottom: 32px; }
+    .sb-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .sb-list li { font-size: .82rem; font-weight: 400; color: rgba(26,26,26,.65); display: flex; align-items: center; gap: 12px; }
+    .sb-list li::before { content: ''; width: 16px; height: 2px; background: var(--vert); flex-shrink: 0; }
+    .sb-visual { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; background: var(--vert); }
+    .sb-visual.alt { background: var(--noir); }
+    .sb-v-inner { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; padding: 60px; }
+    .sb-v-num { font-family: var(--f-display); font-size: clamp(80px,10vw,140px); line-height: 1; color: rgba(26,26,26,.12); }
+    .sb-visual.alt .sb-v-num { color: rgba(93,161,107,.18); }
+    .sb-v-tag { font-family: var(--f-body); font-size: .65rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: rgba(26,26,26,.45); }
+    .sb-visual.alt .sb-v-tag { color: rgba(240,235,216,.45); }
+    .sb-alt .sb-info { order: 2; }
+    .sb-alt .sb-visual { order: 1; }
+
+    /* PROCESS — comment ça marche */
+    .process { background: var(--cream); padding: 100px 44px; border-top: 2px solid var(--noir); }
+    .pr-title { font-family: var(--f-display); font-size: clamp(48px,7vw,100px); line-height: .88; margin-bottom: 64px; }
+    .pr-steps { display: grid; grid-template-columns: repeat(5,1fr); gap: 0; border-top: 2px solid var(--noir); }
+    .pr-step { padding: 48px 28px; border-right: 2px solid var(--noir); }
+    .pr-step:last-child { border-right: none; }
+    .pr-step-num { font-family: var(--f-display); font-size: 44px; color: rgba(93,161,107,.25); line-height: 1; margin-bottom: 18px; }
+    .pr-step-bar { width: 28px; height: 3px; background: var(--vert); margin-bottom: 18px; }
+    .pr-step-name { font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--noir); margin-bottom: 12px; }
+    .pr-step-desc { font-size: .8rem; line-height: 1.7; font-weight: 300; color: rgba(26,26,26,.55); }
+    .pr-step-time { font-family: var(--f-serif); font-style: italic; font-size: .8rem; color: var(--vert); margin-top: 12px; }
+
+    /* PRICING — fourchettes honnêtes */
+    .pricing { background: var(--vert); padding: 100px 44px; border-top: 2px solid var(--noir); }
+    .pc-header { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 56px; }
+    .pc-title { font-family: var(--f-display); font-size: clamp(48px,7vw,100px); line-height: .88; color: var(--cream); }
+    .pc-title em { font-family: var(--f-serif); font-style: italic; color: var(--noir); font-weight: 400; }
+    .pc-intro { font-size: .92rem; line-height: 1.85; font-weight: 300; color: rgba(240,235,216,.85); }
+    .pc-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; border-top: 2px solid var(--noir); border-bottom: 2px solid var(--noir); }
+    .pc-cell { padding: 40px 32px; border-right: 2px solid var(--noir); background: var(--cream); }
+    .pc-cell:last-child { border-right: none; }
+    .pc-cell-tag { font-size: .6rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--vert); margin-bottom: 14px; }
+    .pc-cell-name { font-family: var(--f-display); font-size: 22px; line-height: 1.1; margin-bottom: 18px; }
+    .pc-cell-price { font-family: var(--f-display); font-size: 32px; color: var(--noir); line-height: 1; margin-bottom: 18px; }
+    .pc-cell-price small { font-family: var(--f-body); font-size: .65rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: rgba(26,26,26,.45); display: block; margin-top: 6px; }
+    .pc-cell-desc { font-size: .82rem; line-height: 1.7; font-weight: 300; color: rgba(26,26,26,.55); }
+    .pc-note { font-family: var(--f-serif); font-style: italic; font-size: .9rem; color: rgba(240,235,216,.75); margin-top: 32px; max-width: 720px; }
+
+    /* CTA */
+    .cta-band {
+      background: var(--noir); padding: 100px 44px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 2px solid rgba(240,235,216,.1);
+    }
+    .cb-text { font-family: var(--f-display); font-size: clamp(32px,5vw,64px); color: var(--cream); line-height: .9; }
+    .cb-text em { font-family: var(--f-serif); font-style: italic; color: var(--vert); }
+
+    @media (max-width: 960px) {
+      .page-hero { padding: 110px 20px 56px; }
+      .ph-title { font-size: clamp(48px, 11vw, 90px); }
+      .ph-sub { font-size: .88rem; margin-top: 24px; }
+      .service-block { grid-template-columns: 1fr; min-height: 0; }
+      .sb-visual { min-height: 220px; }
+      .sb-v-inner { padding: 40px; gap: 14px; }
+      .sb-v-num { font-size: clamp(72px, 18vw, 100px); }
+      .sb-info { padding: 48px 24px; }
+      .sb-title { font-size: clamp(36px, 9vw, 56px); margin-bottom: 22px; }
+      .sb-body { font-size: .85rem; }
+      .sb-alt .sb-info { order: 1; }
+      .sb-alt .sb-visual { order: 2; }
+      .process { padding: 64px 20px; }
+      .pr-title { font-size: clamp(36px, 10vw, 64px); margin-bottom: 44px; }
+      .pr-steps { grid-template-columns: 1fr 1fr; }
+      .pr-step { padding: 32px 22px; border-right: none; border-bottom: 2px solid var(--noir); }
+      .pr-step:nth-child(2n) { border-right: none; }
+      .pr-step:nth-child(2n+1) { border-right: 2px solid var(--noir); }
+      .pr-step:last-child { border-right: none; border-bottom: none; grid-column: 1 / -1; }
+      .pricing { padding: 64px 20px; }
+      .pc-header { grid-template-columns: 1fr; gap: 24px; margin-bottom: 36px; }
+      .pc-title { font-size: clamp(36px, 10vw, 64px); }
+      .pc-grid { grid-template-columns: 1fr; }
+      .pc-cell { border-right: none; border-bottom: 2px solid var(--noir); padding: 32px 22px; }
+      .pc-cell:last-child { border-bottom: none; }
+      .cta-band { flex-direction: column; gap: 32px; padding: 64px 20px; text-align: center; align-items: center; }
+      .cb-text { font-size: clamp(28px, 8vw, 44px); }
+    }
+    @media (max-width: 560px) {
+      .page-hero { padding: 96px 18px 44px; }
+      .ph-title { font-size: clamp(40px, 13vw, 64px); }
+      .ph-sub { font-size: .82rem; }
+      .sb-info { padding: 40px 18px; }
+      .sb-title { font-size: clamp(32px, 11vw, 48px); }
+      .sb-quote { font-size: .95rem; padding-left: 14px; }
+      .sb-body { font-size: .82rem; }
+      .sb-list li { font-size: .78rem; }
+      .process { padding: 52px 18px; }
+      .pr-title { font-size: clamp(32px, 11vw, 52px); }
+      .pr-steps { grid-template-columns: 1fr; }
+      .pr-step { border-right: none !important; padding: 28px 18px; }
+      .pricing { padding: 52px 18px; }
+      .pc-cell { padding: 28px 18px; }
+      .cta-band { padding: 52px 18px; gap: 24px; }
+      .cb-text { font-size: clamp(26px, 9vw, 38px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="stripe"></div>
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo"><img src="assets/LOGO/LOGO_COBALT.svg" alt="Collectif Cobalt" class="nav-logo-img" width="200" height="45"></a>
+    <button class="nav-burger-btn" id="nav-burger" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+<!-- HERO -->
+  <div class="page-hero">
+    <div class="s-label sr">L'Atelier — Services</div>
+    <h1 class="ph-title sr">CONCEVOIR.<br>FABRIQUER.<br><em>Installer.</em></h1>
+    <p class="ph-sub sr sr-d2">L'atelier prend en charge la conception, la fabrication et la mise en place de mobilier sur mesure. Une seule équipe, du dessin jusqu'à la dernière vis serrée chez vous.</p>
+  </div>
+
+  <!-- BLOC 01 — CONCEVOIR -->
+  <div class="service-block">
+    <div class="sb-info sr">
+      <p class="sb-lbl">01 — Concevoir</p>
+      <h2 class="sb-title">Du brief<br>au plan.</h2>
+      <p class="sb-quote">« On ne dessine jamais une pièce sans avoir vu l'espace dans lequel elle vivra. »</p>
+      <p class="sb-body">Visite sur site, prise de cotes, échanges sur l'usage, contraintes matérielles et budgétaires. Nous repartons avec une intention claire — et nous revenons avec un plan, une essence, un prix.</p>
+      <ul class="sb-list">
+        <li>Visite et relevé de l'espace</li>
+        <li>Esquisse et choix d'essence</li>
+        <li>Plans techniques 1:20 et 1:5</li>
+        <li>Devis détaillé et planning</li>
+      </ul>
+    </div>
+    <div class="sb-visual">
+      <div class="sb-v-inner">
+        <div class="sb-v-num">01</div>
+        <div class="sb-v-tag">Conception · 2 à 4 semaines</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOC 02 — FABRIQUER -->
+  <div class="service-block sb-alt">
+    <div class="sb-visual alt">
+      <div class="sb-v-inner">
+        <div class="sb-v-num">02</div>
+        <div class="sb-v-tag">Fabrication · 4 à 10 semaines</div>
+      </div>
+    </div>
+    <div class="sb-info sr">
+      <p class="sb-lbl">02 — Fabriquer</p>
+      <h2 class="sb-title">À l'atelier,<br>par nous.</h2>
+      <p class="sb-quote">« Pas de sous-traitance opaque. Ce qui sort d'ici a été fabriqué ici. »</p>
+      <p class="sb-body">Bois massif, panneaux contreplaqués, métal pour les pieds et structures. Ferronnerie, vitrerie, tapisserie : pour ce qui dépasse notre atelier, on mobilise un réseau d'artisans locaux que l'on suit personnellement.</p>
+      <ul class="sb-list">
+        <li>Bois massif et panneaux nobles</li>
+        <li>Assemblage traditionnel quand le projet le demande</li>
+        <li>Finition huile, cire ou laque selon usage</li>
+        <li>Coordination ferronnier · vitrier · tapissier</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- BLOC 03 — INSTALLER -->
+  <div class="service-block">
+    <div class="sb-info sr">
+      <p class="sb-lbl">03 — Installer</p>
+      <h2 class="sb-title">Livraison.<br>Mise en place.</h2>
+      <p class="sb-quote">« On part de chez vous quand la pièce est posée, alignée, et que ça vous plaît. »</p>
+      <p class="sb-body">Transport, manutention, mise en place sur site. Pour les pièces complexes — bibliothèques modulaires, comptoirs, agencements complets — on assemble directement chez le client avec les outils de l'atelier.</p>
+      <ul class="sb-list">
+        <li>Transport en Nouvelle-Aquitaine inclus</li>
+        <li>Montage sur site avec finitions</li>
+        <li>Réglage et ajustement final</li>
+        <li>Garantie 2 ans sur les ouvrages</li>
+      </ul>
+    </div>
+    <div class="sb-visual">
+      <div class="sb-v-inner">
+        <div class="sb-v-num">03</div>
+        <div class="sb-v-tag">Livraison · sur RDV</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROCESS -->
+  <section class="process">
+    <h2 class="pr-title sr">COMMENT<br>ÇA SE PASSE.</h2>
+    <div class="pr-steps">
+      <div class="pr-step sr">
+        <div class="pr-step-bar"></div>
+        <div class="pr-step-num">01</div>
+        <div class="pr-step-name">Premier contact</div>
+        <p class="pr-step-desc">Vous nous écrivez avec une idée, une photo, un plan, ou rien — juste un besoin.</p>
+        <div class="pr-step-time">48 h</div>
+      </div>
+      <div class="pr-step sr sr-d1">
+        <div class="pr-step-bar"></div>
+        <div class="pr-step-num">02</div>
+        <div class="pr-step-name">Visite et brief</div>
+        <p class="pr-step-desc">On vient sur place, on prend les cotes, on comprend l'usage et le contexte.</p>
+        <div class="pr-step-time">1 RDV · 1 h</div>
+      </div>
+      <div class="pr-step sr sr-d2">
+        <div class="pr-step-bar"></div>
+        <div class="pr-step-num">03</div>
+        <div class="pr-step-name">Devis et plans</div>
+        <p class="pr-step-desc">Esquisse, choix d'essence, prix engagé, calendrier de fabrication.</p>
+        <div class="pr-step-time">2 à 4 sem.</div>
+      </div>
+      <div class="pr-step sr sr-d3">
+        <div class="pr-step-bar"></div>
+        <div class="pr-step-num">04</div>
+        <div class="pr-step-name">Fabrication</div>
+        <p class="pr-step-desc">L'atelier travaille la pièce. Vous recevez 2 à 3 photos d'avancement.</p>
+        <div class="pr-step-time">4 à 10 sem.</div>
+      </div>
+      <div class="pr-step sr sr-d4">
+        <div class="pr-step-bar"></div>
+        <div class="pr-step-num">05</div>
+        <div class="pr-step-name">Livraison</div>
+        <p class="pr-step-desc">Transport, montage, réglage. On signe ensemble une fiche de réception.</p>
+        <div class="pr-step-time">1 jour</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing">
+    <div class="pc-header sr">
+      <h2 class="pc-title">FOURCHETTES <em>honnêtes</em>.</h2>
+      <p class="pc-intro">Le prix dépend des matières, de la complexité et de la finition. Voici des ordres de grandeur réels — pas des prix d'appel. Devis ferme après visite.</p>
+    </div>
+    <div class="pc-grid sr sr-d1">
+      <div class="pc-cell">
+        <div class="pc-cell-tag">Petite pièce</div>
+        <div class="pc-cell-name">Tabouret · table d'appoint · console</div>
+        <div class="pc-cell-price">800 — 2 500 €<small>matière comprise</small></div>
+        <p class="pc-cell-desc">Une pièce isolée, dimensions standards, finition simple. Délai 4 à 6 semaines après devis signé.</p>
+      </div>
+      <div class="pc-cell">
+        <div class="pc-cell-tag">Pièce centrale</div>
+        <div class="pc-cell-name">Table à manger · banquette · bibliothèque</div>
+        <div class="pc-cell-price">2 500 — 8 000 €<small>matière comprise · livraison incluse</small></div>
+        <p class="pc-cell-desc">Pièce structurante d'un espace. Plusieurs essences possibles, choix de finition. 8 à 12 semaines.</p>
+      </div>
+      <div class="pc-cell">
+        <div class="pc-cell-tag">Agencement complet</div>
+        <div class="pc-cell-name">Cuisine · bureau · espace commercial</div>
+        <div class="pc-cell-price">à partir de 8 000 €<small>devis dédié sur visite</small></div>
+        <p class="pc-cell-desc">Plusieurs pièces coordonnées, intégration architecturale, coordination artisans. 10 à 16 semaines.</p>
+      </div>
+    </div>
+    <p class="pc-note sr sr-d2">Ces fourchettes correspondent à ce qui sort réellement de l'atelier. Si votre budget est en-dessous, dites-le franchement — on peut adapter le périmètre, ou orienter vers l'option Drops si une pièce de série limitée vous convient.</p>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-band">
+    <div class="cb-text sr">UNE COMMANDE<br><em>en tête ?</em></div>
+    <a href="contact.html" class="btn btn-cream sr sr-d1"><span>Parlons-en →</span></a>
+  </div>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <div class="marquee-item">CONCEPTION<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--vert)">FABRICATION</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">INSTALLATION<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--vert)">SUR MESURE</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">ATELIER<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--vert)">COBALT</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">CONCEPTION<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--vert)">FABRICATION</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">INSTALLATION<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--vert)">SUR MESURE</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">ATELIER<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--vert)">COBALT</span><div class="marquee-sep"></div></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-stripe"></div>
+    <div class="footer-silhouette" aria-hidden="true">
+      <svg width="500" height="340" viewBox="0 0 750 450" fill="rgba(240,235,216,1)"><rect x="0" y="220" width="750" height="230"/><rect x="60" y="0" width="130" height="220"/><rect x="280" y="60" width="130" height="160"/><rect x="500" y="30" width="130" height="190"/></svg>
+    </div>
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">cobalt<span class="dot">.</span></div>
+        <p class="footer-tagline">Penser. Faire. Transmettre.<br>Studio de design d'espace, Nouvelle-Aquitaine.</p>
+        <div class="footer-socials">
+          <a href="https://www.instagram.com/collectifcobalt_/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/company/collectif-cobalt" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Le Collectif</div>
+        <nav class="footer-nav">
+          <a href="studio.html">Studio</a>
+          <a href="atelier.html">L'Atelier</a>
+          <a href="bleu-de-cobalt.html">Bleu de Cobalt</a>
+          <a href="media.html">Le Média</a>
+        </nav>
+      </div>
+      <div>
+        <div class="footer-col-title">L'Atelier</div>
+        <nav class="footer-nav">
+          <a href="atelier-projets.html">Projets</a>
+          <a href="atelier-services.html">Services</a>
+          <a href="atelier-drops.html">Drops</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Collectif Cobalt. Tous droits réservés.</p>
+      <p class="footer-legal">L'Atelier de Cobalt — Fabrication artisanale, Nouvelle-Aquitaine</p>
+    </div>
+  </footer>
+
+  <script src="shared.js"></script>
+</body>
+</html>

@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collectif Cobalt — Architecture & Design d'espace en Nouvelle-Aquitaine</title>
+  <meta name="description" content="Collectif Cobalt — Studio d'architecture, design d'espace, fabrication et média basé en Nouvelle-Aquitaine. Le Studio, L'Atelier, Bleu de Cobalt, Le Média.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://collectifcobalt.eu/">
+  <meta name="theme-color" content="#F3EFD7">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23F3EFD7'/><text x='4' y='24' font-size='22' font-family='sans-serif' font-weight='900' fill='%234A82DC'>c.</text></svg>">
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://collectifcobalt.eu/">
+  <meta property="og:title"       content="Collectif Cobalt — Architecture & Design d'espace">
+  <meta property="og:description" content="Studio d'architecture, design d'espace, fabrication et média en Nouvelle-Aquitaine.">
+  <meta property="og:image"       content="https://collectifcobalt.eu/assets/OG-image/og-image.jpg">
+  <meta property="og:locale"      content="fr_FR">
+  <meta property="og:site_name"   content="Collectif Cobalt">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="Collectif Cobalt — Architecture & Design d'espace">
+  <meta name="twitter:description" content="Studio d'architecture, design d'espace, fabrication et média en Nouvelle-Aquitaine.">
+  <meta name="twitter:image"       content="https://collectifcobalt.eu/assets/OG-image/og-image.jpg">
+
+  <!-- Schema.org LocalBusiness -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Collectif Cobalt",
+    "url": "https://collectifcobalt.eu",
+    "description": "Studio d'architecture, design d'espace, fabrication et média en Nouvelle-Aquitaine.",
+    "areaServed": {
+      "@type": "AdministrativeArea",
+      "name": "Nouvelle-Aquitaine"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressRegion": "Nouvelle-Aquitaine",
+      "addressCountry": "FR"
+    },
+    "sameAs": [],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Nos activités",
+      "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Le Studio", "description": "Architecture et design d'espace" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "L'Atelier", "description": "Fabrication et prototypage" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Bleu de Cobalt", "description": "Programme et cabinets" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Le Média", "description": "Architalk et journal" } }
+      ]
+    }
+  }
+  </script>
+
+  <link rel="preload" href="assets/LOGO/LOGO_COBALT.svg" as="image" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800&display=swap" rel="stylesheet">
+  <!-- Suisse BP Int'l : ajouter @font-face avec les woff2 quand disponibles -->
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    /* cursor:none uniquement si pointeur précis (souris) détecté */
+    @media (pointer: fine) { html { cursor: none; } }
+
+    body {
+      font-family: 'Suisse BP Int\'l', 'DM Sans', sans-serif;
+      background: #F3EFD7;
+      color: #1A1A1A;
+      overflow: hidden;
+      height: 100dvh;
+    }
+    @media (pointer: fine) { body, a { cursor: none; } }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── CURSOR ── */
+    #cursor-dot {
+      position: fixed; top: 0; left: 0; z-index: 9999;
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #4A82DC; transform: translate(-50%,-50%);
+      pointer-events: none; transition: background .15s;
+    }
+    #cursor-ring {
+      position: fixed; top: 0; left: 0; z-index: 9998;
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1.5px solid rgba(74,130,220,.45); transform: translate(-50%,-50%);
+      pointer-events: none;
+      transition: width .25s, height .25s, border-color .15s;
+    }
+    body.hov #cursor-ring { width: 60px; height: 60px; }
+
+    /* ── TOP STRIPE ── */
+    .stripe {
+      position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 600;
+      background: linear-gradient(90deg, #4A82DC 25%, #F1CB4F 25% 50%, #5DA16B 50% 75%, #BB3B34 75%);
+    }
+
+    /* ════════════════════════════════════════
+       SHAPES LAYER — z-index 3
+       pointer-events: none sur le container,
+       auto sur chaque .bs individuel
+    ════════════════════════════════════════ */
+    #bg-shapes {
+      position: fixed; inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .bs {
+      position: absolute;
+      pointer-events: auto;
+      cursor: none;
+      transition: opacity .2s ease, filter .2s ease;
+    }
+    .bs svg { width: 100%; height: auto; display: block; }
+    .bs:hover { filter: brightness(1.12); }
+    .bs:focus { outline: none; }
+    .bs:focus-visible svg { outline: 2.5px solid currentColor; outline-offset: 4px; border-radius: 2px; }
+
+    /* ════════════════════════════════════════
+       HERO — z-index 10
+       pointer-events: none → les shapes dessous
+       sont toujours interactives
+    ════════════════════════════════════════ */
+    #hero {
+      position: fixed; inset: 0;
+      z-index: 10;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      pointer-events: none; /* passe à travers */
+    }
+
+    /* SLOT */
+    .slot-outer {
+      overflow: hidden;
+      position: relative;
+    }
+    .slot-outer::before,
+    .slot-outer::after {
+      content: ''; position: absolute; left: 0; right: 0; z-index: 2;
+      height: 35%; pointer-events: none;
+    }
+    .slot-outer::before { top: 0;    background: linear-gradient(180deg, #F3EFD7 0%, transparent 100%); }
+    .slot-outer::after  { bottom: 0; background: linear-gradient(0deg,   #F3EFD7 0%, transparent 100%); }
+
+    .slot-reel {
+      display: flex; flex-direction: column; align-items: center;
+      will-change: transform;
+    }
+    .slot-item {
+      display: flex; align-items: center; justify-content: center;
+      white-space: nowrap; width: 100%;
+    }
+
+    /* Sous-titre minimaliste après animation */
+    .slot-hint {
+      margin-top: clamp(14px, 2.5vh, 28px);
+      font-size: clamp(8px, .95vw, 11px);
+      font-weight: 500; letter-spacing: .3em; text-transform: uppercase;
+      color: rgba(26,26,26,.25);
+      opacity: 0; transition: opacity .8s ease;
+      display: flex; gap: 10px; align-items: center;
+    }
+    .slot-hint.in { opacity: 1; }
+    /* 4 petits dots colorés comme légende */
+    .hint-dot {
+      width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0;
+    }
+
+    /* ════════════════════════════════════════
+       FLOATING ENV CARD — apparaît au hover d'une forme
+    ════════════════════════════════════════ */
+    #env-card {
+      position: fixed; z-index: 500;
+      width: clamp(170px, 17vw, 220px);
+      padding: 18px 16px 16px;
+      border-radius: 20px;
+      pointer-events: none;
+      opacity: 0;
+      transform: scale(.92) translateY(6px);
+      transition: opacity .22s ease, transform .22s cubic-bezier(.25,.46,.45,.94);
+      will-change: opacity, transform, left, top;
+      isolation: isolate;
+    }
+    #env-card.visible {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+
+    /* ── Fond glass + blur ── */
+    #env-card::before {
+      content: ''; position: absolute; inset: 0; border-radius: 20px;
+      backdrop-filter: blur(40px) saturate(2.2) brightness(1.08);
+      -webkit-backdrop-filter: blur(40px) saturate(2.2) brightness(1.08);
+      z-index: -2;
+    }
+
+    /* ── Reflet liquid glass : liseré haut + côtés (style Apple visionOS) ── */
+    #env-card::after {
+      content: ''; position: absolute; inset: 0; border-radius: 20px;
+      background:
+        /* reflet latéral gauche */
+        linear-gradient(96deg,
+          rgba(255,255,255,.38) 0%,
+          rgba(255,255,255,.10) 12%,
+          transparent 28%
+        ),
+        /* reflet latéral droit */
+        linear-gradient(264deg,
+          rgba(255,255,255,.28) 0%,
+          rgba(255,255,255,.07) 12%,
+          transparent 28%
+        ),
+        /* reflet supérieur */
+        linear-gradient(180deg,
+          rgba(255,255,255,.45) 0%,
+          rgba(255,255,255,.08) 38%,
+          transparent 62%
+        );
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* ── Couleurs + ombre portée colorée ── */
+    #env-card[data-env="studio"]  {
+      background: rgba(74,130,220,.28);
+      border: 1px solid rgba(74,130,220,.55);
+      box-shadow:
+        0 2px 0 rgba(255,255,255,.55) inset,   /* bord haut lumineux */
+        0 -1px 0 rgba(74,130,220,.30) inset,   /* bord bas subtil */
+        0 16px 48px rgba(74,130,220,.32),       /* ombre portée colorée */
+        0 4px 12px rgba(0,0,0,.12);             /* ombre de profondeur */
+    }
+    #env-card[data-env="atelier"] {
+      background: rgba(93,161,107,.26);
+      border: 1px solid rgba(93,161,107,.52);
+      box-shadow:
+        0 2px 0 rgba(255,255,255,.52) inset,
+        0 -1px 0 rgba(93,161,107,.28) inset,
+        0 16px 48px rgba(93,161,107,.28),
+        0 4px 12px rgba(0,0,0,.12);
+    }
+    #env-card[data-env="bleu"]    {
+      background: rgba(241,203,79,.30);
+      border: 1px solid rgba(241,203,79,.58);
+      box-shadow:
+        0 2px 0 rgba(255,255,255,.60) inset,
+        0 -1px 0 rgba(241,203,79,.30) inset,
+        0 16px 48px rgba(241,203,79,.30),
+        0 4px 12px rgba(0,0,0,.10);
+    }
+    #env-card[data-env="media"]   {
+      background: rgba(187,59,52,.24);
+      border: 1px solid rgba(187,59,52,.50);
+      box-shadow:
+        0 2px 0 rgba(255,255,255,.50) inset,
+        0 -1px 0 rgba(187,59,52,.28) inset,
+        0 16px 48px rgba(187,59,52,.28),
+        0 4px 12px rgba(0,0,0,.12);
+    }
+
+    .ec-pip {
+      width: 5px; height: 5px; border-radius: 50%;
+      position: absolute; top: 12px; right: 12px;
+    }
+    #env-card[data-env="studio"]  .ec-pip { background: #4A82DC; box-shadow: 0 0 6px #4A82DC; }
+    #env-card[data-env="atelier"] .ec-pip { background: #5DA16B; box-shadow: 0 0 6px #5DA16B; }
+    #env-card[data-env="bleu"]    .ec-pip { background: #F1CB4F; box-shadow: 0 0 6px #F1CB4F; }
+    #env-card[data-env="media"]   .ec-pip { background: #BB3B34; box-shadow: 0 0 6px #BB3B34; }
+
+    .ec-num {
+      font-size: 8px; font-weight: 700; letter-spacing: .18em;
+      margin-bottom: 5px;
+    }
+    #env-card[data-env="studio"]  .ec-num { color: #4A82DC; }
+    #env-card[data-env="atelier"] .ec-num { color: #5DA16B; }
+    #env-card[data-env="bleu"]    .ec-num { color: #B8940A; }
+    #env-card[data-env="media"]   .ec-num { color: #BB3B34; }
+
+    .ec-name {
+      font-family: 'Suisse BP Int\'l', 'DM Sans', sans-serif;
+      font-weight: 700; font-size: clamp(14px, 1.5vw, 18px);
+      color: #1A1A1A; letter-spacing: -.02em; line-height: 1.1; margin-bottom: 4px;
+    }
+    .ec-tag {
+      font-size: 8px; font-weight: 500; letter-spacing: .07em;
+      text-transform: uppercase; color: rgba(26,26,26,.35);
+      line-height: 1.4; margin-bottom: 10px;
+    }
+    .ec-cta {
+      font-size: 9px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: #1A1A1A;
+    }
+
+    /* ── REDUCED MOTION ── */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto !important; }
+      .slot-reel { transition: none !important; }
+      .bs { transition: none !important; }
+      #env-card { transition: opacity .1s ease !important; }
+    }
+
+    /* ── LOGO NAV (landing page) ── */
+    #landing-nav {
+      position: fixed; top: 3px; left: 0; right: 0; z-index: 200;
+      padding: 0 28px; height: 58px;
+      display: flex; align-items: center; justify-content: space-between;
+      pointer-events: none;
+    }
+    #landing-nav a {
+      pointer-events: auto;
+      display: flex; align-items: center;
+      opacity: 0; transform: translateY(-6px);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+    #landing-nav a.in { opacity: 1; transform: translateY(0); }
+    #landing-nav a:hover { opacity: .65; }
+    #landing-nav img { height: 20px; width: auto; display: block; }
+
+    /* ── LOGO GRAND (final slot state) ── */
+    .slot-logo-img {
+      width: clamp(200px, 36vw, 520px);
+      height: auto; display: block; margin: auto;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (hover: none), (pointer: coarse) {
+      html, body, a { cursor: auto; }
+      #cursor-dot, #cursor-ring { display: none !important; }
+      .bs { pointer-events: auto; }
+
+      /* Card mobile : centrée, 50% de l'écran */
+      #env-card {
+        width: 50vw !important;
+        left: 25vw !important;
+        top: 50% !important;
+        transform: scale(.92) translateY(-50%) !important;
+        padding: 22px 20px 20px;
+        border-radius: 24px;
+      }
+      #env-card.visible {
+        transform: scale(1) translateY(-50%) !important;
+      }
+      .ec-name { font-size: clamp(18px, 5vw, 26px); }
+      .ec-tag  { font-size: 10px; margin-bottom: 14px; }
+      .ec-cta  { font-size: 11px; }
+      .ec-pip  { width: 7px; height: 7px; top: 16px; right: 16px; }
+    }
+
+    /* Slot text plus petit sur très petit écran */
+    @media (max-width: 400px) {
+      .slot-item { font-size: clamp(36px, 10vw, 52px) !important; }
+    }
+    /* Forme sélectionnée sur touch */
+    .bs.bs-selected svg {
+      filter: brightness(1.15);
+      outline: 2.5px solid currentColor;
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="stripe"></div>
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- Nav logo (landing) — s'affiche après l'animation du slot -->
+  <div id="landing-nav">
+    <a href="index.html" id="landing-logo" aria-label="Collectif Cobalt — Accueil">
+      <img src="assets/LOGO/LOGO_COBALT.svg" alt="Collectif Cobalt" width="200" height="45">
+    </a>
+  </div>
+
+  <!-- Fallback si JS désactivé -->
+  <noscript>
+    <style>
+      .noscript-fallback { position:fixed; inset:0; background:#F3EFD7; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:32px; font-family:'DM Sans',sans-serif; }
+      .noscript-fallback h1 { font-size:clamp(2rem,8vw,5rem); font-weight:800; letter-spacing:-.04em; color:#1A1A1A; }
+      .noscript-fallback h1 span { color:#4A82DC; }
+      .noscript-fallback p { font-size:.85rem; color:rgba(26,26,26,.45); letter-spacing:.1em; text-transform:uppercase; }
+      .noscript-nav { display:flex; gap:16px; flex-wrap:wrap; justify-content:center; }
+      .noscript-nav a { padding:12px 28px; border-radius:999px; font-size:.75rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; text-decoration:none; border:1.5px solid currentColor; transition:opacity .15s; }
+      .noscript-nav a:hover { opacity:.7; }
+    </style>
+    <div class="noscript-fallback">
+      <h1>cobalt<span>.</span></h1>
+      <p>Architecture · Design · Fabrication · Média</p>
+      <nav class="noscript-nav">
+        <a href="studio.html"         style="color:#4A82DC;">Le Studio</a>
+        <a href="atelier.html"        style="color:#5DA16B;">L'Atelier</a>
+        <a href="bleu-de-cobalt.html" style="color:#B8940A;">Bleu de Cobalt</a>
+        <a href="media.html"          style="color:#BB3B34;">Le Média</a>
+      </nav>
+    </div>
+  </noscript>
+
+  <!-- Shapes générées par JS -->
+  <div id="bg-shapes"></div>
+
+  <!-- Hero : slot reel + hint -->
+  <div id="hero">
+    <div class="slot-outer" id="slot-outer">
+      <div class="slot-reel" id="slot-reel"></div>
+    </div>
+    <div class="slot-hint" id="slot-hint">
+      <span class="hint-dot" style="background:#4A82DC"></span>
+      <span class="hint-dot" style="background:#5DA16B"></span>
+      <span class="hint-dot" style="background:#F1CB4F"></span>
+      <span class="hint-dot" style="background:#BB3B34"></span>
+      <span id="hint-text">survole une forme</span>
+    </div>
+  </div>
+
+  <!-- Floating env card -->
+  <div id="env-card">
+    <div class="ec-pip"></div>
+    <div class="ec-num"  id="ec-num"></div>
+    <div class="ec-name" id="ec-name"></div>
+    <div class="ec-tag"  id="ec-tag"></div>
+    <div class="ec-cta" id="ec-cta">Entrer →</div>
+  </div>
+
+  <script>
+    /* ══════════════════════════════════════════════
+       CURSOR
+    ══════════════════════════════════════════════ */
+    const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+    let touchActive = null;
+    // Adapter le hint selon device
+    if (isTouch) {
+      const ht = document.getElementById('hint-text');
+      if (ht) ht.textContent = 'tape une forme';
+    }
+    if (!isTouch) {
+      const dot  = document.getElementById('cursor-dot');
+      const ring = document.getElementById('cursor-ring');
+      let mx = 0, my = 0, rx = 0, ry = 0;
+      document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+      (function loop() {
+        dot.style.left  = mx + 'px'; dot.style.top  = my + 'px';
+        rx += (mx - rx) * .13; ry += (my - ry) * .13;
+        ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+        requestAnimationFrame(loop);
+      })();
+    } else {
+      document.getElementById('cursor-dot')?.remove();
+      document.getElementById('cursor-ring')?.remove();
+    }
+
+    /* ══════════════════════════════════════════════
+       SHAPES SVG PATHS  (viewBox 750 × 450)
+       Source : assets/SHAPES/ITEM_1.svg … ITEM_9.svg
+    ══════════════════════════════════════════════ */
+    const SHAPE_SVG = {
+      item1: `<path d="M2.46143e-06 95.5659H750V450H2.46143e-06V95.5659Z"/><path d="M248.695 95.566L2.46143e-06 95.5659L0 1.39797e-07L248.695 95.566Z"/><path d="M498.858 95.566H248.695L248.695 7.7012e-08L498.858 95.566Z"/><path d="M750 95.5659L498.858 95.566V0L750 95.5659Z"/>`,
+      item2: `<path d="M0 160.169H750V450H0V160.169Z"/><path d="M375 0L750 160.169H0L375 0Z"/>`,
+      item3: `<path d="M750 450H502.677V252.561C502.677 192.924 445.394 144.578 374.732 144.578C304.623 144.578 247.684 192.171 246.799 251.165L246.788 252.561V450H0V0H750V450Z"/>`,
+      item4: `<path d="M750 450H0.300781V105.383H0V0L741.504 105.383H750V450Z"/>`,
+      item5: `<path d="M210.027 105.383H212.434V450H0.0849609V105.383H0V0L210.027 105.383ZM750 450H282.247V190.741L750 100V450Z"/>`,
+      item6: `<path d="M375 0C582.107 0 750 84.5762 750 188.906C750 189.063 749.998 189.219 749.997 189.375H750V450H0V189.375H0.00292969C0.0021765 189.219 0 188.906C0 84.5762 167.893 0 375 0Z"/>`,
+      item7: `<path d="M0 233.901H750V450H0V233.901Z"/><path d="M124.837 96.4286H625.163V233.901H124.837V96.4286Z"/><path d="M233.518 0H516.971V96.4286H233.518V0Z"/>`,
+      item8: `<path d="M0 0H215.989V450H0V0Z"/><path d="M215.989 75.9446H445.892V450H215.989V75.9446Z"/><path d="M445.892 149.622H750V450H445.892V149.622Z"/>`,
+      item9: `<path d="M0 180.85H750V450H0V180.85Z"/><path d="M375 180.85C375 280.73 291.053 361.699 187.5 361.699C83.9466 361.699 0 280.73 0 180.85C0 80.9692 83.9466 0 187.5 0C291.053 0 375 80.9692 375 180.85Z"/><path d="M750 180.85C750 280.73 666.053 361.699 562.5 361.699C458.947 361.699 375 280.73 375 180.85C375 80.9692 458.947 0 562.5 0C666.053 0 750 80.9692 750 180.85Z"/>`,
+    };
+    const SHAPE_KEYS = Object.keys(SHAPE_SVG);
+
+    /* ══════════════════════════════════════════════
+       ENVIRONMENT DATA
+    ══════════════════════════════════════════════ */
+    const ENV = {
+      studio:  { num:'01', name:'Le Studio',      tag:'Architecture · Design d\'espace', color:'#4A82DC', href:'studio.html' },
+      atelier: { num:'02', name:"L'Atelier",       tag:'Fabrication · Prototypage',       color:'#5DA16B', href:'atelier.html' },
+      bleu:    { num:'03', name:'Bleu de Cobalt',  tag:'Programme · Cabinets',             color:'#F1CB4F', href:'bleu-de-cobalt.html' },
+      media:   { num:'04', name:'Le Média',         tag:'Architalk · Journal',             color:'#BB3B34', href:'media.html' },
+    };
+    const ENV_KEYS = Object.keys(ENV);
+    // Couleurs par env (pour les shapes)
+    const ENV_COLORS = {
+      studio:  '#4A82DC',
+      atelier: '#5DA16B',
+      bleu:    '#F1CB4F',
+      media:   '#BB3B34',
+    };
+
+    /* ══════════════════════════════════════════════
+       FLOATING CARD
+    ══════════════════════════════════════════════ */
+    const card    = document.getElementById('env-card');
+    const ecNum   = document.getElementById('ec-num');
+    const ecName  = document.getElementById('ec-name');
+    const ecTag   = document.getElementById('ec-tag');
+    const ecCta   = document.getElementById('ec-cta');
+    let   activeEnv = null;
+
+    // Sur mobile : ferme la card si on tape ailleurs qu'une forme
+    if (isTouch) {
+      document.addEventListener('touchend', e => {
+        if (touchActive && !e.target.closest('.bs')) {
+          touchActive.classList.remove('bs-selected');
+          touchActive = null;
+          hideCard();
+        }
+      }, { passive: true });
+    }
+
+    function positionCard(x, y) {
+      const W  = card.offsetWidth  || 200;
+      const H  = card.offsetHeight || 120;
+      const VW = window.innerWidth;
+      const VH = window.innerHeight;
+      if (isTouch) {
+        // Position gérée en CSS (centrée, 50vw, top:50% translateY(-50%))
+        return;
+      } else {
+        let left = x + 24;
+        let top  = y - H - 18;
+        if (left + W > VW - 12) left = x - W - 24;
+        if (top < 10)            top  = y + 20;
+        if (top + H > VH - 12)   top  = VH - H - 12;
+        card.style.left = left + 'px';
+        card.style.top  = top  + 'px';
+      }
+    }
+
+    function showCard(envKey, x, y) {
+      const e = ENV[envKey];
+      card.dataset.env = envKey;
+      ecNum.textContent  = e.num;
+      ecName.textContent = e.name;
+      ecTag.textContent  = e.tag;
+      ecCta.textContent  = isTouch ? 'Tap à nouveau →' : 'Entrer →';
+      activeEnv = envKey;
+      positionCard(x, y);
+      card.classList.add('visible');
+      if (!isTouch) {
+        const ring = document.getElementById('cursor-ring');
+        if (ring) ring.style.borderColor = ENV_COLORS[envKey].replace('#', 'rgba(') + ', .55)';
+      }
+    }
+
+    function hideCard() {
+      card.classList.remove('visible');
+      activeEnv = null;
+      const ring = document.getElementById('cursor-ring');
+      if (ring) ring.style.borderColor = '';
+    }
+
+    /* ══════════════════════════════════════════════
+       PLACEMENT CONTRÔLÉ DES SHAPES
+       Règles :
+       1. Zone d'exclusion elliptique réduite autour du logo
+       2. Pas de superposition entre formes
+       3. Distance minimale entre même couleur OU même silhouette
+       4. Minimum 2 formes par couleur
+       5. Taux de remplissage cible : 65 % de la zone disponible
+    ══════════════════════════════════════════════ */
+    const bgShapes = document.getElementById('bg-shapes');
+    const SHAPE_VW  = 6.5;  // moitié de la taille précédente
+
+    function placeBgShapes() {
+      const W  = window.innerWidth;
+      const H  = window.innerHeight;
+      const sw = W * SHAPE_VW / 100;
+      const sh = sw * (450 / 750);  // ratio viewBox 750×450
+
+      // ── Zone d'exclusion logo (ellipse resserrée) ──────────────────
+      const logoEl  = document.getElementById('slot-outer');
+      const logoR   = logoEl.getBoundingClientRect();
+      const LOGO_CX = logoR.left + logoR.width  / 2;
+      const LOGO_CY = logoR.top  + logoR.height / 2;
+      const LOGO_RX = logoR.width  / 2 + sw * 0.9;   // marge réduite
+      const LOGO_RY = logoR.height / 2 + sh * 1.6;   // marge réduite
+
+      // ── Calcul dynamique du nombre de formes (65 % fill) ──────────
+      const logoArea  = Math.PI * LOGO_RX * LOGO_RY;
+      const availArea = W * H - logoArea;
+      const shapeArea = sw * sh * 0.58;  // surface réelle ≈ 58 % du bbox (silhouette)
+      const N_RAW     = Math.ceil(0.65 * availArea / shapeArea);
+      const N_SHAPES  = Math.min(Math.max(N_RAW, 32), 120);
+
+      // ── Pool de couleurs : min 2 par env, reste distribué ─────────
+      const basePerEnv = Math.max(2, Math.floor(N_SHAPES / ENV_KEYS.length));
+      const envPool = [];
+      ENV_KEYS.forEach(k => { for (let i = 0; i < basePerEnv; i++) envPool.push(k); });
+      let fill = 0;
+      while (envPool.length < N_SHAPES) { envPool.push(ENV_KEYS[fill++ % ENV_KEYS.length]); }
+      for (let i = envPool.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [envPool[i], envPool[j]] = [envPool[j], envPool[i]];
+      }
+
+      // ── Paramètres de collision ────────────────────────────────────
+      const COL_MIN   = sw * 0.82;   // distance min centre-à-centre (formes proches)
+      const SAME_DIST = sw * 1.9;    // distance min même couleur OU même silhouette
+      const MAX_TRY   = 300;
+
+      const placed = [];
+
+      for (let i = 0; i < N_SHAPES; i++) {
+        const envKey   = envPool[i];
+        const shapeKey = SHAPE_KEYS[Math.floor(Math.random() * SHAPE_KEYS.length)];
+        const rot      = (Math.random() - 0.5) * 82;
+        const flip     = Math.random() > 0.5 ? ' scaleX(-1)' : '';
+
+        let cx, cy, ok;
+        let tries = 0;
+
+        do {
+          ok = true;
+          // Autoriser un léger débordement sur les bords (comme dans l'exemple)
+          cx = -sw * 0.1 + Math.random() * (W + sw * 0.2);
+          cy = -sh * 0.1 + Math.random() * (H + sh * 0.2);
+
+          // Règle 1 : exclusion logo
+          const ex = (cx - LOGO_CX) / LOGO_RX;
+          const ey = (cy - LOGO_CY) / LOGO_RY;
+          if (ex * ex + ey * ey < 1) { ok = false; continue; }
+
+          // Règles 2 & 3
+          for (const p of placed) {
+            const d = Math.hypot(cx - p.cx, cy - p.cy);
+            if (d < COL_MIN) { ok = false; break; }
+            if ((p.envKey === envKey || p.shapeKey === shapeKey) && d < SAME_DIST) {
+              ok = false; break;
+            }
+          }
+          tries++;
+        } while (!ok && tries < MAX_TRY);
+
+        if (!ok) continue;
+
+        placed.push({ cx, cy, envKey, shapeKey });
+
+        const div = document.createElement('div');
+        div.className = 'bs';
+        div.dataset.env = envKey;
+        div.setAttribute('role', 'button');
+        div.setAttribute('tabindex', '0');
+        div.setAttribute('aria-label', `${ENV[envKey].name} — ${ENV[envKey].tag}`);
+        div.style.cssText = `
+          left:${(cx - sw / 2) / W * 100}%;
+          top:${(cy - sh / 2) / H * 100}%;
+          width:${SHAPE_VW}vw;
+          transform: rotate(${rot}deg)${flip};
+          color: ${ENV_COLORS[envKey]};
+        `;
+        div.innerHTML = `<svg viewBox="0 0 750 450" fill="currentColor" xmlns="http://www.w3.org/2000/svg">${SHAPE_SVG[shapeKey]}</svg>`;
+
+        if (!isTouch) {
+          // Desktop : hover classique
+          div.addEventListener('mouseenter', e => { document.body.classList.add('hov'); showCard(envKey, e.clientX, e.clientY); });
+          div.addEventListener('mousemove',  e => positionCard(e.clientX, e.clientY));
+          div.addEventListener('mouseleave', () => { document.body.classList.remove('hov'); hideCard(); });
+          div.addEventListener('click',      () => { window.location.href = ENV[envKey].href; });
+          // Clavier : focus → affiche card, Enter/Space → navigate
+          div.addEventListener('focus', () => {
+            const r = div.getBoundingClientRect();
+            showCard(envKey, r.left + r.width / 2, r.top);
+          });
+          div.addEventListener('blur', () => hideCard());
+          div.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); window.location.href = ENV[envKey].href; }
+          });
+        } else {
+          // Mobile — Option A : 1er tap → card, 2e tap → navigate
+          div.addEventListener('touchend', e => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (touchActive === div) {
+              // 2e tap sur la même forme → navigate
+              window.location.href = ENV[envKey].href;
+            } else {
+              // 1er tap : déselectionne l'ancienne forme si besoin
+              if (touchActive) touchActive.classList.remove('bs-selected');
+              touchActive = div;
+              div.classList.add('bs-selected');
+              const t = e.changedTouches[0];
+              showCard(envKey, t.clientX, t.clientY);
+            }
+          });
+        }
+
+        bgShapes.appendChild(div);
+      }
+    }
+
+    /* ══════════════════════════════════════════════
+       SLOT REEL
+    ══════════════════════════════════════════════ */
+    const SANS  = "'Suisse BP Int\\'l', 'DM Sans', sans-serif";
+    const SERIF = "'Instrument Serif', serif";
+
+    const SLOT_ITEMS = [
+      // cycle 1
+      { html:'Le Studio',      color:'#4A82DC', font:SANS,  weight:'800', style:'normal', tracking:'-.03em' },
+      { html:"L'Atelier",      color:'#5DA16B', font:SERIF, weight:'400', style:'italic', tracking:'.01em'  },
+      { html:'Bleu de Cobalt', color:'#B8940A', font:SANS,  weight:'300', style:'normal', tracking:'.05em'  },
+      { html:'Le Média',       color:'#BB3B34', font:SANS,  weight:'800', style:'normal', tracking:'.08em'  },
+      // cycle 2
+      { html:'Le Studio',      color:'#4A82DC', font:SANS,  weight:'800', style:'normal', tracking:'-.03em' },
+      { html:"L'Atelier",      color:'#5DA16B', font:SERIF, weight:'400', style:'italic', tracking:'.01em'  },
+      { html:'Bleu de Cobalt', color:'#B8940A', font:SANS,  weight:'300', style:'normal', tracking:'.05em'  },
+      { html:'Le Média',       color:'#BB3B34', font:SANS,  weight:'800', style:'normal', tracking:'.08em'  },
+      // cycle 3
+      { html:'Le Studio',      color:'#4A82DC', font:SANS,  weight:'800', style:'normal', tracking:'-.03em' },
+      { html:"L'Atelier",      color:'#5DA16B', font:SERIF, weight:'400', style:'italic', tracking:'.01em'  },
+      { html:'Bleu de Cobalt', color:'#B8940A', font:SANS,  weight:'300', style:'normal', tracking:'.05em'  },
+      { html:'Le Média',       color:'#BB3B34', font:SANS,  weight:'800', style:'normal', tracking:'.08em'  },
+      // cycle 4
+      { html:'Le Studio',      color:'#4A82DC', font:SANS,  weight:'800', style:'normal', tracking:'-.03em' },
+      { html:"L'Atelier",      color:'#5DA16B', font:SERIF, weight:'400', style:'italic', tracking:'.01em'  },
+      { html:'Bleu de Cobalt', color:'#B8940A', font:SANS,  weight:'300', style:'normal', tracking:'.05em'  },
+      { html:'Le Média',       color:'#BB3B34', font:SANS,  weight:'800', style:'normal', tracking:'.08em'  },
+      // Arrêt final : logo SVG en grand
+      { html:'<img src="assets/LOGO/LOGO_COBALT.svg" alt="Collectif Cobalt" class="slot-logo-img" width="520" height="116">', color:'#1A1A1A', font:SANS, weight:'800', style:'normal', tracking:'-.04em' },
+    ];
+
+    const slotReel = document.getElementById('slot-reel');
+    const slotOuter = document.getElementById('slot-outer');
+    const slotHint  = document.getElementById('slot-hint');
+
+    SLOT_ITEMS.forEach(item => {
+      const el = document.createElement('div');
+      el.className = 'slot-item';
+      el.innerHTML = item.html;
+      el.style.fontFamily    = item.font;
+      el.style.fontWeight    = item.weight;
+      el.style.fontStyle     = item.style;
+      el.style.letterSpacing = item.tracking;
+      el.style.color         = item.color;
+      el.style.fontSize      = 'clamp(52px, 11vw, 148px)';
+      el.style.lineHeight    = '1.05';
+      slotReel.appendChild(el);
+    });
+
+    function easeOutBack(t) {
+      const c1 = 0.6, c3 = c1 + 1;  // réduit : rebond visible mais texte reste dans le cadre
+      return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+    }
+
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      // Mesurer la hauteur la plus grande parmi tous les items
+      let maxH = 0;
+      [...slotReel.children].forEach(el => { maxH = Math.max(maxH, el.offsetHeight); });
+      const itemH = Math.ceil(maxH) + 2;
+
+      [...slotReel.children].forEach(el => { el.style.height = itemH + 'px'; });
+      slotOuter.style.height = itemH + 'px';
+
+      // Placement contrôlé des shapes — setTimeout pour libérer le thread principal
+      setTimeout(placeBgShapes, 0);
+
+      const totalDist = (SLOT_ITEMS.length - 1) * itemH;
+      const DURATION  = 3733;  // 2800 / 0.75 — vitesse ×0,75
+      let startTs = null;
+
+      function animReel(ts) {
+        if (!startTs) startTs = ts;
+        const t     = Math.min((ts - startTs) / DURATION, 1);
+        const eased = easeOutBack(t);
+        slotReel.style.transform = `translateY(-${eased * totalDist}px)`;
+        if (t < 1) {
+          requestAnimationFrame(animReel);
+        } else {
+          slotReel.style.transform = `translateY(-${totalDist}px)`;
+          setTimeout(() => {
+            slotHint.classList.add('in');
+            document.getElementById('landing-logo')?.classList.add('in');
+          }, 300);
+        }
+      }
+
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reducedMotion) {
+        // Afficher directement le logo sans animation
+        slotReel.style.transform = `translateY(-${totalDist}px)`;
+        setTimeout(() => {
+          slotHint.classList.add('in');
+          document.getElementById('landing-logo')?.classList.add('in');
+        }, 100);
+      } else {
+        setTimeout(() => requestAnimationFrame(animReel), 350);
+      }
+    }));
+  </script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+{
+  "projets": [
+    {
+      "id": "angouleme",
+      "title": "Appartement Angoulême",
+      "tagline": "Réhabilitation d'un appartement de centre-ville.",
+      "category": "résidentiel",
+      "status": "livré",
+      "accent": "bleu",
+      "lieu": "Angoulême · Charente",
+      "surface": "95 m²",
+      "annee": "2024",
+      "duree": "8 mois",
+      "mission": "Architecture intérieure · Mobilier sur mesure",
+      "client": "Particulier",
+      "cover": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=2000&q=85&auto=format&fit=crop",
+      "intro": "Un appartement traversant repensé autour d'une seule règle : laisser respirer la lumière du sud. Cloisons retirées, sols unifiés, mobilier intégré.",
+      "brief": [
+        "Le client venait d'acheter un T4 mal compartimenté dans un immeuble années 30. La demande tenait en une phrase : « ouvrir, sans dénaturer ».",
+        "Notre parti pris : conserver les moulures et les parquets d'origine, redessiner toute la circulation, et concentrer le mobilier sur mesure dans une seule pièce — la cuisine-salle à manger devenue le cœur du logement.",
+        "Le résultat est un espace fluide où l'on traverse trois ambiances sans jamais croiser une porte fermée."
+      ],
+      "process": [
+        { "titre": "Diagnostic", "txt": "Relevé complet, repérage des cloisons porteuses, lecture du carnet de copropriété. Trois semaines avant la première esquisse." },
+        { "titre": "Esquisse", "txt": "Quatre scénarios proposés au client, du plus radical au plus conservateur. Validation du scénario 2 — entre les deux." },
+        { "titre": "Détails", "txt": "Dessin de chaque meuble fixe à l'échelle 1:20, choix des matériaux avec les artisans locaux (chêne, laiton, terre cuite émaillée)." },
+        { "titre": "Chantier", "txt": "Suivi hebdomadaire pendant six mois, deux entreprises générales coordonnées en direct, livraison du mobilier en dernière phase." }
+      ],
+      "gallery": [
+        "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1600&q=85&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=1600&q=85&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1567016432779-094069958ea5?w=1600&q=85&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=85&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1600&q=85&auto=format&fit=crop"
+      ],
+      "quote": "Un appartement bien dessiné, c'est un appartement où l'on ne remarque plus le dessin."
+    },
+    {
+      "id": "bordeaux",
+      "title": "Atelier Bordeaux",
+      "tagline": "Reconversion d'un entrepôt en atelier de création.",
+      "category": "rehabilitation",
+      "status": "livré",
+      "accent": "vert",
+      "lieu": "Bordeaux · Gironde",
+      "surface": "210 m²",
+      "annee": "2024",
+      "duree": "10 mois",
+      "mission": "Architecture intérieure · Direction de chantier",
+      "client": "Studio de création indépendant",
+      "cover": "https://images.unsplash.com/photo-1565182999561-18d7dc61c393?w=2000&q=85&auto=format&fit=crop",
+      "intro": "Un ancien entrepôt de stockage des Bassins à flot transformé en atelier mixte — bureaux, espace de tournage, zone de prototypage bois.",
+      "brief": [
+        "Le client cherchait un lieu unique pouvant accueillir cinq postes de travail, un espace de tournage modulable et un coin atelier pour les prototypes — sans renoncer à la lumière naturelle.",
+        "Le bâtiment offrait une double hauteur de 5,4 m sous shed mais aucun cloisonnement utile. Tout était à dessiner.",
+        "Nous avons conçu une mezzanine en ossature acier-bois qui sépare sans cloisonner : en bas l'atelier, en haut les bureaux. Aucune porte intérieure."
+      ],
+      "process": [
+        { "titre": "Lecture du lieu", "txt": "Relevé en deux passes — la première pour la structure, la seconde pour la lumière (mesures heure par heure pendant trois jours)." },
+        { "titre": "Mezzanine", "txt": "Calcul de la structure avec un BET local, validation de la portée, choix d'un platelage chêne brut." },
+        { "titre": "Mobilier", "txt": "Plans de travail acier brossé fabriqués sur place, étagères modulaires en contreplaqué peuplier sur tasseaux." },
+        { "titre": "Acoustique", "txt": "Panneaux acoustiques en feutre recyclé suspendus sous les sheds — invisibles depuis l'entrée." }
+      ],
+      "gallery": [
+        "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=85&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1600&q=85&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1604328698692-f76ea9498e76?w=1600&q=85&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1600&q=85&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1517502884422-41eaead166d4?w=1600&q=85&auto=format&fit=crop"
+      ],
+      "quote": "Un atelier ne se cloisonne pas, il se zone. La frontière, c'est la lumière."
+    },
+    {
+      "id": "bayonne",
+      "title": "Boutique Bayonne",
+      "tagline": "Aménagement d'une boutique de prêt-à-porter indépendante.",
+      "category": "commerce",
+      "status": "livré",
+      "accent": "rouge",
+      "lieu": "Bayonne · Pyrénées-Atlantiques",
+      "surface": "85 m²",
+      "annee": "2023",
+      "duree": "5 mois",
+      "mission": "Design d'espace · Mobilier sur mesure · Identité visuelle",
+      "client": "Marque indépendante",
+      "cover": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=2000&q=85&auto=format&fit=crop",
+      "intro": "Une boutique de centre-ville pensée comme un appartement : entrer, traîner, essayer, repartir. Pas de comptoir frontal, pas de portants alignés.",
+      "brief": [
+        "La cliente, créatrice de la marque depuis huit ans, voulait sortir du code « boutique » classique : moins de portants, moins d'éclairage froid, plus de matières.",
+        "Nous avons traité l'espace comme un séjour : un grand tapis, un canapé, une table d'essayage centrale, des étagères murales basses. Le stock est rangé en hauteur, accessible avec une échelle.",
+        "Le mobilier sur mesure (chêne huilé, laiton patiné) a été dessiné pour pouvoir être démonté et déplacé si la marque change de local."
+      ],
+      "process": [
+        { "titre": "Étude usage", "txt": "Trois demi-journées d'observation dans l'ancienne boutique, repérage des zones où les clientes s'attardent." },
+        { "titre": "Plan radical", "txt": "Suppression du comptoir, de la cabine d'essayage cloisonnée, du miroir mural — remplacés par des éléments mobiles." },
+        { "titre": "Lumière", "txt": "Six suspensions chinées, deux liseuses de lecture, aucun spot encastré. La lumière vient des objets, pas du plafond." },
+        { "titre": "Identité", "txt": "Refonte de la signalétique vitrine et du fronton, en lien avec le mobilier — même typographie, mêmes laitons." }
+      ],
+      "gallery": [
+        "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=1600&q=85&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1604176354204-9268737828e4?w=1600&q=85&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=1600&q=85&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1554189097-ffe88e998a2b?w=1600&q=85&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1604014237800-1c9102c219da?w=1600&q=85&auto=format&fit=crop"
+      ],
+      "quote": "Une boutique réussie, c'est un lieu où l'on entre par curiosité et où l'on reste par confort."
+    },
+    {
+      "id": "ile-de-re",
+      "title": "Maison Île-de-Ré",
+      "tagline": "Maison familiale en bord de marais salants.",
+      "category": "résidentiel",
+      "status": "cours",
+      "accent": "bleu",
+      "lieu": "Île de Ré · Charente-Maritime",
+      "surface": "140 m²",
+      "annee": "2026",
+      "duree": "12 mois (en cours)",
+      "mission": "Architecture intérieure · Mobilier intégré",
+      "client": "Particulier",
+      "cover": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=2000&q=85&auto=format&fit=crop",
+      "intro": "Une maison rétaise classique, repensée autour de deux contraintes : le sel et la lumière rasante. Tous les matériaux ont été choisis pour vieillir au lieu de se dégrader.",
+      "brief": [
+        "La maison, héritage familial, n'avait pas été touchée depuis les années 80. Sols carrelés bruns, faux plafonds, menuiseries PVC.",
+        "Le brief : redonner sa logique à un plan d'origine très bien pensé, sans pour autant tout démolir. Conserver l'âme de la maison de famille.",
+        "Choix des matériaux dictés par le climat : chaux, terre cuite locale, chêne brut, laiton non verni. Tout patine au lieu de s'user."
+      ],
+      "process": [
+        { "titre": "Diagnostic", "txt": "Relevé complet, lecture des couches successives de travaux pour identifier l'état d'origine sous les ajouts." },
+        { "titre": "Choix des matériaux", "txt": "Visite de trois carrières et deux ateliers de la côte atlantique avant arbitrage." },
+        { "titre": "Sols", "txt": "Tomettes terre cuite récupérées dans une grange voisine, posées au mortier de chaux." },
+        { "titre": "Cuisine", "txt": "En cours de fabrication — façades chêne brut, plan de travail pierre de Charente." }
+      ],
+      "gallery": [
+        "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1600&q=85&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1600&q=85&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1600573472556-e636c2acda88?w=1600&q=85&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1600&q=85&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1600585154363-67eb9e2e2099?w=1600&q=85&auto=format&fit=crop"
+      ],
+      "quote": "Sur l'île, un matériau qui ne patine pas, c'est un matériau qui se dégrade."
+    },
+    {
+      "id": "dax",
+      "title": "Maison Dax",
+      "tagline": "Extension contemporaine d'une maison landaise.",
+      "category": "résidentiel",
+      "status": "cours",
+      "accent": "bleu",
+      "lieu": "Dax · Landes",
+      "surface": "60 m² d'extension · 180 m² total",
+      "annee": "2026",
+      "duree": "9 mois (en cours)",
+      "mission": "Design d'espace · Coordination avec architecte",
+      "client": "Particulier",
+      "cover": "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=2000&q=85&auto=format&fit=crop",
+      "intro": "Une maison landaise traditionnelle prolongée par un volume contemporain en pin maritime. Notre rôle : faire dialoguer les deux intérieurs sans rupture.",
+      "brief": [
+        "L'extension est dessinée par un architecte voisin. Notre mission commence à la coque livrée : sols, menuiseries intérieures, mobilier intégré, éclairage.",
+        "Le défi : que l'on circule de la maison ancienne au volume neuf sans avoir l'impression de changer de maison. Une seule palette, deux époques.",
+        "Pin maritime à l'intérieur de l'extension, en écho à la charpente d'origine. Sol béton ciré continu sur les deux espaces."
+      ],
+      "process": [
+        { "titre": "Coordination", "txt": "Trois sessions communes avec l'architecte de l'extension pour caler les niveaux de sol et les passages techniques." },
+        { "titre": "Palette", "txt": "Définition d'une palette unique de cinq matériaux qui se retrouvent dans les deux parties." },
+        { "titre": "Mobilier", "txt": "Bibliothèque traversante en pin huilé qui relie physiquement l'ancien et le neuf." },
+        { "titre": "Lumière", "txt": "Un seul plan d'éclairage pour les deux volumes, avec scénarios variables." }
+      ],
+      "gallery": [
+        "https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?w=1600&q=85&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1600210491969-49e62ec1149d?w=1600&q=85&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&q=85&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=1600&q=85&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1600566753104-685f4f24cb4d?w=1600&q=85&auto=format&fit=crop"
+      ],
+      "quote": "Une extension réussie, ce n'est pas un volume qui se voit. C'est un volume qui se traverse."
+    },
+    {
+      "id": "charente",
+      "title": "Restaurant Charente",
+      "tagline": "Création d'un restaurant de produits locaux.",
+      "category": "commerce",
+      "status": "concept",
+      "accent": "rouge",
+      "lieu": "Cognac · Charente",
+      "surface": "120 m²",
+      "annee": "2026",
+      "duree": "Phase concept",
+      "mission": "Design d'espace · Identité visuelle · Mobilier",
+      "client": "Restaurateur indépendant",
+      "cover": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=2000&q=85&auto=format&fit=crop",
+      "intro": "Un projet en phase concept : un restaurant de produits locaux dans une ancienne distillerie, où la cuisine ouverte devient le décor principal.",
+      "brief": [
+        "Le client porte un projet de restaurant centré sur la production charentaise — vins, fromages, viandes, légumes — avec une cuisine en flux tendu.",
+        "Notre proposition : retirer toute séparation entre cuisine et salle, faire du plan de travail une scène. Pas de comptoir, pas de passe.",
+        "Mobilier en chêne brut local, vaisselle céramique d'un atelier de la région, éclairage en suspension basse. Capacité 32 couverts."
+      ],
+      "process": [
+        { "titre": "Concept", "txt": "Trois ambiances proposées au client — du plus brut (lavoir) au plus codé (bistrot moderne). Validation de la version intermédiaire." },
+        { "titre": "Plan de salle", "txt": "Dessin du flux entre cuisine, service et salle pour optimiser le service à 32 couverts en double rotation." },
+        { "titre": "Identité", "txt": "Travail en parallèle sur le naming, la signalétique et la carte — cohérents avec l'espace." },
+        { "titre": "Suite", "txt": "Phase APD à venir — recherche de financement en cours côté client." }
+      ],
+      "gallery": [
+        "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1600&q=85&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1600&q=85&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1559329007-40df8a9345d8?w=1600&q=85&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=85&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=1600&q=85&auto=format&fit=crop"
+      ],
+      "quote": "Dans un restaurant de produit, le plus beau décor, c'est la cuisine qui travaille."
+    }
+  ]
+}
