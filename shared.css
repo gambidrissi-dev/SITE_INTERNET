@@ -84,21 +84,45 @@ body > nav {
   width: 44px; height: 44px; background: none; border: none;
   display: flex; flex-direction: column; align-items: center;
   justify-content: center; gap: 5px; cursor: none;
+  position: relative;
 }
+/* Cercle hover */
+.nav-burger-btn::before {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  background: #F3EFD7;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity .22s ease, transform .28s cubic-bezier(.34,1.56,.64,1);
+}
+.nav-burger-btn:hover::before { opacity: .10; transform: scale(1); }
+.nav-burger-btn.open::before  { opacity: .06; transform: scale(1); }
+
+/* Lignes */
 .nav-burger-btn span {
-  display: block; width: 22px; height: 1.5px;
-  transition: transform .32s cubic-bezier(.76,0,.24,1), opacity .2s;
+  display: block; height: 1.5px;
+  transition: transform .38s cubic-bezier(.76,0,.24,1),
+              opacity .22s ease,
+              width .28s cubic-bezier(.76,0,.24,1);
 }
-/* 4 lignes = 4 entités */
-.nav-burger-btn span:nth-child(1) { background: #4A82DC; } /* Le Studio   */
-.nav-burger-btn span:nth-child(2) { background: #5DA16B; } /* L'Atelier   */
-.nav-burger-btn span:nth-child(3) { background: #F1CB4F; } /* Bleu Cobalt */
-.nav-burger-btn span:nth-child(4) { background: #BB3B34; } /* Le Média    */
+/* 4 lignes = 4 entités — largeur décroissante */
+.nav-burger-btn span:nth-child(1) { background: #4A82DC; width: 22px; } /* Le Studio   */
+.nav-burger-btn span:nth-child(2) { background: #5DA16B; width: 17px; } /* L'Atelier   */
+.nav-burger-btn span:nth-child(3) { background: #F1CB4F; width: 13px; } /* Bleu Cobalt */
+.nav-burger-btn span:nth-child(4) { background: #BB3B34; width:  9px; } /* Le Média    */
+
+/* Stagger fermeture — délai décalé pour la réapparition */
+.nav-burger-btn span:nth-child(1) { transition-delay: .00s; }
+.nav-burger-btn span:nth-child(2) { transition-delay: .04s; }
+.nav-burger-btn span:nth-child(3) { transition-delay: .08s; }
+.nav-burger-btn span:nth-child(4) { transition-delay: .12s; }
+
 /* Animation X — lignes 1 & 4 se croisent, 2 & 3 s'effacent */
-.nav-burger-btn.open span:nth-child(1) { transform: translateY(9.75px) rotate(45deg); }
-.nav-burger-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-.nav-burger-btn.open span:nth-child(3) { opacity: 0; transform: scaleX(0); }
-.nav-burger-btn.open span:nth-child(4) { transform: translateY(-9.75px) rotate(-45deg); }
+.nav-burger-btn.open span:nth-child(1) { transform: translateY(9.75px) rotate(45deg); width: 22px; transition-delay: .00s; }
+.nav-burger-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); transition-delay: .00s; }
+.nav-burger-btn.open span:nth-child(3) { opacity: 0; transform: scaleX(0); transition-delay: .00s; }
+.nav-burger-btn.open span:nth-child(4) { transform: translateY(-9.75px) rotate(-45deg); width: 22px; transition-delay: .06s; }
 
 /* ══════════════════════════════════════════
    NAV OVERLAY — style bandes éditoriales
@@ -286,13 +310,27 @@ body > nav {
 .e3:hover .lg-strip-sub { color: rgba(241,203,79,.50); }
 .e4:hover .lg-strip-sub { color: rgba(187,59,52,.55); }
 
-/* Strip actif (page courante) */
+/* Strip actif (page courante) — coloré par entité */
 .lg-strip.active { background: rgba(255,255,255,.04); }
 .lg-strip.active::before { opacity: 1; width: 4px; }
-.lg-strip.active .lg-strip-name { color: rgba(255,255,255,.95); }
 .lg-strip.active .lg-strip-num { color: rgba(255,255,255,.55); }
 .lg-strip.active .lg-strip-sub { color: rgba(255,255,255,.50); }
 .lg-strip.active .lg-strip-link { color: rgba(255,255,255,.40); }
+/* Nom actif → couleur de l'entité courante */
+.e1.active .lg-strip-name { color: #4A82DC; }
+.e2.active .lg-strip-name { color: #5DA16B; }
+.e3.active .lg-strip-name { color: #F1CB4F; }
+.e4.active .lg-strip-name { color: #BB3B34; }
+/* Barre latérale active → glow coloré */
+.e1.active::before { box-shadow: 2px 0 20px rgba(74,130,220,.55), 0 0 8px rgba(74,130,220,.3); }
+.e2.active::before { box-shadow: 2px 0 20px rgba(93,161,107,.55), 0 0 8px rgba(93,161,107,.3); }
+.e3.active::before { box-shadow: 2px 0 20px rgba(241,203,79,.50), 0 0 8px rgba(241,203,79,.28); }
+.e4.active::before { box-shadow: 2px 0 20px rgba(187,59,52,.55), 0 0 8px rgba(187,59,52,.3); }
+/* Tint de fond actif → légèrement plus fort que le repos */
+.e1.active { background: rgba(74,130,220,.07); }
+.e2.active { background: rgba(93,161,107,.07); }
+.e3.active { background: rgba(241,203,79,.055); }
+.e4.active { background: rgba(187,59,52,.07); }
 
 /* Grand nombre fantôme en fond — teinté par env au repos */
 .lg-strip-ghost {
@@ -305,12 +343,9 @@ body > nav {
   transition: color .45s ease, transform .45s cubic-bezier(.25,.46,.45,.94);
   line-height: 1;
 }
-/* Ghost de base : couleur env très atténuée */
-.e1 .lg-strip-ghost { color: rgba(74,130,220,.05); }
-.e2 .lg-strip-ghost { color: rgba(93,161,107,.05); }
-.e3 .lg-strip-ghost { color: rgba(241,203,79,.04); }
-.e4 .lg-strip-ghost { color: rgba(187,59,52,.05); }
-/* Ghost au hover : couleur env plus forte */
+/* Ghost invisible au repos */
+.lg-strip-ghost { color: transparent; }
+/* Ghost au hover : apparition + glissement */
 .e1:hover .lg-strip-ghost { color: rgba(74,130,220,.18); transform: translateY(-50%) translateX(-10px) scale(1.05); }
 .e2:hover .lg-strip-ghost { color: rgba(93,161,107,.18); transform: translateY(-50%) translateX(-10px) scale(1.05); }
 .e3:hover .lg-strip-ghost { color: rgba(241,203,79,.16); transform: translateY(-50%) translateX(-10px) scale(1.05); }
