@@ -44,7 +44,10 @@
       "addressRegion": "Nouvelle-Aquitaine",
       "addressCountry": "FR"
     },
-    "sameAs": [],
+    "sameAs": [
+      "https://www.instagram.com/collectifcobalt",
+      "https://www.linkedin.com/company/collectif-cobalt"
+    ],
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
       "name": "Nos activités",
@@ -357,6 +360,33 @@
     @media (max-width: 400px) {
       .slot-item { font-size: clamp(36px, 10vw, 52px) !important; }
     }
+
+    /* ── SORTIE DE SECOURS (apparaît après le slot) ── */
+    #escape-nav {
+      position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
+      z-index: 200;
+      display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+      opacity: 0; transition: opacity .8s ease;
+      pointer-events: none;
+    }
+    #escape-nav.in { opacity: 1; pointer-events: auto; }
+    .escape-link {
+      font-size: 8px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+      padding: 7px 14px; border-radius: 999px;
+      border: 1px solid rgba(26,26,26,.18);
+      color: rgba(26,26,26,.45);
+      transition: border-color .2s, color .2s, background .2s;
+    }
+    .escape-link:hover { border-color: currentColor; }
+    .escape-link[data-c="studio"]  { color: #4A82DC; }
+    .escape-link[data-c="atelier"] { color: #5DA16B; }
+    .escape-link[data-c="bleu"]    { color: #B8940A; }
+    .escape-link[data-c="media"]   { color: #BB3B34; }
+    .escape-link[data-c="contact"] { color: rgba(26,26,26,.35); }
+    @media (pointer: coarse) {
+      #escape-nav { bottom: 20px; }
+      .escape-link { font-size: 9px; padding: 9px 16px; }
+    }
     /* Forme sélectionnée sur touch */
     .bs.bs-selected svg {
       filter: brightness(1.15);
@@ -417,6 +447,15 @@
       <span id="hint-text">survole une forme</span>
     </div>
   </div>
+
+  <!-- Sortie de secours — apparaît après l'animation du slot -->
+  <nav id="escape-nav" aria-label="Navigation principale">
+    <a href="studio.html"         class="escape-link" data-c="studio">Le Studio</a>
+    <a href="atelier.html"        class="escape-link" data-c="atelier">L'Atelier</a>
+    <a href="bleu-de-cobalt.html" class="escape-link" data-c="bleu">Bleu de Cobalt</a>
+    <a href="media.html"          class="escape-link" data-c="media">Le Média</a>
+    <a href="contact.html"        class="escape-link" data-c="contact">Contact</a>
+  </nav>
 
   <!-- Floating env card -->
   <div id="env-card">
@@ -529,6 +568,14 @@
       }
     }
 
+    function hexToRgba(hex, alpha) {
+      const h = hex.replace('#', '');
+      const r = parseInt(h.slice(0, 2), 16);
+      const g = parseInt(h.slice(2, 4), 16);
+      const b = parseInt(h.slice(4, 6), 16);
+      return `rgba(${r},${g},${b},${alpha})`;
+    }
+
     function showCard(envKey, x, y) {
       const e = ENV[envKey];
       card.dataset.env = envKey;
@@ -541,7 +588,7 @@
       card.classList.add('visible');
       if (!isTouch) {
         const ring = document.getElementById('cursor-ring');
-        if (ring) ring.style.borderColor = ENV_COLORS[envKey].replace('#', 'rgba(') + ', .55)';
+        if (ring) ring.style.borderColor = hexToRgba(ENV_COLORS[envKey], .55);
       }
     }
 
@@ -560,32 +607,33 @@
        3. Distance minimale entre même couleur OU même silhouette
        4. Minimum 2 formes par couleur
        5. Taux de remplissage cible : 65 % de la zone disponible
+       Perf : événements délégués sur #bg-shapes (1 listener global)
+              cap réduit à 40 sur mobile/tactile
     ══════════════════════════════════════════════ */
     const bgShapes = document.getElementById('bg-shapes');
-    const SHAPE_VW  = 6.5;  // moitié de la taille précédente
+    const SHAPE_VW  = 6.5;
 
     function placeBgShapes() {
       const W  = window.innerWidth;
       const H  = window.innerHeight;
       const sw = W * SHAPE_VW / 100;
-      const sh = sw * (450 / 750);  // ratio viewBox 750×450
+      const sh = sw * (450 / 750);
 
-      // ── Zone d'exclusion logo (ellipse resserrée) ──────────────────
       const logoEl  = document.getElementById('slot-outer');
       const logoR   = logoEl.getBoundingClientRect();
       const LOGO_CX = logoR.left + logoR.width  / 2;
       const LOGO_CY = logoR.top  + logoR.height / 2;
-      const LOGO_RX = logoR.width  / 2 + sw * 0.9;   // marge réduite
-      const LOGO_RY = logoR.height / 2 + sh * 1.6;   // marge réduite
+      const LOGO_RX = logoR.width  / 2 + sw * 0.9;
+      const LOGO_RY = logoR.height / 2 + sh * 1.6;
 
-      // ── Calcul dynamique du nombre de formes (65 % fill) ──────────
+      // Cap réduit sur mobile : 40 max, 120 max sur desktop
       const logoArea  = Math.PI * LOGO_RX * LOGO_RY;
       const availArea = W * H - logoArea;
-      const shapeArea = sw * sh * 0.58;  // surface réelle ≈ 58 % du bbox (silhouette)
+      const shapeArea = sw * sh * 0.58;
       const N_RAW     = Math.ceil(0.65 * availArea / shapeArea);
-      const N_SHAPES  = Math.min(Math.max(N_RAW, 32), 120);
+      const CAP       = isTouch ? 40 : 120;
+      const N_SHAPES  = Math.min(Math.max(N_RAW, isTouch ? 16 : 32), CAP);
 
-      // ── Pool de couleurs : min 2 par env, reste distribué ─────────
       const basePerEnv = Math.max(2, Math.floor(N_SHAPES / ENV_KEYS.length));
       const envPool = [];
       ENV_KEYS.forEach(k => { for (let i = 0; i < basePerEnv; i++) envPool.push(k); });
@@ -596,12 +644,11 @@
         [envPool[i], envPool[j]] = [envPool[j], envPool[i]];
       }
 
-      // ── Paramètres de collision ────────────────────────────────────
-      const COL_MIN   = sw * 0.82;   // distance min centre-à-centre (formes proches)
-      const SAME_DIST = sw * 1.9;    // distance min même couleur OU même silhouette
+      const COL_MIN   = sw * 0.82;
+      const SAME_DIST = sw * 1.9;
       const MAX_TRY   = 300;
-
-      const placed = [];
+      const placed    = [];
+      const fragment  = document.createDocumentFragment();
 
       for (let i = 0; i < N_SHAPES; i++) {
         const envKey   = envPool[i];
@@ -614,80 +661,100 @@
 
         do {
           ok = true;
-          // Autoriser un léger débordement sur les bords (comme dans l'exemple)
           cx = -sw * 0.1 + Math.random() * (W + sw * 0.2);
           cy = -sh * 0.1 + Math.random() * (H + sh * 0.2);
-
-          // Règle 1 : exclusion logo
           const ex = (cx - LOGO_CX) / LOGO_RX;
           const ey = (cy - LOGO_CY) / LOGO_RY;
           if (ex * ex + ey * ey < 1) { ok = false; continue; }
-
-          // Règles 2 & 3
           for (const p of placed) {
             const d = Math.hypot(cx - p.cx, cy - p.cy);
             if (d < COL_MIN) { ok = false; break; }
-            if ((p.envKey === envKey || p.shapeKey === shapeKey) && d < SAME_DIST) {
-              ok = false; break;
-            }
+            if ((p.envKey === envKey || p.shapeKey === shapeKey) && d < SAME_DIST) { ok = false; break; }
           }
           tries++;
         } while (!ok && tries < MAX_TRY);
 
         if (!ok) continue;
-
         placed.push({ cx, cy, envKey, shapeKey });
 
         const div = document.createElement('div');
         div.className = 'bs';
-        div.dataset.env = envKey;
+        div.dataset.env  = envKey;
+        div.dataset.href = ENV[envKey].href;
         div.setAttribute('role', 'button');
         div.setAttribute('tabindex', '0');
         div.setAttribute('aria-label', `${ENV[envKey].name} — ${ENV[envKey].tag}`);
-        div.style.cssText = `
-          left:${(cx - sw / 2) / W * 100}%;
-          top:${(cy - sh / 2) / H * 100}%;
-          width:${SHAPE_VW}vw;
-          transform: rotate(${rot}deg)${flip};
-          color: ${ENV_COLORS[envKey]};
-        `;
+        div.style.cssText = `left:${(cx-sw/2)/W*100}%;top:${(cy-sh/2)/H*100}%;width:${SHAPE_VW}vw;transform:rotate(${rot}deg)${flip};color:${ENV_COLORS[envKey]};`;
         div.innerHTML = `<svg viewBox="0 0 750 450" fill="currentColor" xmlns="http://www.w3.org/2000/svg">${SHAPE_SVG[shapeKey]}</svg>`;
+        fragment.appendChild(div);
+      }
 
-        if (!isTouch) {
-          // Desktop : hover classique
-          div.addEventListener('mouseenter', e => { document.body.classList.add('hov'); showCard(envKey, e.clientX, e.clientY); });
-          div.addEventListener('mousemove',  e => positionCard(e.clientX, e.clientY));
-          div.addEventListener('mouseleave', () => { document.body.classList.remove('hov'); hideCard(); });
-          div.addEventListener('click',      () => { window.location.href = ENV[envKey].href; });
-          // Clavier : focus → affiche card, Enter/Space → navigate
-          div.addEventListener('focus', () => {
-            const r = div.getBoundingClientRect();
-            showCard(envKey, r.left + r.width / 2, r.top);
-          });
-          div.addEventListener('blur', () => hideCard());
-          div.addEventListener('keydown', e => {
-            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); window.location.href = ENV[envKey].href; }
-          });
-        } else {
-          // Mobile — Option A : 1er tap → card, 2e tap → navigate
-          div.addEventListener('touchend', e => {
-            e.preventDefault();
-            e.stopPropagation();
-            if (touchActive === div) {
-              // 2e tap sur la même forme → navigate
-              window.location.href = ENV[envKey].href;
-            } else {
-              // 1er tap : déselectionne l'ancienne forme si besoin
-              if (touchActive) touchActive.classList.remove('bs-selected');
-              touchActive = div;
-              div.classList.add('bs-selected');
-              const t = e.changedTouches[0];
-              showCard(envKey, t.clientX, t.clientY);
-            }
-          });
-        }
+      bgShapes.appendChild(fragment);
 
-        bgShapes.appendChild(div);
+      // ── Événements délégués (1 listener par événement sur le container) ──
+      if (!isTouch) {
+        let hoverTarget = null;
+
+        bgShapes.addEventListener('mouseover', e => {
+          const bs = e.target.closest('.bs');
+          if (!bs || bs === hoverTarget) return;
+          hoverTarget = bs;
+          document.body.classList.add('hov');
+          showCard(bs.dataset.env, e.clientX, e.clientY);
+        });
+
+        bgShapes.addEventListener('mousemove', e => {
+          if (e.target.closest('.bs')) positionCard(e.clientX, e.clientY);
+        });
+
+        bgShapes.addEventListener('mouseout', e => {
+          const bs = e.target.closest('.bs');
+          if (!bs) return;
+          const related = e.relatedTarget?.closest?.('.bs');
+          if (related === bs) return;
+          hoverTarget = null;
+          document.body.classList.remove('hov');
+          hideCard();
+        });
+
+        bgShapes.addEventListener('click', e => {
+          const bs = e.target.closest('.bs');
+          if (bs) window.location.href = bs.dataset.href;
+        });
+
+        // Clavier : focusin/focusout bubblent contrairement à focus/blur
+        bgShapes.addEventListener('focusin', e => {
+          const bs = e.target.closest('.bs');
+          if (!bs) return;
+          const r = bs.getBoundingClientRect();
+          showCard(bs.dataset.env, r.left + r.width / 2, r.top);
+        });
+        bgShapes.addEventListener('focusout', e => {
+          const bs = e.target.closest('.bs');
+          if (!bs) return;
+          hideCard();
+        });
+        bgShapes.addEventListener('keydown', e => {
+          const bs = e.target.closest('.bs');
+          if (bs && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); window.location.href = bs.dataset.href; }
+        });
+
+      } else {
+        bgShapes.addEventListener('touchend', e => {
+          const bs = e.target.closest('.bs');
+          if (!bs) return;
+          e.preventDefault();
+          e.stopPropagation();
+          if (touchActive === bs) {
+            window.location.href = bs.dataset.href;
+          } else {
+            if (touchActive) touchActive.classList.remove('bs-selected');
+            touchActive = bs;
+            bs.classList.add('bs-selected');
+            const t = e.changedTouches[0];
+            showCard(bs.dataset.env, t.clientX, t.clientY);
+          }
+        }, { passive: false });
       }
     }
 
@@ -773,6 +840,7 @@
           setTimeout(() => {
             slotHint.classList.add('in');
             document.getElementById('landing-logo')?.classList.add('in');
+            document.getElementById('escape-nav')?.classList.add('in');
           }, 300);
         }
       }
@@ -784,6 +852,7 @@
         setTimeout(() => {
           slotHint.classList.add('in');
           document.getElementById('landing-logo')?.classList.add('in');
+          document.getElementById('escape-nav')?.classList.add('in');
         }, 100);
       } else {
         setTimeout(() => requestAnimationFrame(animReel), 350);

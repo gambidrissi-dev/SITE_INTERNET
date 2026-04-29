@@ -93,10 +93,18 @@ if (!isTouch) {
   const nav = document.querySelector('body > nav');
   if (!nav) return;
 
+  // Injecter le skip-link en premier dans le body
+  const skipLink = document.createElement('a');
+  skipLink.href = '#main-content';
+  skipLink.className = 'skip-link';
+  skipLink.textContent = 'Aller au contenu';
+  document.body.insertBefore(skipLink, document.body.firstChild);
+
   // Injecter l'overlay dans le body
   const overlay = document.createElement('div');
   overlay.id = 'lg-overlay';
   overlay.setAttribute('role', 'dialog');
+  overlay.setAttribute('aria-modal', 'true');
   overlay.setAttribute('aria-label', 'Navigation');
   overlay.innerHTML = `
     <div class="lg-header">
@@ -184,6 +192,15 @@ if (!isTouch) {
     </div>`;
   document.body.appendChild(overlay);
 
+  // Injecter l'ancre #main-content si elle n'existe pas déjà (cible du skip-link)
+  if (!document.getElementById('main-content')) {
+    const anchor = document.createElement('div');
+    anchor.id = 'main-content';
+    anchor.setAttribute('tabindex', '-1');
+    anchor.style.cssText = 'position:absolute;top:62px;left:0;width:1px;height:1px;overflow:hidden;pointer-events:none;';
+    nav.insertAdjacentElement('afterend', anchor);
+  }
+
   // Marquer la page courante active dans l'overlay
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   const pageToEnv = {
@@ -203,11 +220,43 @@ if (!isTouch) {
   const burgerBtn = document.getElementById('nav-burger');
   if (!burgerBtn) return;
 
-  const open  = () => { overlay.classList.add('open'); burgerBtn.classList.add('open'); document.body.style.overflow = 'hidden'; };
-  const close = () => { overlay.classList.remove('open'); burgerBtn.classList.remove('open'); document.body.style.overflow = ''; };
+  // Éléments focusables dans l'overlay
+  const getFocusable = () => [
+    ...overlay.querySelectorAll('a[href], button:not([disabled]), [tabindex="0"]')
+  ].filter(el => !el.closest('[style*="display:none"]'));
+
+  const open = () => {
+    overlay.classList.add('open');
+    burgerBtn.classList.add('open');
+    burgerBtn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    // Focus sur le premier lien de l'overlay
+    setTimeout(() => { const els = getFocusable(); if (els.length) els[0].focus(); }, 60);
+  };
+
+  const close = () => {
+    overlay.classList.remove('open');
+    burgerBtn.classList.remove('open');
+    burgerBtn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    burgerBtn.focus();
+  };
 
   burgerBtn.addEventListener('click', () => overlay.classList.contains('open') ? close() : open());
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) { close(); return; }
+    // Focus trap : Tab / Shift+Tab reste dans l'overlay
+    if (e.key === 'Tab' && overlay.classList.contains('open')) {
+      const els = getFocusable();
+      if (!els.length) return;
+      const first = els[0], last = els[els.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+      } else {
+        if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    }
+  });
 })();
 
 /* SCROLL REVEAL */

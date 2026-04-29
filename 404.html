@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Page introuvable — Collectif Cobalt</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23F3EFD7'/><text x='4' y='24' font-size='22' font-family='sans-serif' font-weight='900' fill='%234A82DC'>c.</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    .stripe { background: linear-gradient(90deg, #4A82DC 25%, #F1CB4F 25% 50%, #5DA16B 50% 75%, #BB3B34 75%); }
+
+    .e404-wrap {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 80px 44px;
+      position: relative; overflow: hidden;
+    }
+
+    .e404-num {
+      font-family: 'Suisse BP Int\'l', 'DM Sans', sans-serif;
+      font-size: clamp(140px, 22vw, 280px);
+      font-weight: 800; letter-spacing: -.06em; line-height: 1;
+      color: rgba(26,26,26,.06);
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none; user-select: none;
+    }
+
+    .e404-label {
+      font-size: .62rem; font-weight: 700; letter-spacing: .22em;
+      text-transform: uppercase; color: #4A82DC;
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 24px; position: relative; z-index: 1;
+    }
+    .e404-label::before { content: ''; width: 24px; height: 2px; background: #4A82DC; }
+
+    .e404-title {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: clamp(36px, 5vw, 64px);
+      line-height: 1.1; letter-spacing: -.02em;
+      margin-bottom: 20px;
+      position: relative; z-index: 1;
+    }
+
+    .e404-sub {
+      font-size: .9rem; font-weight: 300; color: rgba(26,26,26,.45);
+      line-height: 1.8; max-width: 420px;
+      margin-bottom: 48px;
+      position: relative; z-index: 1;
+    }
+
+    .e404-links {
+      display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+      position: relative; z-index: 1;
+    }
+    .e404-link {
+      font-size: .72rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; padding: 12px 24px;
+      border-radius: 999px; border: 1.5px solid currentColor;
+      transition: opacity .2s;
+    }
+    .e404-link:hover { opacity: .65; }
+    .e404-link.home { color: #4A82DC; }
+    .e404-link.studio  { color: #4A82DC; }
+    .e404-link.atelier { color: #5DA16B; }
+    .e404-link.bleu    { color: #B8940A; }
+    .e404-link.media   { color: #BB3B34; }
+    .e404-link.contact { color: rgba(26,26,26,.4); border-color: rgba(26,26,26,.2); }
+
+    @media (max-width: 560px) {
+      .e404-wrap { padding: 60px 20px; }
+      .e404-links { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stripe"></div>
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <img src="assets/LOGO/LOGO_COBALT.svg" alt="Collectif Cobalt" class="nav-logo-img" width="160" height="36">
+    </a>
+    <button class="nav-burger-btn" id="nav-burger" aria-label="Menu" aria-expanded="false" aria-controls="lg-overlay">
+      <span></span><span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <main id="main-content" class="e404-wrap">
+    <div class="e404-num">404</div>
+    <div class="e404-label">Page introuvable</div>
+    <h1 class="e404-title">Cette page n'existe pas.</h1>
+    <p class="e404-sub">L'URL que vous avez suivie est incorrecte ou la page a été déplacée. Vous pouvez explorer le reste du site ci-dessous.</p>
+    <nav class="e404-links" aria-label="Retour au site">
+      <a href="index.html"         class="e404-link home">← Accueil</a>
+      <a href="studio.html"        class="e404-link studio">Le Studio</a>
+      <a href="atelier.html"       class="e404-link atelier">L'Atelier</a>
+      <a href="bleu-de-cobalt.html" class="e404-link bleu">Bleu de Cobalt</a>
+      <a href="media.html"         class="e404-link media">Le Média</a>
+      <a href="contact.html"       class="e404-link contact">Contact</a>
+    </nav>
+  </main>
+
+  <script src="shared.js"></script>
+</body>
+</html>

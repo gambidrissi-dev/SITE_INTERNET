@@ -6,7 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#F3EFD7">
   <meta name="description" content="Projet — Collectif Cobalt">
-  <title>Projet — cobalt.</title>
+  <title>Projet — Collectif Cobalt</title>
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://collectifcobalt.eu/projets.html">
+  <meta property="og:title"       content="Projet — Collectif Cobalt">
+  <meta property="og:description" content="Détail d'un projet du Collectif Cobalt : architecture d'intérieur, design d'espace et fabrication.">
+  <meta property="og:image"       content="https://collectifcobalt.eu/assets/OG-image/og-image.jpg">
+  <meta property="og:locale"      content="fr_FR">
+  <meta property="og:site_name"   content="Collectif Cobalt">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="Projet — Collectif Cobalt">
+  <meta name="twitter:description" content="Détail d'un projet du Collectif Cobalt : architecture d'intérieur, design d'espace et fabrication.">
+  <meta name="twitter:image"       content="https://collectifcobalt.eu/assets/OG-image/og-image.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
@@ -382,7 +396,7 @@
     </button>
   </nav>
 <!-- Conteneur dynamique : tout le contenu projet est injecté ici -->
-  <main id="projet-root">
+  <main id="main-content">
     <div class="p-loading" id="loading-state">
       <div class="s-label" style="margin:0">Chargement…</div>
     </div>
@@ -434,7 +448,7 @@
   <div class="lightbox" id="lightbox" aria-hidden="true">
     <button class="lb-close" id="lb-close" aria-label="Fermer">✕</button>
     <button class="lb-nav lb-prev" id="lb-prev" aria-label="Précédent">←</button>
-    <img id="lb-img" alt="">
+    <img id="lb-img" alt="" loading="lazy">
     <button class="lb-nav lb-next" id="lb-next" aria-label="Suivant">→</button>
     <div class="lb-count" id="lb-count"></div>
   </div>
@@ -512,7 +526,7 @@
           </div>
           <h1 class="p-title sr">${escapeHTML(p.title)}.</h1>
           <p class="p-tagline sr sr-d1">${escapeHTML(p.tagline)}</p>
-          <img class="p-cover sr sr-d2" src="${escapeHTML(p.cover)}" alt="${escapeHTML(p.title)}">
+          <img class="p-cover sr sr-d2" src="${escapeHTML(p.cover)}" alt="${escapeHTML(p.title)}" loading="lazy">
         </section>
 
         <!-- FICHE TECHNIQUE -->

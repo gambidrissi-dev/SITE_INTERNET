@@ -29,6 +29,17 @@
 html { scroll-behavior: smooth; }
 body { font-family: var(--f-body); background: var(--cream); color: var(--noir); overflow-x: hidden; }
 a { color: inherit; text-decoration: none; }
+
+/* ── SKIP LINK (a11y) ── */
+.skip-link {
+  position: fixed; top: -100%; left: 16px; z-index: 10000;
+  background: var(--bleu); color: #fff;
+  font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  padding: 10px 20px; border-radius: 0 0 8px 8px;
+  transition: top .2s ease;
+  text-decoration: none;
+}
+.skip-link:focus { top: 0; outline: 2px solid #fff; outline-offset: 2px; cursor: auto; }
 button, input, textarea { font-family: var(--f-body); }
 /* cursor:none uniquement sur souris précise — préserve l'accessibilité */
 @media (pointer: fine) {
