@@ -371,21 +371,23 @@
     }
     #escape-nav.in { opacity: 1; pointer-events: auto; }
     .escape-link {
-      font-size: 8px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
-      padding: 7px 14px; border-radius: 999px;
-      border: 1px solid rgba(26,26,26,.18);
-      color: rgba(26,26,26,.45);
+      font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+      padding: 10px 20px; border-radius: 999px;
+      border: 1.5px solid rgba(26,26,26,.3);
+      color: rgba(26,26,26,.65);
+      background: rgba(243,239,215,.7);
+      backdrop-filter: blur(6px);
       transition: border-color .2s, color .2s, background .2s;
     }
-    .escape-link:hover { border-color: currentColor; }
-    .escape-link[data-c="studio"]  { color: #4A82DC; }
-    .escape-link[data-c="atelier"] { color: #5DA16B; }
-    .escape-link[data-c="bleu"]    { color: #B8940A; }
-    .escape-link[data-c="media"]   { color: #BB3B34; }
-    .escape-link[data-c="contact"] { color: rgba(26,26,26,.35); }
+    .escape-link:hover { border-color: currentColor; background: rgba(243,239,215,.92); }
+    .escape-link[data-c="studio"]  { color: #4A82DC; border-color: rgba(74,130,220,.45); }
+    .escape-link[data-c="atelier"] { color: #5DA16B; border-color: rgba(93,161,107,.45); }
+    .escape-link[data-c="bleu"]    { color: #B8940A; border-color: rgba(184,148,10,.45); }
+    .escape-link[data-c="media"]   { color: #BB3B34; border-color: rgba(187,59,52,.45); }
+    .escape-link[data-c="contact"] { color: rgba(26,26,26,.55); }
     @media (pointer: coarse) {
       #escape-nav { bottom: 20px; }
-      .escape-link { font-size: 9px; padding: 9px 16px; }
+      .escape-link { font-size: 11px; padding: 11px 20px; }
     }
 
     /* ── TAGLINE STATIQUE (SEO + compréhension) ── */
@@ -429,9 +431,7 @@
 
   <!-- Nav logo (landing) — s'affiche après l'animation du slot -->
   <div id="landing-nav">
-    <a href="index.html" id="landing-logo" aria-label="Collectif Cobalt — Accueil">
-      <img src="assets/LOGO/LOGO_COBALT.svg" alt="Collectif Cobalt" width="200" height="45">
-    </a>
+    <span></span><!-- placeholder pour garder le flex justify-content:space-between -->
   </div>
 
   <!-- Fallback si JS désactivé -->
@@ -472,7 +472,7 @@
       <span class="hint-dot" style="background:#BB3B34"></span>
       <span id="hint-text">survole une forme</span>
     </div>
-    <p id="landing-tagline">Architecture &amp; Design d'espace · Fabrication · Nouvelle-Aquitaine</p>
+    <p id="landing-tagline">Architecture &amp; Design d'espace</p>
   </div>
 
   <!-- Sortie de secours — apparaît après l'animation du slot -->
