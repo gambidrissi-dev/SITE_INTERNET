@@ -546,3 +546,28 @@ footer { background: var(--noir); position: relative; overflow: hidden; }
   .lg-overlay-footer { padding: 0 18px; }
   .lg-footer-socials { gap: 14px; }
 }
+
+/* ── PAGE TRANSITION ── */
+#page-transition {
+  position: fixed; inset: 0; z-index: 9000;
+  background: #F3EFD7;
+  opacity: 0; pointer-events: none;
+  transition: opacity .32s cubic-bezier(.76,0,.24,1);
+}
+#page-transition.fade-out { opacity: 1; pointer-events: all; }
+body.page-entering #page-transition { opacity: 1; }
+body.page-entering-done #page-transition { opacity: 0; }
+
+/* ── FOOTER ADDRESS ── */
+.footer-address {
+  font-style: normal;
+  font-size: .68rem; font-weight: 300;
+  color: rgba(240,235,216,.28);
+  letter-spacing: .06em;
+  line-height: 1.7;
+  margin-top: 10px;
+}
+.footer-address strong {
+  color: rgba(240,235,216,.38);
+  font-weight: 500;
+}

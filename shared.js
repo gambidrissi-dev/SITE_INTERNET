@@ -283,3 +283,82 @@ const statObs = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.5 });
 document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
+
+
+/* PAGE TRANSITION */
+(function() {
+  // Créer l'overlay
+  const overlay = document.createElement('div');
+  overlay.id = 'page-transition';
+  document.body.appendChild(overlay);
+
+  // Fade-in à l'arrivée sur la page
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      overlay.style.opacity = '0';
+    });
+  });
+
+  // Intercepter tous les liens internes
+  document.addEventListener('click', e => {
+    const link = e.target.closest('a[href]');
+    if (!link) return;
+    const href = link.getAttribute('href');
+    // Ignorer : externe, ancre, mailto, tel, nouvel onglet
+    if (!href || href.startsWith('http') || href.startsWith('#') ||
+        href.startsWith('mailto') || href.startsWith('tel') ||
+        link.target === '_blank') return;
+    e.preventDefault();
+    // Fade out → navigation
+    overlay.style.transition = 'opacity .28s cubic-bezier(.76,0,.24,1)';
+    overlay.style.opacity = '1';
+    overlay.style.pointerEvents = 'all';
+    setTimeout(() => { window.location.href = href; }, 300);
+  });
+
+  // Gestion du back/forward (bfcache)
+  window.addEventListener('pageshow', e => {
+    if (e.persisted) {
+      overlay.style.transition = 'none';
+      overlay.style.opacity = '1';
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        overlay.style.transition = 'opacity .32s cubic-bezier(.76,0,.24,1)';
+        overlay.style.opacity = '0';
+        overlay.style.pointerEvents = 'none';
+      }));
+    }
+  });
+})();
+
+
+/* MARQUEE AUTO-INJECT
+   Injecte un marquee après le premier <section> ou après la <nav>
+   si la page n'en a pas déjà un. Contenu adapté par page. */
+(function injectMarquee() {
+  // Ne rien faire si un marquee existe déjà dans la page
+  if (document.querySelector('.marquee-wrap')) return;
+
+  const slug = window.location.pathname.split('/').pop().replace('.html','');
+  const CONTENT = {
+    'studio':          '<span class=\"hi\">cobalt.</span><span class=\"marquee-sep\"></span>Design d\'espace<span class=\"marquee-sep\"></span>Architecture d\'intérieur<span class=\"marquee-sep\"></span><span class=\"hi\">Nouvelle-Aquitaine</span><span class=\"marquee-sep\"></span>Réhabilitation<span class=\"marquee-sep\"></span>Mobilier sur mesure<span class=\"marquee-sep\"></span>Angoulême · Bordeaux · Bayonne<span class=\"marquee-sep\"></span>',
+    'atelier':         '<span class=\"hi\">l\'atelier.</span><span class=\"marquee-sep\"></span>Fabrication sur mesure<span class=\"marquee-sep\"></span>Prototypage<span class=\"marquee-sep\"></span><span class=\"hi\">Angoulême</span><span class=\"marquee-sep\"></span>Design d\'objet<span class=\"marquee-sep\"></span>Série limitée<span class=\"marquee-sep\"></span>Bois · Métal · Béton<span class=\"marquee-sep\"></span>',
+    'bleu-de-cobalt':  '<span class=\"hi\">bleu de cobalt.</span><span class=\"marquee-sep\"></span>Programme architectural<span class=\"marquee-sep\"></span>Cabinets partenaires<span class=\"marquee-sep\"></span><span class=\"hi\">Nouvelle-Aquitaine</span><span class=\"marquee-sep\"></span>Accompagnement<span class=\"marquee-sep\"></span>Réseau<span class=\"marquee-sep\"></span>',
+    'media':           '<span class=\"hi\">le média.</span><span class=\"marquee-sep\"></span>Architalk<span class=\"marquee-sep\"></span>Journal<span class=\"marquee-sep\"></span><span class=\"hi\">Architecture</span><span class=\"marquee-sep\"></span>Design<span class=\"marquee-sep\"></span>Culture constructive<span class=\"marquee-sep\"></span>',
+  };
+  const item = CONTENT[slug] || '<span class=\"hi\">cobalt.</span><span class=\"marquee-sep\"></span>Architecture<span class=\"marquee-sep\"></span>Design d\'espace<span class=\"marquee-sep\"></span>Fabrication<span class=\"marquee-sep\"></span><span class=\"hi\">Nouvelle-Aquitaine</span><span class=\"marquee-sep\"></span>';
+
+  const wrap = document.createElement('div');
+  wrap.className = 'marquee-wrap';
+  wrap.setAttribute('aria-hidden', 'true');
+  wrap.innerHTML = `<div class="marquee-track"><span class="marquee-item">${item}</span><span class="marquee-item">${item}</span></div>`;
+
+  // Insérer après le premier <section> de la page
+  const firstSection = document.querySelector('section');
+  if (firstSection && firstSection.nextSibling) {
+    firstSection.parentNode.insertBefore(wrap, firstSection.nextSibling);
+  } else {
+    // Fallback : après la nav
+    const nav = document.querySelector('body > nav');
+    if (nav) nav.insertAdjacentElement('afterend', wrap);
+  }
+})();
