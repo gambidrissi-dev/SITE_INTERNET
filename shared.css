@@ -571,3 +571,15 @@ body.page-entering-done #page-transition { opacity: 0; }
   color: rgba(240,235,216,.38);
   font-weight: 500;
 }
+
+/* ── SECTION SHAPES (formes décoratives dans sections cream) ── */
+.section-shape {
+  position: absolute;
+  pointer-events: none;
+  opacity: .055;
+  z-index: 0;
+}
+.section-shape svg { width: 100%; height: auto; display: block; }
+/* Les enfants directs d'une section avec formes restent au-dessus */
+.has-shapes { position: relative; overflow: hidden; }
+.has-shapes > *:not(.section-shape) { position: relative; z-index: 1; }

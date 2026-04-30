@@ -362,3 +362,136 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
     if (nav) nav.insertAdjacentElement('afterend', wrap);
   }
 })();
+
+
+/* HERO SHAPES — formes architecturales dans les héros des inner pages
+   Injectées en position absolue côté droit, couleur accent de l'env */
+(function injectHeroShapes() {
+  const SHAPE_SVG = {
+    item1: `<path d="M2.46143e-06 95.5659H750V450H2.46143e-06V95.5659Z"/><path d="M248.695 95.566L2.46143e-06 95.5659L0 1.39797e-07L248.695 95.566Z"/><path d="M498.858 95.566H248.695L248.695 7.7012e-08L498.858 95.566Z"/><path d="M750 95.5659L498.858 95.566V0L750 95.5659Z"/>`,
+    item2: `<path d="M0 160.169H750V450H0V160.169Z"/><path d="M375 0L750 160.169H0L375 0Z"/>`,
+    item3: `<path d="M750 450H502.677V252.561C502.677 192.924 445.394 144.578 374.732 144.578C304.623 144.578 247.684 192.171 246.799 251.165L246.788 252.561V450H0V0H750V450Z"/>`,
+    item6: `<path d="M375 0C582.107 0 750 84.5762 750 188.906C750 189.063 749.998 189.219 749.997 189.375H750V450H0V189.375H0.00292969C0.0021765 189.219 0 188.906 0 84.5762 167.893 0 375 0Z"/>`,
+    item7: `<path d="M0 233.901H750V450H0V233.901Z"/><path d="M124.837 96.4286H625.163V233.901H124.837V96.4286Z"/><path d="M233.518 0H516.971V96.4286H233.518V0Z"/>`,
+    item8: `<path d="M0 0H215.989V450H0V0Z"/><path d="M215.989 75.9446H445.892V450H215.989V75.9446Z"/><path d="M445.892 149.622H750V450H445.892V149.622Z"/>`,
+    item9: `<path d="M0 180.85H750V450H0V180.85Z"/><path d="M375 180.85C375 280.73 291.053 361.699 187.5 361.699C83.9466 361.699 0 280.73 0 180.85C0 80.9692 83.9466 0 187.5 0C291.053 0 375 80.9692 375 180.85Z"/><path d="M750 180.85C750 280.73 666.053 361.699 562.5 361.699C458.947 361.699 375 280.73 375 180.85C375 80.9692 458.947 0 562.5 0C666.053 0 750 80.9692 750 180.85Z"/>`,
+  };
+
+  // Configs par slug : [couleur, opacité, shapes à utiliser, positions [{x,y,size,rot}]]
+  const CONFIGS = {
+    'studio': {
+      color: '#4A82DC',
+      shapes: [
+        { key:'item7', x:62, y:8,  size:28, rot:-18 },
+        { key:'item2', x:78, y:40, size:18, rot:12  },
+        { key:'item3', x:52, y:55, size:22, rot:5   },
+        { key:'item9', x:85, y:65, size:14, rot:-8  },
+      ]
+    },
+    'atelier': {
+      color: '#5DA16B',
+      shapes: [
+        { key:'item8', x:65, y:5,  size:26, rot:15  },
+        { key:'item1', x:80, y:42, size:20, rot:-10 },
+        { key:'item6', x:55, y:60, size:18, rot:8   },
+        { key:'item7', x:88, y:68, size:13, rot:-15 },
+      ]
+    },
+    'bleu-de-cobalt': {
+      color: '#C9A81A',
+      shapes: [
+        { key:'item3', x:60, y:6,  size:30, rot:-12 },
+        { key:'item9', x:80, y:35, size:16, rot:20  },
+        { key:'item2', x:50, y:58, size:22, rot:-5  },
+        { key:'item8', x:86, y:65, size:14, rot:10  },
+      ]
+    },
+    'media': {
+      color: 'rgba(255,255,255,.7)',
+      shapes: [
+        { key:'item6', x:63, y:8,  size:28, rot:8   },
+        { key:'item7', x:82, y:38, size:18, rot:-18 },
+        { key:'item1', x:54, y:62, size:20, rot:12  },
+        { key:'item9', x:87, y:70, size:12, rot:-6  },
+      ]
+    },
+  };
+
+  const slug = window.location.pathname.split('/').pop().replace('.html','');
+  const cfg  = CONFIGS[slug];
+  if (!cfg) return;
+
+  // Trouver le hero de la page
+  const hero = document.querySelector('.hero, .atelier-hero, .bdc-hero, .media-hero');
+  if (!hero) return;
+  // Ne pas ajouter si déjà présent
+  if (hero.querySelector('.hs-wrap')) return;
+
+  const wrap = document.createElement('div');
+  wrap.className = 'hs-wrap';
+  wrap.setAttribute('aria-hidden', 'true');
+  wrap.style.cssText = 'position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:1;';
+
+  cfg.shapes.forEach(({ key, x, y, size, rot }) => {
+    const div = document.createElement('div');
+    div.style.cssText = `
+      position:absolute;
+      left:${x}%; top:${y}%;
+      width:${size}vw;
+      transform:rotate(${rot}deg) translateZ(0);
+      opacity:.12;
+      color:${cfg.color};
+    `;
+    div.innerHTML = `<svg viewBox="0 0 750 450" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;">${SHAPE_SVG[key]}</svg>`;
+    wrap.appendChild(div);
+  });
+
+  // Insérer au début du hero (derrière le contenu)
+  hero.insertBefore(wrap, hero.firstChild);
+
+  // S'assurer que les enfants directs du hero sont au-dessus
+  [...hero.children].forEach(el => {
+    if (el !== wrap && !el.style.position) el.style.position = 'relative';
+    if (el !== wrap) el.style.zIndex = '2';
+  });
+})();
+
+
+/* SECTION SHAPES — 1 forme décorative dans la première grande section cream */
+(function injectSectionShape() {
+  const SHAPE_SVG = {
+    item3: `<path d="M750 450H502.677V252.561C502.677 192.924 445.394 144.578 374.732 144.578C304.623 144.578 247.684 192.171 246.799 251.165L246.788 252.561V450H0V0H750V450Z"/>`,
+    item9: `<path d="M0 180.85H750V450H0V180.85Z"/><path d="M375 180.85C375 280.73 291.053 361.699 187.5 361.699C83.9466 361.699 0 280.73 0 180.85C0 80.9692 83.9466 0 187.5 0C291.053 0 375 80.9692 375 180.85Z"/><path d="M750 180.85C750 280.73 666.053 361.699 562.5 361.699C458.947 361.699 375 280.73 375 180.85C375 80.9692 458.947 0 562.5 0C666.053 0 750 80.9692 750 180.85Z"/>`,
+    item7: `<path d="M0 233.901H750V450H0V233.901Z"/><path d="M124.837 96.4286H625.163V233.901H124.837V96.4286Z"/><path d="M233.518 0H516.971V96.4286H233.518V0Z"/>`,
+  };
+  const ENV_COLOR = {
+    'studio':'#4A82DC','atelier':'#5DA16B',
+    'bleu-de-cobalt':'#C9A81A','media':'#BB3B34',
+  };
+  const ENV_SHAPE = {
+    'studio':'item9','atelier':'item7',
+    'bleu-de-cobalt':'item3','media':'item9',
+  };
+
+  const slug  = window.location.pathname.split('/').pop().replace('.html','');
+  const color = ENV_COLOR[slug];
+  const key   = ENV_SHAPE[slug];
+  if (!color || !key) return;
+
+  // Première section cream (background: #F3EFD7 ou var(--cream))
+  const sections = document.querySelectorAll('section, .featured, .pieces, .why-section, .editorial');
+  let target = null;
+  for (const el of sections) {
+    const bg = getComputedStyle(el).backgroundColor;
+    // cream = rgb(243, 239, 215)
+    if (bg === 'rgb(243, 239, 215)') { target = el; break; }
+  }
+  if (!target || target.querySelector('.section-shape')) return;
+
+  target.classList.add('has-shapes');
+  const div = document.createElement('div');
+  div.className = 'section-shape';
+  div.style.cssText = `right:-5%;bottom:-10%;width:28vw;transform:rotate(-8deg);color:${color};`;
+  div.innerHTML = `<svg viewBox="0 0 750 450" fill="currentColor" xmlns="http://www.w3.org/2000/svg">${SHAPE_SVG[key]}</svg>`;
+  target.appendChild(div);
+})();
