@@ -277,8 +277,14 @@
     </div>
     <div class="ch-right sr sr-d2">
       <h2 class="ch-form-title">Un projet en tête ?</h2>
-      <!-- TODO Formspree : créer un compte sur formspree.io, créer un form, remplacer {FORM_ID} ci-dessous -->
-      <form class="ch-form" id="contact-form" action="https://formspree.io/f/{FORM_ID}" method="POST">
+      <!-- 
+  FORMSPREE SETUP (5 min) :
+  1. Aller sur https://formspree.io → créer un compte gratuit avec gambi@collectifcobalt.eu
+  2. "New Form" → copier l'ID (ex: xpzgkqwb)
+  3. Remplacer FORM_ID_ICI par l'ID dans l'attribut action ci-dessous
+  En attendant : le formulaire utilise le fallback mailto automatiquement.
+-->
+      <form class="ch-form" id="contact-form" action="https://formspree.io/f/FORM_ID_ICI" data-mailto="gambi@collectifcobalt.eu" method="POST">
         <input type="hidden" name="_subject" id="form-subject-hidden" value="Nouveau message — Studio">
         <input type="hidden" name="_replyto" id="form-replyto-hidden">
         <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
@@ -506,6 +512,22 @@
     form.addEventListener('submit', async e => {
       e.preventDefault();
       if (!form.checkValidity()) { form.reportValidity(); return; }
+
+      /* Fallback mailto si Formspree pas encore configuré */
+      const actionUrl = form.getAttribute('action') || '';
+      if (actionUrl.includes('FORM_ID_ICI') || actionUrl.includes('{FORM_ID}')) {
+        const mailto   = form.dataset.mailto || 'gambi@collectifcobalt.eu';
+        const prenom   = document.getElementById('f-prenom').value;
+        const nom      = document.getElementById('f-nom').value;
+        const email    = document.getElementById('f-email').value;
+        const sujet    = document.getElementById('form-subject-hidden').value;
+        const message  = document.getElementById('f-message').value;
+        const body     = encodeURIComponent(`De : ${prenom} ${nom} (${email})
+
+${message}`);
+        window.location.href = `mailto:${mailto}?subject=${encodeURIComponent(sujet)}&body=${body}`;
+        return;
+      }
 
       submitBtn.disabled = true;
       submitBtn.querySelector('span').textContent = 'Envoi en cours…';
