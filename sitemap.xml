@@ -2,108 +2,98 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://collectifcobalt.eu/</loc>
-    <lastmod>2026-04-29</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-
-  <!-- Le Studio -->
   <url>
     <loc>https://collectifcobalt.eu/studio.html</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-04-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://collectifcobalt.eu/projets.html</loc>
-    <lastmod>2026-04-29</lastmod>
+    <loc>https://collectifcobalt.eu/atelier.html</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://collectifcobalt.eu/bleu-de-cobalt.html</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://collectifcobalt.eu/media.html</loc>
+    <lastmod>2026-04-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://collectifcobalt.eu/services.html</loc>
-    <lastmod>2026-04-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- L'Atelier -->
-  <url>
-    <loc>https://collectifcobalt.eu/atelier.html</loc>
-    <lastmod>2026-04-29</lastmod>
+    <loc>https://collectifcobalt.eu/projets.html</loc>
+    <lastmod>2026-04-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://collectifcobalt.eu/services.html</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://collectifcobalt.eu/contact.html</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://collectifcobalt.eu/atelier-drops.html</loc>
-    <lastmod>2026-04-29</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://collectifcobalt.eu/atelier-projets.html</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://collectifcobalt.eu/atelier-services.html</loc>
-    <lastmod>2026-04-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://collectifcobalt.eu/atelier-projets.html</loc>
-    <lastmod>2026-04-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Bleu de Cobalt -->
-  <url>
-    <loc>https://collectifcobalt.eu/bleu-de-cobalt.html</loc>
-    <lastmod>2026-04-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://collectifcobalt.eu/bleu-programme.html</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-04-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://collectifcobalt.eu/bleu-cabinets.html</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-04-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://collectifcobalt.eu/bleu-particuliers.html</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://collectifcobalt.eu/bleu-programme.html</loc>
+    <lastmod>2026-04-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://collectifcobalt.eu/bleu-projets.html</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-04-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <!-- Le Média -->
-  <url>
-    <loc>https://collectifcobalt.eu/media.html</loc>
-    <lastmod>2026-04-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://collectifcobalt.eu/media-journal.html</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-04-30</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Contact -->
-  <url>
-    <loc>https://collectifcobalt.eu/contact.html</loc>
-    <lastmod>2026-04-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
 </urlset>

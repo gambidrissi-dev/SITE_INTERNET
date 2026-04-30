@@ -21,6 +21,8 @@
   <meta name="twitter:title"       content="Le Studio — Collectif Cobalt">
   <meta name="twitter:description" content="Studio de design d'espace et d'architecture d'intérieur en Nouvelle-Aquitaine. Angoulême · Bordeaux · Bayonne.">
   <meta name="twitter:image"       content="https://collectifcobalt.eu/assets/OG-image/og-image.jpg">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://collectifcobalt.eu/studio.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
@@ -172,6 +174,49 @@
       .ms-body p { font-size: .85rem; line-height: 1.7; }
     }
   </style>
+
+  <!-- Schema.org ArchitectureFirm -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": ["ArchitectureFirm", "LocalBusiness"],
+    "name": "Collectif Cobalt — Le Studio",
+    "url": "https://collectifcobalt.eu/studio.html",
+    "description": "Studio de design d'espace et d'architecture d'intérieur basé en Nouvelle-Aquitaine. Projets résidentiels et tertiaires à Bordeaux, Angoulême et Bayonne.",
+    "image": "https://collectifcobalt.eu/assets/OG-image/og-image.jpg",
+    "priceRange": "€€–€€€",
+    "areaServed": [
+      { "@type": "City", "name": "Bordeaux" },
+      { "@type": "City", "name": "Angoulême" },
+      { "@type": "City", "name": "Bayonne" },
+      { "@type": "AdministrativeArea", "name": "Nouvelle-Aquitaine" }
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "addressRegion": "Nouvelle-Aquitaine",
+      "addressCountry": "FR"
+    },
+    "parentOrganization": {
+      "@type": "Organization",
+      "name": "Collectif Cobalt",
+      "url": "https://collectifcobalt.eu",
+      "sameAs": [
+        "https://www.instagram.com/collectifcobalt",
+        "https://www.linkedin.com/company/collectif-cobalt"
+      ]
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Services Le Studio",
+      "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Architecture d'intérieur", "description": "Conception et maîtrise d'œuvre de projets résidentiels et tertiaires" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Design d'espace", "description": "Scénographie, aménagement et identité spatiale" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Réhabilitation", "description": "Transformation et rénovation de bâtiments existants" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mobilier sur mesure", "description": "Création de pièces uniques en collaboration avec L'Atelier" } }
+      ]
+    }
+  }
+  </script>
 </head>
 <body>
   <div class="stripe"></div>
