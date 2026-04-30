@@ -653,6 +653,25 @@
       const LOGO_RX = logoR.width  / 2 + sw * 0.9;
       const LOGO_RY = logoR.height / 2 + sh * 1.6;
 
+      // Zone centrale (#hero entier : slot + tagline + hint) avec marge
+      const heroEl = document.getElementById('hero');
+      const heroR  = heroEl ? heroEl.getBoundingClientRect() : logoR;
+      const HERO_PAD = sw * 0.6;
+      const HERO = {
+        x1: heroR.left   - HERO_PAD,
+        x2: heroR.right  + HERO_PAD,
+        y1: heroR.top    - HERO_PAD * 0.5,
+        y2: heroR.bottom + HERO_PAD * 0.5,
+      };
+
+      // Zone escape-nav (pilules en bas) avec marge
+      const navEl = document.getElementById('escape-nav');
+      const NAV_PAD = sh * 0.9;
+      const NAV = navEl ? (() => {
+        const r = navEl.getBoundingClientRect();
+        return { x1: r.left - NAV_PAD, x2: r.right + NAV_PAD, y1: r.top - NAV_PAD, y2: r.bottom + NAV_PAD };
+      })() : null;
+
       // Cap réduit sur mobile : 40 max, 120 max sur desktop
       const logoArea  = Math.PI * LOGO_RX * LOGO_RY;
       const availArea = W * H - logoArea;
@@ -693,6 +712,10 @@
           const ex = (cx - LOGO_CX) / LOGO_RX;
           const ey = (cy - LOGO_CY) / LOGO_RY;
           if (ex * ex + ey * ey < 1) { ok = false; continue; }
+          // Zone centrale (hero entier)
+          if (cx > HERO.x1 && cx < HERO.x2 && cy > HERO.y1 && cy < HERO.y2) { ok = false; continue; }
+          // Zone escape-nav
+          if (NAV && cx > NAV.x1 && cx < NAV.x2 && cy > NAV.y1 && cy < NAV.y2) { ok = false; continue; }
           for (const p of placed) {
             const d = Math.hypot(cx - p.cx, cy - p.cy);
             if (d < COL_MIN) { ok = false; break; }
