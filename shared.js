@@ -380,7 +380,7 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
   // Configs par slug : [couleur, opacité, shapes à utiliser, positions [{x,y,size,rot}]]
   const CONFIGS = {
     'studio': {
-      color: '#4A82DC',
+      color: 'rgba(243,239,215,0.22)',
       shapes: [
         { key:'item7', x:62, y:8,  size:28, rot:-18 },
         { key:'item2', x:78, y:40, size:18, rot:12  },
@@ -389,7 +389,7 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
       ]
     },
     'atelier': {
-      color: '#5DA16B',
+      color: 'rgba(243,239,215,0.22)',
       shapes: [
         { key:'item8', x:65, y:5,  size:26, rot:15  },
         { key:'item1', x:80, y:42, size:20, rot:-10 },
@@ -398,7 +398,7 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
       ]
     },
     'bleu-de-cobalt': {
-      color: '#C9A81A',
+      color: 'rgba(26,26,26,0.13)',
       shapes: [
         { key:'item3', x:60, y:6,  size:30, rot:-12 },
         { key:'item9', x:80, y:35, size:16, rot:20  },
@@ -407,7 +407,7 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
       ]
     },
     'media': {
-      color: 'rgba(255,255,255,.7)',
+      color: 'rgba(243,239,215,0.18)',
       shapes: [
         { key:'item6', x:63, y:8,  size:28, rot:8   },
         { key:'item7', x:82, y:38, size:18, rot:-18 },
@@ -439,7 +439,7 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
       left:${x}%; top:${y}%;
       width:${size}vw;
       transform:rotate(${rot}deg) translateZ(0);
-      opacity:.12;
+      opacity:1;
       color:${cfg.color};
     `;
     div.innerHTML = `<svg viewBox="0 0 750 450" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;">${SHAPE_SVG[key]}</svg>`;
