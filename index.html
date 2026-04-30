@@ -653,15 +653,15 @@
       const LOGO_RX = logoR.width  / 2 + sw * 0.9;
       const LOGO_RY = logoR.height / 2 + sh * 1.6;
 
-      // Zone centrale (#hero entier : slot + tagline + hint) avec marge
-      const heroEl = document.getElementById('hero');
-      const heroR  = heroEl ? heroEl.getBoundingClientRect() : logoR;
-      const HERO_PAD = sw * 0.6;
+      // Zone centrale (slot + hint + tagline) — rectangle autour de #slot-outer avec marges
+      // NB: on NE prend PAS getBoundingClientRect(#hero) car #hero est fixed inset:0 (plein écran)
+      const HERO_PAD_X = sw * 1.5;
+      const HERO_PAD_Y = sh * 2.2;
       const HERO = {
-        x1: heroR.left   - HERO_PAD,
-        x2: heroR.right  + HERO_PAD,
-        y1: heroR.top    - HERO_PAD * 0.5,
-        y2: heroR.bottom + HERO_PAD * 0.5,
+        x1: logoR.left   - HERO_PAD_X,
+        x2: logoR.right  + HERO_PAD_X,
+        y1: logoR.top    - sh * 0.5,      // peu de marge au-dessus du slot
+        y2: logoR.bottom + HERO_PAD_Y,    // grande marge en bas (hint + tagline)
       };
 
       // Zone escape-nav (pilules en bas) avec marge
