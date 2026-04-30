@@ -82,11 +82,14 @@
     }
     .drop-card-img {
       aspect-ratio: 4/5; border-radius: var(--r-sm); margin: -28px -28px 0;
-      background: repeating-linear-gradient(45deg, rgba(93,161,107,.10) 0 14px, rgba(93,161,107,.04) 14px 28px);
       border-bottom: 1.5px solid var(--noir);
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--f-display); font-size: 80px; color: rgba(93,161,107,.3);
+      overflow: hidden; background: rgba(93,161,107,.08);
     }
+    .drop-card-img img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform .5s cubic-bezier(.25,.46,.45,.94);
+    }
+    .drop-card:hover .drop-card-img img { transform: scale(1.04); }
     .drop-card-tag { font-size: .58rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--vert); display: flex; justify-content: space-between; align-items: center; }
     .drop-card-tag .badge-stock { padding: 3px 10px; border-radius: var(--r-pill); background: var(--noir); color: var(--cream); font-size: .52rem; }
     .drop-card-tag .badge-stock.sold { background: var(--rouge); }
@@ -241,7 +244,7 @@
 
     <div class="drop-grid sr sr-d1">
       <div class="drop-card sr">
-        <div class="drop-card-img">01</div>
+        <div class="drop-card-img"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=85&auto=format&fit=crop" alt="Tabouret COB-01 — Pin maritime Gironde" loading="lazy"></div>
         <div class="drop-card-tag">
           <span>Tabouret</span>
           <span class="badge-stock">12 / 12</span>
@@ -254,7 +257,7 @@
         </div>
       </div>
       <div class="drop-card sr">
-        <div class="drop-card-img">02</div>
+        <div class="drop-card-img"><img src="https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=600&q=85&auto=format&fit=crop" alt="Table COB-02 — Pin brossé" loading="lazy"></div>
         <div class="drop-card-tag">
           <span>Table d'appoint</span>
           <span class="badge-stock last">3 / 8</span>
@@ -267,7 +270,7 @@
         </div>
       </div>
       <div class="drop-card sr">
-        <div class="drop-card-img">03</div>
+        <div class="drop-card-img"><img src="https://images.unsplash.com/photo-1567016432779-094069958ea5?w=600&q=85&auto=format&fit=crop" alt="Porte-revues COB-03 — finition cire" loading="lazy"></div>
         <div class="drop-card-tag">
           <span>Porte-revues</span>
           <span class="badge-stock sold">Sold out</span>

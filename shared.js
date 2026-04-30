@@ -287,17 +287,15 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
 
 /* PAGE TRANSITION */
 (function() {
-  // Créer l'overlay
+  // Créer l'overlay — opacity 0 inline AVANT append pour éviter tout flash
   const overlay = document.createElement('div');
   overlay.id = 'page-transition';
+  overlay.style.cssText = 'opacity:0;pointer-events:none;transition:none;';
   document.body.appendChild(overlay);
-
-  // Fade-in à l'arrivée sur la page
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      overlay.style.opacity = '0';
-    });
-  });
+  // Réactiver la transition après le premier paint
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    overlay.style.transition = '';
+  }));
 
   // Intercepter tous les liens internes
   document.addEventListener('click', e => {
