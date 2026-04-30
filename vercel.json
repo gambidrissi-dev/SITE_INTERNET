@@ -5,9 +5,6 @@
   "framework": null,
   "cleanUrls": true,
   "trailingSlash": false,
-  "errors": [
-    { "statusCode": 404, "destination": "/404.html" }
-  ],
   "headers": [
     {
       "source": "/(.*)",
