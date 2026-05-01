@@ -80,8 +80,10 @@
       transition: background .25s, transform .25s;
       position: relative; overflow: hidden;
     }
+    .drop-card-img-link { display: block; margin: -28px -28px 0; text-decoration: none; }
+    .drop-card-img-link:focus-visible { outline: 2px solid var(--vert); outline-offset: -2px; }
     .drop-card-img {
-      aspect-ratio: 4/5; border-radius: var(--r-sm); margin: -28px -28px 0;
+      aspect-ratio: 4/5; border-radius: var(--r-sm);
       border-bottom: 1.5px solid var(--noir);
       overflow: hidden; background: rgba(93,161,107,.08);
     }
@@ -89,7 +91,8 @@
       width: 100%; height: 100%; object-fit: cover; display: block;
       transition: transform .5s cubic-bezier(.25,.46,.45,.94);
     }
-    .drop-card:hover .drop-card-img img { transform: scale(1.04); }
+    .drop-card:hover .drop-card-img img,
+    .drop-card-img-link:hover .drop-card-img img { transform: scale(1.04); }
     .drop-card-tag { font-size: .58rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--vert); display: flex; justify-content: space-between; align-items: center; }
     .drop-card-tag .badge-stock { padding: 3px 10px; border-radius: var(--r-pill); background: var(--noir); color: var(--cream); font-size: .52rem; }
     .drop-card-tag .badge-stock.sold { background: var(--rouge); }
@@ -152,7 +155,8 @@
       .cd-title { font-size: clamp(44px, 11vw, 80px); }
       .drop-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
       .drop-card { padding: 22px; }
-      .drop-card-img { margin: -22px -22px 0; font-size: 60px; }
+      .drop-card-img-link { margin: -22px -22px 0; }
+      .drop-card-img { font-size: 60px; }
       .how { padding: 64px 20px; }
       .how-title { font-size: clamp(36px, 10vw, 64px); margin-bottom: 44px; }
       .how-grid { grid-template-columns: 1fr 1fr; }
@@ -176,7 +180,8 @@
       .cd-title { font-size: clamp(36px, 12vw, 60px); }
       .drop-grid { grid-template-columns: 1fr; }
       .drop-card { padding: 20px; }
-      .drop-card-img { margin: -20px -20px 0; aspect-ratio: 16/10; font-size: 52px; }
+      .drop-card-img-link { margin: -20px -20px 0; }
+      .drop-card-img { aspect-ratio: 16/10; font-size: 52px; }
       .how { padding: 52px 18px; }
       .how-title { font-size: clamp(32px, 11vw, 52px); }
       .how-grid { grid-template-columns: 1fr; }
@@ -244,7 +249,9 @@
 
     <div class="drop-grid sr sr-d1">
       <div class="drop-card sr">
-        <div class="drop-card-img"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=85&auto=format&fit=crop" alt="Tabouret COB-01 — Pin maritime Gironde" loading="lazy"></div>
+        <a href="drop-piece.html?id=cob-01" class="drop-card-img-link" aria-label="Voir la fiche Tabouret COB-01">
+          <div class="drop-card-img"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=85&auto=format&fit=crop" alt="Tabouret COB-01 — Pin maritime Gironde" loading="lazy"></div>
+        </a>
         <div class="drop-card-tag">
           <span>Tabouret</span>
           <span class="badge-stock">12 / 12</span>
@@ -253,11 +260,13 @@
         <p class="drop-card-desc">Tripied bas, assise tournée à la main. 42 cm de haut, finition huile naturelle. Empilable.</p>
         <div class="drop-card-meta">
           <div class="drop-card-price">180 €<small>livré · Nouvelle-Aquitaine</small></div>
-          <a href="https://instagram.com/collectifcobalt_" target="_blank" rel="noopener" class="drop-card-cta">Réserver</a>
+          <a href="drop-piece.html?id=cob-01" class="drop-card-cta">Voir la pièce</a>
         </div>
       </div>
       <div class="drop-card sr">
-        <div class="drop-card-img"><img src="https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=600&q=85&auto=format&fit=crop" alt="Table COB-02 — Pin brossé" loading="lazy"></div>
+        <a href="drop-piece.html?id=cob-02" class="drop-card-img-link" aria-label="Voir la fiche Table COB-02">
+          <div class="drop-card-img"><img src="https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=600&q=85&auto=format&fit=crop" alt="Table COB-02 — Pin brossé" loading="lazy"></div>
+        </a>
         <div class="drop-card-tag">
           <span>Table d'appoint</span>
           <span class="badge-stock last">3 / 8</span>
@@ -266,11 +275,13 @@
         <p class="drop-card-desc">Plateau rond Ø 42 cm, plateau bas pour magazines. 56 cm de haut. Pin brossé.</p>
         <div class="drop-card-meta">
           <div class="drop-card-price">340 €<small>livré · Nouvelle-Aquitaine</small></div>
-          <a href="https://instagram.com/collectifcobalt_" target="_blank" rel="noopener" class="drop-card-cta">Réserver</a>
+          <a href="drop-piece.html?id=cob-02" class="drop-card-cta">Voir la pièce</a>
         </div>
       </div>
       <div class="drop-card sr">
-        <div class="drop-card-img"><img src="https://images.unsplash.com/photo-1567016432779-094069958ea5?w=600&q=85&auto=format&fit=crop" alt="Porte-revues COB-03 — finition cire" loading="lazy"></div>
+        <a href="drop-piece.html?id=cob-03" class="drop-card-img-link" aria-label="Voir la fiche Porte-revues COB-03">
+          <div class="drop-card-img"><img src="https://images.unsplash.com/photo-1567016432779-094069958ea5?w=600&q=85&auto=format&fit=crop" alt="Porte-revues COB-03 — finition cire" loading="lazy"></div>
+        </a>
         <div class="drop-card-tag">
           <span>Porte-revues</span>
           <span class="badge-stock sold">Sold out</span>
@@ -279,7 +290,7 @@
         <p class="drop-card-desc">Format A4, deux compartiments, finition cire. La plus simple des trois — partie en premier.</p>
         <div class="drop-card-meta">
           <div class="drop-card-price">95 €<small>livré · Nouvelle-Aquitaine</small></div>
-          <a href="#waitlist" class="drop-card-cta">Liste d'attente</a>
+          <a href="drop-piece.html?id=cob-03" class="drop-card-cta">Voir la pièce</a>
         </div>
       </div>
     </div>

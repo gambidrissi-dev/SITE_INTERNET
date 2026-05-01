@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23F3EFD7'/><text x='4' y='24' font-size='22' font-family='sans-serif' font-weight='900' fill='%234A82DC'>c.</text></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#F3EFD7">
+  <title>Pièce — L'Atelier · Collectif Cobalt</title>
+  <meta name="description" content="Pièce de la série Carnet de Pin — L'Atelier du Collectif Cobalt.">
+  <meta name="robots" content="index, follow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    :root { --accent: var(--vert); }
+    .stripe { background: linear-gradient(90deg, var(--vert) 25%, var(--noir) 25% 50%, var(--vert) 50% 75%, var(--noir) 75%); }
+
+    /* ── LOADING ── */
+    .dp-loading {
+      min-height: 80vh; display: flex; align-items: center; justify-content: center;
+      background: var(--cream);
+    }
+    .dp-loading .s-label { margin: 0; }
+
+    /* ── BACK BAR ── */
+    .back-bar {
+      padding: 18px 44px; background: var(--cream);
+      border-bottom: 1px solid rgba(26,26,26,.1);
+      display: flex; align-items: center; gap: 12px;
+    }
+    .back-link {
+      font-size: .65rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      color: rgba(26,26,26,.5); display: inline-flex; align-items: center; gap: 8px;
+      transition: color .15s, gap .15s;
+    }
+    .back-link::before { content: '←'; }
+    .back-link:hover { color: var(--noir); gap: 12px; }
+
+    /* ── HERO ── */
+    .dp-hero {
+      background: var(--noir);
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 90vh;
+    }
+    .dp-hero-img {
+      position: relative; overflow: hidden;
+    }
+    .dp-hero-img img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform .8s cubic-bezier(.25,.46,.45,.94);
+    }
+    .dp-hero-img:hover img { transform: scale(1.03); }
+    .dp-hero-content {
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 80px 64px; gap: 32px;
+    }
+    .dp-drop-ref {
+      font-size: .6rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--vert); display: flex; align-items: center; gap: 14px;
+    }
+    .dp-drop-ref::before { content: ''; width: 24px; height: 2px; background: var(--vert); }
+    .dp-title {
+      font-family: var(--f-display); font-size: clamp(56px,7vw,100px);
+      line-height: .86; color: var(--cream); letter-spacing: -.02em;
+    }
+    .dp-tagline {
+      font-size: 1rem; line-height: 1.75; font-weight: 300;
+      color: rgba(240,235,216,.6); max-width: 420px;
+    }
+    .dp-price-row {
+      display: flex; align-items: baseline; gap: 24px;
+      padding-top: 28px; border-top: 1px solid rgba(240,235,216,.12);
+    }
+    .dp-price {
+      font-family: var(--f-display); font-size: 48px; color: var(--cream); line-height: 1;
+    }
+    .dp-price small {
+      font-family: var(--f-body); font-size: .6rem; font-weight: 600;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: rgba(240,235,216,.35); display: block; margin-top: 4px;
+    }
+    .badge-stock-lg {
+      padding: 6px 16px; border-radius: var(--r-pill); font-size: .65rem;
+      font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+    }
+    .badge-dispo   { background: var(--vert);  color: var(--noir); }
+    .badge-last    { background: var(--jaune); color: var(--noir); }
+    .badge-soldout { background: var(--rouge); color: var(--cream); }
+
+    /* ── SPECS ── */
+    .dp-specs {
+      background: var(--cream); padding: 80px 44px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;
+      border-top: 2px solid var(--noir);
+    }
+    .ds-label { font-size: .6rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--vert); margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
+    .ds-label::before { content: ''; width: 20px; height: 2px; background: var(--vert); }
+    .ds-title { font-family: var(--f-display); font-size: clamp(36px,5vw,64px); line-height: .9; margin-bottom: 28px; }
+    .ds-desc { font-size: .9rem; line-height: 1.85; font-weight: 300; color: rgba(26,26,26,.65); }
+    .specs-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+      border: 1.5px solid var(--noir); border-radius: var(--r-md); overflow: hidden;
+    }
+    .spec-cell {
+      padding: 22px 24px;
+      border-right: 1px solid rgba(26,26,26,.12);
+      border-bottom: 1px solid rgba(26,26,26,.12);
+    }
+    .spec-cell:nth-child(2n) { border-right: none; }
+    .spec-cell:nth-last-child(-n+2) { border-bottom: none; }
+    .spec-lbl { font-size: .55rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(26,26,26,.38); margin-bottom: 6px; }
+    .spec-val { font-family: var(--f-display); font-size: 20px; color: var(--noir); line-height: 1.2; }
+
+    /* ── GALERIE ── */
+    .dp-gallery {
+      background: var(--noir); padding: 80px 44px;
+      border-top: 2px solid rgba(240,235,216,.08);
+    }
+    .gal-head {
+      display: flex; justify-content: space-between; align-items: baseline;
+      margin-bottom: 40px;
+    }
+    .gal-title { font-family: var(--f-display); font-size: clamp(40px,6vw,80px); line-height: .88; color: var(--cream); }
+    .gal-title em { font-family: var(--f-serif); font-style: italic; color: var(--vert); font-weight: 400; }
+    .gal-count { font-size: .65rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(240,235,216,.3); }
+    .dp-gal-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
+    }
+    .dp-gal-item {
+      aspect-ratio: 4/3; overflow: hidden; cursor: zoom-in; position: relative;
+    }
+    .dp-gal-item:first-child { grid-column: span 2; aspect-ratio: 16/9; }
+    .dp-gal-item img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform .5s cubic-bezier(.25,.46,.45,.94);
+    }
+    .dp-gal-item:hover img { transform: scale(1.05); }
+
+    /* ── MAKING ── */
+    .dp-making {
+      background: var(--cream); padding: 80px 44px;
+      border-top: 2px solid var(--noir);
+    }
+    .mk-head { margin-bottom: 56px; }
+    .mk-title { font-family: var(--f-display); font-size: clamp(40px,6vw,80px); line-height: .88; }
+    .mk-title em { font-family: var(--f-serif); font-style: italic; color: var(--vert); font-weight: 400; }
+    .mk-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; border-top: 1.5px solid var(--noir); }
+    .mk-step { padding: 40px 28px; border-right: 1px solid rgba(26,26,26,.12); }
+    .mk-step:last-child { border-right: none; }
+    .mk-num { font-family: var(--f-display); font-size: 40px; color: rgba(93,161,107,.3); line-height: 1; margin-bottom: 16px; }
+    .mk-bar { width: 24px; height: 3px; background: var(--vert); margin-bottom: 16px; }
+    .mk-name { font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--noir); margin-bottom: 10px; }
+    .mk-txt { font-size: .82rem; line-height: 1.7; font-weight: 300; color: rgba(26,26,26,.6); }
+
+    /* ── ORDER ── */
+    .dp-order {
+      background: var(--vert); padding: 80px 44px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+      border-top: 2px solid var(--noir);
+    }
+    .or-title { font-family: var(--f-display); font-size: clamp(40px,5vw,68px); line-height: .9; color: var(--noir); margin-bottom: 20px; }
+    .or-title em { font-family: var(--f-serif); font-style: italic; color: var(--cream); font-weight: 400; }
+    .or-body { font-size: .92rem; line-height: 1.85; font-weight: 300; color: rgba(26,26,26,.7); }
+    .or-actions { display: flex; flex-direction: column; gap: 14px; }
+    .or-btn-primary {
+      display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+      padding: 18px 32px; background: var(--noir); color: var(--cream);
+      border-radius: var(--r-pill); font-size: .72rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase; transition: background .2s;
+      border: 1.5px solid var(--noir);
+    }
+    .or-btn-primary:hover { background: rgba(26,26,26,.85); }
+    .or-btn-secondary {
+      display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+      padding: 18px 32px; background: transparent; color: var(--noir);
+      border-radius: var(--r-pill); font-size: .72rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase; transition: background .2s;
+      border: 1.5px solid rgba(26,26,26,.45);
+    }
+    .or-btn-secondary:hover { background: rgba(26,26,26,.08); }
+    .or-note { font-size: .72rem; line-height: 1.6; color: rgba(26,26,26,.55); font-weight: 300; margin-top: 10px; }
+    .or-soldout-msg {
+      padding: 28px 32px; background: rgba(26,26,26,.08); border-radius: var(--r-md);
+      border: 1.5px solid rgba(26,26,26,.2);
+      font-size: .92rem; line-height: 1.75; color: rgba(26,26,26,.75);
+    }
+    .or-soldout-msg strong { color: var(--noir); display: block; margin-bottom: 6px; }
+
+    /* ── RELATED ── */
+    .dp-related {
+      background: var(--cream); padding: 80px 44px;
+      border-top: 2px solid var(--noir);
+    }
+    .rel-title { font-family: var(--f-display); font-size: clamp(36px,5vw,64px); line-height: .88; margin-bottom: 40px; }
+    .rel-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 18px; }
+    .rel-card {
+      border: 1.5px solid var(--noir); border-radius: var(--r-md);
+      overflow: hidden; display: flex; flex-direction: column;
+      transition: transform .25s;
+    }
+    .rel-card:hover { transform: translateY(-3px); }
+    .rel-card-img { aspect-ratio: 4/3; overflow: hidden; }
+    .rel-card-img img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .5s ease; }
+    .rel-card:hover .rel-card-img img { transform: scale(1.04); }
+    .rel-card-body { padding: 22px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+    .rel-card-ref { font-size: .58rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--vert); }
+    .rel-card-name { font-family: var(--f-display); font-size: 22px; color: var(--noir); }
+    .rel-card-foot {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding-top: 14px; border-top: 1px solid rgba(26,26,26,.1); margin-top: auto;
+    }
+    .rel-card-price { font-family: var(--f-display); font-size: 22px; color: var(--noir); }
+    .rel-card-cta { font-size: .62rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--vert); display: inline-flex; gap: 6px; transition: gap .2s; }
+    .rel-card-cta::after { content: '→'; }
+    .rel-card-cta:hover { gap: 10px; }
+
+    /* ── LIGHTBOX ── */
+    .lb-overlay {
+      position: fixed; inset: 0; background: rgba(26,26,26,.95);
+      z-index: 9500; display: none; align-items: center; justify-content: center;
+    }
+    .lb-overlay.open { display: flex; }
+    .lb-overlay img { max-width: 90vw; max-height: 88vh; object-fit: contain; border-radius: var(--r-sm); }
+    .lb-close {
+      position: absolute; top: 24px; right: 32px;
+      background: none; border: none; color: var(--cream); font-size: 1.4rem;
+      cursor: none; opacity: .7; transition: opacity .15s;
+    }
+    .lb-close:hover { opacity: 1; }
+    .lb-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(240,235,216,.1); border: 1px solid rgba(240,235,216,.2);
+      color: var(--cream); border-radius: 50%; width: 48px; height: 48px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; cursor: none; transition: background .15s;
+    }
+    .lb-prev { left: 24px; }
+    .lb-next { right: 24px; }
+    .lb-nav:hover { background: rgba(240,235,216,.2); }
+    .lb-count {
+      position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+      font-size: .65rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+      color: rgba(240,235,216,.45);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .dp-hero { grid-template-columns: 1fr; min-height: 0; }
+      .dp-hero-img { aspect-ratio: 4/3; }
+      .dp-hero-content { padding: 48px 24px; }
+      .dp-specs { grid-template-columns: 1fr; gap: 36px; padding: 56px 24px; }
+      .dp-gallery { padding: 56px 24px; }
+      .dp-gal-grid { grid-template-columns: 1fr 1fr; }
+      .dp-gal-item:first-child { grid-column: span 2; }
+      .dp-making { padding: 56px 24px; }
+      .mk-grid { grid-template-columns: 1fr 1fr; }
+      .mk-step { border-right: none; border-bottom: 1px solid rgba(26,26,26,.12); }
+      .mk-step:nth-child(odd) { border-right: 1px solid rgba(26,26,26,.12); }
+      .mk-step:nth-last-child(-n+2) { border-bottom: none; }
+      .dp-order { grid-template-columns: 1fr; gap: 36px; padding: 56px 24px; }
+      .dp-related { padding: 56px 24px; }
+      .back-bar { padding: 16px 24px; }
+    }
+    @media (max-width: 560px) {
+      .dp-hero-content { padding: 36px 20px; }
+      .dp-title { font-size: clamp(44px,13vw,72px); }
+      .dp-specs, .dp-gallery, .dp-making, .dp-order, .dp-related { padding: 48px 20px; }
+      .specs-grid { grid-template-columns: 1fr; }
+      .spec-cell { border-right: none !important; }
+      .dp-gal-grid { grid-template-columns: 1fr; }
+      .dp-gal-item:first-child { grid-column: span 1; }
+      .mk-grid { grid-template-columns: 1fr; }
+      .mk-step { border-right: none !important; }
+      .rel-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stripe"></div>
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo"><img src="assets/LOGO/LOGO_COBALT.svg" alt="Collectif Cobalt" class="nav-logo-img" width="200" height="45"></a>
+    <button class="nav-burger-btn" id="nav-burger" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- CONTENU INJECTÉ PAR JS -->
+  <main id="drop-root">
+    <div class="dp-loading">
+      <div class="s-label" style="margin:0">Chargement…</div>
+    </div>
+  </main>
+
+  <!-- LIGHTBOX -->
+  <div class="lb-overlay" id="lb-overlay" aria-hidden="true">
+    <button class="lb-close" id="lb-close" aria-label="Fermer">✕</button>
+    <button class="lb-nav lb-prev" id="lb-prev" aria-label="Précédent">←</button>
+    <img id="lb-img" alt="">
+    <button class="lb-nav lb-next" id="lb-next" aria-label="Suivant">→</button>
+    <div class="lb-count" id="lb-count"></div>
+  </div>
+
+  <script src="shared.js"></script>
+  <script>
+    /* ─── DONNÉES DES PIÈCES ─── */
+    const PIECES = [
+      {
+        id: 'cob-01',
+        ref: 'Carnet de Pin · #001',
+        name: 'Tabouret COB-01',
+        tagline: 'Tripied bas en pin maritime de Gironde, assise tournée à la main.',
+        price: '180 €',
+        priceNote: 'livré · Nouvelle-Aquitaine',
+        stock: 'dispo',
+        stockLabel: '12 / 12 disponibles',
+        specs: [
+          { lbl: 'Matière',    val: 'Pin maritime Gironde' },
+          { lbl: 'Finition',   val: 'Huile naturelle dure' },
+          { lbl: 'Hauteur',    val: '42 cm' },
+          { lbl: 'Assise',     val: 'Ø 28 cm, tournée main' },
+          { lbl: 'Poids',      val: '2,4 kg' },
+          { lbl: 'Particularité', val: 'Empilable' },
+        ],
+        description: 'Le COB-01 est le premier tabouret bas de la série Carnet de Pin. Fabriqué dans l\'atelier d\'Angoulême en pin maritime de Gironde récolté à moins de 80 km, il est tourné à la main pour l\'assise et assemblé à la colle et aux chevilles bois — aucune vis. Léger, costaud, empilable.',
+        gallery: [
+          'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1600&q=85&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1600&q=85&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1567016432779-094069958ea5?w=1600&q=85&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=1600&q=85&auto=format&fit=crop',
+        ],
+        making: [
+          { titre: 'Sélection du bois', txt: 'Choix du billot chez le scieur à Mimizan — on cherche un fil droit, pas de nœuds dans la zone assise.' },
+          { titre: 'Tour à bois', txt: 'L\'assise est tournée à la main sur tour d\'établi. Chaque pièce est légèrement différente — c\'est voulu.' },
+          { titre: 'Assemblage', txt: 'Les trois pieds sont taillés en tenon et mortaise, collés à la colle à bois renforcée. Aucune vis.' },
+          { titre: 'Finition huile', txt: 'Deux couches d\'huile dure naturelle, ponçage entre les deux. Protège sans figer — le bois reste vivant.' },
+        ],
+      },
+      {
+        id: 'cob-02',
+        ref: 'Carnet de Pin · #001',
+        name: 'Table d\'appoint COB-02',
+        tagline: 'Plateau rond en pin brossé, avec plateau bas pour magazines.',
+        price: '340 €',
+        priceNote: 'livré · Nouvelle-Aquitaine',
+        stock: 'last',
+        stockLabel: '3 / 8 restantes',
+        specs: [
+          { lbl: 'Matière',    val: 'Pin maritime Gironde' },
+          { lbl: 'Finition',   val: 'Pin brossé + huile' },
+          { lbl: 'Hauteur',    val: '56 cm' },
+          { lbl: 'Plateau haut', val: 'Ø 42 cm' },
+          { lbl: 'Plateau bas', val: 'Ø 30 cm' },
+          { lbl: 'Poids',      val: '5,2 kg' },
+        ],
+        description: 'La COB-02 est une table d\'appoint à double plateau — un grand en haut, un petit en bas pour poser livres et magazines. Le pin est brossé à la brosse métallique pour révéler le fil du bois, puis huilé. Chaque pièce porte les traces de l\'outil — c\'est l\'intérêt.',
+        gallery: [
+          'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=1600&q=85&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1600&q=85&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=1600&q=85&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=85&auto=format&fit=crop',
+        ],
+        making: [
+          { titre: 'Débit', txt: 'Les deux plateaux sont débités dans une planche de 50 mm d\'épaisseur — la même planche, pour que le fil soit continu.' },
+          { titre: 'Brossage', txt: 'Brossage à la brosse métallique en suivant le fil du bois. Retire le bois tendre, garde le bois dur. Crée le relief.' },
+          { titre: 'Structure', txt: 'Les trois pieds et leur entretoise basse sont taillés au ciseau et assemblés à la colle. Aucune quincaillerie visible.' },
+          { titre: 'Finition', txt: 'Huile dure deux couches. Le brossage boit l\'huile différemment selon les zones — c\'est ce qui donne la profondeur.' },
+        ],
+      },
+      {
+        id: 'cob-03',
+        ref: 'Carnet de Pin · #001',
+        name: 'Porte-revues COB-03',
+        tagline: 'Format A4, deux compartiments en pin, finition cire naturelle.',
+        price: '95 €',
+        priceNote: 'livré · Nouvelle-Aquitaine',
+        stock: 'soldout',
+        stockLabel: 'Sold out',
+        specs: [
+          { lbl: 'Matière',    val: 'Pin maritime Gironde' },
+          { lbl: 'Finition',   val: 'Cire naturelle' },
+          { lbl: 'Format',     val: 'A4 · 2 compartiments' },
+          { lbl: 'Hauteur',    val: '32 cm' },
+          { lbl: 'Largeur',    val: '24 cm' },
+          { lbl: 'Poids',      val: '1,1 kg' },
+        ],
+        description: 'La pièce la plus simple du drop — et celle qui est partie en premier. Un porte-revues en pin brut, finition cire, deux fentes A4 légèrement inclinées. Conçu pour poser des revues, des carnets, du courrier. La cire laisse le bois brut sans le figer, et se recharge facilement.',
+        gallery: [
+          'https://images.unsplash.com/photo-1567016432779-094069958ea5?w=1600&q=85&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=1600&q=85&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1600&q=85&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=1600&q=85&auto=format&fit=crop',
+        ],
+        making: [
+          { titre: 'Débit', txt: 'Trois planches de 18 mm pour les parois, une de 10 mm pour le fond et l\'entretoise centrale.' },
+          { titre: 'Assemblage', txt: 'Rainures à la défonceuse pour loger les parois, colle à bois, serre-joints 24h. Simple et solide.' },
+          { titre: 'Ponçage', txt: 'Ponçage au grain 120 puis 240. Les arêtes restent légèrement vives — on ne les arrondit pas trop.' },
+          { titre: 'Cire', txt: 'Une couche de cire naturelle brute, frottée à chiffon. Séchage 12h. Le bois reste mat et doux au toucher.' },
+        ],
+      },
+    ];
+
+    /* ─── INIT ─── */
+    const params  = new URLSearchParams(location.search);
+    const pieceId = params.get('id');
+    const root    = document.getElementById('drop-root');
+
+    function escapeHTML(str) {
+      return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+
+    function stockBadge(p) {
+      if (p.stock === 'dispo')   return `<span class="badge-stock-lg badge-dispo">${escapeHTML(p.stockLabel)}</span>`;
+      if (p.stock === 'last')    return `<span class="badge-stock-lg badge-last">${escapeHTML(p.stockLabel)}</span>`;
+      if (p.stock === 'soldout') return `<span class="badge-stock-lg badge-soldout">${escapeHTML(p.stockLabel)}</span>`;
+      return '';
+    }
+
+    function orderBlock(p) {
+      if (p.stock === 'soldout') {
+        return `
+          <div class="or-soldout-msg">
+            <strong>Cette pièce est sold out.</strong>
+            Inscrivez-vous sur la liste d'attente — en cas de désistement ou de prochain drop similaire, vous serez prévenus en premier.
+          </div>
+          <a href="atelier-drops.html#waitlist" class="or-btn-secondary" style="margin-top:0">Liste d'attente →</a>`;
+      }
+      return `
+        <a href="https://www.instagram.com/collectifcobalt_/" target="_blank" rel="noopener" class="or-btn-primary">DM Instagram → Réserver</a>
+        <a href="mailto:atelier@collectifcobalt.eu?subject=Réservation ${escapeHTML(p.name)}&body=Bonjour, je souhaite réserver la pièce ${escapeHTML(p.name)} au prix de ${escapeHTML(p.price)}." class="or-btn-secondary">atelier@collectifcobalt.eu</a>
+        <p class="or-note">Premier arrivé, premier servi. Acompte 30 % à la réservation, solde à la livraison. Transport en Nouvelle-Aquitaine inclus.</p>`;
+    }
+
+    function render(p) {
+      const related = PIECES.filter(x => x.id !== p.id);
+
+      document.title = `${p.name} — L'Atelier · cobalt.`;
+
+      const specsHTML = p.specs.map(s => `
+        <div class="spec-cell">
+          <div class="spec-lbl">${escapeHTML(s.lbl)}</div>
+          <div class="spec-val">${escapeHTML(s.val)}</div>
+        </div>`).join('');
+
+      const galleryHTML = p.gallery.map((src, i) => `
+        <div class="dp-gal-item" data-idx="${i}">
+          <img src="${escapeHTML(src)}" alt="${escapeHTML(p.name)} — vue ${i+1}" loading="${i < 2 ? 'eager' : 'lazy'}">
+        </div>`).join('');
+
+      const makingHTML = p.making.map((m, i) => `
+        <div class="mk-step sr sr-d${i+1}">
+          <div class="mk-num">${String(i+1).padStart(2,'0')}</div>
+          <div class="mk-bar"></div>
+          <div class="mk-name">${escapeHTML(m.titre)}</div>
+          <p class="mk-txt">${escapeHTML(m.txt)}</p>
+        </div>`).join('');
+
+      const relatedHTML = related.map(r => `
+        <a href="drop-piece.html?id=${escapeHTML(r.id)}" class="rel-card">
+          <div class="rel-card-img">
+            <img src="${escapeHTML(r.gallery[0])}" alt="${escapeHTML(r.name)}" loading="lazy">
+          </div>
+          <div class="rel-card-body">
+            <div class="rel-card-ref">${escapeHTML(r.ref)}</div>
+            <div class="rel-card-name">${escapeHTML(r.name)}.</div>
+            <div class="rel-card-foot">
+              <div class="rel-card-price">${escapeHTML(r.price)}</div>
+              <span class="rel-card-cta">Voir la pièce</span>
+            </div>
+          </div>
+        </a>`).join('');
+
+      root.innerHTML = `
+        <!-- BACK -->
+        <div class="back-bar">
+          <a href="atelier-drops.html" class="back-link">Retour aux drops</a>
+        </div>
+
+        <!-- HERO -->
+        <section class="dp-hero">
+          <div class="dp-hero-img sr">
+            <img src="${escapeHTML(p.gallery[0])}" alt="${escapeHTML(p.name)}" loading="eager">
+          </div>
+          <div class="dp-hero-content">
+            <div class="dp-drop-ref sr">${escapeHTML(p.ref)}</div>
+            <h1 class="dp-title sr">${escapeHTML(p.name)}.</h1>
+            <p class="dp-tagline sr sr-d1">${escapeHTML(p.tagline)}</p>
+            <div class="dp-price-row sr sr-d2">
+              <div class="dp-price">${escapeHTML(p.price)}<small>${escapeHTML(p.priceNote)}</small></div>
+              ${stockBadge(p)}
+            </div>
+          </div>
+        </section>
+
+        <!-- SPECS -->
+        <section class="dp-specs">
+          <div class="sr">
+            <div class="ds-label">Fiche technique</div>
+            <h2 class="ds-title">${escapeHTML(p.name)}.</h2>
+            <p class="ds-desc">${escapeHTML(p.description)}</p>
+          </div>
+          <div class="specs-grid sr sr-d1">${specsHTML}</div>
+        </section>
+
+        <!-- GALERIE -->
+        <section class="dp-gallery">
+          <div class="gal-head sr">
+            <h2 class="gal-title">LA PIÈCE,<br><em>en détail.</em></h2>
+            <div class="gal-count">${p.gallery.length} vues</div>
+          </div>
+          <div class="dp-gal-grid sr sr-d1">${galleryHTML}</div>
+        </section>
+
+        <!-- MAKING ── -->
+        <section class="dp-making">
+          <div class="mk-head sr">
+            <div class="s-label" style="color:var(--vert)">Making-of</div>
+            <h2 class="mk-title">COMMENT<br>ELLE EST <em>faite.</em></h2>
+          </div>
+          <div class="mk-grid">${makingHTML}</div>
+        </section>
+
+        <!-- ORDER -->
+        <section class="dp-order">
+          <div class="sr">
+            <h2 class="or-title">${p.stock === 'soldout' ? 'Sold<br><em>out.</em>' : 'La vouloir,<br><em>c\'est simple.</em>'}</h2>
+            <p class="or-body">${p.stock === 'soldout' ? 'Cette pièce a trouvé preneur. Inscrivez-vous sur la liste d\'attente pour le prochain drop.' : 'DM sur Instagram ou email direct. Premier arrivé, premier servi. On répond sous 48 h.'}</p>
+          </div>
+          <div class="or-actions sr sr-d1">${orderBlock(p)}</div>
+        </section>
+
+        <!-- RELATED -->
+        <section class="dp-related">
+          <div class="s-label" style="color:var(--vert)">Même drop</div>
+          <h2 class="rel-title sr">LES AUTRES<br>PIÈCES.</h2>
+          <div class="rel-grid sr sr-d1">${relatedHTML}</div>
+        </section>
+
+        <!-- MARQUEE -->
+        <div class="marquee-wrap">
+          <div class="marquee-track">
+            <div class="marquee-item">CARNET DE PIN<div class="marquee-sep"></div></div>
+            <div class="marquee-item"><span class="hi" style="color:var(--vert)">SÉRIE LIMITÉE</span><div class="marquee-sep"></div></div>
+            <div class="marquee-item">FAIT MAIN<div class="marquee-sep"></div></div>
+            <div class="marquee-item"><span class="hi" style="color:var(--vert)">PIN GIRONDE</span><div class="marquee-sep"></div></div>
+            <div class="marquee-item">L'ATELIER<div class="marquee-sep"></div></div>
+            <div class="marquee-item"><span class="hi" style="color:var(--vert)">COBALT</span><div class="marquee-sep"></div></div>
+            <div class="marquee-item">CARNET DE PIN<div class="marquee-sep"></div></div>
+            <div class="marquee-item"><span class="hi" style="color:var(--vert)">SÉRIE LIMITÉE</span><div class="marquee-sep"></div></div>
+            <div class="marquee-item">FAIT MAIN<div class="marquee-sep"></div></div>
+            <div class="marquee-item"><span class="hi" style="color:var(--vert)">PIN GIRONDE</span><div class="marquee-sep"></div></div>
+          </div>
+        </div>
+
+        <!-- FOOTER -->
+        <footer>
+          <div class="footer-stripe"></div>
+          <div class="footer-silhouette" aria-hidden="true">
+            <svg width="500" height="340" viewBox="0 0 750 450" fill="rgba(240,235,216,1)"><rect x="0" y="300" width="750" height="150"/><rect x="80" y="80" width="200" height="220"/><rect x="470" y="80" width="200" height="220"/><rect x="280" y="0" width="190" height="300"/></svg>
+          </div>
+          <div class="footer-top">
+            <div>
+              <div class="footer-logo">cobalt<span class="dot">.</span></div>
+              <p class="footer-tagline">Penser. Faire. Transmettre.<br>Studio de design d'espace, Nouvelle-Aquitaine.</p>
+              <address class="footer-address">
+                <strong>Angoulême</strong> · <strong>Bordeaux</strong> · <strong>Bayonne</strong><br>
+                Nouvelle-Aquitaine, France
+              </address>
+              <div class="footer-socials">
+                <a href="https://www.instagram.com/collectifcobalt_/" target="_blank" rel="noopener">Instagram</a>
+                <a href="https://www.linkedin.com/company/collectif-cobalt" target="_blank" rel="noopener">LinkedIn</a>
+              </div>
+            </div>
+            <div>
+              <div class="footer-col-title">L'Atelier</div>
+              <nav class="footer-nav">
+                <a href="atelier.html">Présentation</a>
+                <a href="atelier-drops.html">Drops</a>
+                <a href="atelier-projets.html">Projets</a>
+                <a href="atelier-services.html">Services</a>
+              </nav>
+            </div>
+            <div>
+              <div class="footer-col-title">Contact atelier</div>
+              <div class="footer-contact-item">
+                <a href="mailto:atelier@collectifcobalt.eu" class="footer-contact-email">atelier@collectifcobalt.eu</a>
+              </div>
+              <div class="footer-contact-item" style="margin-top:8px">
+                <a href="https://www.instagram.com/collectifcobalt_/" target="_blank" rel="noopener" class="footer-contact-email">@collectifcobalt_</a>
+              </div>
+            </div>
+          </div>
+          <div class="footer-bottom">
+            <p class="footer-copy">© 2026 Collectif Cobalt. Tous droits réservés.</p>
+            <p class="footer-legal">L'Atelier — Fabrication en Nouvelle-Aquitaine.</p>
+          </div>
+        </footer>
+      `;
+
+      // Scroll reveal sur éléments injectés
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+      }, { threshold: 0.08 });
+      root.querySelectorAll('.sr').forEach(el => obs.observe(el));
+
+      // Lightbox
+      setupLightbox(p.gallery, p.name);
+    }
+
+    function setupLightbox(images, title) {
+      const lb    = document.getElementById('lb-overlay');
+      const lbImg = document.getElementById('lb-img');
+      const lbCnt = document.getElementById('lb-count');
+      let cur = 0;
+      const update = () => { lbImg.src = images[cur]; lbImg.alt = `${title} — vue ${cur+1}`; lbCnt.textContent = `${cur+1} / ${images.length}`; };
+      const open   = (i) => { cur = i; update(); lb.classList.add('open'); document.body.style.overflow = 'hidden'; lb.removeAttribute('aria-hidden'); };
+      const close  = () => { lb.classList.remove('open'); document.body.style.overflow = ''; lb.setAttribute('aria-hidden','true'); };
+      const go     = (d) => { cur = (cur + d + images.length) % images.length; update(); };
+      document.getElementById('lb-close').addEventListener('click', close);
+      document.getElementById('lb-prev').addEventListener('click', () => go(-1));
+      document.getElementById('lb-next').addEventListener('click', () => go(+1));
+      lb.addEventListener('click', e => { if (e.target === lb) close(); });
+      document.addEventListener('keydown', e => {
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape') close();
+        if (e.key === 'ArrowLeft')  go(-1);
+        if (e.key === 'ArrowRight') go(+1);
+      });
+      // Délégation sur items galerie (injectés après)
+      root.addEventListener('click', e => {
+        const item = e.target.closest('.dp-gal-item');
+        if (item) open(+item.dataset.idx);
+      });
+    }
+
+    /* ─── ROUTE ─── */
+    if (!pieceId) {
+      root.innerHTML = `<div class="dp-loading"><div class="s-label" style="margin:0">Aucune pièce spécifiée — <a href="atelier-drops.html">voir les drops</a></div></div>`;
+    } else {
+      const piece = PIECES.find(x => x.id === pieceId);
+      if (piece) { render(piece); }
+      else {
+        root.innerHTML = `<div class="dp-loading"><div class="s-label" style="margin:0">Pièce introuvable — <a href="atelier-drops.html">retour aux drops</a></div></div>`;
+      }
+    }
+  </script>
+</body>
+</html>
