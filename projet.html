@@ -465,7 +465,7 @@
     /* ─────────── PROJECT PAGE LOGIC ─────────── */
     const params = new URLSearchParams(location.search);
     const projetId = params.get('id');
-    const root = document.getElementById('projet-root');
+    const root = document.getElementById('main-content');
 
     function escapeHTML(str) {
       return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
