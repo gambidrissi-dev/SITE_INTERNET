@@ -38,10 +38,26 @@
       padding: 140px 44px 80px; position: relative; overflow: hidden;
       border-bottom: 2px solid var(--noir);
     }
+    /* Grille de fond subtile */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(26,26,26,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(26,26,26,.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.5) 30%, rgba(0,0,0,.5) 70%, transparent 100%);
+    }
     .hero-bg-num {
       position: absolute; right: -60px; bottom: -80px;
       font-family: var(--f-display); font-size: clamp(300px,40vw,500px);
-      color: rgba(26,26,26,.04); line-height: 1; pointer-events: none; user-select: none;
+      color: rgba(26,26,26,.05); line-height: 1; pointer-events: none; user-select: none;
+    }
+    /* Accent cobalt vertical */
+    .hero-accent {
+      position: absolute; left: 44px; top: 0; width: 2px; height: 100%;
+      background: linear-gradient(to bottom, transparent, var(--bleu) 35%, rgba(74,130,220,.15) 70%, transparent);
+      pointer-events: none;
     }
     .hero-label {
       font-size: .62rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
@@ -51,23 +67,60 @@
     .hero-title {
       font-family: var(--f-display);
       font-size: clamp(72px, 12vw, 160px);
-      line-height: .84; color: var(--noir); margin-bottom: 40px;
+      line-height: .84; color: var(--noir); margin-bottom: 0;
     }
     .hero-title .serif-it {
       font-family: var(--f-serif); font-style: italic;
-      color: rgba(26,26,26,.30); font-weight: 400;
+      color: rgba(74,130,220,.65); font-weight: 400;
+    }
+    /* Barre bleue sous le titre */
+    .hero-rule {
+      width: 48px; height: 3px; background: var(--bleu); margin: 32px 0 36px;
+    }
+    /* Grille bas : desc + infos */
+    .hero-bottom {
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 60px; align-items: end;
     }
     .hero-desc {
-      max-width: 580px; font-size: 1rem; line-height: 1.85; font-weight: 300;
-      color: rgba(26,26,26,.60); margin-bottom: 0;
+      max-width: 520px; font-size: 1rem; line-height: 1.85; font-weight: 300;
+      color: rgba(26,26,26,.60);
     }
     .hero-desc strong { color: var(--noir); font-weight: 500; }
+    /* Colonne droite : infos/stats */
+    .hero-meta {
+      display: flex; flex-direction: column; gap: 24px;
+      align-items: flex-end; padding-bottom: 4px; flex-shrink: 0;
+    }
+    .hero-meta-item {
+      text-align: right;
+    }
+    .hero-meta-lbl {
+      font-size: .52rem; font-weight: 700; letter-spacing: .2em;
+      text-transform: uppercase; color: rgba(26,26,26,.28); margin-bottom: 4px;
+    }
+    .hero-meta-val {
+      font-family: var(--f-display);
+      font-size: clamp(14px, 1.5vw, 18px);
+      color: rgba(26,26,26,.70); letter-spacing: -.01em;
+    }
 
     /* ── MANIFESTE ── */
     .manifeste {
       background: var(--cream); padding: 120px 44px;
       border-bottom: 2px solid var(--noir);
     }
+    /* Pull-quote pleine largeur */
+    .man-pullquote {
+      border-left: 3px solid var(--bleu);
+      padding: 0 0 0 36px; margin-bottom: 80px;
+    }
+    .man-pullquote-text {
+      font-family: var(--f-serif); font-style: italic;
+      font-size: clamp(1.4rem, 3vw, 2.2rem); line-height: 1.35;
+      color: var(--noir); font-weight: 400; letter-spacing: -.01em;
+    }
+    .man-pullquote-text em { color: rgba(26,26,26,.35); font-style: normal; }
     .man-grid {
       display: grid; grid-template-columns: 1fr 1.5fr; gap: 100px;
       align-items: start;
@@ -140,28 +193,41 @@
     }
     .eq-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 0; border-top: 1px solid rgba(26,26,26,.12);
+      gap: 0; border-top: 2px solid var(--noir);
     }
     .eq-person {
-      padding: 52px 40px;
-      border-right: 1px solid rgba(26,26,26,.10);
+      padding: 52px 40px 52px;
+      border-right: 1px solid rgba(26,26,26,.14);
       display: flex; flex-direction: column;
+      position: relative;
+      transition: background .3s;
     }
     .eq-person:last-child { border-right: none; }
+    /* Barre couleur au dessus de chaque colonne */
+    .eq-person::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      transition: opacity .3s;
+    }
+    .eq-person:nth-child(1)::before { background: var(--bleu); }
+    .eq-person:nth-child(2)::before { background: #B8940A; }
+    .eq-person:nth-child(3)::before { background: var(--vert); }
+    .eq-person:hover { background: rgba(255,255,255,.35); }
 
     /* Photo réelle */
     .eq-photo-wrap {
       width: 100%; aspect-ratio: 3/4;
       overflow: hidden; border-radius: var(--r-md);
-      margin-bottom: 32px; background: rgba(26,26,26,.08);
+      margin-bottom: 32px; background: rgba(26,26,26,.10);
+      box-shadow: 0 4px 20px rgba(26,26,26,.12);
     }
     .eq-photo-wrap img {
       width: 100%; height: 100%; object-fit: cover;
-      transition: transform .5s ease, filter .4s ease;
-      filter: grayscale(12%);
+      transition: transform .6s cubic-bezier(.25,.46,.45,.94), filter .4s ease;
+      filter: grayscale(20%);
       display: block;
     }
-    .eq-person:hover .eq-photo-wrap img { transform: scale(1.03); filter: grayscale(0%); }
+    .eq-person:hover .eq-photo-wrap img { transform: scale(1.04); filter: grayscale(0%); }
 
     /* Placeholder si image absente */
     .eq-photo-wrap.placeholder {
@@ -221,7 +287,12 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 960px) {
       .hero { padding: 110px 20px 56px; min-height: 0; }
-      .hero-title { font-size: clamp(56px, 12vw, 110px); margin-bottom: 32px; }
+      .hero-accent { display: none; }
+      .hero-title { font-size: clamp(56px, 12vw, 110px); }
+      .hero-bottom { grid-template-columns: 1fr; gap: 32px; }
+      .hero-meta { align-items: flex-start; flex-direction: row; flex-wrap: wrap; gap: 16px 40px; }
+      .hero-meta-item { text-align: left; }
+      .man-pullquote { margin-bottom: 56px; padding-left: 24px; }
       .manifeste { padding: 72px 20px; }
       .man-grid { grid-template-columns: 1fr; gap: 48px; }
       .man-year { display: none; }
@@ -229,6 +300,7 @@
       .eq-header { margin-bottom: 48px; }
       .eq-grid { grid-template-columns: 1fr; }
       .eq-person { border-right: none; border-bottom: 1px solid rgba(26,26,26,.10); padding: 40px 20px; }
+      .eq-person::before { left: 0; right: 0; top: 0; height: 3px; }
       .eq-person:last-child { border-bottom: none; }
       .eq-photo-wrap { max-width: 280px; }
       .cta-band { flex-direction: column; gap: 32px; padding: 64px 20px; text-align: center; align-items: center; }
@@ -237,6 +309,8 @@
       .hero { padding: 96px 18px 48px; }
       .hero-title { font-size: clamp(52px, 14vw, 84px); }
       .hero-desc { font-size: .88rem; }
+      .man-pullquote { padding-left: 18px; }
+      .man-pullquote-text { font-size: clamp(1.2rem, 5vw, 1.5rem); }
       .manifeste { padding: 56px 18px; }
       .man-title { font-size: clamp(32px, 9vw, 48px); }
       .man-body p { font-size: .92rem; }
@@ -261,20 +335,44 @@
 
   <!-- HERO -->
   <section class="hero" id="main-content">
+    <div class="hero-accent" aria-hidden="true"></div>
     <div class="hero-bg-num" aria-hidden="true">01</div>
     <div class="hero-label sr">Le Collectif</div>
     <h1 class="hero-title sr">
       COBALT<span class="serif-it">+</span><br>
       COLLECTIF.
     </h1>
-    <p class="hero-desc sr sr-d2">
-      Trois personnes. Un territoire — la <strong>Nouvelle-Aquitaine</strong>.<br>
-      Une conviction : que le travail bien fait mérite d'être <strong>pensé, fait et transmis</strong>.
-    </p>
+    <div class="hero-rule sr" aria-hidden="true"></div>
+    <div class="hero-bottom sr sr-d2">
+      <p class="hero-desc">
+        Trois personnes. Un territoire — la <strong>Nouvelle-Aquitaine</strong>.<br>
+        Une conviction : que le travail bien fait mérite d'être <strong>pensé, fait et transmis</strong>.
+      </p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <div class="hero-meta-lbl">Fondé en</div>
+          <div class="hero-meta-val">2024</div>
+        </div>
+        <div class="hero-meta-item">
+          <div class="hero-meta-lbl">Territoire</div>
+          <div class="hero-meta-val">Nouvelle-Aquitaine</div>
+        </div>
+        <div class="hero-meta-item">
+          <div class="hero-meta-lbl">Membres</div>
+          <div class="hero-meta-val">3 personnes</div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- MANIFESTE -->
   <section class="manifeste">
+    <div class="man-pullquote sr">
+      <p class="man-pullquote-text">
+        "Pas un cabinet. Pas une agence.<br>
+        Un collectif — <em>au sens concret du mot.</em>"
+      </p>
+    </div>
     <div class="man-grid">
       <div class="man-left sr">
         <div class="man-label">Notre intention</div>

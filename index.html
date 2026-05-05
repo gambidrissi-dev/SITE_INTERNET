@@ -65,6 +65,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
   <!-- Suisse BP Int'l : ajouter @font-face avec les woff2 quand disponibles -->
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -325,6 +326,13 @@
     #landing-nav a.in { opacity: 1; transform: translateY(0); }
     #landing-nav a:hover { opacity: .65; }
     #landing-nav img { height: 20px; width: auto; display: block; }
+    /* Burger sur landing */
+    #landing-nav .nav-burger-btn {
+      pointer-events: auto;
+      opacity: 0; transform: translateY(-6px);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+    #landing-nav .nav-burger-btn.in { opacity: 1; transform: translateY(0); }
 
     /* ── LOGO GRAND (final slot state) ── */
     .slot-logo-img {
@@ -385,7 +393,6 @@
     .escape-link[data-c="atelier"] { color: #5DA16B; border-color: rgba(93,161,107,.45); }
     .escape-link[data-c="bleu"]    { color: #B8940A; border-color: rgba(184,148,10,.45); }
     .escape-link[data-c="media"]   { color: #BB3B34; border-color: rgba(187,59,52,.45); }
-    .escape-link[data-c="contact"] { color: rgba(26,26,26,.55); }
     @media (pointer: coarse) {
       #escape-nav { bottom: 20px; }
       .escape-link { font-size: 11px; padding: 11px 20px; }
@@ -433,6 +440,9 @@
   <!-- Nav logo (landing) — s'affiche après l'animation du slot -->
   <div id="landing-nav">
     <span></span><!-- placeholder pour garder le flex justify-content:space-between -->
+    <button class="nav-burger-btn" id="nav-burger" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span></span><span></span><span></span><span></span>
+    </button>
   </div>
 
   <!-- Fallback si JS désactivé -->
@@ -482,7 +492,6 @@
     <a href="atelier.html"    class="escape-link" data-c="atelier"><span>L'Atelier</span><span class="el-sub">Fabrication</span></a>
     <a href="bleu-de-cobalt.html" class="escape-link" data-c="bleu"><span>Bleu de Cobalt</span><span class="el-sub">Programme</span></a>
     <a href="media.html"      class="escape-link" data-c="media"><span>Le Média</span><span class="el-sub">Architalk · Journal</span></a>
-    <a href="contact.html"    class="escape-link" data-c="contact"><span>Contact</span></a>
   </nav>
 
   <!-- Floating env card -->
@@ -891,6 +900,7 @@
           setTimeout(() => {
             slotHint.classList.add('in');
             document.getElementById('landing-logo')?.classList.add('in');
+            document.getElementById('nav-burger')?.classList.add('in');
             document.getElementById('escape-nav')?.classList.add('in');
             document.getElementById('landing-tagline')?.classList.add('in');
           }, 300);
@@ -904,12 +914,142 @@
         setTimeout(() => {
           slotHint.classList.add('in');
           document.getElementById('landing-logo')?.classList.add('in');
+          document.getElementById('nav-burger')?.classList.add('in');
           document.getElementById('escape-nav')?.classList.add('in');
         }, 100);
       } else {
         setTimeout(() => requestAnimationFrame(animReel), 350);
       }
     }));
+  </script>
+
+  <!-- Burger overlay (landing — self-contained, sans shared.js pour éviter le doublon cursor) -->
+  <script>
+  (function() {
+    const burgerBtn = document.getElementById('nav-burger');
+    if (!burgerBtn) return;
+
+    const overlay = document.createElement('div');
+    overlay.id = 'lg-overlay';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-label', 'Navigation');
+    overlay.innerHTML = `
+      <div class="lg-header">
+        <div class="lg-logo"><img src="assets/LOGO/LOGO_COBALT.svg" alt="Collectif Cobalt" style="height:18px;width:auto;opacity:.65;display:block;filter:invert(1);"></div>
+        <div class="lg-esc">Échap pour fermer</div>
+      </div>
+      <div class="lg-strips">
+
+        <div class="lg-strip e0">
+          <div class="lg-strip-ghost">01</div>
+          <a href="collectif.html" class="lg-strip-primary">
+            <div class="lg-strip-num">01</div>
+            <div class="lg-strip-body">
+              <div class="lg-strip-name">Le Collectif</div>
+              <div class="lg-strip-sub">Manifeste · Équipe · Intention</div>
+            </div>
+            <div class="lg-strip-arrow">→</div>
+          </a>
+          <div class="lg-strip-links">
+            <a href="collectif.html" class="lg-strip-link">Manifeste</a>
+          </div>
+        </div>
+
+        <div class="lg-strip e1">
+          <div class="lg-strip-ghost">02</div>
+          <a href="studio.html" class="lg-strip-primary">
+            <div class="lg-strip-num">02</div>
+            <div class="lg-strip-body">
+              <div class="lg-strip-name">Le Studio</div>
+              <div class="lg-strip-sub">Architecture & Design d'espace</div>
+            </div>
+            <div class="lg-strip-arrow">→</div>
+          </a>
+          <div class="lg-strip-links">
+            <a href="studio.html" class="lg-strip-link">Présentation</a>
+            <a href="projets.html" class="lg-strip-link">Projets</a>
+          </div>
+        </div>
+
+        <div class="lg-strip e2 soon">
+          <div class="lg-strip-ghost">03</div>
+          <div class="lg-strip-primary">
+            <div class="lg-strip-num">03</div>
+            <div class="lg-strip-body">
+              <div class="lg-strip-name">L'Atelier</div>
+              <div class="lg-strip-sub">Fabrication & Prototypage</div>
+            </div>
+            <div class="lg-strip-soon-badge">Bientôt</div>
+          </div>
+        </div>
+
+        <div class="lg-strip e3 soon">
+          <div class="lg-strip-ghost">04</div>
+          <div class="lg-strip-primary">
+            <div class="lg-strip-num">04</div>
+            <div class="lg-strip-body">
+              <div class="lg-strip-name">Bleu de Cobalt</div>
+              <div class="lg-strip-sub">Programme & Cabinets partenaires</div>
+            </div>
+            <div class="lg-strip-soon-badge">Bientôt</div>
+          </div>
+        </div>
+
+        <div class="lg-strip e4">
+          <div class="lg-strip-ghost">05</div>
+          <a href="media.html" class="lg-strip-primary">
+            <div class="lg-strip-num">05</div>
+            <div class="lg-strip-body">
+              <div class="lg-strip-name">Le Média</div>
+              <div class="lg-strip-sub">ARCHITALK · FRAGMENTS · CARNET BLEU · RACCOURCI</div>
+            </div>
+            <div class="lg-strip-arrow">→</div>
+          </a>
+          <div class="lg-strip-links">
+            <a href="media.html" class="lg-strip-link">Les formats</a>
+          </div>
+        </div>
+
+      </div>
+      <div class="lg-overlay-footer">
+        <a href="contact.html" class="lg-footer-contact">Contact</a>
+        <div class="lg-footer-socials">
+          <a href="https://www.instagram.com/collectifcobalt_/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/company/collectif-cobalt" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>`;
+    document.body.appendChild(overlay);
+
+    const getFocusable = () => [...overlay.querySelectorAll('a[href], button:not([disabled])')];
+
+    const open = () => {
+      overlay.classList.add('open');
+      burgerBtn.classList.add('open');
+      burgerBtn.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => { const els = getFocusable(); if (els.length) els[0].focus(); }, 60);
+    };
+    const close = () => {
+      overlay.classList.remove('open');
+      burgerBtn.classList.remove('open');
+      burgerBtn.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      burgerBtn.focus();
+    };
+
+    burgerBtn.addEventListener('click', () => overlay.classList.contains('open') ? close() : open());
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && overlay.classList.contains('open')) { close(); return; }
+      if (e.key === 'Tab' && overlay.classList.contains('open')) {
+        const els = getFocusable();
+        if (!els.length) return;
+        const first = els[0], last = els[els.length - 1];
+        if (e.shiftKey) { if (document.activeElement === first) { e.preventDefault(); last.focus(); } }
+        else { if (document.activeElement === last) { e.preventDefault(); first.focus(); } }
+      }
+    });
+  })();
   </script>
 </body>
 </html>
