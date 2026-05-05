@@ -115,8 +115,24 @@ if (!isTouch) {
 
       <div class="lg-strip e1">
         <div class="lg-strip-ghost">01</div>
-        <a href="studio.html" class="lg-strip-primary">
+        <a href="collectif.html" class="lg-strip-primary">
           <div class="lg-strip-num">01</div>
+          <div class="lg-strip-body">
+            <div class="lg-strip-name">Le Collectif</div>
+            <div class="lg-strip-sub">Manifeste · Équipe · Intention</div>
+          </div>
+          <div class="lg-strip-arrow">→</div>
+        </a>
+        <div class="lg-strip-links">
+          <a href="collectif.html" class="lg-strip-link">Manifeste</a>
+          <a href="contact.html" class="lg-strip-link">Contact</a>
+        </div>
+      </div>
+
+      <div class="lg-strip e2">
+        <div class="lg-strip-ghost">02</div>
+        <a href="studio.html" class="lg-strip-primary">
+          <div class="lg-strip-num">02</div>
           <div class="lg-strip-body">
             <div class="lg-strip-name">Le Studio</div>
             <div class="lg-strip-sub">Architecture & Design d'espace</div>
@@ -126,59 +142,23 @@ if (!isTouch) {
         <div class="lg-strip-links">
           <a href="studio.html" class="lg-strip-link">Présentation</a>
           <a href="projets.html" class="lg-strip-link">Projets</a>
-          <a href="services.html" class="lg-strip-link">Services</a>
-        </div>
-      </div>
-
-      <div class="lg-strip e2">
-        <div class="lg-strip-ghost">02</div>
-        <a href="atelier.html" class="lg-strip-primary">
-          <div class="lg-strip-num">02</div>
-          <div class="lg-strip-body">
-            <div class="lg-strip-name">L'Atelier</div>
-            <div class="lg-strip-sub">Fabrication & Prototypage</div>
-          </div>
-          <div class="lg-strip-arrow">→</div>
-        </a>
-        <div class="lg-strip-links">
-          <a href="atelier.html" class="lg-strip-link">Présentation</a>
-          <a href="atelier-drops.html" class="lg-strip-link">Drops</a>
-          <a href="atelier-services.html" class="lg-strip-link">Services</a>
-          <a href="atelier-projets.html" class="lg-strip-link">Projets</a>
+          <a href="contact.html" class="lg-strip-link">Démarrer un projet</a>
         </div>
       </div>
 
       <div class="lg-strip e3">
         <div class="lg-strip-ghost">03</div>
-        <a href="bleu-de-cobalt.html" class="lg-strip-primary">
+        <a href="media.html" class="lg-strip-primary">
           <div class="lg-strip-num">03</div>
           <div class="lg-strip-body">
-            <div class="lg-strip-name">Bleu de Cobalt</div>
-            <div class="lg-strip-sub">Programme & Cabinets partenaires</div>
-          </div>
-          <div class="lg-strip-arrow">→</div>
-        </a>
-        <div class="lg-strip-links">
-          <a href="bleu-de-cobalt.html" class="lg-strip-link">Présentation</a>
-          <a href="bleu-programme.html" class="lg-strip-link">Programme</a>
-          <a href="bleu-cabinets.html" class="lg-strip-link">Cabinets</a>
-          <a href="bleu-particuliers.html" class="lg-strip-link">Particuliers</a>
-        </div>
-      </div>
-
-      <div class="lg-strip e4">
-        <div class="lg-strip-ghost">04</div>
-        <a href="media.html" class="lg-strip-primary">
-          <div class="lg-strip-num">04</div>
-          <div class="lg-strip-body">
             <div class="lg-strip-name">Le Média</div>
-            <div class="lg-strip-sub">Architalk & Journal</div>
+            <div class="lg-strip-sub">ARCHITALK · FRAGMENTS · CARNET BLEU · RACCOURCI</div>
           </div>
           <div class="lg-strip-arrow">→</div>
         </a>
         <div class="lg-strip-links">
-          <a href="media.html" class="lg-strip-link">Présentation</a>
-          <a href="media-journal.html" class="lg-strip-link">Journal</a>
+          <a href="media.html" class="lg-strip-link">Les formats</a>
+          <a href="contact.html" class="lg-strip-link">Suivre</a>
         </div>
       </div>
 
@@ -186,7 +166,7 @@ if (!isTouch) {
     <div class="lg-overlay-footer">
       <a href="contact.html" class="lg-footer-contact">Contact</a>
       <div class="lg-footer-socials">
-        <a href="https://www.instagram.com/collectifcobalt" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.instagram.com/collectifcobalt_/" target="_blank" rel="noopener">Instagram</a>
         <a href="https://www.linkedin.com/company/collectif-cobalt" target="_blank" rel="noopener">LinkedIn</a>
       </div>
     </div>`;
@@ -204,12 +184,9 @@ if (!isTouch) {
   // Marquer la page courante active dans l'overlay
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   const pageToEnv = {
-    'studio.html': 'e1', 'projets.html': 'e1', 'services.html': 'e1',
-    'atelier.html': 'e2', 'atelier-projets.html': 'e2',
-    'atelier-services.html': 'e2', 'atelier-drops.html': 'e2',
-    'bleu-de-cobalt.html': 'e3', 'bleu-programme.html': 'e3', 'bleu-cabinets.html': 'e3',
-    'bleu-particuliers.html': 'e3', 'bleu-projets.html': 'e3',
-    'media.html': 'e4', 'media-journal.html': 'e4',
+    'collectif.html': 'e1',
+    'studio.html': 'e2', 'projets.html': 'e2', 'services.html': 'e2', 'projet.html': 'e2',
+    'media.html': 'e3', 'media-journal.html': 'e3',
   };
   const activeEnvClass = pageToEnv[currentPage];
   if (activeEnvClass) {

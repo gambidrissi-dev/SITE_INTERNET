@@ -231,32 +231,23 @@
     }
 
     /* ── Couleurs + ombre portée colorée ── */
+    #env-card[data-env="collectif"] {
+      background: rgba(26,26,26,.32);
+      border: 1px solid rgba(26,26,26,.60);
+      box-shadow:
+        0 2px 0 rgba(255,255,255,.55) inset,
+        0 -1px 0 rgba(26,26,26,.30) inset,
+        0 16px 48px rgba(26,26,26,.28),
+        0 4px 12px rgba(0,0,0,.12);
+    }
     #env-card[data-env="studio"]  {
       background: rgba(74,130,220,.28);
       border: 1px solid rgba(74,130,220,.55);
       box-shadow:
-        0 2px 0 rgba(255,255,255,.55) inset,   /* bord haut lumineux */
-        0 -1px 0 rgba(74,130,220,.30) inset,   /* bord bas subtil */
-        0 16px 48px rgba(74,130,220,.32),       /* ombre portée colorée */
-        0 4px 12px rgba(0,0,0,.12);             /* ombre de profondeur */
-    }
-    #env-card[data-env="atelier"] {
-      background: rgba(93,161,107,.26);
-      border: 1px solid rgba(93,161,107,.52);
-      box-shadow:
-        0 2px 0 rgba(255,255,255,.52) inset,
-        0 -1px 0 rgba(93,161,107,.28) inset,
-        0 16px 48px rgba(93,161,107,.28),
+        0 2px 0 rgba(255,255,255,.55) inset,
+        0 -1px 0 rgba(74,130,220,.30) inset,
+        0 16px 48px rgba(74,130,220,.32),
         0 4px 12px rgba(0,0,0,.12);
-    }
-    #env-card[data-env="bleu"]    {
-      background: rgba(241,203,79,.30);
-      border: 1px solid rgba(241,203,79,.58);
-      box-shadow:
-        0 2px 0 rgba(255,255,255,.60) inset,
-        0 -1px 0 rgba(241,203,79,.30) inset,
-        0 16px 48px rgba(241,203,79,.30),
-        0 4px 12px rgba(0,0,0,.10);
     }
     #env-card[data-env="media"]   {
       background: rgba(187,59,52,.24);
@@ -272,19 +263,17 @@
       width: 5px; height: 5px; border-radius: 50%;
       position: absolute; top: 12px; right: 12px;
     }
-    #env-card[data-env="studio"]  .ec-pip { background: #4A82DC; box-shadow: 0 0 6px #4A82DC; }
-    #env-card[data-env="atelier"] .ec-pip { background: #5DA16B; box-shadow: 0 0 6px #5DA16B; }
-    #env-card[data-env="bleu"]    .ec-pip { background: #F1CB4F; box-shadow: 0 0 6px #F1CB4F; }
-    #env-card[data-env="media"]   .ec-pip { background: #BB3B34; box-shadow: 0 0 6px #BB3B34; }
+    #env-card[data-env="collectif"] .ec-pip { background: #1A1A1A; box-shadow: 0 0 6px rgba(26,26,26,.5); }
+    #env-card[data-env="studio"]    .ec-pip { background: #4A82DC; box-shadow: 0 0 6px #4A82DC; }
+    #env-card[data-env="media"]     .ec-pip { background: #BB3B34; box-shadow: 0 0 6px #BB3B34; }
 
     .ec-num {
       font-size: 8px; font-weight: 700; letter-spacing: .18em;
       margin-bottom: 5px;
     }
-    #env-card[data-env="studio"]  .ec-num { color: #4A82DC; }
-    #env-card[data-env="atelier"] .ec-num { color: #5DA16B; }
-    #env-card[data-env="bleu"]    .ec-num { color: #B8940A; }
-    #env-card[data-env="media"]   .ec-num { color: #BB3B34; }
+    #env-card[data-env="collectif"] .ec-num { color: rgba(26,26,26,.65); }
+    #env-card[data-env="studio"]    .ec-num { color: #4A82DC; }
+    #env-card[data-env="media"]     .ec-num { color: #BB3B34; }
 
     .ec-name {
       font-family: 'Suisse BP Int\'l', 'DM Sans', sans-serif;
@@ -380,11 +369,10 @@
       transition: border-color .2s, color .2s, background .2s;
     }
     .escape-link:hover { border-color: currentColor; background: rgba(243,239,215,.92); }
-    .escape-link[data-c="studio"]  { color: #4A82DC; border-color: rgba(74,130,220,.45); }
-    .escape-link[data-c="atelier"] { color: #5DA16B; border-color: rgba(93,161,107,.45); }
-    .escape-link[data-c="bleu"]    { color: #B8940A; border-color: rgba(184,148,10,.45); }
-    .escape-link[data-c="media"]   { color: #BB3B34; border-color: rgba(187,59,52,.45); }
-    .escape-link[data-c="contact"] { color: rgba(26,26,26,.55); }
+    .escape-link[data-c="collectif"] { color: #1A1A1A; border-color: rgba(26,26,26,.45); }
+    .escape-link[data-c="studio"]    { color: #4A82DC; border-color: rgba(74,130,220,.45); }
+    .escape-link[data-c="media"]     { color: #BB3B34; border-color: rgba(187,59,52,.45); }
+    .escape-link[data-c="contact"]   { color: rgba(26,26,26,.55); }
     @media (pointer: coarse) {
       #escape-nav { bottom: 20px; }
       .escape-link { font-size: 11px; padding: 11px 20px; }
@@ -449,10 +437,9 @@
       <h1>cobalt<span>.</span></h1>
       <p>Architecture · Design · Fabrication · Média</p>
       <nav class="noscript-nav">
-        <a href="studio.html"         style="color:#4A82DC;">Le Studio</a>
-        <a href="atelier.html"        style="color:#5DA16B;">L'Atelier</a>
-        <a href="bleu-de-cobalt.html" style="color:#B8940A;">Bleu de Cobalt</a>
-        <a href="media.html"          style="color:#BB3B34;">Le Média</a>
+        <a href="collectif.html" style="color:#1A1A1A;">Le Collectif</a>
+        <a href="studio.html"    style="color:#4A82DC;">Le Studio</a>
+        <a href="media.html"     style="color:#BB3B34;">Le Média</a>
       </nav>
     </div>
   </noscript>
@@ -466,22 +453,20 @@
       <div class="slot-reel" id="slot-reel"></div>
     </div>
     <div class="slot-hint" id="slot-hint">
+      <span class="hint-dot" style="background:#1A1A1A"></span>
       <span class="hint-dot" style="background:#4A82DC"></span>
-      <span class="hint-dot" style="background:#5DA16B"></span>
-      <span class="hint-dot" style="background:#F1CB4F"></span>
       <span class="hint-dot" style="background:#BB3B34"></span>
       <span id="hint-text">survole une forme</span>
     </div>
-    <p id="landing-tagline">Architecture · Fabrication · Médias — Nouvelle-Aquitaine</p>
+    <p id="landing-tagline">Architecture · Médias — Nouvelle-Aquitaine</p>
   </div>
 
   <!-- Sortie de secours — apparaît après l'animation du slot -->
   <nav id="escape-nav" aria-label="Navigation principale">
-    <a href="studio.html"         class="escape-link" data-c="studio"><span>Le Studio</span><span class="el-sub">Architecture</span></a>
-    <a href="atelier.html"        class="escape-link" data-c="atelier"><span>L'Atelier</span><span class="el-sub">Fabrication</span></a>
-    <a href="bleu-de-cobalt.html" class="escape-link" data-c="bleu"><span>Bleu de Cobalt</span><span class="el-sub">Programme</span></a>
-    <a href="media.html"          class="escape-link" data-c="media"><span>Le Média</span><span class="el-sub">Architalk · Journal</span></a>
-    <a href="contact.html"        class="escape-link" data-c="contact"><span>Contact</span></a>
+    <a href="collectif.html" class="escape-link" data-c="collectif"><span>Le Collectif</span><span class="el-sub">Manifeste · Équipe</span></a>
+    <a href="studio.html"    class="escape-link" data-c="studio"><span>Le Studio</span><span class="el-sub">Architecture</span></a>
+    <a href="media.html"     class="escape-link" data-c="media"><span>Le Média</span><span class="el-sub">Formats · Vidéo</span></a>
+    <a href="contact.html"   class="escape-link" data-c="contact"><span>Contact</span></a>
   </nav>
 
   <!-- Floating env card -->
@@ -541,18 +526,16 @@
        ENVIRONMENT DATA
     ══════════════════════════════════════════════ */
     const ENV = {
-      studio:  { num:'01', name:'Le Studio',      tag:'Architecture · Design d\'espace', color:'#4A82DC', href:'studio.html' },
-      atelier: { num:'02', name:"L'Atelier",       tag:'Fabrication · Prototypage',       color:'#5DA16B', href:'atelier.html' },
-      bleu:    { num:'03', name:'Bleu de Cobalt',  tag:'Programme · Cabinets',             color:'#F1CB4F', href:'bleu-de-cobalt.html' },
-      media:   { num:'04', name:'Le Média',         tag:'Architalk · Journal',             color:'#BB3B34', href:'media.html' },
+      collectif: { num:'01', name:'Le Collectif', tag:'Manifeste · Équipe · Intention',    color:'#1A1A1A', href:'collectif.html' },
+      studio:    { num:'02', name:'Le Studio',    tag:'Architecture · Design d\'espace',    color:'#4A82DC', href:'studio.html' },
+      media:     { num:'03', name:'Le Média',     tag:'ARCHITALK · FRAGMENTS · RACCOURCI',  color:'#BB3B34', href:'media.html' },
     };
     const ENV_KEYS = Object.keys(ENV);
     // Couleurs par env (pour les shapes)
     const ENV_COLORS = {
-      studio:  '#4A82DC',
-      atelier: '#5DA16B',
-      bleu:    '#F1CB4F',
-      media:   '#BB3B34',
+      collectif: '#1A1A1A',
+      studio:    '#4A82DC',
+      media:     '#BB3B34',
     };
 
     /* ══════════════════════════════════════════════
@@ -816,25 +799,21 @@
 
     const SLOT_ITEMS = [
       // cycle 1
-      { html:'Le Studio',      color:'#4A82DC', font:SANS,  weight:'800', style:'normal', tracking:'-.03em' },
-      { html:"L'Atelier",      color:'#5DA16B', font:SERIF, weight:'400', style:'italic', tracking:'.01em'  },
-      { html:'Bleu de Cobalt', color:'#B8940A', font:SANS,  weight:'300', style:'normal', tracking:'.05em'  },
-      { html:'Le Média',       color:'#BB3B34', font:SANS,  weight:'800', style:'normal', tracking:'.08em'  },
+      { html:'Le Collectif', color:'#1A1A1A', font:SANS,  weight:'800', style:'normal', tracking:'-.03em' },
+      { html:'Le Studio',    color:'#4A82DC', font:SANS,  weight:'800', style:'normal', tracking:'-.03em' },
+      { html:'Le Média',     color:'#BB3B34', font:SERIF, weight:'400', style:'italic', tracking:'.02em'  },
       // cycle 2
-      { html:'Le Studio',      color:'#4A82DC', font:SANS,  weight:'800', style:'normal', tracking:'-.03em' },
-      { html:"L'Atelier",      color:'#5DA16B', font:SERIF, weight:'400', style:'italic', tracking:'.01em'  },
-      { html:'Bleu de Cobalt', color:'#B8940A', font:SANS,  weight:'300', style:'normal', tracking:'.05em'  },
-      { html:'Le Média',       color:'#BB3B34', font:SANS,  weight:'800', style:'normal', tracking:'.08em'  },
+      { html:'Le Collectif', color:'#1A1A1A', font:SANS,  weight:'800', style:'normal', tracking:'-.03em' },
+      { html:'Le Studio',    color:'#4A82DC', font:SANS,  weight:'800', style:'normal', tracking:'-.03em' },
+      { html:'Le Média',     color:'#BB3B34', font:SERIF, weight:'400', style:'italic', tracking:'.02em'  },
       // cycle 3
-      { html:'Le Studio',      color:'#4A82DC', font:SANS,  weight:'800', style:'normal', tracking:'-.03em' },
-      { html:"L'Atelier",      color:'#5DA16B', font:SERIF, weight:'400', style:'italic', tracking:'.01em'  },
-      { html:'Bleu de Cobalt', color:'#B8940A', font:SANS,  weight:'300', style:'normal', tracking:'.05em'  },
-      { html:'Le Média',       color:'#BB3B34', font:SANS,  weight:'800', style:'normal', tracking:'.08em'  },
+      { html:'Le Collectif', color:'#1A1A1A', font:SANS,  weight:'800', style:'normal', tracking:'-.03em' },
+      { html:'Le Studio',    color:'#4A82DC', font:SANS,  weight:'800', style:'normal', tracking:'-.03em' },
+      { html:'Le Média',     color:'#BB3B34', font:SERIF, weight:'400', style:'italic', tracking:'.02em'  },
       // cycle 4
-      { html:'Le Studio',      color:'#4A82DC', font:SANS,  weight:'800', style:'normal', tracking:'-.03em' },
-      { html:"L'Atelier",      color:'#5DA16B', font:SERIF, weight:'400', style:'italic', tracking:'.01em'  },
-      { html:'Bleu de Cobalt', color:'#B8940A', font:SANS,  weight:'300', style:'normal', tracking:'.05em'  },
-      { html:'Le Média',       color:'#BB3B34', font:SANS,  weight:'800', style:'normal', tracking:'.08em'  },
+      { html:'Le Collectif', color:'#1A1A1A', font:SANS,  weight:'800', style:'normal', tracking:'-.03em' },
+      { html:'Le Studio',    color:'#4A82DC', font:SANS,  weight:'800', style:'normal', tracking:'-.03em' },
+      { html:'Le Média',     color:'#BB3B34', font:SERIF, weight:'400', style:'italic', tracking:'.02em'  },
       // Arrêt final : logo SVG en grand
       { html:'<img src="assets/LOGO/LOGO_COBALT.svg" alt="Collectif Cobalt" class="slot-logo-img" width="520" height="116">', color:'#1A1A1A', font:SANS, weight:'800', style:'normal', tracking:'-.04em' },
     ];

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23F3EFD7'/><text x='4' y='24' font-size='22' font-family='sans-serif' font-weight='900' fill='%234A82DC'>c.</text></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1A1A1A">
+  <meta name="description" content="Collectif Cobalt — Qui sommes-nous. Trois personnes. Un manifeste. Une pratique qui pense, fait et transmet.">
+  <title>Le Collectif — Qui sommes-nous | Collectif Cobalt</title>
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://collectifcobalt.eu/collectif.html">
+  <meta property="og:title"       content="Le Collectif — Collectif Cobalt">
+  <meta property="og:description" content="Trois personnes. Un manifeste. Une pratique qui pense, fait et transmet.">
+  <meta property="og:image"       content="https://collectifcobalt.eu/assets/OG-image/og-image.jpg">
+  <meta property="og:locale"      content="fr_FR">
+  <meta property="og:site_name"   content="Collectif Cobalt">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="Le Collectif — Collectif Cobalt">
+  <meta name="twitter:description" content="Trois personnes. Un manifeste. Une pratique qui pense, fait et transmet.">
+  <meta name="twitter:image"       content="https://collectifcobalt.eu/assets/OG-image/og-image.jpg">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://collectifcobalt.eu/collectif.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    /* stripe noire */
+    .stripe { background: linear-gradient(90deg, var(--noir) 33%, var(--bleu) 33% 66%, var(--rouge) 66%); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh; background: var(--noir);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 140px 44px 80px; position: relative; overflow: hidden;
+      border-bottom: 2px solid rgba(240,235,216,.08);
+    }
+    .hero-bg-num {
+      position: absolute; right: -60px; bottom: -80px;
+      font-family: var(--f-display); font-size: clamp(300px,40vw,500px);
+      color: rgba(255,255,255,.04); line-height: 1; pointer-events: none; user-select: none;
+    }
+    .hero-label {
+      font-size: .62rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
+      color: rgba(240,235,216,.35); display: flex; align-items: center; gap: 14px; margin-bottom: 32px;
+    }
+    .hero-label::before { content: ''; width: 24px; height: 2px; background: rgba(240,235,216,.35); }
+    .hero-title {
+      font-family: var(--f-display);
+      font-size: clamp(72px, 12vw, 160px);
+      line-height: .84; color: var(--cream); margin-bottom: 40px;
+    }
+    .hero-title .serif-it {
+      font-family: var(--f-serif); font-style: italic;
+      color: rgba(255,255,255,.45); font-weight: 400;
+    }
+    .hero-desc {
+      max-width: 580px; font-size: 1rem; line-height: 1.85; font-weight: 300;
+      color: rgba(243,239,215,.60); margin-bottom: 0;
+    }
+    .hero-desc strong { color: rgba(243,239,215,.90); font-weight: 500; }
+
+    /* ── MANIFESTE ── */
+    .manifeste {
+      background: var(--cream); padding: 120px 44px;
+      border-bottom: 2px solid var(--noir);
+    }
+    .man-grid {
+      display: grid; grid-template-columns: 1fr 1.5fr; gap: 100px;
+      align-items: start;
+    }
+    .man-left {}
+    .man-label {
+      font-size: .62rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
+      color: rgba(26,26,26,.35); margin-bottom: 28px;
+    }
+    .man-title {
+      font-family: var(--f-display);
+      font-size: clamp(40px, 5.5vw, 72px);
+      line-height: .88; color: var(--noir);
+    }
+    .man-title em {
+      font-family: var(--f-serif); font-style: italic;
+      color: rgba(26,26,26,.40); font-weight: 400;
+    }
+    .man-year {
+      font-family: var(--f-display);
+      font-size: clamp(80px, 12vw, 160px);
+      color: rgba(26,26,26,.05); line-height: 1;
+      margin-top: 32px; user-select: none;
+    }
+    .man-right {}
+    .man-body p {
+      font-size: 1.05rem; line-height: 1.9; font-weight: 300;
+      color: rgba(26,26,26,.70); margin-bottom: 28px;
+    }
+    .man-body p:last-child { margin-bottom: 0; }
+    .man-body strong { color: var(--noir); font-weight: 600; }
+    .man-divider {
+      width: 32px; height: 2px; background: var(--noir);
+      margin: 48px 0;
+    }
+    .man-axioms {
+      display: flex; flex-direction: column; gap: 0;
+    }
+    .man-axiom {
+      display: flex; align-items: baseline; gap: 20px;
+      padding: 20px 0; border-bottom: 1px solid rgba(26,26,26,.1);
+    }
+    .man-axiom:last-child { border-bottom: none; }
+    .man-axiom-num {
+      font-size: .58rem; font-weight: 700; letter-spacing: .2em;
+      color: rgba(26,26,26,.25); flex-shrink: 0; width: 24px;
+    }
+    .man-axiom-text {
+      font-family: var(--f-display);
+      font-size: clamp(16px, 1.8vw, 22px);
+      line-height: 1.1; color: var(--noir);
+    }
+
+    /* ── ÉQUIPE ── */
+    .equipe {
+      background: var(--noir); padding: 120px 44px;
+    }
+    .eq-header { margin-bottom: 72px; }
+    .eq-label {
+      font-size: .62rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
+      color: rgba(240,235,216,.25); margin-bottom: 20px;
+    }
+    .eq-title {
+      font-family: var(--f-display);
+      font-size: clamp(48px, 6vw, 80px);
+      line-height: .88; color: var(--cream);
+    }
+    .eq-title em {
+      font-family: var(--f-serif); font-style: italic;
+      color: rgba(240,235,216,.40); font-weight: 400;
+    }
+    .eq-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0; border-top: 1px solid rgba(240,235,216,.08);
+    }
+    .eq-person {
+      padding: 52px 40px;
+      border-right: 1px solid rgba(240,235,216,.08);
+      display: flex; flex-direction: column;
+    }
+    .eq-person:last-child { border-right: none; }
+    .eq-photo {
+      width: 100%; aspect-ratio: 3/4; object-fit: cover;
+      background: rgba(240,235,216,.06);
+      border-radius: var(--r-md);
+      margin-bottom: 32px; display: block;
+      position: relative;
+    }
+    /* Placeholder si pas de photo */
+    .eq-photo-placeholder {
+      width: 100%; aspect-ratio: 3/4;
+      background: rgba(240,235,216,.06);
+      border-radius: var(--r-md);
+      margin-bottom: 32px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .eq-photo-placeholder svg {
+      width: 40%; opacity: .15;
+    }
+    .eq-name {
+      font-family: var(--f-display);
+      font-size: clamp(22px, 2.5vw, 32px);
+      color: var(--cream); line-height: 1; margin-bottom: 6px;
+      letter-spacing: -.02em;
+    }
+    .eq-role {
+      font-size: .65rem; font-weight: 700; letter-spacing: .18em;
+      text-transform: uppercase; color: rgba(240,235,216,.28);
+      margin-bottom: 20px;
+    }
+    .eq-bio {
+      font-size: .82rem; line-height: 1.75; font-weight: 300;
+      color: rgba(240,235,216,.45); flex: 1;
+    }
+    .eq-contact {
+      margin-top: 24px;
+      font-size: .65rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: rgba(240,235,216,.22);
+      transition: color .2s;
+    }
+    .eq-contact:hover { color: rgba(240,235,216,.70); }
+
+    /* ── CTA BANDE ── */
+    .cta-band {
+      background: var(--cream); padding: 100px 44px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 2px solid var(--noir);
+    }
+    .cb-text {
+      font-family: var(--f-display);
+      font-size: clamp(32px,5vw,64px); color: var(--noir); line-height: .9;
+    }
+    .cb-text em {
+      font-family: var(--f-serif); font-style: italic; color: rgba(26,26,26,.35);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .hero { padding: 110px 20px 56px; min-height: 0; }
+      .hero-title { font-size: clamp(56px, 12vw, 110px); margin-bottom: 32px; }
+      .manifeste { padding: 72px 20px; }
+      .man-grid { grid-template-columns: 1fr; gap: 48px; }
+      .man-year { display: none; }
+      .equipe { padding: 72px 20px; }
+      .eq-header { margin-bottom: 48px; }
+      .eq-grid { grid-template-columns: 1fr; }
+      .eq-person { border-right: none; border-bottom: 1px solid rgba(240,235,216,.08); padding: 40px 20px; }
+      .eq-person:last-child { border-bottom: none; }
+      .eq-photo-placeholder { max-width: 260px; }
+      .cta-band { flex-direction: column; gap: 32px; padding: 64px 20px; text-align: center; align-items: center; }
+    }
+    @media (max-width: 560px) {
+      .hero { padding: 96px 18px 48px; }
+      .hero-title { font-size: clamp(52px, 14vw, 84px); }
+      .hero-desc { font-size: .88rem; }
+      .manifeste { padding: 56px 18px; }
+      .man-title { font-size: clamp(32px, 9vw, 48px); }
+      .man-body p { font-size: .92rem; }
+      .equipe { padding: 56px 18px; }
+      .eq-title { font-size: clamp(36px, 10vw, 56px); }
+      .eq-person { padding: 32px 0; }
+      .cta-band { padding: 52px 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stripe"></div>
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo"><img src="assets/LOGO/LOGO_COBALT.svg" alt="Collectif Cobalt" class="nav-logo-img" width="200" height="45"></a>
+    <button class="nav-burger-btn" id="nav-burger" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="main-content">
+    <div class="hero-bg-num" aria-hidden="true">01</div>
+    <div class="hero-label sr">Le Collectif</div>
+    <h1 class="hero-title sr">
+      COBALT<span class="serif-it">+</span><br>
+      COLLECTIF.
+    </h1>
+    <p class="hero-desc sr sr-d2">
+      Trois personnes. Un territoire — la <strong>Nouvelle-Aquitaine</strong>.<br>
+      Une conviction : que le travail bien fait mérite d'être <strong>pensé, fait et transmis</strong>.
+    </p>
+  </section>
+
+  <!-- MANIFESTE -->
+  <section class="manifeste">
+    <div class="man-grid">
+      <div class="man-left sr">
+        <div class="man-label">Notre intention</div>
+        <h2 class="man-title">PENSER.<br>FAIRE.<br><em>Transmettre.</em></h2>
+        <div class="man-year" aria-hidden="true">2024</div>
+      </div>
+      <div class="man-right sr sr-d2">
+        <div class="man-body">
+          <p>Collectif Cobalt, c'est d'abord une envie de travailler autrement. Pas un cabinet. Pas une agence. Un collectif — au sens concret : des personnes qui décident ensemble, qui s'impliquent sur tous les sujets, et qui portent un projet commun sans hiérarchie de façade.</p>
+          <p>Notre terrain, c'est l'espace. Sa conception, sa fabrication, sa narration. Le <strong>Studio</strong> conçoit des projets d'architecture d'intérieur. Le <strong>Média</strong> les documente et questionne la pratique. Les deux activités se nourrissent l'une l'autre — ce qu'on filme nous apprend autant que ce qu'on dessine.</p>
+          <p>On travaille en <strong>Nouvelle-Aquitaine</strong>. On ancre notre pratique dans ses matériaux, ses artisans, ses paysages. Ce n'est pas un positionnement marketing — c'est une contrainte choisie et une conviction.</p>
+        </div>
+        <div class="man-divider"></div>
+        <div class="man-axioms">
+          <div class="man-axiom">
+            <div class="man-axiom-num">01</div>
+            <div class="man-axiom-text">L'espace change la qualité de vie. On le prend au sérieux.</div>
+          </div>
+          <div class="man-axiom">
+            <div class="man-axiom-num">02</div>
+            <div class="man-axiom-text">Le travail bien fait existe au-delà du chantier — à condition de le montrer.</div>
+          </div>
+          <div class="man-axiom">
+            <div class="man-axiom-num">03</div>
+            <div class="man-axiom-text">La Nouvelle-Aquitaine n'est pas une contrainte. C'est notre matière première.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ÉQUIPE -->
+  <section class="equipe">
+    <div class="eq-header sr">
+      <div class="eq-label">Trois personnes</div>
+      <h2 class="eq-title">LES<br><em>visages.</em></h2>
+    </div>
+    <div class="eq-grid sr sr-d1">
+
+      <div class="eq-person">
+        <div class="eq-photo-placeholder" aria-hidden="true">
+          <svg viewBox="0 0 80 100" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="color:rgba(240,235,216,1)">
+            <circle cx="40" cy="30" r="22"/>
+            <path d="M0 100C0 72 18 56 40 56C62 56 80 72 80 100H0Z"/>
+          </svg>
+        </div>
+        <div class="eq-name">Gambi</div>
+        <div class="eq-role">Architecte · Président</div>
+        <p class="eq-bio">La pratique et la vision. Conception de projets d'architecture d'intérieur en Nouvelle-Aquitaine, de la première esquisse à la livraison. Il porte l'intention du collectif.</p>
+        <a href="mailto:gambi@collectifcobalt.eu" class="eq-contact">gambi@collectifcobalt.eu</a>
+      </div>
+
+      <div class="eq-person">
+        <div class="eq-photo-placeholder" aria-hidden="true">
+          <svg viewBox="0 0 80 100" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="color:rgba(240,235,216,1)">
+            <circle cx="40" cy="30" r="22"/>
+            <path d="M0 100C0 72 18 56 40 56C62 56 80 72 80 100H0Z"/>
+          </svg>
+        </div>
+        <div class="eq-name">Lola</div>
+        <div class="eq-role">Directrice Générale</div>
+        <p class="eq-bio">Le projet et le collectif. Lola coordonne, conçoit et tient le fil. Elle est au cœur des projets d'espace et de la dynamique interne — celle qui fait que ça tient debout.</p>
+        <a href="mailto:lola@collectifcobalt.eu" class="eq-contact">lola@collectifcobalt.eu</a>
+      </div>
+
+      <div class="eq-person">
+        <div class="eq-photo-placeholder" aria-hidden="true">
+          <svg viewBox="0 0 80 100" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="color:rgba(240,235,216,1)">
+            <circle cx="40" cy="30" r="22"/>
+            <path d="M0 100C0 72 18 56 40 56C62 56 80 72 80 100H0Z"/>
+          </svg>
+        </div>
+        <div class="eq-name">Lou-Ann</div>
+        <div class="eq-role">Directrice Générale</div>
+        <p class="eq-bio">Le média et la transmission. Lou-Ann porte la ligne éditoriale du collectif — ce qu'on montre, comment on le raconte, pourquoi ça compte de le faire.</p>
+        <a href="mailto:louann@collectifcobalt.eu" class="eq-contact">louann@collectifcobalt.eu</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-band">
+    <div class="cb-text sr">UN PROJET ?<br><em>Écrivez-nous.</em></div>
+    <a href="contact.html" class="btn btn-dark sr sr-d1"><span>Nous contacter →</span></a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-stripe"></div>
+    <div class="footer-silhouette" aria-hidden="true">
+      <svg width="500" height="340" viewBox="0 0 750 450" fill="rgba(240,235,216,1)"><rect x="0" y="300" width="750" height="150"/><rect x="0" y="0" width="180" height="300"/><rect x="570" y="0" width="180" height="300"/><path d="M180 0 A195 300 0 0 1 570 0Z"/></svg>
+    </div>
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">cobalt<span class="dot">.</span></div>
+        <p class="footer-tagline">Penser. Faire. Transmettre.<br>Architecture & Médias — Nouvelle-Aquitaine.</p>
+        <address class="footer-address">
+          <strong>Angoulême</strong> · <strong>Bordeaux</strong> · <strong>Bayonne</strong><br>
+          Nouvelle-Aquitaine, France
+        </address>
+        <div class="footer-socials">
+          <a href="https://www.instagram.com/collectifcobalt_/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/company/collectif-cobalt" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Le Collectif</div>
+        <nav class="footer-nav">
+          <a href="collectif.html">Manifeste</a>
+          <a href="studio.html">Le Studio</a>
+          <a href="media.html">Le Média</a>
+        </nav>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact direct</div>
+        <div class="footer-contact-item">
+          <div class="footer-contact-name">Gambi</div>
+          <a href="mailto:gambi@collectifcobalt.eu" class="footer-contact-email">gambi@collectifcobalt.eu</a>
+        </div>
+        <div class="footer-contact-item">
+          <div class="footer-contact-name">Lola</div>
+          <a href="mailto:lola@collectifcobalt.eu" class="footer-contact-email">lola@collectifcobalt.eu</a>
+        </div>
+        <div class="footer-contact-item">
+          <div class="footer-contact-name">Lou-Ann</div>
+          <a href="mailto:louann@collectifcobalt.eu" class="footer-contact-email">louann@collectifcobalt.eu</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Collectif Cobalt. Tous droits réservés.</p>
+      <p class="footer-legal">Architecture d'espace · Médias — Nouvelle-Aquitaine</p>
+    </div>
+  </footer>
+
+  <script src="shared.js"></script>
+</body>
+</html>
