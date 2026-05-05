@@ -139,7 +139,7 @@ body > nav {
    NAV OVERLAY — style bandes éditoriales
 ══════════════════════════════════════════ */
 #lg-overlay {
-  position: fixed; inset: 0; z-index: 490;
+  position: fixed; inset: 0; z-index: 510;
   background: #0d0d16;
   transform: translateY(-100%);
   transition: transform .55s cubic-bezier(.76,0,.24,1);
@@ -150,10 +150,19 @@ body > nav {
 .lg-header {
   height: 58px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 32px;
+  padding: 0 22px 0 32px;
   border-bottom: 1px solid rgba(255,255,255,.07);
 }
 .lg-logo { display: flex; align-items: center; }
+/* Bouton fermer dans l'overlay */
+.lg-close-btn {
+  width: 44px; height: 44px; background: none; border: none; cursor: none;
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,.45); font-size: 22px; font-weight: 300;
+  letter-spacing: 0; transition: color .2s, background .2s;
+  border-radius: 50%; position: relative;
+}
+.lg-close-btn:hover { color: rgba(255,255,255,.9); background: rgba(255,255,255,.07); }
 .lg-esc {
   font-size: 9px; font-weight: 600; letter-spacing: .14em;
   text-transform: uppercase; color: rgba(255,255,255,.20);

@@ -109,7 +109,7 @@ if (!isTouch) {
   overlay.innerHTML = `
     <div class="lg-header">
       <div class="lg-logo"><img src="assets/LOGO/LOGO_COBALT.svg" alt="Collectif Cobalt" style="height:18px;width:auto;opacity:.65;display:block;filter:invert(1);"></div>
-      <div class="lg-esc">Échap pour fermer</div>
+      <button class="lg-close-btn" aria-label="Fermer le menu">✕</button>
     </div>
     <div class="lg-strips">
 
@@ -246,6 +246,11 @@ if (!isTouch) {
   };
 
   burgerBtn.addEventListener('click', () => overlay.classList.contains('open') ? close() : open());
+
+  // Bouton × dans l'overlay header
+  const closeBtn = overlay.querySelector('.lg-close-btn');
+  if (closeBtn) closeBtn.addEventListener('click', close);
+
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && overlay.classList.contains('open')) { close(); return; }
     // Focus trap : Tab / Shift+Tab reste dans l'overlay

@@ -461,7 +461,7 @@
 
     /* ── OVERLAY LIQUID GLASS ── */
     #lg-overlay {
-      position: fixed; inset: 0; z-index: 490;
+      position: fixed; inset: 0; z-index: 510;
       background: #0d0d16;
       transform: translateY(-100%);
       transition: transform .55s cubic-bezier(.76,0,.24,1);
@@ -471,10 +471,16 @@
     .lg-header {
       height: 58px; flex-shrink: 0;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 32px; border-bottom: 1px solid rgba(255,255,255,.07);
+      padding: 0 22px 0 32px; border-bottom: 1px solid rgba(255,255,255,.07);
     }
     .lg-logo { display: flex; align-items: center; }
-    .lg-esc { font-size: 9px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.20); }
+    .lg-close-btn {
+      width: 44px; height: 44px; background: none; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,.45); font-size: 22px; font-weight: 300;
+      transition: color .2s, background .2s; border-radius: 50%;
+    }
+    .lg-close-btn:hover { color: rgba(255,255,255,.9); background: rgba(255,255,255,.07); }
     .lg-strips { flex: 1; display: flex; flex-direction: column; }
     .lg-strip {
       flex: 1; position: relative; display: flex; align-items: stretch;
@@ -1075,7 +1081,7 @@
     overlay.innerHTML = `
       <div class="lg-header">
         <div class="lg-logo"><img src="assets/LOGO/LOGO_COBALT.svg" alt="Collectif Cobalt" style="height:18px;width:auto;opacity:.65;display:block;filter:invert(1);"></div>
-        <div class="lg-esc">Échap pour fermer</div>
+        <button class="lg-close-btn" id="lg-close" aria-label="Fermer le menu">✕</button>
       </div>
       <div class="lg-strips">
 
@@ -1178,6 +1184,8 @@
     };
 
     burgerBtn.addEventListener('click', () => overlay.classList.contains('open') ? close() : open());
+    const lgCloseBtn = document.getElementById('lg-close');
+    if (lgCloseBtn) lgCloseBtn.addEventListener('click', close);
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape' && overlay.classList.contains('open')) { close(); return; }
       if (e.key === 'Tab' && overlay.classList.contains('open')) {
