@@ -125,7 +125,7 @@ if (!isTouch) {
         </a>
         <div class="lg-strip-links">
           <a href="collectif.html" class="lg-strip-link">Manifeste</a>
-          <a href="contact.html" class="lg-strip-link">Contact</a>
+          <a href="collectif.html#equipe" class="lg-strip-link">Équipe</a>
         </div>
       </div>
 
