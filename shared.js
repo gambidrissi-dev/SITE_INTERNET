@@ -113,7 +113,7 @@ if (!isTouch) {
     </div>
     <div class="lg-strips">
 
-      <div class="lg-strip e1">
+      <div class="lg-strip e0">
         <div class="lg-strip-ghost">01</div>
         <a href="collectif.html" class="lg-strip-primary">
           <div class="lg-strip-num">01</div>
@@ -129,7 +129,7 @@ if (!isTouch) {
         </div>
       </div>
 
-      <div class="lg-strip e2">
+      <div class="lg-strip e1">
         <div class="lg-strip-ghost">02</div>
         <a href="studio.html" class="lg-strip-primary">
           <div class="lg-strip-num">02</div>
@@ -146,10 +146,34 @@ if (!isTouch) {
         </div>
       </div>
 
-      <div class="lg-strip e3">
+      <div class="lg-strip e2 soon">
         <div class="lg-strip-ghost">03</div>
-        <a href="media.html" class="lg-strip-primary">
+        <div class="lg-strip-primary">
           <div class="lg-strip-num">03</div>
+          <div class="lg-strip-body">
+            <div class="lg-strip-name">L'Atelier</div>
+            <div class="lg-strip-sub">Fabrication & Prototypage</div>
+          </div>
+          <div class="lg-strip-soon-badge">Bientôt</div>
+        </div>
+      </div>
+
+      <div class="lg-strip e3 soon">
+        <div class="lg-strip-ghost">04</div>
+        <div class="lg-strip-primary">
+          <div class="lg-strip-num">04</div>
+          <div class="lg-strip-body">
+            <div class="lg-strip-name">Bleu de Cobalt</div>
+            <div class="lg-strip-sub">Programme & Cabinets partenaires</div>
+          </div>
+          <div class="lg-strip-soon-badge">Bientôt</div>
+        </div>
+      </div>
+
+      <div class="lg-strip e4">
+        <div class="lg-strip-ghost">05</div>
+        <a href="media.html" class="lg-strip-primary">
+          <div class="lg-strip-num">05</div>
           <div class="lg-strip-body">
             <div class="lg-strip-name">Le Média</div>
             <div class="lg-strip-sub">ARCHITALK · FRAGMENTS · CARNET BLEU · RACCOURCI</div>
@@ -184,9 +208,11 @@ if (!isTouch) {
   // Marquer la page courante active dans l'overlay
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   const pageToEnv = {
-    'collectif.html': 'e1',
-    'studio.html': 'e2', 'projets.html': 'e2', 'services.html': 'e2', 'projet.html': 'e2',
-    'media.html': 'e3', 'media-journal.html': 'e3',
+    'collectif.html': 'e0',
+    'studio.html': 'e1', 'projets.html': 'e1', 'services.html': 'e1', 'projet.html': 'e1',
+    'atelier.html': 'e2', 'atelier-projets.html': 'e2', 'atelier-services.html': 'e2', 'atelier-drops.html': 'e2',
+    'bleu-de-cobalt.html': 'e3', 'bleu-programme.html': 'e3', 'bleu-cabinets.html': 'e3', 'bleu-particuliers.html': 'e3',
+    'media.html': 'e4', 'media-journal.html': 'e4',
   };
   const activeEnvClass = pageToEnv[currentPage];
   if (activeEnvClass) {

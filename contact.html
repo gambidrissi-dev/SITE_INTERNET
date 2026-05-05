@@ -105,84 +105,6 @@
     }
     .ch-feedback.visible { display: block; }
 
-    /* ═══════════════════════════════
-       TEAM — cartes portrait format
-    ═══════════════════════════════ */
-    #team { padding: 100px 44px; background: var(--cream); border-top: 2px solid var(--noir); }
-    .team-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 52px;
-    }
-    /* CARD */
-    .team-card {
-      background: #fff; border-radius: 20px; overflow: hidden;
-      box-shadow: 0 2px 4px rgba(0,0,0,.04), 0 8px 28px rgba(0,0,0,.09);
-      transition: transform .32s cubic-bezier(.25,.46,.45,.94), box-shadow .32s;
-    }
-    .team-card:hover {
-      transform: translateY(-7px);
-      box-shadow: 0 4px 8px rgba(0,0,0,.06), 0 20px 52px rgba(0,0,0,.15);
-    }
-    /* PHOTO */
-    .team-photo {
-      width: 100%; aspect-ratio: 3/4;
-      overflow: hidden; background: #1a1a1a;
-    }
-    .team-photo img {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform .5s ease, filter .4s ease;
-      filter: grayscale(15%);
-    }
-    .team-card:hover .team-photo img { transform: scale(1.04); filter: grayscale(0%); }
-    /* BODY */
-    .team-body { padding: 26px 26px 30px; }
-    .team-card-hd {
-      display: flex; align-items: flex-start;
-      justify-content: space-between; margin-bottom: 5px;
-    }
-    .team-name {
-      font-family: var(--f-display); font-size: clamp(20px, 2.2vw, 26px);
-      letter-spacing: -.02em; line-height: 1; color: var(--noir);
-    }
-    .team-pip {
-      width: 9px; height: 9px; border-radius: 50%;
-      flex-shrink: 0; margin-top: 5px;
-    }
-    .team-card:nth-child(1) .team-pip { background: var(--bleu);  box-shadow: 0 0 8px rgba(74,130,220,.6); }
-    .team-card:nth-child(2) .team-pip { background: var(--jaune); box-shadow: 0 0 8px rgba(241,203,79,.6); }
-    .team-card:nth-child(3) .team-pip { background: var(--vert);  box-shadow: 0 0 8px rgba(93,161,107,.6); }
-    .team-role {
-      font-size: .6rem; font-weight: 700; letter-spacing: .14em;
-      text-transform: uppercase; margin-bottom: 18px;
-    }
-    .team-card:nth-child(1) .team-role { color: var(--bleu); }
-    .team-card:nth-child(2) .team-role { color: #B8940A; }
-    .team-card:nth-child(3) .team-role { color: var(--vert); }
-    .team-bio {
-      font-size: .81rem; line-height: 1.74; font-weight: 300;
-      color: rgba(26,26,26,.58); margin-bottom: 20px;
-    }
-    /* TRAIT PILLS */
-    .team-tags { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 22px; }
-    .team-tag {
-      padding: 5px 13px; border-radius: var(--r-pill);
-      font-size: .58rem; font-weight: 700;
-      letter-spacing: .08em; text-transform: uppercase; border: 1.5px solid;
-    }
-    .team-card:nth-child(1) .team-tag { border-color: rgba(74,130,220,.3);  color: rgba(74,130,220,.85); }
-    .team-card:nth-child(2) .team-tag { border-color: rgba(241,203,79,.5);  color: rgba(184,148,10,.85); }
-    .team-card:nth-child(3) .team-tag { border-color: rgba(93,161,107,.35); color: rgba(60,135,78,.85); }
-    /* CTA EMAIL */
-    .team-contact {
-      display: flex; align-items: center; gap: 8px;
-      padding-top: 18px; border-top: 1px solid rgba(26,26,26,.07);
-      font-size: .72rem; font-weight: 500;
-      color: rgba(26,26,26,.35); transition: color .18s;
-    }
-    .team-contact:hover { color: var(--noir); }
-    .team-contact .email { flex: 1; }
-    .team-contact .arrow { transition: transform .2s; font-size: .82rem; }
-    .team-contact:hover .arrow { transform: translateX(3px); }
-
     /* TÉMOIGNAGES */
     #temoignages { background: var(--jaune); padding: 100px 44px; border-top: 2px solid var(--noir); }
     #temoignages .s-label { color: rgba(26,26,26,.5); }
@@ -209,8 +131,6 @@
       .ch-right { padding: 48px 24px; border-radius: var(--r-md); margin-bottom: 32px; }
       .ch-form-title { font-size: clamp(1.8rem, 6vw, 2.4rem); margin-bottom: 28px; }
       .ch-row { grid-template-columns: 1fr; }
-      #team { padding: 64px 20px; }
-      .team-grid { grid-template-columns: 1fr; gap: 16px; }
       #temoignages { padding: 64px 20px; }
       .testi-title { font-size: clamp(36px, 9vw, 56px); margin-bottom: 36px; }
       .testi-grid { grid-template-columns: 1fr; }
@@ -226,11 +146,6 @@
       .ch-subject-opts { gap: 6px; }
       .ch-subject-btn { padding: 6px 12px; font-size: .62rem; }
       .ch-submit { padding: 14px 28px; font-size: .68rem; }
-      #team { padding: 52px 16px; }
-      .team-photo { aspect-ratio: 4/3; }
-      .team-body { padding: 20px 20px 24px; }
-      .team-name { font-size: 19px; }
-      .team-bio { font-size: .79rem; }
       #temoignages { padding: 52px 16px; }
       .testi-item { margin: 4px; padding: 28px 20px; }
       .testi-mark { font-size: 4rem; top: 16px; left: 18px; }
@@ -320,86 +235,6 @@
       </form>
     </div>
   </div>
-
-  <!-- TEAM -->
-  <section id="team">
-    <div class="s-label sr">L'équipe</div>
-    <div class="team-grid">
-
-      <!-- GAMBI -->
-      <div class="team-card sr">
-        <div class="team-photo">
-          <img src="assets/TEAM/gambi.jpg" alt="Gambi" loading="lazy">
-        </div>
-        <div class="team-body">
-          <div class="team-card-hd">
-            <h3 class="team-name">Gambi</h3>
-            <div class="team-pip"></div>
-          </div>
-          <p class="team-role">Architecte · Le Studio</p>
-          <p class="team-bio">Architecte d'intérieur diplômé, Gambi coordonne la vision créative du collectif. Rigoureux, il porte l'exigence formelle et spatiale de chaque projet.</p>
-          <div class="team-tags">
-            <span class="team-tag">Architecture</span>
-            <span class="team-tag">Direction créative</span>
-            <span class="team-tag">Espace</span>
-          </div>
-          <a href="mailto:gambi@collectifcobalt.eu" class="team-contact">
-            <span class="email">gambi@collectifcobalt.eu</span>
-            <span class="arrow">→</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- LOLA -->
-      <div class="team-card sr sr-d1">
-        <div class="team-photo">
-          <img src="assets/TEAM/lola.jpg" alt="Lola" loading="lazy">
-        </div>
-        <div class="team-body">
-          <div class="team-card-hd">
-            <h3 class="team-name">Lola</h3>
-            <div class="team-pip"></div>
-          </div>
-          <p class="team-role">Designer · L'Atelier</p>
-          <p class="team-bio">Spécialiste des matières locales et des finitions, Lola apporte une sensibilité unique à chaque projet. Elle coordonne les relations avec les artisans.</p>
-          <div class="team-tags">
-            <span class="team-tag">Design d'espace</span>
-            <span class="team-tag">Matériaux</span>
-            <span class="team-tag">Artisanat</span>
-          </div>
-          <a href="mailto:lola@collectifcobalt.eu" class="team-contact">
-            <span class="email">lola@collectifcobalt.eu</span>
-            <span class="arrow">→</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- LOU-ANN -->
-      <div class="team-card sr sr-d2">
-        <div class="team-photo">
-          <img src="assets/TEAM/lou-ann.jpg" alt="Lou-Ann" loading="lazy">
-        </div>
-        <div class="team-body">
-          <div class="team-card-hd">
-            <h3 class="team-name">Lou-Ann</h3>
-            <div class="team-pip"></div>
-          </div>
-          <p class="team-role">Fabrication · Bleu de Cobalt</p>
-          <p class="team-bio">À la tête de l'Atelier et de Bleu de Cobalt, Lou-Ann incarne le lien entre pensée et fabrication. Elle coordonne les missions étudiantes et la production.</p>
-          <div class="team-tags">
-            <span class="team-tag">Fabrication</span>
-            <span class="team-tag">Pédagogie</span>
-            <span class="team-tag">Transmission</span>
-          </div>
-          <a href="mailto:louann@collectifcobalt.eu" class="team-contact">
-            <span class="email">louann@collectifcobalt.eu</span>
-            <span class="arrow">→</span>
-          </a>
-        </div>
-      </div>
-
-    </div>
-  </section>
 
   <!-- TÉMOIGNAGES -->
   <section id="temoignages">

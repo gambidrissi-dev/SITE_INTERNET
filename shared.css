@@ -117,22 +117,23 @@ body > nav {
               opacity .22s ease,
               width .28s cubic-bezier(.76,0,.24,1);
 }
-/* 3 lignes = 3 sections — largeur décroissante */
-.nav-burger-btn span:nth-child(1) { background: #1A1A1A; width: 22px; } /* Le Collectif */
-.nav-burger-btn span:nth-child(2) { background: #4A82DC; width: 16px; } /* Le Studio    */
-.nav-burger-btn span:nth-child(3) { background: #BB3B34; width: 10px; } /* Le Média     */
-.nav-burger-btn span:nth-child(4) { display: none; }                     /* Masqué       */
+/* 4 lignes = 4 univers — largeur décroissante */
+.nav-burger-btn span:nth-child(1) { background: #4A82DC; width: 22px; } /* Le Studio   */
+.nav-burger-btn span:nth-child(2) { background: #5DA16B; width: 17px; } /* L'Atelier   */
+.nav-burger-btn span:nth-child(3) { background: #F1CB4F; width: 13px; } /* Bleu Cobalt */
+.nav-burger-btn span:nth-child(4) { background: #BB3B34; width:  9px; } /* Le Média    */
 
 /* Stagger fermeture — délai décalé pour la réapparition */
 .nav-burger-btn span:nth-child(1) { transition-delay: .00s; }
 .nav-burger-btn span:nth-child(2) { transition-delay: .04s; }
 .nav-burger-btn span:nth-child(3) { transition-delay: .08s; }
+.nav-burger-btn span:nth-child(4) { transition-delay: .12s; }
 
-/* Animation X — lignes 1 & 3 se croisent, 2 s'efface */
-.nav-burger-btn.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); width: 22px; transition-delay: .00s; }
+/* Animation X — lignes 1 & 4 se croisent, 2 & 3 s'effacent */
+.nav-burger-btn.open span:nth-child(1) { transform: translateY(9.75px) rotate(45deg); width: 22px; transition-delay: .00s; }
 .nav-burger-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); transition-delay: .00s; }
-.nav-burger-btn.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); width: 22px; transition-delay: .06s; }
-.nav-burger-btn.open span:nth-child(4) { transform: none; }
+.nav-burger-btn.open span:nth-child(3) { opacity: 0; transform: scaleX(0); transition-delay: .00s; }
+.nav-burger-btn.open span:nth-child(4) { transform: translateY(-9.75px) rotate(-45deg); width: 22px; transition-delay: .06s; }
 
 /* ══════════════════════════════════════════
    NAV OVERLAY — style bandes éditoriales
@@ -214,19 +215,25 @@ body > nav {
 .lg-strip-link:last-child { border-right: none; }
 .lg-strip-link:hover { color: rgba(255,255,255,.85); background: rgba(255,255,255,.03); }
 /* Sous-liens colorés par env */
-.e1 .lg-strip-link:hover { color: rgba(255,255,255,.80); background: rgba(255,255,255,.06); }
-.e2 .lg-strip-link:hover { color: #4A82DC; background: rgba(74,130,220,.09); }
-.e3 .lg-strip-link:hover { color: #BB3B34; background: rgba(187,59,52,.09); }
+.e0 .lg-strip-link:hover { color: rgba(255,255,255,.80); background: rgba(255,255,255,.06); }
+.e1 .lg-strip-link:hover { color: #4A82DC; background: rgba(74,130,220,.09); }
+.e2 .lg-strip-link:hover { color: #5DA16B; background: rgba(93,161,107,.09); }
+.e3 .lg-strip-link:hover { color: #F1CB4F; background: rgba(241,203,79,.07); }
+.e4 .lg-strip-link:hover { color: #BB3B34; background: rgba(187,59,52,.09); }
 .lg-strip:last-child { border-bottom: none; }
 #lg-overlay.open .lg-strip { opacity: 1; transform: translateY(0); }
-#lg-overlay.open .lg-strip:nth-child(1) { transition-delay: .07s; }
-#lg-overlay.open .lg-strip:nth-child(2) { transition-delay: .14s; }
-#lg-overlay.open .lg-strip:nth-child(3) { transition-delay: .21s; }
+#lg-overlay.open .lg-strip:nth-child(1) { transition-delay: .06s; }
+#lg-overlay.open .lg-strip:nth-child(2) { transition-delay: .11s; }
+#lg-overlay.open .lg-strip:nth-child(3) { transition-delay: .16s; }
+#lg-overlay.open .lg-strip:nth-child(4) { transition-delay: .21s; }
+#lg-overlay.open .lg-strip:nth-child(5) { transition-delay: .26s; }
 
 /* Tint de base subtil par env */
-.e1 { background: rgba(255,255,255,.02); }
-.e2 { background: rgba(74,130,220,.03); }
-.e3 { background: rgba(187,59,52,.03); }
+.e0 { background: rgba(255,255,255,.02); }
+.e1 { background: rgba(74,130,220,.03); }
+.e2 { background: rgba(93,161,107,.03); }
+.e3 { background: rgba(241,203,79,.025); }
+.e4 { background: rgba(187,59,52,.03); }
 
 /* Barre colorée gauche */
 .lg-strip::before {
@@ -237,9 +244,32 @@ body > nav {
   transition: opacity .28s, width .28s, box-shadow .3s;
 }
 .lg-strip:hover::before { opacity: 1; width: 4px; }
-.e1::before { background: rgba(255,255,255,.70); }
-.e2::before { background: var(--bleu); }
-.e3::before { background: var(--rouge); }
+.e0::before { background: rgba(255,255,255,.70); }
+.e1::before { background: var(--bleu); }
+.e2::before { background: var(--vert); }
+.e3::before { background: var(--jaune); }
+.e4::before { background: var(--rouge); }
+
+/* ── STRIP BIENTÔT — non-cliquable, atténué ── */
+.lg-strip.soon { opacity: 1; cursor: default; }
+.lg-strip.soon .lg-strip-primary { pointer-events: none; cursor: default; }
+.lg-strip.soon .lg-strip-name { color: rgba(255,255,255,.25); }
+.lg-strip.soon .lg-strip-sub { color: rgba(255,255,255,.14); }
+.lg-strip.soon .lg-strip-num { color: rgba(255,255,255,.12); }
+.lg-strip.soon::before { opacity: .2; }
+.lg-strip.soon:hover { background: inherit !important; }
+.lg-strip.soon:hover .lg-strip-name { color: rgba(255,255,255,.25) !important; }
+.lg-strip.soon:hover .lg-strip-num  { color: rgba(255,255,255,.12) !important; }
+.lg-strip.soon:hover .lg-strip-arrow { color: transparent !important; }
+.lg-strip.soon:hover::before { opacity: .2 !important; box-shadow: none !important; }
+.lg-strip.soon:hover .lg-strip-ghost { color: transparent !important; transform: translateY(-50%) !important; }
+.lg-strip-soon-badge {
+  font-size: 8px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(255,255,255,.20);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 999px; padding: 5px 14px;
+  flex-shrink: 0; margin-right: 32px;
+}
 
 /* Numéro */
 .lg-strip-num {
@@ -281,34 +311,46 @@ body > nav {
 .lg-strip:hover .lg-strip-arrow { color: rgba(255,255,255,.9); transform: translateX(12px) scale(1.15); }
 
 /* Hover : gradient directionnel par couleur env */
-.e1:hover { background: linear-gradient(90deg, rgba(255,255,255,.12) 0%, rgba(255,255,255,.04) 45%, transparent 100%); }
-.e2:hover { background: linear-gradient(90deg, rgba(74,130,220,.20) 0%, rgba(74,130,220,.07) 45%, transparent 100%); }
-.e3:hover { background: linear-gradient(90deg, rgba(187,59,52,.20) 0%, rgba(187,59,52,.07) 45%, transparent 100%); }
+.e0:hover { background: linear-gradient(90deg, rgba(255,255,255,.12) 0%, rgba(255,255,255,.04) 45%, transparent 100%); }
+.e1:hover { background: linear-gradient(90deg, rgba(74,130,220,.20) 0%, rgba(74,130,220,.07) 45%, transparent 100%); }
+.e2:hover { background: linear-gradient(90deg, rgba(93,161,107,.20) 0%, rgba(93,161,107,.07) 45%, transparent 100%); }
+.e3:hover { background: linear-gradient(90deg, rgba(241,203,79,.18) 0%, rgba(241,203,79,.06) 45%, transparent 100%); }
+.e4:hover { background: linear-gradient(90deg, rgba(187,59,52,.20) 0%, rgba(187,59,52,.07) 45%, transparent 100%); }
 
 /* Nom → couleur env au hover */
-.e1:hover .lg-strip-name { color: #ffffff; }
-.e2:hover .lg-strip-name { color: #4A82DC; }
-.e3:hover .lg-strip-name { color: #BB3B34; }
+.e0:hover .lg-strip-name { color: #ffffff; }
+.e1:hover .lg-strip-name { color: #4A82DC; }
+.e2:hover .lg-strip-name { color: #5DA16B; }
+.e3:hover .lg-strip-name { color: #F1CB4F; }
+.e4:hover .lg-strip-name { color: #BB3B34; }
 
 /* Numéro → couleur env au hover */
-.e1:hover .lg-strip-num { color: rgba(255,255,255,.65); }
-.e2:hover .lg-strip-num { color: rgba(74,130,220,.75); }
-.e3:hover .lg-strip-num { color: rgba(187,59,52,.75); }
+.e0:hover .lg-strip-num { color: rgba(255,255,255,.65); }
+.e1:hover .lg-strip-num { color: rgba(74,130,220,.75); }
+.e2:hover .lg-strip-num { color: rgba(93,161,107,.75); }
+.e3:hover .lg-strip-num { color: rgba(241,203,79,.75); }
+.e4:hover .lg-strip-num { color: rgba(187,59,52,.75); }
 
 /* Flèche → couleur env au hover */
-.e1:hover .lg-strip-arrow { color: rgba(255,255,255,.80); }
-.e2:hover .lg-strip-arrow { color: #4A82DC; }
-.e3:hover .lg-strip-arrow { color: #BB3B34; }
+.e0:hover .lg-strip-arrow { color: rgba(255,255,255,.80); }
+.e1:hover .lg-strip-arrow { color: #4A82DC; }
+.e2:hover .lg-strip-arrow { color: #5DA16B; }
+.e3:hover .lg-strip-arrow { color: #F1CB4F; }
+.e4:hover .lg-strip-arrow { color: #BB3B34; }
 
 /* Sous-liens plus visibles quand le strip est hovéré */
-.e1:hover .lg-strip-link { color: rgba(255,255,255,.45); }
-.e2:hover .lg-strip-link { color: rgba(74,130,220,.45); }
-.e3:hover .lg-strip-link { color: rgba(187,59,52,.45); }
+.e0:hover .lg-strip-link { color: rgba(255,255,255,.45); }
+.e1:hover .lg-strip-link { color: rgba(74,130,220,.45); }
+.e2:hover .lg-strip-link { color: rgba(93,161,107,.45); }
+.e3:hover .lg-strip-link { color: rgba(241,203,79,.40); }
+.e4:hover .lg-strip-link { color: rgba(187,59,52,.45); }
 
 /* Sous-titre → plus lisible au hover */
-.e1:hover .lg-strip-sub { color: rgba(255,255,255,.50); }
-.e2:hover .lg-strip-sub { color: rgba(74,130,220,.55); }
-.e3:hover .lg-strip-sub { color: rgba(187,59,52,.55); }
+.e0:hover .lg-strip-sub { color: rgba(255,255,255,.50); }
+.e1:hover .lg-strip-sub { color: rgba(74,130,220,.55); }
+.e2:hover .lg-strip-sub { color: rgba(93,161,107,.55); }
+.e3:hover .lg-strip-sub { color: rgba(241,203,79,.50); }
+.e4:hover .lg-strip-sub { color: rgba(187,59,52,.55); }
 
 /* Strip actif (page courante) — coloré par entité */
 .lg-strip.active { background: rgba(255,255,255,.04); }
@@ -317,17 +359,23 @@ body > nav {
 .lg-strip.active .lg-strip-sub { color: rgba(255,255,255,.50); }
 .lg-strip.active .lg-strip-link { color: rgba(255,255,255,.40); }
 /* Nom actif → couleur de l'entité courante */
-.e1.active .lg-strip-name { color: #ffffff; }
-.e2.active .lg-strip-name { color: #4A82DC; }
-.e3.active .lg-strip-name { color: #BB3B34; }
+.e0.active .lg-strip-name { color: #ffffff; }
+.e1.active .lg-strip-name { color: #4A82DC; }
+.e2.active .lg-strip-name { color: #5DA16B; }
+.e3.active .lg-strip-name { color: #F1CB4F; }
+.e4.active .lg-strip-name { color: #BB3B34; }
 /* Barre latérale active → glow coloré */
-.e1.active::before { box-shadow: 2px 0 20px rgba(255,255,255,.40), 0 0 8px rgba(255,255,255,.20); }
-.e2.active::before { box-shadow: 2px 0 20px rgba(74,130,220,.55), 0 0 8px rgba(74,130,220,.3); }
-.e3.active::before { box-shadow: 2px 0 20px rgba(187,59,52,.55), 0 0 8px rgba(187,59,52,.3); }
+.e0.active::before { box-shadow: 2px 0 20px rgba(255,255,255,.40), 0 0 8px rgba(255,255,255,.20); }
+.e1.active::before { box-shadow: 2px 0 20px rgba(74,130,220,.55), 0 0 8px rgba(74,130,220,.3); }
+.e2.active::before { box-shadow: 2px 0 20px rgba(93,161,107,.55), 0 0 8px rgba(93,161,107,.3); }
+.e3.active::before { box-shadow: 2px 0 20px rgba(241,203,79,.50), 0 0 8px rgba(241,203,79,.28); }
+.e4.active::before { box-shadow: 2px 0 20px rgba(187,59,52,.55), 0 0 8px rgba(187,59,52,.3); }
 /* Tint de fond actif → légèrement plus fort que le repos */
-.e1.active { background: rgba(255,255,255,.05); }
-.e2.active { background: rgba(74,130,220,.07); }
-.e3.active { background: rgba(187,59,52,.07); }
+.e0.active { background: rgba(255,255,255,.05); }
+.e1.active { background: rgba(74,130,220,.07); }
+.e2.active { background: rgba(93,161,107,.07); }
+.e3.active { background: rgba(241,203,79,.055); }
+.e4.active { background: rgba(187,59,52,.07); }
 
 /* Grand nombre fantôme en fond — teinté par env au repos */
 .lg-strip-ghost {
@@ -343,14 +391,18 @@ body > nav {
 /* Ghost invisible au repos */
 .lg-strip-ghost { color: transparent; }
 /* Ghost au hover : apparition + glissement */
-.e1:hover .lg-strip-ghost { color: rgba(255,255,255,.12); transform: translateY(-50%) translateX(-10px) scale(1.05); }
-.e2:hover .lg-strip-ghost { color: rgba(74,130,220,.18); transform: translateY(-50%) translateX(-10px) scale(1.05); }
-.e3:hover .lg-strip-ghost { color: rgba(187,59,52,.18); transform: translateY(-50%) translateX(-10px) scale(1.05); }
+.e0:hover .lg-strip-ghost { color: rgba(255,255,255,.12); transform: translateY(-50%) translateX(-10px) scale(1.05); }
+.e1:hover .lg-strip-ghost { color: rgba(74,130,220,.18); transform: translateY(-50%) translateX(-10px) scale(1.05); }
+.e2:hover .lg-strip-ghost { color: rgba(93,161,107,.18); transform: translateY(-50%) translateX(-10px) scale(1.05); }
+.e3:hover .lg-strip-ghost { color: rgba(241,203,79,.16); transform: translateY(-50%) translateX(-10px) scale(1.05); }
+.e4:hover .lg-strip-ghost { color: rgba(187,59,52,.18); transform: translateY(-50%) translateX(-10px) scale(1.05); }
 
 /* Glow coloré sur la barre gauche au hover */
-.e1:hover::before { box-shadow: 2px 0 20px rgba(255,255,255,.35), 0 0 8px rgba(255,255,255,.18); }
-.e2:hover::before { box-shadow: 2px 0 20px rgba(74,130,220,.55), 0 0 8px rgba(74,130,220,.3); }
-.e3:hover::before { box-shadow: 2px 0 20px rgba(187,59,52,.55), 0 0 8px rgba(187,59,52,.3); }
+.e0:hover::before { box-shadow: 2px 0 20px rgba(255,255,255,.35), 0 0 8px rgba(255,255,255,.18); }
+.e1:hover::before { box-shadow: 2px 0 20px rgba(74,130,220,.55), 0 0 8px rgba(74,130,220,.3); }
+.e2:hover::before { box-shadow: 2px 0 20px rgba(93,161,107,.55), 0 0 8px rgba(93,161,107,.3); }
+.e3:hover::before { box-shadow: 2px 0 20px rgba(241,203,79,.50), 0 0 8px rgba(241,203,79,.28); }
+.e4:hover::before { box-shadow: 2px 0 20px rgba(187,59,52,.55), 0 0 8px rgba(187,59,52,.3); }
 
 /* Footer de l'overlay */
 .lg-overlay-footer {
