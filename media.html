@@ -132,6 +132,87 @@
     .cb-text { font-family: var(--f-display); font-size: clamp(32px,5vw,64px); color: var(--noir); line-height: .9; }
     .cb-text em { font-family: var(--f-serif); font-style: italic; color: var(--rouge); }
 
+    /* ── ÉPISODES ── */
+    .episodes { background: var(--noir); padding: 100px 44px; border-top: 2px solid rgba(240,235,216,.08); }
+    .ep-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 64px; gap: 32px; flex-wrap: wrap; }
+    .ep-title { font-family: var(--f-display); font-size: clamp(48px,6vw,80px); line-height: .88; color: var(--cream); }
+    .ep-sub { font-size: .82rem; line-height: 1.75; color: rgba(240,235,216,.35); max-width: 320px; font-weight: 300; }
+
+    /* Lecteur générique (featured + card) */
+    .ep-player {
+      position: relative; aspect-ratio: 16/9; background: #0d0d0d;
+      border-radius: var(--r-md); overflow: hidden; cursor: pointer;
+    }
+    .ep-player iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+    .ep-thumb { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease, opacity .3s; }
+    .ep-player:hover .ep-thumb { transform: scale(1.03); }
+    .ep-play-btn {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      background: rgba(0,0,0,.35); transition: background .25s;
+      border: none; cursor: pointer;
+    }
+    .ep-player:hover .ep-play-btn { background: rgba(0,0,0,.18); }
+    .ep-play-icon {
+      width: 64px; height: 64px; background: rgba(240,235,216,.92);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,.5); transition: transform .25s cubic-bezier(.34,1.56,.64,1), background .2s;
+    }
+    .ep-player:hover .ep-play-icon { transform: scale(1.12); background: var(--rouge); }
+    .ep-play-icon svg { width: 22px; height: 22px; fill: var(--noir); transform: translateX(2px); transition: fill .2s; }
+    .ep-player:hover .ep-play-icon svg { fill: var(--cream); }
+    .ep-dur-badge {
+      position: absolute; bottom: 14px; right: 14px;
+      background: rgba(0,0,0,.72); backdrop-filter: blur(6px);
+      color: var(--cream); font-size: .6rem; font-weight: 700; letter-spacing: .08em;
+      padding: 4px 10px; border-radius: var(--r-pill);
+    }
+    .ep-format-badge {
+      position: absolute; top: 14px; left: 14px;
+      font-size: .55rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+      padding: 5px 12px; border-radius: var(--r-pill); backdrop-filter: blur(6px);
+    }
+    .ep-format-badge.raccourci { background: rgba(241,203,79,.85); color: var(--noir); }
+    .ep-format-badge.architalk { background: rgba(187,59,52,.85); color: var(--cream); }
+    .ep-format-badge.fragments { background: rgba(74,130,220,.85); color: var(--cream); }
+    .ep-format-badge.petits    { background: rgba(93,161,107,.85); color: var(--cream); }
+    .ep-format-badge.carnet    { background: rgba(240,235,216,.85); color: var(--noir); }
+
+    /* Featured */
+    .ep-featured { margin-bottom: 72px; }
+    .ep-featured .ep-player { border-radius: var(--r-md); margin-bottom: 24px; }
+    .ep-featured .ep-play-icon { width: 88px; height: 88px; }
+    .ep-featured .ep-play-icon svg { width: 30px; height: 30px; }
+    .ep-featured-meta { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+    .ep-featured-tag { font-size: .6rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--rouge); }
+    .ep-featured-num { font-size: .6rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: rgba(240,235,216,.3); }
+    .ep-featured-title { font-family: var(--f-display); font-size: clamp(20px,2.5vw,30px); color: var(--cream); margin-top: 12px; line-height: 1; }
+    .ep-featured-desc { font-size: .82rem; line-height: 1.75; color: rgba(240,235,216,.4); margin-top: 10px; font-weight: 300; max-width: 660px; }
+
+    /* Grille d'épisodes */
+    .ep-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; border-top: 1px solid rgba(240,235,216,.1); }
+    .ep-card { padding: 32px 24px 32px 0; border-right: 1px solid rgba(240,235,216,.08); }
+    .ep-card:nth-child(3n) { border-right: none; padding-right: 0; }
+    .ep-card:nth-child(n+4) { border-top: 1px solid rgba(240,235,216,.08); }
+    .ep-card:nth-child(3n+1) { padding-left: 0; }
+    .ep-card:nth-child(3n+2) { padding-left: 24px; }
+    .ep-card:nth-child(3n)   { padding-left: 24px; }
+    .ep-card .ep-player { border-radius: var(--r-sm); margin-bottom: 16px; }
+    .ep-card .ep-play-icon { width: 46px; height: 46px; }
+    .ep-card .ep-play-icon svg { width: 16px; height: 16px; }
+    .ep-card-tag { font-size: .55rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--rouge); margin-bottom: 8px; }
+    .ep-card-title { font-family: var(--f-display); font-size: 15px; line-height: 1.15; color: var(--cream); margin-bottom: 8px; }
+    .ep-card-desc { font-size: .72rem; line-height: 1.6; color: rgba(240,235,216,.35); font-weight: 300; }
+
+    @media (max-width: 960px) {
+      .episodes { padding: 64px 20px; }
+      .ep-header { flex-direction: column; align-items: flex-start; gap: 14px; margin-bottom: 44px; }
+      .ep-grid { grid-template-columns: 1fr 1fr; }
+      .ep-card:nth-child(3n)   { border-right: 1px solid rgba(240,235,216,.08); padding-right: 24px; }
+      .ep-card:nth-child(2n)   { border-right: none; padding-right: 0; }
+      .ep-card:nth-child(n+3)  { border-top: 1px solid rgba(240,235,216,.08); }
+      .ep-card:nth-child(2n)   { padding-left: 24px; }
+      .ep-card:nth-child(2n+1) { padding-left: 0; }
+    }
     @media (max-width: 960px) {
       .media-hero { padding: 110px 20px 56px; min-height: 0; }
       .mh-title { font-size: clamp(56px, 12vw, 110px); margin-bottom: 32px; }
@@ -158,6 +239,12 @@
       .fmt-item:nth-child(3), .fmt-item:nth-child(4) { border-top: 1px solid rgba(240,235,216,.1); }
       .cta-band { flex-direction: column; gap: 32px; padding: 64px 20px; text-align: center; align-items: center; }
       .cb-text { font-size: clamp(28px, 8vw, 44px); }
+    }
+    @media (max-width: 560px) {
+      .episodes { padding: 52px 18px; }
+      .ep-grid { grid-template-columns: 1fr !important; }
+      .ep-card { border-right: none !important; padding-left: 0 !important; padding-right: 0 !important; }
+      .ep-card:nth-child(n+2) { border-top: 1px solid rgba(240,235,216,.08); }
     }
     @media (max-width: 560px) {
       .media-hero { padding: 96px 18px 48px; }
@@ -289,6 +376,102 @@
         <div class="fmt-date">Printemps 2026</div>
         <p class="fmt-desc">Tutoriels ultra-courts. Un outil, une méthode, 45 secondes. Pour les praticiens qui n'ont pas le temps de perdre du temps.</p>
       </div>
+    </div>
+  </section>
+
+  <!-- ÉPISODES -->
+  <section class="episodes" id="episodes">
+    <div class="ep-header sr">
+      <h2 class="ep-title">LES<br>ÉPISODES.</h2>
+      <p class="ep-sub">Vidéos placeholder — les vrais épisodes arrivent à l'été 2026. Cliquez pour lancer la lecture.</p>
+    </div>
+
+    <!-- Featured : RACCOURCI 01 -->
+    <div class="ep-featured sr">
+      <div class="ep-player" data-yt="9bZkp7q19f0"
+           role="button" tabindex="0" aria-label="Lancer RACCOURCI 01 — SketchUp Groupe vs Composant">
+        <img class="ep-thumb"
+             src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1400&q=80"
+             alt="RACCOURCI 01 — SketchUp Groupe vs Composant" loading="lazy">
+        <button class="ep-play-btn" tabindex="-1" aria-hidden="true">
+          <div class="ep-play-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polygon points="6,3 20,12 6,21"/></svg>
+          </div>
+        </button>
+        <span class="ep-format-badge raccourci">Raccourci</span>
+        <span class="ep-dur-badge">0:45</span>
+      </div>
+      <div class="ep-featured-meta">
+        <span class="ep-featured-tag">Raccourci</span>
+        <span class="ep-featured-num">Épisode 01 · Tutoriel</span>
+      </div>
+      <div class="ep-featured-title">SketchUp — Groupe vs Composant : la différence qui change tout.</div>
+      <p class="ep-featured-desc">45 secondes. Un outil. Une méthode. La distinction entre groupe et composant dans SketchUp expliquée pour ceux qui n'ont pas le temps de perdre du temps.</p>
+    </div>
+
+    <!-- Grille : 3 épisodes -->
+    <div class="ep-grid">
+
+      <!-- RACCOURCI 02 -->
+      <div class="ep-card sr">
+        <div class="ep-player" data-yt="dQw4w9WgXcQ"
+             role="button" tabindex="0" aria-label="Lancer RACCOURCI 02 — Archicad astuces parois">
+          <img class="ep-thumb"
+               src="https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=700&q=80"
+               alt="RACCOURCI 02" loading="lazy">
+          <button class="ep-play-btn" tabindex="-1" aria-hidden="true">
+            <div class="ep-play-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polygon points="6,3 20,12 6,21"/></svg>
+            </div>
+          </button>
+          <span class="ep-format-badge raccourci">Raccourci</span>
+          <span class="ep-dur-badge">0:45</span>
+        </div>
+        <div class="ep-card-tag">Raccourci · 02</div>
+        <div class="ep-card-title">Archicad — Astuces parois : les 3 réglages que personne ne voit.</div>
+        <p class="ep-card-desc">Un workflow terrain pour gagner 10 min par plan. 45 secondes, pas une de plus.</p>
+      </div>
+
+      <!-- ARCHITALK 00 -->
+      <div class="ep-card sr sr-d1">
+        <div class="ep-player" data-yt="dQw4w9WgXcQ"
+             role="button" tabindex="0" aria-label="Lancer ARCHITALK 00 — C'est quoi ARCHITALK ?">
+          <img class="ep-thumb"
+               src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=700&q=80"
+               alt="ARCHITALK 00 — Trailer" loading="lazy">
+          <button class="ep-play-btn" tabindex="-1" aria-hidden="true">
+            <div class="ep-play-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polygon points="6,3 20,12 6,21"/></svg>
+            </div>
+          </button>
+          <span class="ep-format-badge architalk">Architalk</span>
+          <span class="ep-dur-badge">2:30</span>
+        </div>
+        <div class="ep-card-tag">Architalk · 00 · Trailer</div>
+        <div class="ep-card-title">C'est quoi ARCHITALK ? Le talk-show d'architecture qu'on aurait voulu voir.</div>
+        <p class="ep-card-desc">Le format en deux minutes. Un praticien. Une heure. Une conversation sans filtre sur le métier.</p>
+      </div>
+
+      <!-- ARCHITALK 01 -->
+      <div class="ep-card sr sr-d2">
+        <div class="ep-player" data-yt="dQw4w9WgXcQ"
+             role="button" tabindex="0" aria-label="Lancer ARCHITALK 01 — Pourquoi designer d'espace">
+          <img class="ep-thumb"
+               src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=700&q=80"
+               alt="ARCHITALK 01" loading="lazy">
+          <button class="ep-play-btn" tabindex="-1" aria-hidden="true">
+            <div class="ep-play-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polygon points="6,3 20,12 6,21"/></svg>
+            </div>
+          </button>
+          <span class="ep-format-badge architalk">Architalk</span>
+          <span class="ep-dur-badge">~45 min</span>
+        </div>
+        <div class="ep-card-tag">Architalk · 01 · Pilote</div>
+        <div class="ep-card-title">Pourquoi designer d'espace, pas architecte — le choix qui déplace tout.</div>
+        <p class="ep-card-desc">Le cadre légal, le choix du métier, ce que ça change. Format talk, conversation longue, automne 2026.</p>
+      </div>
+
     </div>
   </section>
 
@@ -435,5 +618,27 @@
   </footer>
 
   <script src="shared.js?v=4"></script>
+  <script>
+    // Lazy YouTube embed — clic sur .ep-player charge l'iframe
+    document.querySelectorAll('.ep-player[data-yt]').forEach(player => {
+      const activate = () => {
+        const id = player.dataset.yt;
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&color=white`;
+        iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+        iframe.allowFullscreen = true;
+        iframe.title = player.getAttribute('aria-label') || 'Vidéo';
+        // Remplace le contenu du player par l'iframe
+        [...player.children].forEach(c => c.style.opacity = '0');
+        player.style.cursor = 'default';
+        requestAnimationFrame(() => {
+          player.innerHTML = '';
+          player.appendChild(iframe);
+        });
+      };
+      player.addEventListener('click', activate);
+      player.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); } });
+    });
+  </script>
 </body>
 </html>
