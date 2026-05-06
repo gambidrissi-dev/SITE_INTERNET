@@ -159,6 +159,8 @@ if (!isTouch) {
         <div class="lg-strip-links">
           <a href="atelier.html" class="lg-strip-link">Présentation</a>
           <a href="atelier-projets.html" class="lg-strip-link">Projets</a>
+          <a href="atelier-services.html" class="lg-strip-link">Services</a>
+          <a href="atelier-drops.html" class="lg-strip-link">Drops</a>
         </div>
       </div>
 
@@ -173,8 +175,9 @@ if (!isTouch) {
           <div class="lg-strip-arrow">→</div>
         </a>
         <div class="lg-strip-links">
-          <a href="bleu-de-cobalt.html" class="lg-strip-link">Présentation</a>
+          <a href="bleu-de-cobalt.html" class="lg-strip-link">Le programme</a>
           <a href="bleu-cabinets.html" class="lg-strip-link">Cabinets</a>
+          <a href="bleu-particuliers.html" class="lg-strip-link">Particuliers</a>
         </div>
       </div>
 

@@ -1097,21 +1097,20 @@
       }
 
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const slotAlreadySeen = sessionStorage.getItem('slotDone');
+      // Skiper seulement si on revient depuis une inner page (back nav) — pas sur chargement direct
+      const skipSlot = sessionStorage.getItem('skipSlot');
+      if (skipSlot) sessionStorage.removeItem('skipSlot');
 
-      if (reducedMotion || slotAlreadySeen) {
-        // Afficher directement le logo sans animation (reduced-motion ou visite déjà faite)
+      if (reducedMotion || skipSlot) {
+        // Afficher directement le logo — reduced-motion ou retour depuis une page interne
         slotReel.style.transform = `translateY(-${totalDist}px)`;
         setTimeout(() => {
           slotHint.classList.add('in');
-          document.getElementById('landing-logo')?.classList.add('in');
           document.getElementById('nav-burger')?.classList.add('in');
           document.getElementById('escape-nav')?.classList.add('in');
           document.getElementById('landing-tagline')?.classList.add('in');
         }, 100);
       } else {
-        // Marquer pour les prochains chargements de la session
-        sessionStorage.setItem('slotDone', '1');
         setTimeout(() => requestAnimationFrame(animReel), 350);
       }
     }));
@@ -1127,6 +1126,8 @@
     const fromTransition = sessionStorage.getItem('pageTransition');
     if (fromTransition) {
       sessionStorage.removeItem('pageTransition');
+      // Signaler au slot de ne pas rejouer l'animation (retour depuis inner page)
+      sessionStorage.setItem('skipSlot', '1');
       overlay.style.opacity = '1';
       overlay.style.pointerEvents = 'all';
       document.body.appendChild(overlay);
@@ -1243,6 +1244,8 @@
           <div class="lg-strip-links">
             <a href="atelier.html" class="lg-strip-link">Présentation</a>
             <a href="atelier-projets.html" class="lg-strip-link">Projets</a>
+            <a href="atelier-services.html" class="lg-strip-link">Services</a>
+            <a href="atelier-drops.html" class="lg-strip-link">Drops</a>
           </div>
         </div>
 
@@ -1257,8 +1260,9 @@
             <div class="lg-strip-arrow">→</div>
           </a>
           <div class="lg-strip-links">
-            <a href="bleu-de-cobalt.html" class="lg-strip-link">Présentation</a>
+            <a href="bleu-de-cobalt.html" class="lg-strip-link">Le programme</a>
             <a href="bleu-cabinets.html" class="lg-strip-link">Cabinets</a>
+            <a href="bleu-particuliers.html" class="lg-strip-link">Particuliers</a>
           </div>
         </div>
 
