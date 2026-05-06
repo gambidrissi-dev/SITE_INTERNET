@@ -79,7 +79,23 @@ body > nav {
   border-bottom: 1px solid rgba(26,26,26,.08);
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 22px; height: 58px;
+  overflow: visible;
 }
+
+/* ── ENV INDICATOR — fine barre colorée sous la nav selon la page courante ── */
+body > nav::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--nav-env-color, transparent);
+  transition: background .4s ease;
+  pointer-events: none;
+}
+body > nav[data-env="e0"] { --nav-env-color: rgba(255,255,255,.55); }
+body > nav[data-env="e1"] { --nav-env-color: rgba(74,130,220,.75); }
+body > nav[data-env="e2"] { --nav-env-color: rgba(93,161,107,.75); }
+body > nav[data-env="e3"] { --nav-env-color: rgba(184,148,10,.75); }
+body > nav[data-env="e4"] { --nav-env-color: rgba(187,59,52,.75); }
 .nav-logo {
   display: flex; align-items: center;
   line-height: 1; transition: opacity .2s;
@@ -214,7 +230,7 @@ body > nav {
   align-items: center;
   padding: 0 22px;
   font-size: 8px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
-  color: rgba(255,255,255,.22);
+  color: rgba(255,255,255,.32);
   border-right: 1px solid rgba(255,255,255,.07);
   transition: color .2s, background .2s;
   text-decoration: none;
@@ -628,3 +644,20 @@ body.page-entering-done #page-transition { opacity: 0; }
 /* Les enfants directs d'une section avec formes restent au-dessus */
 .has-shapes { position: relative; overflow: hidden; }
 .has-shapes > *:not(.section-shape) { position: relative; z-index: 1; }
+
+/* ── HERO SHAPES ENTRANCE ANIMATION ── */
+@keyframes hsFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.hs-wrap > div {
+  animation: hsFadeIn .9s ease both;
+}
+.hs-wrap > div:nth-child(1) { animation-delay: .08s; }
+.hs-wrap > div:nth-child(2) { animation-delay: .20s; }
+.hs-wrap > div:nth-child(3) { animation-delay: .32s; }
+.hs-wrap > div:nth-child(4) { animation-delay: .44s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hs-wrap > div { animation: none; }
+}

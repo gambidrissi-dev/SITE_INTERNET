@@ -226,6 +226,8 @@ if (!isTouch) {
   if (activeEnvClass) {
     const activeStrip = overlay.querySelector(`.lg-strip.${activeEnvClass}`);
     if (activeStrip) activeStrip.classList.add('active');
+    // Indicateur couleur dans la barre de nav
+    nav.setAttribute('data-env', activeEnvClass);
   }
 
   const burgerBtn = document.getElementById('nav-burger');
@@ -278,7 +280,7 @@ if (!isTouch) {
 /* SCROLL REVEAL */
 const srObs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); srObs.unobserve(e.target); } });
-}, { threshold: 0.08 });
+}, { threshold: 0.18 });
 document.querySelectorAll('.sr').forEach(el => srObs.observe(el));
 
 /* STATS COUNTER */
@@ -303,15 +305,28 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
 
 /* PAGE TRANSITION */
 (function() {
-  // Créer l'overlay — opacity 0 inline AVANT append pour éviter tout flash
   const overlay = document.createElement('div');
   overlay.id = 'page-transition';
-  overlay.style.cssText = 'opacity:0;pointer-events:none;transition:none;';
-  document.body.appendChild(overlay);
-  // Réactiver la transition après le premier paint
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    overlay.style.transition = '';
-  }));
+
+  // Si on arrive depuis une transition (flag sessionStorage), démarrer opaque puis fade-in
+  const fromTransition = sessionStorage.getItem('pageTransition');
+  if (fromTransition) {
+    sessionStorage.removeItem('pageTransition');
+    overlay.style.cssText = 'opacity:1;pointer-events:all;transition:none;';
+    document.body.appendChild(overlay);
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      overlay.style.transition = 'opacity .38s cubic-bezier(.76,0,.24,1)';
+      overlay.style.opacity = '0';
+      overlay.style.pointerEvents = 'none';
+    }));
+  } else {
+    // Chargement direct : overlay invisible, aucun flash
+    overlay.style.cssText = 'opacity:0;pointer-events:none;transition:none;';
+    document.body.appendChild(overlay);
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      overlay.style.transition = '';
+    }));
+  }
 
   // Intercepter tous les liens internes
   document.addEventListener('click', e => {
@@ -323,7 +338,18 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
         href.startsWith('mailto') || href.startsWith('tel') ||
         link.target === '_blank') return;
     e.preventDefault();
-    // Fade out → navigation
+
+    // Fermer l'overlay nav si ouvert — évite le flash overlay-sur-transition
+    const lgOverlay = document.getElementById('lg-overlay');
+    if (lgOverlay && lgOverlay.classList.contains('open')) {
+      lgOverlay.classList.remove('open');
+      const burger = document.getElementById('nav-burger');
+      if (burger) { burger.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); }
+    }
+
+    // Flag pour la page de destination
+    sessionStorage.setItem('pageTransition', '1');
+
     overlay.style.transition = 'opacity .28s cubic-bezier(.76,0,.24,1)';
     overlay.style.opacity = '1';
     overlay.style.pointerEvents = 'all';
@@ -336,7 +362,7 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
       overlay.style.transition = 'none';
       overlay.style.opacity = '1';
       requestAnimationFrame(() => requestAnimationFrame(() => {
-        overlay.style.transition = 'opacity .32s cubic-bezier(.76,0,.24,1)';
+        overlay.style.transition = 'opacity .38s cubic-bezier(.76,0,.24,1)';
         overlay.style.opacity = '0';
         overlay.style.pointerEvents = 'none';
       }));
@@ -453,7 +479,6 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
       left:${x}%; top:${y}%;
       width:${size}vw;
       transform:rotate(${rot}deg) translateZ(0);
-      opacity:1;
       color:${cfg.color};
     `;
     div.innerHTML = `<svg viewBox="0 0 750 450" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;">${SHAPE_SVG[key]}</svg>`;

@@ -301,11 +301,17 @@
       text-transform: uppercase; color: #1A1A1A;
     }
 
+    /* ── SHAPES FADE-IN ── */
+    @keyframes bsFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
     /* ── REDUCED MOTION ── */
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto !important; }
       .slot-reel { transition: none !important; }
-      .bs { transition: none !important; }
+      .bs { transition: none !important; animation: none !important; }
       #env-card { transition: opacity .1s ease !important; }
     }
 
@@ -345,7 +351,7 @@
       #cursor-dot, #cursor-ring { display: none !important; }
       .bs { pointer-events: auto; }
 
-      /* Card mobile : centrée, 50% de l'écran */
+      /* Card mobile : centrée, 50% de l'écran — tappable pour naviguer */
       #env-card {
         width: 50vw !important;
         left: 25vw !important;
@@ -353,6 +359,8 @@
         transform: scale(.92) translateY(-50%) !important;
         padding: 22px 20px 20px;
         border-radius: 24px;
+        pointer-events: auto !important;
+        cursor: pointer;
       }
       #env-card.visible {
         transform: scale(1) translateY(-50%) !important;
@@ -719,15 +727,31 @@
     const ecCta   = document.getElementById('ec-cta');
     let   activeEnv = null;
 
-    // Sur mobile : ferme la card si on tape ailleurs qu'une forme
+    // Sur mobile : ferme la card si on tape ailleurs qu'une forme / card
     if (isTouch) {
       document.addEventListener('touchend', e => {
-        if (touchActive && !e.target.closest('.bs')) {
+        if (touchActive && !e.target.closest('.bs') && !e.target.closest('#env-card')) {
           touchActive.classList.remove('bs-selected');
           touchActive = null;
           hideCard();
         }
       }, { passive: true });
+
+      // Tap sur la card elle-même = naviguer directement
+      card.addEventListener('click', () => {
+        if (activeEnv) {
+          const pt = document.getElementById('page-transition');
+          if (pt) {
+            sessionStorage.setItem('pageTransition', '1');
+            pt.style.transition = 'opacity .28s cubic-bezier(.76,0,.24,1)';
+            pt.style.opacity = '1';
+            pt.style.pointerEvents = 'all';
+            setTimeout(() => { window.location.href = ENV[activeEnv].href; }, 300);
+          } else {
+            window.location.href = ENV[activeEnv].href;
+          }
+        }
+      });
     }
 
     function positionCard(x, y) {
@@ -888,7 +912,8 @@
         div.setAttribute('role', 'button');
         div.setAttribute('tabindex', '0');
         div.setAttribute('aria-label', `${ENV[envKey].name} — ${ENV[envKey].tag}`);
-        div.style.cssText = `left:${(cx-sw/2)/W*100}%;top:${(cy-sh/2)/H*100}%;width:${SHAPE_VW}vw;transform:rotate(${rot}deg)${flip};color:${ENV_COLORS[envKey]};`;
+        const fadeDelay = (Math.random() * 0.7 + 0.05).toFixed(2);
+        div.style.cssText = `left:${(cx-sw/2)/W*100}%;top:${(cy-sh/2)/H*100}%;width:${SHAPE_VW}vw;transform:rotate(${rot}deg)${flip};color:${ENV_COLORS[envKey]};animation:bsFadeIn .65s ease ${fadeDelay}s both;`;
         div.innerHTML = `<svg viewBox="0 0 750 450" fill="currentColor" xmlns="http://www.w3.org/2000/svg">${SHAPE_SVG[shapeKey]}</svg>`;
         fragment.appendChild(div);
       }
@@ -923,7 +948,17 @@
 
         bgShapes.addEventListener('click', e => {
           const bs = e.target.closest('.bs');
-          if (bs) window.location.href = bs.dataset.href;
+          if (!bs) return;
+          const pt = document.getElementById('page-transition');
+          if (pt) {
+            sessionStorage.setItem('pageTransition', '1');
+            pt.style.transition = 'opacity .28s cubic-bezier(.76,0,.24,1)';
+            pt.style.opacity = '1';
+            pt.style.pointerEvents = 'all';
+            setTimeout(() => { window.location.href = bs.dataset.href; }, 300);
+          } else {
+            window.location.href = bs.dataset.href;
+          }
         });
 
         // Clavier : focusin/focusout bubblent contrairement à focus/blur
@@ -950,7 +985,17 @@
           e.preventDefault();
           e.stopPropagation();
           if (touchActive === bs) {
-            window.location.href = bs.dataset.href;
+            // 2e tap sur la même forme → naviguer avec transition
+            const pt = document.getElementById('page-transition');
+            if (pt) {
+              sessionStorage.setItem('pageTransition', '1');
+              pt.style.transition = 'opacity .28s cubic-bezier(.76,0,.24,1)';
+              pt.style.opacity = '1';
+              pt.style.pointerEvents = 'all';
+              setTimeout(() => { window.location.href = bs.dataset.href; }, 300);
+            } else {
+              window.location.href = bs.dataset.href;
+            }
           } else {
             if (touchActive) touchActive.classList.remove('bs-selected');
             touchActive = bs;
@@ -1052,19 +1097,86 @@
       }
 
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (reducedMotion) {
-        // Afficher directement le logo sans animation
+      const slotAlreadySeen = sessionStorage.getItem('slotDone');
+
+      if (reducedMotion || slotAlreadySeen) {
+        // Afficher directement le logo sans animation (reduced-motion ou visite déjà faite)
         slotReel.style.transform = `translateY(-${totalDist}px)`;
         setTimeout(() => {
           slotHint.classList.add('in');
           document.getElementById('landing-logo')?.classList.add('in');
           document.getElementById('nav-burger')?.classList.add('in');
           document.getElementById('escape-nav')?.classList.add('in');
+          document.getElementById('landing-tagline')?.classList.add('in');
         }, 100);
       } else {
+        // Marquer pour les prochains chargements de la session
+        sessionStorage.setItem('slotDone', '1');
         setTimeout(() => requestAnimationFrame(animReel), 350);
       }
     }));
+  </script>
+
+  <!-- Page transition (landing — self-contained, dupliqué depuis shared.js) -->
+  <script>
+  (function() {
+    const overlay = document.createElement('div');
+    overlay.id = 'page-transition';
+    overlay.style.cssText = 'position:fixed;inset:0;z-index:9000;background:#F3EFD7;opacity:0;pointer-events:none;transition:none;';
+
+    const fromTransition = sessionStorage.getItem('pageTransition');
+    if (fromTransition) {
+      sessionStorage.removeItem('pageTransition');
+      overlay.style.opacity = '1';
+      overlay.style.pointerEvents = 'all';
+      document.body.appendChild(overlay);
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        overlay.style.transition = 'opacity .38s cubic-bezier(.76,0,.24,1)';
+        overlay.style.opacity = '0';
+        overlay.style.pointerEvents = 'none';
+      }));
+    } else {
+      document.body.appendChild(overlay);
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        overlay.style.transition = 'opacity .28s cubic-bezier(.76,0,.24,1)';
+      }));
+    }
+
+    document.addEventListener('click', e => {
+      const link = e.target.closest('a[href]');
+      if (!link) return;
+      const href = link.getAttribute('href');
+      if (!href || href.startsWith('http') || href.startsWith('#') ||
+          href.startsWith('mailto') || href.startsWith('tel') ||
+          link.target === '_blank') return;
+      e.preventDefault();
+
+      // Fermer l'overlay nav si ouvert
+      const lgOverlay = document.getElementById('lg-overlay');
+      if (lgOverlay && lgOverlay.classList.contains('open')) {
+        lgOverlay.classList.remove('open');
+        const burger = document.getElementById('nav-burger');
+        if (burger) { burger.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); }
+      }
+
+      sessionStorage.setItem('pageTransition', '1');
+      overlay.style.opacity = '1';
+      overlay.style.pointerEvents = 'all';
+      setTimeout(() => { window.location.href = href; }, 300);
+    });
+
+    window.addEventListener('pageshow', e => {
+      if (e.persisted) {
+        overlay.style.transition = 'none';
+        overlay.style.opacity = '1';
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          overlay.style.transition = 'opacity .38s cubic-bezier(.76,0,.24,1)';
+          overlay.style.opacity = '0';
+          overlay.style.pointerEvents = 'none';
+        }));
+      }
+    });
+  })();
   </script>
 
   <!-- Burger overlay (landing — self-contained, sans shared.js pour éviter le doublon cursor) -->
@@ -1114,6 +1226,7 @@
           <div class="lg-strip-links">
             <a href="studio.html" class="lg-strip-link">Présentation</a>
             <a href="projets.html" class="lg-strip-link">Projets</a>
+            <a href="contact.html" class="lg-strip-link">Démarrer un projet</a>
           </div>
         </div>
 
@@ -1161,6 +1274,7 @@
           </a>
           <div class="lg-strip-links">
             <a href="media.html" class="lg-strip-link">Les formats</a>
+            <a href="contact.html" class="lg-strip-link">Suivre</a>
           </div>
         </div>
 
