@@ -1,6 +1,10 @@
 /* ═══════════════════════════════════════════
    COLLECTIF COBALT — Shared Styles v3
 ═══════════════════════════════════════════ */
+
+/* ── Masquer la scrollbar (scroll conservé) ── */
+html { scrollbar-width: none; -ms-overflow-style: none; }
+::-webkit-scrollbar { display: none; }
 :root {
   --cream:  #F3EFD7;
   --noir:   #1A1A1A;
