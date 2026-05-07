@@ -314,9 +314,9 @@
         name: 'Tabouret COB-01',
         tagline: 'Tripied bas en pin maritime de Gironde, assise tournée à la main.',
         price: '180 €',
-        priceNote: 'livré · Nouvelle-Aquitaine',
-        stock: 'dispo',
-        stockLabel: '12 / 12 disponibles',
+        priceNote: 'livré · Sud-Ouest',
+        stock: 'coming',
+        stockLabel: 'À venir — Été 2026',
         specs: [
           { lbl: 'Matière',    val: 'Pin maritime Gironde' },
           { lbl: 'Finition',   val: 'Huile naturelle dure' },
@@ -325,7 +325,7 @@
           { lbl: 'Poids',      val: '2,4 kg' },
           { lbl: 'Particularité', val: 'Empilable' },
         ],
-        description: 'Le COB-01 est le premier tabouret bas de la série Carnet de Pin. Fabriqué dans l\'atelier d\'Angoulême en pin maritime de Gironde récolté à moins de 80 km, il est tourné à la main pour l\'assise et assemblé à la colle et aux chevilles bois — aucune vis. Léger, costaud, empilable.',
+        description: 'Le COB-01 est le premier tabouret bas de la série Carnet de Pin. Co-produit avec notre ébéniste partenaire en pin maritime de Gironde récolté à moins de 80 km, il est tourné à la main pour l\'assise et assemblé à la colle et aux chevilles bois — aucune vis. Léger, costaud, empilable.',
         gallery: [
           'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1600&q=85&auto=format&fit=crop',
           'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1600&q=85&auto=format&fit=crop',
@@ -345,9 +345,9 @@
         name: 'Table d\'appoint COB-02',
         tagline: 'Plateau rond en pin brossé, avec plateau bas pour magazines.',
         price: '340 €',
-        priceNote: 'livré · Nouvelle-Aquitaine',
-        stock: 'last',
-        stockLabel: '3 / 8 restantes',
+        priceNote: 'livré · Sud-Ouest',
+        stock: 'coming',
+        stockLabel: 'À venir — Été 2026',
         specs: [
           { lbl: 'Matière',    val: 'Pin maritime Gironde' },
           { lbl: 'Finition',   val: 'Pin brossé + huile' },
@@ -376,9 +376,9 @@
         name: 'Porte-revues COB-03',
         tagline: 'Format A4, deux compartiments en pin, finition cire naturelle.',
         price: '95 €',
-        priceNote: 'livré · Nouvelle-Aquitaine',
-        stock: 'soldout',
-        stockLabel: 'Sold out',
+        priceNote: 'livré · Sud-Ouest',
+        stock: 'coming',
+        stockLabel: 'À venir — Été 2026',
         specs: [
           { lbl: 'Matière',    val: 'Pin maritime Gironde' },
           { lbl: 'Finition',   val: 'Cire naturelle' },
@@ -413,6 +413,7 @@
     }
 
     function stockBadge(p) {
+      if (p.stock === 'coming')  return `<span class="badge-stock-lg badge-soldout">${escapeHTML(p.stockLabel)}</span>`;
       if (p.stock === 'dispo')   return `<span class="badge-stock-lg badge-dispo">${escapeHTML(p.stockLabel)}</span>`;
       if (p.stock === 'last')    return `<span class="badge-stock-lg badge-last">${escapeHTML(p.stockLabel)}</span>`;
       if (p.stock === 'soldout') return `<span class="badge-stock-lg badge-soldout">${escapeHTML(p.stockLabel)}</span>`;
@@ -420,6 +421,9 @@
     }
 
     function orderBlock(p) {
+      if (p.stock === 'coming') {
+        return `<div class="or-soldout-msg"><p>Cette pièce est en cours de co-design — disponible à l'été 2026. <a href="contact.html">Être notifié →</a></p></div>`;
+      }
       if (p.stock === 'soldout') {
         return `
           <div class="or-soldout-msg">
