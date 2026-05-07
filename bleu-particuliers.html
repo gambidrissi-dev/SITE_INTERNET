@@ -59,7 +59,7 @@
     .pt-hero {
       background: var(--jaune); padding: 140px 44px 90px; position: relative; overflow: hidden;
       display: grid; grid-template-columns: 1.1fr 1fr; gap: 60px; align-items: end; min-height: 80vh;
-      border-bottom: 2px solid var(--noir);
+      
     }
     .pt-bg-num {
       position: absolute; right: -40px; bottom: -60px;
@@ -82,18 +82,18 @@
     .pt-card-author { font-size: .78rem; font-weight: 600; color: rgba(240,235,216,.55); padding-top: 16px; border-top: 1px solid rgba(240,235,216,.15); }
 
     /* DIFF — pourquoi pas un archi classique */
-    .diff { background: var(--cream); padding: 100px 44px; border-top: 2px solid var(--noir); }
+    .diff { background: var(--cream); padding: 100px 44px;  }
     .df-header { max-width: 760px; margin-bottom: 56px; }
     .df-title { font-family: var(--f-display); font-size: clamp(48px,7vw,100px); line-height: .88; margin-bottom: 24px; }
     .df-title em { font-family: var(--f-serif); font-style: italic; color: var(--jaune); font-weight: 400; }
     .df-intro { font-size: .95rem; line-height: 1.85; font-weight: 300; color: rgba(26,26,26,.65); }
     .df-table {
-      display: grid; grid-template-columns: 1fr 1fr 1fr; border-top: 2px solid var(--noir); border-bottom: 2px solid var(--noir);
+      display: grid; grid-template-columns: 1fr 1fr 1fr;  
     }
     .df-row { display: contents; }
     .df-cell { padding: 24px 28px; border-right: 1px solid rgba(26,26,26,.1); border-bottom: 1px solid rgba(26,26,26,.06); }
     .df-cell:nth-child(3n) { border-right: none; }
-    .df-cell.head { font-size: .58rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(26,26,26,.5); padding-top: 22px; padding-bottom: 22px; border-bottom: 2px solid var(--noir); }
+    .df-cell.head { font-size: .58rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(26,26,26,.5); padding-top: 22px; padding-bottom: 22px;  }
     .df-cell.head.col-bleu { background: var(--jaune); color: var(--noir); }
     .df-cell.label { font-family: var(--f-display); font-size: 16px; color: var(--noir); }
     .df-cell.val { font-size: .9rem; line-height: 1.6; font-weight: 300; color: rgba(26,26,26,.65); }
@@ -127,7 +127,7 @@
     .of-card-list li::before { content: ''; position: absolute; left: 0; top: 9px; width: 12px; height: 2px; background: var(--jaune); }
 
     /* AVANT D'ÉCRIRE — petits scénarios */
-    .scenarios { background: var(--cream); padding: 100px 44px; border-top: 2px solid var(--noir); }
+    .scenarios { background: var(--cream); padding: 100px 44px;  }
     .sc-title { font-family: var(--f-display); font-size: clamp(48px,7vw,100px); line-height: .88; margin-bottom: 56px; }
     .sc-title em { font-family: var(--f-serif); font-style: italic; color: var(--jaune); font-weight: 400; }
     .sc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
@@ -140,7 +140,7 @@
     .sc-card-a strong { color: var(--noir); font-weight: 600; }
 
     /* CONTACT */
-    .contact { background: var(--jaune); padding: 100px 44px; border-top: 2px solid var(--noir); }
+    .contact { background: var(--jaune); padding: 100px 44px;  }
     .ct-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
     .ct-eyebrow { font-size: .62rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--noir); display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
     .ct-eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--noir); }
@@ -169,7 +169,7 @@
       .df-table { grid-template-columns: 1fr; border-top: none; }
       .df-cell { border-right: none; }
       .df-cell.head { display: none; }
-      .df-cell.label { background: rgba(26,26,26,.04); border-top: 2px solid var(--noir); padding: 18px 22px; }
+      .df-cell.label { background: rgba(26,26,26,.04);  padding: 18px 22px; }
       .df-cell.val { padding: 18px 22px; }
       .df-cell.val.col-archi::before { content: 'Archi classique : '; font-weight: 700; color: rgba(26,26,26,.45); display: block; font-size: .55rem; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 4px; }
       .df-cell.val.col-bleu::before { content: 'Bleu : '; font-weight: 700; color: rgba(26,26,26,.7); display: block; font-size: .55rem; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 4px; }

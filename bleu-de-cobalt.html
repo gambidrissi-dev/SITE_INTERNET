@@ -36,7 +36,7 @@
       min-height: 480px; max-height: 100dvh; background: var(--jaune);
       display: flex; flex-direction: column; justify-content: flex-end;
       padding: 140px 44px 80px; position: relative; overflow: hidden;
-      border-bottom: 2px solid var(--noir);
+      
     }
     .bdc-bg-num {
       position: absolute; right: -60px; bottom: -80px;
@@ -70,13 +70,13 @@
     .ms-stat-lbl { font-size: .72rem; font-weight: 300; color: rgba(240,235,216,.4); }
 
     /* ── POURQUOI — comparatif ── */
-    .why-section { background: var(--cream); padding: 100px 44px; border-top: 2px solid var(--noir); }
+    .why-section { background: var(--cream); padding: 100px 44px;  }
     .why-header { max-width: 720px; margin-bottom: 64px; }
     .why-title { font-family: var(--f-display); font-size: clamp(48px,7vw,100px); line-height: .88; margin-bottom: 28px; }
     .why-intro { font-size: .95rem; line-height: 1.85; font-weight: 300; color: rgba(26,26,26,.6); }
-    .why-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 2px solid var(--noir); border-bottom: 2px solid var(--noir); }
+    .why-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 0;   }
     .why-col { padding: 48px 36px; }
-    .why-col-old { border-right: 2px solid var(--noir); background: rgba(26,26,26,.03); }
+    .why-col-old {  background: rgba(26,26,26,.03); }
     .why-col-new { background: var(--jaune); }
     .why-col-tag { font-size: .62rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(26,26,26,.5); margin-bottom: 28px; padding-bottom: 14px; border-bottom: 1px solid rgba(26,26,26,.15); }
     .why-col-new .why-col-tag { color: var(--noir); border-bottom-color: rgba(26,26,26,.3); }
@@ -88,10 +88,10 @@
     .why-col-new .why-list li { color: rgba(26,26,26,.85); border-bottom-color: rgba(26,26,26,.12); }
 
     /* ── COMMENT ÇA MARCHE ── */
-    .comment-section { background: var(--cream); padding: 100px 44px; border-top: 2px solid var(--noir); }
+    .comment-section { background: var(--cream); padding: 100px 44px;  }
     .cc-title { font-family: var(--f-display); font-size: clamp(48px,7vw,100px); line-height: .88; margin-bottom: 64px; }
-    .cc-steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; border-top: 2px solid var(--noir); }
-    .cc-step { padding: 48px 32px; border-right: 2px solid var(--noir); position: relative; }
+    .cc-steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 0;  }
+    .cc-step { padding: 48px 32px;  position: relative; }
     .cc-step:last-child { border-right: none; }
     .cc-step-num { font-family: var(--f-display); font-size: 48px; color: rgba(241,203,79,.3); line-height: 1; margin-bottom: 20px; }
     .cc-step-bar { width: 32px; height: 3px; background: var(--jaune); margin-bottom: 20px; }
@@ -113,7 +113,7 @@
     .fs-val strong { font-weight: 700; color: var(--cream); }
 
     /* ── POUR QUI — profils ── */
-    .profils { background: var(--jaune); padding: 100px 44px; border-top: 2px solid var(--noir); }
+    .profils { background: var(--jaune); padding: 100px 44px;  }
     .pf-title { font-family: var(--f-display); font-size: clamp(48px,7vw,100px); line-height: .88; color: var(--noir); margin-bottom: 56px; }
     .pf-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
     .pf-card {
@@ -129,7 +129,7 @@
     .pf-card-list li::before { content: ''; position: absolute; left: 0; top: 9px; width: 8px; height: 2px; background: var(--noir); }
 
     /* ── CANDIDATER ── */
-    .candidater { background: var(--cream); padding: 100px 44px; border-top: 2px solid var(--noir); }
+    .candidater { background: var(--cream); padding: 100px 44px;  }
     .cd-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
     .cd-eyebrow { font-size: .62rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: rgba(26,26,26,.4); display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
     .cd-eyebrow::before { content: ''; width: 24px; height: 2px; background: rgba(26,26,26,.4); }
@@ -139,7 +139,7 @@
     .cd-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
     .cd-list li { font-size: .82rem; color: rgba(26,26,26,.65); padding-left: 22px; position: relative; line-height: 1.55; }
     .cd-list li::before { content: '→'; position: absolute; left: 0; top: 0; color: var(--noir); font-weight: 700; }
-    .cd-form { display: flex; flex-direction: column; gap: 18px; background: var(--noir); padding: 40px; border-radius: var(--r-md); border: 2px solid var(--noir); }
+    .cd-form { display: flex; flex-direction: column; gap: 18px; background: var(--noir); padding: 40px; border-radius: var(--r-md);  }
     .cd-field { display: flex; flex-direction: column; gap: 6px; }
     .cd-lbl { font-size: .58rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(240,235,216,.4); }
     .cd-input, .cd-ta {
@@ -155,7 +155,7 @@
     .cta-band {
       background: var(--jaune); padding: 100px 44px;
       display: flex; align-items: center; justify-content: space-between;
-      border-top: 2px solid var(--noir);
+      
     }
     .cb-text { font-family: var(--f-display); font-size: clamp(32px,5vw,64px); color: var(--noir); line-height: .9; }
     .cb-text em { font-family: var(--f-serif); font-style: italic; color: rgba(26,26,26,.4); }
@@ -197,12 +197,12 @@
       .why-header { margin-bottom: 40px; }
       .why-compare { grid-template-columns: 1fr; }
       .why-col { padding: 36px 24px; }
-      .why-col-old { border-right: none; border-bottom: 2px solid var(--noir); }
+      .why-col-old { border-right: none;  }
       .comment-section { padding: 64px 20px; }
       .cc-title { font-size: clamp(36px, 10vw, 64px); margin-bottom: 44px; }
       .cc-steps { grid-template-columns: 1fr 1fr; }
       .cc-step:nth-child(2) { border-right: none; }
-      .cc-step:nth-child(1), .cc-step:nth-child(2) { border-bottom: 2px solid var(--noir); }
+      .cc-step:nth-child(1), .cc-step:nth-child(2) {  }
       .cc-step { padding: 32px 22px; }
       .format-section { padding: 64px 20px; }
       .fs-title { font-size: clamp(36px, 10vw, 64px); margin-bottom: 36px; }
@@ -228,7 +228,7 @@
       .comment-section { padding: 52px 18px; }
       .cc-title { font-size: clamp(32px, 11vw, 52px); }
       .cc-steps { grid-template-columns: 1fr; }
-      .cc-step { border-right: none; border-bottom: 2px solid var(--noir); padding: 28px 18px; }
+      .cc-step { border-right: none;  padding: 28px 18px; }
       .cc-step:last-child { border-bottom: none; }
       .format-section { padding: 52px 18px; }
       .fs-row { padding: 22px 18px; }
