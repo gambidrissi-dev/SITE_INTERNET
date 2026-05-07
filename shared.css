@@ -3,8 +3,8 @@
 ═══════════════════════════════════════════ */
 
 /* ── Masquer la scrollbar (scroll conservé) ── */
-html { scrollbar-width: none; -ms-overflow-style: none; }
-::-webkit-scrollbar { display: none; }
+html, body, * { scrollbar-width: none; -ms-overflow-style: none; }
+::-webkit-scrollbar { display: none !important; width: 0 !important; }
 :root {
   --cream:  #F3EFD7;
   --noir:   #1A1A1A;
