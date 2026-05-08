@@ -233,16 +233,64 @@ if (!isTouch) {
     nav.setAttribute('data-env', activeEnvClass);
   }
 
-  /* ── BOUTON RETOUR — pilule flottante bas-gauche ── */
-  const backBtn = document.createElement('button');
-  backBtn.className = 'nav-back-btn';
-  backBtn.setAttribute('aria-label', 'Retour');
-  backBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 18 18" fill="none"><path d="M11 4L6 9L11 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Retour';
-  backBtn.addEventListener('click', () => {
-    if (window.history.length > 1) { window.history.back(); }
-    else { window.location.href = 'index.html'; }
+  /* ── B — BREADCRUMB fixe sous la nav ── */
+  const PAGE_TREE = {
+    'collectif.html':        [['Accueil','index.html'], ['Le Collectif',null]],
+    'studio.html':           [['Accueil','index.html'], ['Le Studio',null]],
+    'projets.html':          [['Accueil','index.html'], ['Le Studio','studio.html'], ['Projets',null]],
+    'projet.html':           [['Accueil','index.html'], ['Le Studio','studio.html'], ['Projets','projets.html'], ['…',null]],
+    'services.html':         [['Accueil','index.html'], ['Le Studio','studio.html'], ['Services',null]],
+    'atelier.html':          [['Accueil','index.html'], ["L'Atelier",null]],
+    'atelier-projets.html':  [['Accueil','index.html'], ["L'Atelier",'atelier.html'], ['Projets',null]],
+    'atelier-drops.html':    [['Accueil','index.html'], ["L'Atelier",'atelier.html'], ['Drops',null]],
+    'atelier-services.html': [['Accueil','index.html'], ["L'Atelier",'atelier.html'], ['Services',null]],
+    'drop-piece.html':       [['Accueil','index.html'], ["L'Atelier",'atelier.html'], ['Drops','atelier-drops.html'], ['…',null]],
+    'bleu-de-cobalt.html':   [['Accueil','index.html'], ['Bleu de Cobalt',null]],
+    'bleu-cabinets.html':    [['Accueil','index.html'], ['Bleu de Cobalt','bleu-de-cobalt.html'], ['Cabinets',null]],
+    'bleu-particuliers.html':[['Accueil','index.html'], ['Bleu de Cobalt','bleu-de-cobalt.html'], ['Particuliers',null]],
+    'bleu-programme.html':   [['Accueil','index.html'], ['Bleu de Cobalt','bleu-de-cobalt.html'], ['Programme',null]],
+    'bleu-projets.html':     [['Accueil','index.html'], ['Bleu de Cobalt','bleu-de-cobalt.html'], ['Projets',null]],
+    'media.html':            [['Accueil','index.html'], ['Le Média',null]],
+    'media-journal.html':    [['Accueil','index.html'], ['Le Média','media.html'], ['Journal',null]],
+    'contact.html':          [['Accueil','index.html'], ['Contact',null]],
+  };
+  const currentPage = location.pathname.split('/').pop() || 'index.html';
+  const crumbs = PAGE_TREE[currentPage];
+  if (crumbs) {
+    const bc = document.createElement('nav');
+    bc.id = 'breadcrumb';
+    bc.setAttribute('aria-label', 'Fil d\'Ariane');
+    bc.innerHTML = crumbs.map(([label, href], i) =>
+      href && i < crumbs.length - 1
+        ? `<a href="${href}" class="bc-link">${label}</a><span class="bc-sep">›</span>`
+        : `<span class="bc-current">${label}</span>`
+    ).join('');
+    document.body.appendChild(bc);
+  }
+
+  /* ── C — RETOUR dans l'overlay burger (footer) ── */
+  const overlayFooter = overlay.querySelector('.lg-overlay-footer');
+  if (overlayFooter) {
+    const backInOverlay = document.createElement('button');
+    backInOverlay.className = 'lg-overlay-back';
+    backInOverlay.innerHTML = '<svg width="13" height="13" viewBox="0 0 18 18" fill="none"><path d="M11 4L6 9L11 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Retour';
+    backInOverlay.addEventListener('click', () => {
+      if (window.history.length > 1) window.history.back();
+      else window.location.href = 'index.html';
+    });
+    overlayFooter.prepend(backInOverlay);
+  }
+
+  /* ── D — FLÈCHE LATÉRALE fixe gauche ── */
+  const sideArrow = document.createElement('button');
+  sideArrow.id = 'side-back';
+  sideArrow.setAttribute('aria-label', 'Retour');
+  sideArrow.innerHTML = '<svg width="14" height="14" viewBox="0 0 18 18" fill="none"><path d="M11 4L6 9L11 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  sideArrow.addEventListener('click', () => {
+    if (window.history.length > 1) window.history.back();
+    else window.location.href = 'index.html';
   });
-  document.body.appendChild(backBtn);
+  document.body.appendChild(sideArrow);
 
   const burgerBtn = document.getElementById('nav-burger');
   if (!burgerBtn) return;
