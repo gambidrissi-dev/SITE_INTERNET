@@ -13,7 +13,7 @@
       "duree": "8 mois",
       "mission": "Architecture intérieure · Mobilier sur mesure",
       "client": "Particulier",
-      "cover": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=2000&q=85&auto=format&fit=crop",
+      "cover": "assets/STUDIO/PROJETS/ANGOULEME/cover.png",
       "intro": "Un appartement traversant repensé autour d'une seule règle : laisser respirer la lumière du sud. Cloisons retirées, sols unifiés, mobilier intégré.",
       "brief": [
         "Le client venait d'acheter un T4 mal compartimenté dans un immeuble années 30. La demande tenait en une phrase : « ouvrir, sans dénaturer ».",
@@ -27,11 +27,11 @@
         { "titre": "Chantier", "txt": "Suivi hebdomadaire pendant six mois, deux entreprises générales coordonnées en direct, livraison du mobilier en dernière phase." }
       ],
       "gallery": [
-        "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1600&q=85&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=1600&q=85&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1567016432779-094069958ea5?w=1600&q=85&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=85&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1600&q=85&auto=format&fit=crop"
+        "assets/STUDIO/PROJETS/ANGOULEME/GALLERY/01.png",
+        "assets/STUDIO/PROJETS/ANGOULEME/GALLERY/02.png",
+        "assets/STUDIO/PROJETS/ANGOULEME/GALLERY/03.png",
+        "assets/STUDIO/PROJETS/ANGOULEME/GALLERY/04.png",
+        "assets/STUDIO/PROJETS/ANGOULEME/GALLERY/05.png"
       ],
       "quote": "Un appartement bien dessiné, c'est un appartement où l'on ne remarque plus le dessin."
     },
@@ -48,7 +48,7 @@
       "duree": "10 mois",
       "mission": "Architecture intérieure · Direction de chantier",
       "client": "Studio de création indépendant",
-      "cover": "https://images.unsplash.com/photo-1565182999561-18d7dc61c393?w=2000&q=85&auto=format&fit=crop",
+      "cover": "assets/STUDIO/PROJETS/BORDEAUX/cover.png",
       "intro": "Un ancien entrepôt de stockage des Bassins à flot transformé en atelier mixte — bureaux, espace de tournage, zone de prototypage bois.",
       "brief": [
         "Le client cherchait un lieu unique pouvant accueillir cinq postes de travail, un espace de tournage modulable et un coin atelier pour les prototypes — sans renoncer à la lumière naturelle.",
@@ -62,11 +62,11 @@
         { "titre": "Acoustique", "txt": "Panneaux acoustiques en feutre recyclé suspendus sous les sheds — invisibles depuis l'entrée." }
       ],
       "gallery": [
-        "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=85&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1600&q=85&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1604328698692-f76ea9498e76?w=1600&q=85&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1600&q=85&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1517502884422-41eaead166d4?w=1600&q=85&auto=format&fit=crop"
+        "assets/STUDIO/PROJETS/BORDEAUX/GALLERY/01.png",
+        "assets/STUDIO/PROJETS/BORDEAUX/GALLERY/02.png",
+        "assets/STUDIO/PROJETS/BORDEAUX/GALLERY/03.png",
+        "assets/STUDIO/PROJETS/BORDEAUX/GALLERY/04.png",
+        "assets/STUDIO/PROJETS/BORDEAUX/GALLERY/05.png"
       ],
       "quote": "Un atelier ne se cloisonne pas, il se zone. La frontière, c'est la lumière."
     },
@@ -83,7 +83,7 @@
       "duree": "5 mois",
       "mission": "Design d'espace · Mobilier sur mesure · Identité visuelle",
       "client": "Marque indépendante",
-      "cover": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=2000&q=85&auto=format&fit=crop",
+      "cover": "assets/STUDIO/PROJETS/BAYONNE/cover.png",
       "intro": "Une boutique de centre-ville pensée comme un appartement : entrer, traîner, essayer, repartir. Pas de comptoir frontal, pas de portants alignés.",
       "brief": [
         "La cliente, créatrice de la marque depuis huit ans, voulait sortir du code « boutique » classique : moins de portants, moins d'éclairage froid, plus de matières.",
@@ -97,11 +97,11 @@
         { "titre": "Identité", "txt": "Refonte de la signalétique vitrine et du fronton, en lien avec le mobilier — même typographie, mêmes laitons." }
       ],
       "gallery": [
-        "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=1600&q=85&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1604176354204-9268737828e4?w=1600&q=85&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=1600&q=85&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1554189097-ffe88e998a2b?w=1600&q=85&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1604014237800-1c9102c219da?w=1600&q=85&auto=format&fit=crop"
+        "assets/STUDIO/PROJETS/BAYONNE/GALLERY/01.png",
+        "assets/STUDIO/PROJETS/BAYONNE/GALLERY/02.png",
+        "assets/STUDIO/PROJETS/BAYONNE/GALLERY/03.png",
+        "assets/STUDIO/PROJETS/BAYONNE/GALLERY/04.png",
+        "assets/STUDIO/PROJETS/BAYONNE/GALLERY/05.png"
       ],
       "quote": "Une boutique réussie, c'est un lieu où l'on entre par curiosité et où l'on reste par confort."
     },
@@ -118,7 +118,7 @@
       "duree": "12 mois (en cours)",
       "mission": "Architecture intérieure · Mobilier intégré",
       "client": "Particulier",
-      "cover": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=2000&q=85&auto=format&fit=crop",
+      "cover": "assets/STUDIO/PROJETS/ILE-DE-RE/cover.png",
       "intro": "Une maison rétaise classique, repensée autour de deux contraintes : le sel et la lumière rasante. Tous les matériaux ont été choisis pour vieillir au lieu de se dégrader.",
       "brief": [
         "La maison, héritage familial, n'avait pas été touchée depuis les années 80. Sols carrelés bruns, faux plafonds, menuiseries PVC.",
@@ -132,11 +132,11 @@
         { "titre": "Cuisine", "txt": "En cours de fabrication — façades chêne brut, plan de travail pierre de Charente." }
       ],
       "gallery": [
-        "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1600&q=85&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1600&q=85&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1600573472556-e636c2acda88?w=1600&q=85&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1600&q=85&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1600585154363-67eb9e2e2099?w=1600&q=85&auto=format&fit=crop"
+        "assets/STUDIO/PROJETS/ILE-DE-RE/GALLERY/01.png",
+        "assets/STUDIO/PROJETS/ILE-DE-RE/GALLERY/02.png",
+        "assets/STUDIO/PROJETS/ILE-DE-RE/GALLERY/03.png",
+        "assets/STUDIO/PROJETS/ILE-DE-RE/GALLERY/04.png",
+        "assets/STUDIO/PROJETS/ILE-DE-RE/GALLERY/05.png"
       ],
       "quote": "Sur l'île, un matériau qui ne patine pas, c'est un matériau qui se dégrade."
     },
@@ -153,7 +153,7 @@
       "duree": "9 mois (en cours)",
       "mission": "Design d'espace · Coordination avec architecte",
       "client": "Particulier",
-      "cover": "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=2000&q=85&auto=format&fit=crop",
+      "cover": "assets/STUDIO/PROJETS/DAX/cover.png",
       "intro": "Une maison landaise traditionnelle prolongée par un volume contemporain en pin maritime. Notre rôle : faire dialoguer les deux intérieurs sans rupture.",
       "brief": [
         "L'extension est dessinée par un architecte voisin. Notre mission commence à la coque livrée : sols, menuiseries intérieures, mobilier intégré, éclairage.",
@@ -167,11 +167,11 @@
         { "titre": "Lumière", "txt": "Un seul plan d'éclairage pour les deux volumes, avec scénarios variables." }
       ],
       "gallery": [
-        "https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?w=1600&q=85&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1600210491969-49e62ec1149d?w=1600&q=85&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&q=85&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=1600&q=85&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1600566753104-685f4f24cb4d?w=1600&q=85&auto=format&fit=crop"
+        "assets/STUDIO/PROJETS/DAX/GALLERY/01.png",
+        "assets/STUDIO/PROJETS/DAX/GALLERY/02.png",
+        "assets/STUDIO/PROJETS/DAX/GALLERY/03.png",
+        "assets/STUDIO/PROJETS/DAX/GALLERY/04.png",
+        "assets/STUDIO/PROJETS/DAX/GALLERY/05.png"
       ],
       "quote": "Une extension réussie, ce n'est pas un volume qui se voit. C'est un volume qui se traverse."
     },
@@ -188,7 +188,7 @@
       "duree": "Phase concept",
       "mission": "Design d'espace · Identité visuelle · Mobilier",
       "client": "Restaurateur indépendant",
-      "cover": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=2000&q=85&auto=format&fit=crop",
+      "cover": "assets/STUDIO/PROJETS/CHARENTE/cover.png",
       "intro": "Un projet en phase concept : un restaurant de produits locaux dans une ancienne distillerie, où la cuisine ouverte devient le décor principal.",
       "brief": [
         "Le client porte un projet de restaurant centré sur la production charentaise — vins, fromages, viandes, légumes — avec une cuisine en flux tendu.",
@@ -202,11 +202,11 @@
         { "titre": "Suite", "txt": "Phase APD à venir — recherche de financement en cours côté client." }
       ],
       "gallery": [
-        "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1600&q=85&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1600&q=85&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1559329007-40df8a9345d8?w=1600&q=85&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=85&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=1600&q=85&auto=format&fit=crop"
+        "assets/STUDIO/PROJETS/CHARENTE/GALLERY/01.png",
+        "assets/STUDIO/PROJETS/CHARENTE/GALLERY/02.png",
+        "assets/STUDIO/PROJETS/CHARENTE/GALLERY/03.png",
+        "assets/STUDIO/PROJETS/CHARENTE/GALLERY/04.png",
+        "assets/STUDIO/PROJETS/CHARENTE/GALLERY/05.png"
       ],
       "quote": "Dans un restaurant de produit, le plus beau décor, c'est la cuisine qui travaille."
     }
