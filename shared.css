@@ -102,6 +102,30 @@ body > nav::after { display: none; }
 .nav-logo-img { height: 20px; width: auto; display: block; }
 
 
+/* ── BREADCRUMB ── */
+#breadcrumb {
+  position: fixed; top: 62px; left: 50%; transform: translateX(-50%);
+  z-index: 490; display: flex; align-items: center; gap: 6px;
+  background: rgba(240,235,216,0.55);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 999px; padding: 5px 16px;
+  white-space: nowrap;
+}
+.bc-link {
+  font-family: var(--f-body); font-size: .58rem; font-weight: 600;
+  letter-spacing: .10em; text-transform: uppercase;
+  color: rgba(26,26,26,.4); text-decoration: none;
+  transition: color .2s;
+}
+.bc-link:hover { color: var(--noir); }
+.bc-sep { font-size: .52rem; color: rgba(26,26,26,.22); }
+.bc-current {
+  font-family: var(--f-body); font-size: .58rem; font-weight: 700;
+  letter-spacing: .10em; text-transform: uppercase;
+  color: rgba(26,26,26,.65);
+}
+
 /* ── PILULE BURGER ── */
 .nav-burger-btn {
   pointer-events: all;

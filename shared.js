@@ -234,6 +234,40 @@ if (!isTouch) {
   }
 
 
+  /* ── BREADCRUMB — div (pas nav pour éviter le conflit body > nav) ── */
+  const PAGE_TREE = {
+    'collectif.html':        [['Accueil','index.html'], ['Le Collectif',null]],
+    'studio.html':           [['Accueil','index.html'], ['Le Studio',null]],
+    'projets.html':          [['Accueil','index.html'], ['Le Studio','studio.html'], ['Projets',null]],
+    'projet.html':           [['Accueil','index.html'], ['Le Studio','studio.html'], ['Projets','projets.html'], ['…',null]],
+    'services.html':         [['Accueil','index.html'], ['Le Studio','studio.html'], ['Services',null]],
+    'atelier.html':          [['Accueil','index.html'], ["L'Atelier",null]],
+    'atelier-projets.html':  [['Accueil','index.html'], ["L'Atelier",'atelier.html'], ['Projets',null]],
+    'atelier-drops.html':    [['Accueil','index.html'], ["L'Atelier",'atelier.html'], ['Drops',null]],
+    'atelier-services.html': [['Accueil','index.html'], ["L'Atelier",'atelier.html'], ['Services',null]],
+    'drop-piece.html':       [['Accueil','index.html'], ["L'Atelier",'atelier.html'], ['Drops','atelier-drops.html'], ['…',null]],
+    'bleu-de-cobalt.html':   [['Accueil','index.html'], ['Bleu de Cobalt',null]],
+    'bleu-cabinets.html':    [['Accueil','index.html'], ['Bleu de Cobalt','bleu-de-cobalt.html'], ['Cabinets',null]],
+    'bleu-particuliers.html':[['Accueil','index.html'], ['Bleu de Cobalt','bleu-de-cobalt.html'], ['Particuliers',null]],
+    'bleu-programme.html':   [['Accueil','index.html'], ['Bleu de Cobalt','bleu-de-cobalt.html'], ['Programme',null]],
+    'bleu-projets.html':     [['Accueil','index.html'], ['Bleu de Cobalt','bleu-de-cobalt.html'], ['Projets',null]],
+    'media.html':            [['Accueil','index.html'], ['Le Media',null]],
+    'media-journal.html':    [['Accueil','index.html'], ['Le Media','media.html'], ['Journal',null]],
+    'contact.html':          [['Accueil','index.html'], ['Contact',null]],
+  };
+  const currentPage = location.pathname.split('/').pop() || 'index.html';
+  const crumbs = PAGE_TREE[currentPage];
+  if (crumbs) {
+    const bc = document.createElement('div');
+    bc.id = 'breadcrumb';
+    bc.innerHTML = crumbs.map(([label, href], i) =>
+      (href && i < crumbs.length - 1)
+        ? `<a href="${href}" class="bc-link">${label}</a><span class="bc-sep">›</span>`
+        : `<span class="bc-current">${label}</span>`
+    ).join('');
+    document.body.appendChild(bc);
+  }
+
   const burgerBtn = document.getElementById('nav-burger');
   if (!burgerBtn) return;
 
