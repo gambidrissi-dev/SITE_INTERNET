@@ -543,3 +543,52 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
   div.innerHTML = `<svg viewBox="0 0 750 450" fill="currentColor" xmlns="http://www.w3.org/2000/svg">${SHAPE_SVG[key]}</svg>`;
   target.appendChild(div);
 })();
+
+/* ── WORD REVEAL — h1 mot par mot, spring (équivalent Framer Motion stagger) ── */
+(function initWordReveal() {
+  /* Parcourt les noeuds texte d'un élément, emballe chaque mot dans un .rw-word */
+  function splitWords(el) {
+    /* Si cet h1 avait .sr, le supprimer — le word reveal le remplace */
+    el.classList.remove('sr');
+
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+    const nodes = [];
+    let n;
+    while ((n = walker.nextNode())) nodes.push(n);
+
+    nodes.forEach(tn => {
+      /* Découpe sur espaces en conservant les espaces comme séparateurs */
+      const parts = tn.textContent.split(/(\s+)/);
+      const frag  = document.createDocumentFragment();
+      parts.forEach(part => {
+        if (!part) return;
+        if (/^\s+$/.test(part)) {
+          /* Espace pur → noeud texte brut */
+          frag.appendChild(document.createTextNode(part));
+        } else {
+          const span = document.createElement('span');
+          span.className = 'rw-word';
+          span.textContent = part;
+          frag.appendChild(span);
+        }
+      });
+      tn.parentNode.replaceChild(frag, tn);
+    });
+  }
+
+  document.querySelectorAll('h1').forEach(h => {
+    splitWords(h);
+
+    /* IntersectionObserver : déclenche une fois que le titre entre dans le viewport */
+    const obs = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      obs.unobserve(h);
+      h.querySelectorAll('.rw-word').forEach((w, i) => {
+        /* Stagger 75 ms par mot — proche du delay:0.1 Framer Motion */
+        setTimeout(() => w.classList.add('in'), i * 75);
+      });
+    }, { threshold: 0.05, rootMargin: '-30px' });
+
+    obs.observe(h);
+  });
+})();
