@@ -74,14 +74,12 @@ body.hov #cursor-ring { width: 54px; height: 54px; }
 /* ── NAV (inner pages) — deux pilules flottantes ── */
 body > nav {
   position: fixed; top: 16px; left: 20px; right: 20px; z-index: 500;
-  background: rgba(240,235,216,0.10);
-  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(240,235,216,0.08);
+  border: 1px solid rgba(255,255,255,0.10);
   border-radius: 999px;
   display: flex; align-items: center; justify-content: space-between;
   padding: 6px 6px; height: auto; overflow: visible;
   pointer-events: none;
-  box-shadow: 0 2px 24px rgba(0,0,0,0.05);
 }
 body > nav::after { display: none; }
 
@@ -107,11 +105,12 @@ body > nav::after { display: none; }
   position: fixed; top: 62px; left: 50%; transform: translateX(-50%);
   z-index: 490; display: flex; align-items: center; gap: 6px;
   background: rgba(240,235,216,0.55);
-  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255,255,255,0.35);
   border-radius: 999px; padding: 5px 16px;
   white-space: nowrap;
+  pointer-events: none;
 }
+.bc-link { pointer-events: all; }
 .bc-link {
   font-family: var(--f-body); font-size: .58rem; font-weight: 600;
   letter-spacing: .10em; text-transform: uppercase;
