@@ -131,8 +131,8 @@
       display: flex; align-items: center; justify-content: center;
       text-decoration: none; cursor: pointer;
     }
-    .ls-visual:hover img { transform: scale(1.05); }
-    .ls-visual:hover .ls-visual-text { transform: scale(1.08); }
+    .ls-visual:hover img { transform: scale(1.04); }
+    .ls-visual:hover .ls-overlay { background: rgba(0,0,0,.35) !important; }
     .ls-visual-text {
       font-family: var(--f-display); color: rgba(93,161,107,.6);
       font-size: clamp(80px,10vw,140px); line-height: .9; text-align: center;
@@ -295,8 +295,8 @@
     </div>
     <a href="projets.html" class="ls-visual sr sr-d1" aria-label="Voir les projets du studio">
       <img src="assets/ATELIER/LINK-STUDIO/visual.png" alt="L'atelier Cobalt — du dessin à l'objet" loading="lazy" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;transition:transform .5s ease;">
-      <div style="position:absolute;inset:0;background:rgba(0,0,0,.45);z-index:1;transition:background .3s ease;"></div>
-      <div class="ls-visual-text" style="position:relative;z-index:2;transition:transform .3s ease;">→<small>du dessin à l'objet</small></div>
+      <div class="ls-overlay" style="position:absolute;inset:0;background:rgba(0,0,0,.2);z-index:1;transition:background .4s ease;"></div>
+      <div class="ls-visual-text" style="position:relative;z-index:2;">→<small>du dessin à l'objet</small></div>
     </a>
   </section>
 
