@@ -133,6 +133,8 @@
     }
     .ls-visual:hover img { transform: scale(1.04); }
     .ls-visual:hover .ls-overlay { background: rgba(0,0,0,.35) !important; }
+    .ls-visual .ls-visual-text { opacity: 0; transition: opacity .3s ease; }
+    .ls-visual:hover .ls-visual-text { opacity: 1; }
     .ls-visual-text {
       font-family: var(--f-display); color: rgba(93,161,107,.6);
       font-size: clamp(80px,10vw,140px); line-height: .9; text-align: center;
