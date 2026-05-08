@@ -593,6 +593,33 @@ body > nav.nav-scrolled {
     0 0 22px rgba(255,255,255,0.25);
 }
 
+/* ── Bouton primary — verre teinté couleur accent de la page ── */
+.btn.btn-primary {
+  background: color-mix(in srgb, var(--accent, var(--bleu)) 20%, transparent);
+  border-color: color-mix(in srgb, var(--accent, var(--bleu)) 38%, rgba(255,255,255,0.18));
+  color: var(--cream);
+  box-shadow:
+    0 3px 16px color-mix(in srgb, var(--accent, var(--bleu)) 30%, rgba(0,0,0,0.12)),
+    inset  2px  2px 0.5px -2.5px rgba(255,255,255,0.18),
+    inset -2px -2px 0.5px -2.5px rgba(255,255,255,0.88),
+    inset  1px  1px 1px   -0.5px rgba(255,255,255,0.64),
+    inset -1px -1px 1px   -0.5px rgba(255,255,255,0.56),
+    inset 0 0 10px 5px color-mix(in srgb, var(--accent, var(--bleu)) 14%, transparent),
+    0 0 22px color-mix(in srgb, var(--accent, var(--bleu)) 20%, rgba(0,0,0,0.06));
+}
+.btn.btn-primary:hover {
+  color: var(--cream);
+  background: color-mix(in srgb, var(--accent, var(--bleu)) 30%, transparent);
+  box-shadow:
+    0 5px 22px color-mix(in srgb, var(--accent, var(--bleu)) 38%, rgba(0,0,0,0.14)),
+    inset  2px  2px 0.5px -2.5px rgba(255,255,255,0.22),
+    inset -2px -2px 0.5px -2.5px rgba(255,255,255,0.92),
+    inset  1px  1px 1px   -0.5px rgba(255,255,255,0.70),
+    inset -1px -1px 1px   -0.5px rgba(255,255,255,0.62),
+    inset 0 0 10px 5px color-mix(in srgb, var(--accent, var(--bleu)) 20%, transparent),
+    0 0 28px color-mix(in srgb, var(--accent, var(--bleu)) 26%, rgba(0,0,0,0.08));
+}
+
 /* ── Glass neutre — outline adaptatif ── */
 .btn-outline {
   background: rgba(26,26,26,0.04);
