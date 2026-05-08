@@ -88,6 +88,25 @@ if (!isTouch) {
   document.getElementById('cursor-ring')?.remove();
 }
 
+/* LIQUID GLASS FILTER SVG — injecté une fois, référencé par backdrop-filter: url('#cobalt-glass') */
+(function injectGlassFilter() {
+  if (document.getElementById('cobalt-glass-svg')) return;
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.id = 'cobalt-glass-svg';
+  svg.setAttribute('aria-hidden', 'true');
+  svg.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden;pointer-events:none;';
+  svg.innerHTML = `<defs>
+    <filter id="cobalt-glass" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.055 0.055" numOctaves="1" seed="3" result="noise"/>
+      <feGaussianBlur in="noise" stdDeviation="1.5" result="blurNoise"/>
+      <feDisplacementMap in="SourceGraphic" in2="blurNoise" scale="55" xChannelSelector="R" yChannelSelector="B" result="displaced"/>
+      <feGaussianBlur in="displaced" stdDeviation="3.5" result="out"/>
+      <feComposite in="out" in2="out" operator="over"/>
+    </filter>
+  </defs>`;
+  document.body.insertBefore(svg, document.body.firstChild);
+})();
+
 /* LIQUID GLASS OVERLAY — injecté dynamiquement sur toutes les inner pages */
 (function setupOverlay() {
   const nav = document.querySelector('body > nav');

@@ -510,30 +510,107 @@ body > nav.nav-scrolled {
 .section { padding: 100px 44px; }
 
 /* ── BUTTONS ── */
+/* ══════════════════════════════════════════
+   BUTTONS — Liquid Glass
+══════════════════════════════════════════ */
 .btn {
   position: relative; overflow: hidden; display: inline-flex;
   align-items: center; padding: 14px 36px;
-  border-radius: var(--r-pill);
-  border: none; font-family: var(--f-body); font-size: .75rem; font-weight: 700;
+  border-radius: var(--r-pill); border: none;
+  font-family: var(--f-body); font-size: .75rem; font-weight: 700;
   letter-spacing: .1em; text-transform: uppercase;
-  transition: color .35s, box-shadow .2s;
+  transition: transform .32s cubic-bezier(0.34,1.56,0.64,1),
+              box-shadow .25s ease, background .25s ease;
+  cursor: none;
 }
+
+/* Couche blur — appliquée derrière le texte */
 .btn::before {
   content: ''; position: absolute; inset: 0;
-  border-radius: var(--r-pill);
-  transform: scale(0); opacity: 0;
-  transition: transform .35s cubic-bezier(.76,0,.24,1), opacity .35s;
+  border-radius: inherit;
+  backdrop-filter: blur(18px) url('#cobalt-glass');
+  -webkit-backdrop-filter: blur(18px);
+  pointer-events: none;
+  z-index: 0;
 }
-.btn:hover::before { transform: scale(1); opacity: 1; }
+
 .btn span { position: relative; z-index: 1; }
-.btn-dark { background: var(--noir); color: var(--cream); box-shadow: 0 4px 20px rgba(26,26,26,.3); }
-.btn-dark::before { background: var(--bleu); }
-.btn-cream { background: var(--cream); color: var(--noir); box-shadow: 0 4px 20px rgba(240,235,216,.3); }
-.btn-cream::before { background: var(--bleu); }
-.btn-cream:hover { color: var(--cream); }
-.btn-outline { background: transparent; color: var(--noir); border: 1.5px solid var(--noir); }
-.btn-outline::before { background: var(--noir); }
-.btn-outline:hover { color: var(--cream); }
+
+.btn:hover  { transform: scale(1.04); }
+.btn:active { transform: scale(0.97); transition-duration: .1s; }
+
+/* ── Glass clair — sur fonds sombres / colorés ── */
+.btn-cream {
+  background: rgba(243,239,215,0.13);
+  color: var(--cream);
+  border: 1px solid rgba(255,255,255,0.24);
+  box-shadow:
+    0 3px 14px rgba(0,0,0,0.20),
+    inset  2px  2px 0.5px -2.5px rgba(255,255,255,0.14),
+    inset -2px -2px 0.5px -2.5px rgba(255,255,255,0.90),
+    inset  1px  1px 1px   -0.5px rgba(255,255,255,0.62),
+    inset -1px -1px 1px   -0.5px rgba(255,255,255,0.55),
+    inset 0 0 10px 4px rgba(255,255,255,0.06),
+    0 0 20px rgba(0,0,0,0.10);
+}
+.btn-cream:hover {
+  color: var(--cream);
+  background: rgba(243,239,215,0.22);
+  box-shadow:
+    0 5px 18px rgba(0,0,0,0.24),
+    inset  2px  2px 0.5px -2.5px rgba(255,255,255,0.18),
+    inset -2px -2px 0.5px -2.5px rgba(255,255,255,0.92),
+    inset  1px  1px 1px   -0.5px rgba(255,255,255,0.68),
+    inset -1px -1px 1px   -0.5px rgba(255,255,255,0.60),
+    inset 0 0 10px 4px rgba(255,255,255,0.09),
+    0 0 24px rgba(0,0,0,0.13);
+}
+
+/* ── Glass sombre — sur fond crème ── */
+.btn-dark {
+  background: rgba(26,26,26,0.07);
+  color: var(--noir);
+  border: 1px solid rgba(26,26,26,0.13);
+  box-shadow:
+    0 2px 10px rgba(0,0,0,0.11),
+    inset  2px  2px 0.5px -2.5px rgba(0,0,0,0.88),
+    inset -2px -2px 0.5px -2.5px rgba(0,0,0,0.82),
+    inset  1px  1px 1px   -0.5px rgba(0,0,0,0.58),
+    inset -1px -1px 1px   -0.5px rgba(0,0,0,0.58),
+    inset 0 0 10px 4px rgba(0,0,0,0.06),
+    0 0 18px rgba(255,255,255,0.20);
+}
+.btn-dark:hover {
+  color: var(--noir);
+  background: rgba(26,26,26,0.13);
+  box-shadow:
+    0 3px 14px rgba(0,0,0,0.15),
+    inset  2px  2px 0.5px -2.5px rgba(0,0,0,0.90),
+    inset -2px -2px 0.5px -2.5px rgba(0,0,0,0.85),
+    inset  1px  1px 1px   -0.5px rgba(0,0,0,0.62),
+    inset -1px -1px 1px   -0.5px rgba(0,0,0,0.62),
+    inset 0 0 10px 4px rgba(0,0,0,0.09),
+    0 0 22px rgba(255,255,255,0.25);
+}
+
+/* ── Glass neutre — outline adaptatif ── */
+.btn-outline {
+  background: rgba(26,26,26,0.04);
+  color: var(--noir);
+  border: 1.5px solid rgba(26,26,26,0.20);
+  box-shadow:
+    0 2px 8px rgba(0,0,0,0.08),
+    inset  2px  2px 0.5px -2.5px rgba(0,0,0,0.78),
+    inset -2px -2px 0.5px -2.5px rgba(0,0,0,0.72),
+    inset  1px  1px 1px   -0.5px rgba(0,0,0,0.48),
+    inset -1px -1px 1px   -0.5px rgba(0,0,0,0.48),
+    inset 0 0 10px 4px rgba(0,0,0,0.05),
+    0 0 14px rgba(255,255,255,0.14);
+}
+.btn-outline:hover {
+  background: rgba(26,26,26,0.09);
+  color: inherit;
+}
 
 /* ── MARQUEE ── */
 .marquee-wrap {
