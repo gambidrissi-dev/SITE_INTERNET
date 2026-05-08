@@ -101,49 +101,6 @@ body > nav::after { display: none; }
 .nav-logo:hover { opacity: .85; transform: translateY(-1px); }
 .nav-logo-img { height: 20px; width: auto; display: block; }
 
-/* ── B — BREADCRUMB ── */
-#breadcrumb {
-  position: fixed; top: 62px; left: 50%; transform: translateX(-50%);
-  z-index: 490; display: flex; align-items: center; gap: 6px;
-  background: rgba(240,235,216,0.55);
-  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255,255,255,0.35);
-  border-radius: 999px; padding: 5px 16px;
-  pointer-events: all;
-}
-.bc-link {
-  font-family: var(--f-body); font-size: .6rem; font-weight: 600;
-  letter-spacing: .10em; text-transform: uppercase;
-  color: rgba(26,26,26,.45); text-decoration: none;
-  transition: color .2s;
-}
-.bc-link:hover { color: var(--noir); }
-.bc-sep { font-size: .55rem; color: rgba(26,26,26,.25); }
-.bc-current {
-  font-family: var(--f-body); font-size: .6rem; font-weight: 700;
-  letter-spacing: .10em; text-transform: uppercase;
-  color: rgba(26,26,26,.7);
-}
-
-/* ── D — FLÈCHE LATÉRALE gauche ── */
-#side-back {
-  position: fixed; left: 0; top: 50%; transform: translateY(-50%);
-  z-index: 490;
-  display: flex; align-items: center; justify-content: center;
-  width: 32px; height: 52px;
-  background: rgba(240,235,216,0.65);
-  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.4);
-  border-radius: 0 999px 999px 0;
-  color: rgba(26,26,26,.6);
-  cursor: none; pointer-events: all;
-  box-shadow: 2px 0 16px rgba(0,0,0,0.07);
-  transition: width .25s ease, color .2s, background .2s;
-}
-#side-back:hover {
-  width: 42px; color: var(--noir);
-  background: rgba(240,235,216,0.88);
-}
 
 /* ── PILULE BURGER ── */
 .nav-burger-btn {
