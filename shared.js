@@ -257,8 +257,9 @@ if (!isTouch) {
   const currentPage = location.pathname.split('/').pop() || 'index.html';
   const crumbs = PAGE_TREE[currentPage];
   if (crumbs) {
-    const bc = document.createElement('nav');
+    const bc = document.createElement('div');
     bc.id = 'breadcrumb';
+    bc.setAttribute('role', 'navigation');
     bc.setAttribute('aria-label', 'Fil d\'Ariane');
     bc.innerHTML = crumbs.map(([label, href], i) =>
       href && i < crumbs.length - 1
