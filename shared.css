@@ -71,77 +71,37 @@ body.hov #cursor-ring { width: 54px; height: 54px; }
 /* ── COLOR STRIPE ── */
 .stripe { display: none; }
 
-/* ── NAV (inner pages) — deux pilules flottantes ── */
+/* ── NAV (inner pages) ── */
 body > nav {
-  position: fixed; top: 16px; left: 20px; right: 20px; z-index: 500;
-  background: rgba(240,235,216,0.08);
-  border: 1px solid rgba(255,255,255,0.10);
-  border-radius: 999px;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  background: rgba(240,235,216,0.88);
+  backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+  border-bottom: 1px solid rgba(26,26,26,.08);
   display: flex; align-items: center; justify-content: space-between;
-  padding: 6px 6px; height: auto; overflow: visible;
-  pointer-events: none;
+  padding: 0 22px; height: 58px; overflow: visible;
 }
 body > nav::after { display: none; }
 
-/* ── PILULE LOGO ── */
 .nav-logo {
-  pointer-events: all;
   display: flex; align-items: center;
-  background: rgba(240,235,216,0.78);
-  backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
-  border: 1px solid rgba(255,255,255,0.55);
-  border-radius: 999px;
-  padding: 10px 20px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.09);
-  line-height: 1;
-  transition: opacity .2s, transform .2s;
+  line-height: 1; transition: opacity .2s;
 }
-.nav-logo:hover { opacity: .85; transform: translateY(-1px); }
-.nav-logo-img { height: 20px; width: auto; display: block; }
+.nav-logo:hover { opacity: .7; }
+.nav-logo-img { height: 22px; width: auto; display: block; }
 
-
-/* ── BREADCRUMB ── */
-#breadcrumb {
-  position: fixed; top: 62px; left: 50%; transform: translateX(-50%);
-  z-index: 490; display: flex; align-items: center; gap: 6px;
-  background: rgba(240,235,216,0.55);
-  border: 1px solid rgba(255,255,255,0.35);
-  border-radius: 999px; padding: 5px 16px;
-  white-space: nowrap;
-  pointer-events: none;
-}
-.bc-link { pointer-events: all; }
-.bc-link {
-  font-family: var(--f-body); font-size: .58rem; font-weight: 600;
-  letter-spacing: .10em; text-transform: uppercase;
-  color: rgba(26,26,26,.4); text-decoration: none;
-  transition: color .2s;
-}
-.bc-link:hover { color: var(--noir); }
-.bc-sep { font-size: .52rem; color: rgba(26,26,26,.22); }
-.bc-current {
-  font-family: var(--f-body); font-size: .58rem; font-weight: 700;
-  letter-spacing: .10em; text-transform: uppercase;
-  color: rgba(26,26,26,.65);
-}
-
-/* ── PILULE BURGER ── */
+/* ── BURGER BUTTON (inner pages) ── */
 .nav-burger-btn {
-  pointer-events: all;
+  width: 44px; height: 44px; background: none; border: none;
   display: flex; flex-direction: column; align-items: center;
-  justify-content: center; gap: 5px; cursor: none;
-  background: rgba(240,235,216,0.78);
-  backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
-  border: 1px solid rgba(255,255,255,0.55);
-  border-radius: 999px;
-  padding: 14px 18px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.09);
-  width: auto; height: auto;
-  position: relative;
-  transition: transform .2s, opacity .2s;
+  justify-content: center; gap: 5px; cursor: none; position: relative;
 }
-.nav-burger-btn:hover { transform: translateY(-1px); opacity: .85; }
-.nav-burger-btn.open  { opacity: .9; }
+.nav-burger-btn::before {
+  content: ''; position: absolute; inset: 0; border-radius: 50%;
+  background: rgba(26,26,26,.06); opacity: 0; transform: scale(0.6);
+  transition: opacity .22s ease, transform .28s cubic-bezier(.34,1.56,.64,1);
+}
+.nav-burger-btn:hover::before { opacity: 1; transform: scale(1); }
+.nav-burger-btn.open::before  { opacity: 1; transform: scale(1); }
 
 /* Lignes */
 .nav-burger-btn span {
