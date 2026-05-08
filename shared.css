@@ -69,10 +69,7 @@ img { display: block; width: 100%; }
 body.hov #cursor-ring { width: 54px; height: 54px; }
 
 /* ── COLOR STRIPE ── */
-.stripe {
-  position: fixed; top: 0; left: 0; right: 0; height: 4px; z-index: 600;
-  background: linear-gradient(90deg, var(--bleu) 25%, var(--jaune) 25% 50%, var(--vert) 50% 75%, var(--rouge) 75%);
-}
+.stripe { display: none; }
 
 /* ── NAV (inner pages) ── */
 body > nav {
