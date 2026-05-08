@@ -216,6 +216,11 @@ if (!isTouch) {
     nav.insertAdjacentElement('afterend', anchor);
   }
 
+  // Scroll — jonction visible en haut, disparaît au scroll
+  const onScroll = () => nav.classList.toggle('nav-scrolled', window.scrollY > 40);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll(); // état initial au chargement
+
   // Marquer la page courante active dans l'overlay
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   const pageToEnv = {

@@ -71,37 +71,57 @@ body.hov #cursor-ring { width: 54px; height: 54px; }
 /* ── COLOR STRIPE ── */
 .stripe { display: none; }
 
-/* ── NAV (inner pages) ── */
+/* ── NAV (inner pages) — pilules flottantes ── */
 body > nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
-  background: rgba(240,235,216,0.88);
-  backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
-  border-bottom: 1px solid rgba(26,26,26,.08);
+  position: fixed; top: 16px; left: 20px; right: 20px; z-index: 500;
+  /* Connecting bar : fond subtil SANS backdrop-filter (évite le bug pointer-events) */
+  background: rgba(243,239,215,0.20);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 999px;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 22px; height: 58px; overflow: visible;
+  padding: 5px; height: auto; overflow: visible;
+  pointer-events: none;
+  transition: background .4s ease, border-color .4s ease, box-shadow .4s ease;
 }
 body > nav::after { display: none; }
 
+/* Scrollé — la jonction disparaît, seules les pilules restent */
+body > nav.nav-scrolled {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+/* ── PILULE LOGO ── */
 .nav-logo {
+  pointer-events: all;
   display: flex; align-items: center;
+  background: rgba(243,239,215,0.85);
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: 999px; padding: 9px 18px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
   line-height: 1; transition: opacity .2s;
 }
-.nav-logo:hover { opacity: .7; }
-.nav-logo-img { height: 22px; width: auto; display: block; }
+.nav-logo:hover { opacity: .8; }
+.nav-logo-img { height: 20px; width: auto; display: block; }
 
-/* ── BURGER BUTTON (inner pages) ── */
+/* ── PILULE BURGER ── */
 .nav-burger-btn {
-  width: 44px; height: 44px; background: none; border: none;
+  pointer-events: all;
   display: flex; flex-direction: column; align-items: center;
-  justify-content: center; gap: 5px; cursor: none; position: relative;
+  justify-content: center; gap: 5px; cursor: none;
+  background: rgba(243,239,215,0.85);
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: 999px; padding: 13px 16px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  width: auto; height: auto; position: relative;
+  transition: opacity .2s;
 }
-.nav-burger-btn::before {
-  content: ''; position: absolute; inset: 0; border-radius: 50%;
-  background: rgba(26,26,26,.06); opacity: 0; transform: scale(0.6);
-  transition: opacity .22s ease, transform .28s cubic-bezier(.34,1.56,.64,1);
-}
-.nav-burger-btn:hover::before { opacity: 1; transform: scale(1); }
-.nav-burger-btn.open::before  { opacity: 1; transform: scale(1); }
+.nav-burger-btn::before { display: none; }
+.nav-burger-btn:hover { opacity: .8; }
+.nav-burger-btn.open  { opacity: .9; }
 
 /* Lignes */
 .nav-burger-btn span {
