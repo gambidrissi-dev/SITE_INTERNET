@@ -71,76 +71,67 @@ body.hov #cursor-ring { width: 54px; height: 54px; }
 /* ── COLOR STRIPE ── */
 .stripe { display: none; }
 
-/* ── NAV (inner pages) ── */
+/* ── NAV (inner pages) — deux pilules flottantes ── */
 body > nav {
-  position: fixed; top: 3px; left: 0; right: 0; z-index: 500;
-  background: rgba(240,235,216,0.88);
-  backdrop-filter: var(--blur);
-  -webkit-backdrop-filter: var(--blur);
-  border-bottom: 1px solid rgba(26,26,26,.08);
+  position: fixed; top: 16px; left: 20px; right: 20px; z-index: 500;
+  background: none; border: none; backdrop-filter: none;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 22px; height: 58px;
-  overflow: visible;
-}
-
-/* ── ENV INDICATOR — fine barre colorée sous la nav selon la page courante ── */
-body > nav::after {
-  content: '';
-  position: absolute; bottom: 0; left: 0; right: 0;
-  height: 2px;
-  background: var(--nav-env-color, transparent);
-  transition: background .4s ease;
+  padding: 0; height: auto; overflow: visible;
   pointer-events: none;
 }
-body > nav[data-env="e0"] { --nav-env-color: rgba(255,255,255,.55); }
-body > nav[data-env="e1"] { --nav-env-color: rgba(74,130,220,.75); }
-body > nav[data-env="e2"] { --nav-env-color: rgba(93,161,107,.75); }
-body > nav[data-env="e3"] { --nav-env-color: rgba(184,148,10,.75); }
-body > nav[data-env="e4"] { --nav-env-color: rgba(187,59,52,.75); }
+body > nav::after { display: none; }
+
+/* ── PILULE LOGO ── */
 .nav-logo {
+  pointer-events: all;
   display: flex; align-items: center;
-  line-height: 1; transition: opacity .2s;
+  background: rgba(240,235,216,0.78);
+  backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(255,255,255,0.55);
+  border-radius: 999px;
+  padding: 10px 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.09);
+  line-height: 1;
+  transition: opacity .2s, transform .2s;
 }
-.nav-logo:hover { opacity: .7; }
-/* Logo SVG img dans la nav */
-.nav-logo-img {
-  height: 22px; width: auto; display: block;
-}
+.nav-logo:hover { opacity: .85; transform: translateY(-1px); }
+.nav-logo-img { height: 20px; width: auto; display: block; }
 
-/* ── BACK BUTTON ── */
+/* ── BACK BUTTON — pilule flottante bas-gauche ── */
 .nav-back-btn {
-  display: flex; align-items: center; justify-content: center;
-  width: 36px; height: 36px; border-radius: 50%;
-  background: none; border: 1.5px solid rgba(26,26,26,.15);
+  position: fixed; bottom: 28px; left: 28px; z-index: 500;
+  pointer-events: all;
+  display: flex; align-items: center; gap: 8px;
+  background: rgba(240,235,216,0.82);
+  backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(255,255,255,0.55);
+  border-radius: 999px;
+  padding: 10px 18px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.10);
   cursor: none; color: var(--noir);
-  transition: background .2s, border-color .2s, transform .2s;
-  flex-shrink: 0;
+  font-family: var(--f-body); font-size: .72rem; font-weight: 600;
+  letter-spacing: .08em; text-transform: uppercase;
+  transition: transform .2s, opacity .2s;
 }
-.nav-back-btn:hover {
-  background: rgba(26,26,26,.06);
-  border-color: rgba(26,26,26,.3);
-  transform: translateX(-2px);
-}
+.nav-back-btn:hover { transform: translateY(-2px); opacity: .85; }
 
-/* ── BURGER BUTTON (inner pages) ── */
+/* ── PILULE BURGER ── */
 .nav-burger-btn {
-  width: 44px; height: 44px; background: none; border: none;
+  pointer-events: all;
   display: flex; flex-direction: column; align-items: center;
   justify-content: center; gap: 5px; cursor: none;
+  background: rgba(240,235,216,0.78);
+  backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(255,255,255,0.55);
+  border-radius: 999px;
+  padding: 14px 18px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.09);
+  width: auto; height: auto;
   position: relative;
+  transition: transform .2s, opacity .2s;
 }
-/* Cercle hover */
-.nav-burger-btn::before {
-  content: '';
-  position: absolute; inset: 0;
-  border-radius: 50%;
-  background: #F3EFD7;
-  opacity: 0;
-  transform: scale(0.6);
-  transition: opacity .22s ease, transform .28s cubic-bezier(.34,1.56,.64,1);
-}
-.nav-burger-btn:hover::before { opacity: .10; transform: scale(1); }
-.nav-burger-btn.open::before  { opacity: .06; transform: scale(1); }
+.nav-burger-btn:hover { transform: translateY(-1px); opacity: .85; }
+.nav-burger-btn.open  { opacity: .9; }
 
 /* Lignes */
 .nav-burger-btn span {

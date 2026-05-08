@@ -233,17 +233,16 @@ if (!isTouch) {
     nav.setAttribute('data-env', activeEnvClass);
   }
 
-  /* ── BOUTON RETOUR — injecté entre le logo et le burger ── */
+  /* ── BOUTON RETOUR — pilule flottante bas-gauche ── */
   const backBtn = document.createElement('button');
   backBtn.className = 'nav-back-btn';
   backBtn.setAttribute('aria-label', 'Retour');
-  backBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 4L6 9L11 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  backBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 18 18" fill="none"><path d="M11 4L6 9L11 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Retour';
   backBtn.addEventListener('click', () => {
     if (window.history.length > 1) { window.history.back(); }
     else { window.location.href = 'index.html'; }
   });
-  const navLogo = nav.querySelector('.nav-logo');
-  if (navLogo) navLogo.after(backBtn);
+  document.body.appendChild(backBtn);
 
   const burgerBtn = document.getElementById('nav-burger');
   if (!burgerBtn) return;
