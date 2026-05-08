@@ -546,10 +546,9 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
 
 /* ── WORD REVEAL — h1 mot par mot, spring (équivalent Framer Motion stagger) ── */
 (function initWordReveal() {
-  /* Parcourt les noeuds texte d'un élément, emballe chaque mot dans un .rw-word */
+  /* Parcourt les noeuds texte, emballe chaque mot dans un .rw-word */
   function splitWords(el) {
-    /* Si cet h1 avait .sr, le supprimer — le word reveal le remplace */
-    el.classList.remove('sr');
+    el.classList.remove('sr'); /* word reveal remplace le scroll reveal global */
 
     const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
     const nodes = [];
@@ -557,13 +556,11 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
     while ((n = walker.nextNode())) nodes.push(n);
 
     nodes.forEach(tn => {
-      /* Découpe sur espaces en conservant les espaces comme séparateurs */
       const parts = tn.textContent.split(/(\s+)/);
       const frag  = document.createDocumentFragment();
       parts.forEach(part => {
         if (!part) return;
         if (/^\s+$/.test(part)) {
-          /* Espace pur → noeud texte brut */
           frag.appendChild(document.createTextNode(part));
         } else {
           const span = document.createElement('span');
@@ -576,18 +573,24 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
     });
   }
 
+  function revealWords(h) {
+    /* Double rAF : s'assure que le browser a peint opacity:0 avant de déclencher
+       la transition — sans ça l'état initial est ignoré et on voit juste un flash */
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      h.querySelectorAll('.rw-word').forEach((w, i) => {
+        setTimeout(() => w.classList.add('in'), i * 80);
+      });
+    }));
+  }
+
   document.querySelectorAll('h1').forEach(h => {
     splitWords(h);
 
-    /* IntersectionObserver : déclenche une fois que le titre entre dans le viewport */
     const obs = new IntersectionObserver(([entry]) => {
       if (!entry.isIntersecting) return;
       obs.unobserve(h);
-      h.querySelectorAll('.rw-word').forEach((w, i) => {
-        /* Stagger 75 ms par mot — proche du delay:0.1 Framer Motion */
-        setTimeout(() => w.classList.add('in'), i * 75);
-      });
-    }, { threshold: 0.05, rootMargin: '-30px' });
+      revealWords(h);
+    }, { threshold: 0, rootMargin: '0px' });
 
     obs.observe(h);
   });
