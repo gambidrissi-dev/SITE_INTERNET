@@ -783,19 +783,96 @@ body.page-entering-done #page-transition { opacity: 0; }
 .has-shapes { position: relative; overflow: hidden; }
 .has-shapes > *:not(.section-shape) { position: relative; z-index: 1; }
 
-/* ── HERO SHAPES ENTRANCE ANIMATION ── */
+/* ── HERO SHAPES ENTRANCE + BREATHE ANIMATION ── */
 @keyframes hsFadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
 }
-.hs-wrap > div {
-  animation: hsFadeIn .9s ease both;
+@keyframes shapeFloat {
+  0%, 100% { transform: rotate(var(--rot, 0deg)) translateY(0px); }
+  50%       { transform: rotate(calc(var(--rot, 0deg) + 2deg)) translateY(-18px); }
 }
-.hs-wrap > div:nth-child(1) { animation-delay: .08s; }
-.hs-wrap > div:nth-child(2) { animation-delay: .20s; }
-.hs-wrap > div:nth-child(3) { animation-delay: .32s; }
-.hs-wrap > div:nth-child(4) { animation-delay: .44s; }
+.hs-wrap > div {
+  animation:
+    hsFadeIn  0.9s ease                 both,
+    shapeFloat 8s  ease-in-out infinite;
+}
+.hs-wrap > div:nth-child(1) { animation-delay: 0.08s, 0.0s; }
+.hs-wrap > div:nth-child(2) { animation-delay: 0.20s, 1.6s; }
+.hs-wrap > div:nth-child(3) { animation-delay: 0.32s, 3.2s; }
+.hs-wrap > div:nth-child(4) { animation-delay: 0.44s, 4.8s; }
 
+.section-shape {
+  animation: shapeFloat 11s ease-in-out infinite;
+  animation-delay: 0.8s;
+}
+
+/* ── BUTTON SHIMMER (btn-primary uniquement, injecté par JS) ── */
+@keyframes btnShimmer {
+  0%   { transform: translateX(-120%) skewX(-18deg); }
+  100% { transform: translateX(260%)  skewX(-18deg); }
+}
+.btn-shimmer {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  border-radius: inherit; overflow: hidden;
+}
+.btn-shimmer::after {
+  content: '';
+  position: absolute; top: -20%; left: 0; width: 35%; height: 140%;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255,255,255,0.18) 40%,
+    rgba(255,255,255,0.30) 50%,
+    rgba(255,255,255,0.18) 60%,
+    transparent 100%
+  );
+  animation: btnShimmer 3.4s ease-in-out infinite;
+  animation-delay: 1.6s;
+}
+
+/* ── BUTTON SPECULAR HIGHLIGHT (suit la souris via --sx/--sy) ── */
+.btn::after {
+  content: '';
+  position: absolute; inset: 0; border-radius: inherit;
+  background: radial-gradient(
+    circle at var(--sx, 50%) var(--sy, 30%),
+    rgba(255,255,255,0.32) 0%,
+    transparent 58%
+  );
+  pointer-events: none; z-index: 2;
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+.btn:hover::after { opacity: 1; }
+
+/* ── BUTTON RIPPLE (au pointerdown) ── */
+@keyframes rippleExpand {
+  from { transform: scale(0); opacity: 0.50; }
+  to   { transform: scale(5); opacity: 0; }
+}
+.btn-ripple {
+  position: absolute; border-radius: 50%;
+  width: 60px; height: 60px;
+  background: rgba(255,255,255,0.38);
+  pointer-events: none; z-index: 3;
+  animation: rippleExpand 0.70s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* ── HERO REVEAL ORCHESTRATED (labels, paragraphes, CTA) ── */
+@keyframes heroReveal {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-reveal {
+  opacity: 0;
+  animation: heroReveal 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* ── PREFERS-REDUCED-MOTION ── */
 @media (prefers-reduced-motion: reduce) {
-  .hs-wrap > div { animation: none; }
+  .hs-wrap > div  { animation: none; }
+  .section-shape  { animation: none; }
+  .btn-shimmer::after { animation: none; }
+  .btn-ripple     { animation: none; }
+  .hero-reveal    { animation: none; opacity: 1; }
 }

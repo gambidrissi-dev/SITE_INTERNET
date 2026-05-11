@@ -502,13 +502,8 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
 
   cfg.shapes.forEach(({ key, x, y, size, rot }) => {
     const div = document.createElement('div');
-    div.style.cssText = `
-      position:absolute;
-      left:${x}%; top:${y}%;
-      width:${size}vw;
-      transform:rotate(${rot}deg) translateZ(0);
-      color:${cfg.color};
-    `;
+    div.style.cssText = `position:absolute;left:${x}%;top:${y}%;width:${size}vw;color:${cfg.color};`;
+    div.style.setProperty('--rot', rot + 'deg');
     div.innerHTML = `<svg viewBox="0 0 750 450" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;">${SHAPE_SVG[key]}</svg>`;
     wrap.appendChild(div);
   });
@@ -558,7 +553,8 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
   target.classList.add('has-shapes');
   const div = document.createElement('div');
   div.className = 'section-shape';
-  div.style.cssText = `right:-5%;bottom:-10%;width:28vw;transform:rotate(-8deg);color:${color};`;
+  div.style.cssText = `right:-5%;bottom:-10%;width:28vw;color:${color};`;
+  div.style.setProperty('--rot', '-8deg');
   div.innerHTML = `<svg viewBox="0 0 750 450" fill="currentColor" xmlns="http://www.w3.org/2000/svg">${SHAPE_SVG[key]}</svg>`;
   target.appendChild(div);
 })();
@@ -612,5 +608,73 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
     }, { threshold: 0, rootMargin: '0px' });
 
     obs.observe(h);
+  });
+})();
+
+/* ── BUTTON SHIMMER — injecte un span .btn-shimmer dans chaque .btn-primary ── */
+(function injectBtnShimmer() {
+  document.querySelectorAll('.btn.btn-primary').forEach(btn => {
+    if (btn.querySelector('.btn-shimmer')) return;
+    const shimmer = document.createElement('span');
+    shimmer.className = 'btn-shimmer';
+    shimmer.setAttribute('aria-hidden', 'true');
+    btn.appendChild(shimmer);
+  });
+})();
+
+/* ── BUTTON INTERACTIONS — specular highlight + magnetic pull + ripple on click ── */
+(function initBtnInteractions() {
+  if (window.matchMedia('(pointer: coarse)').matches) return; /* désactiver sur touch */
+
+  document.querySelectorAll('.btn').forEach(btn => {
+
+    /* Specular + magnetic */
+    btn.addEventListener('pointermove', e => {
+      const r  = btn.getBoundingClientRect();
+      const sx = ((e.clientX - r.left) / r.width)  * 100;
+      const sy = ((e.clientY - r.top)  / r.height) * 100;
+      btn.style.setProperty('--sx', sx + '%');
+      btn.style.setProperty('--sy', sy + '%');
+
+      /* Magnetic : jusqu'à 7px d'attraction vers le curseur */
+      const dx = ((e.clientX - r.left) - r.width  / 2) * 0.12;
+      const dy = ((e.clientY - r.top)  - r.height / 2) * 0.12;
+      btn.style.transform = `scale(1.04) translate(${dx}px, ${dy}px)`;
+    });
+
+    btn.addEventListener('pointerleave', () => {
+      btn.style.transform = '';
+      btn.style.removeProperty('--sx');
+      btn.style.removeProperty('--sy');
+    });
+
+    /* Ripple au clic */
+    btn.addEventListener('pointerdown', e => {
+      if (e.button !== 0 && e.button !== undefined) return;
+      const r = btn.getBoundingClientRect();
+      const ripple = document.createElement('span');
+      ripple.className = 'btn-ripple';
+      ripple.style.left = (e.clientX - r.left  - 30) + 'px';
+      ripple.style.top  = (e.clientY - r.top   - 30) + 'px';
+      btn.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 750);
+    });
+  });
+})();
+
+/* ── HERO REVEAL ORCHESTRATED — labels, paragraphes, CTA (pas h1 qui a son propre anim) ── */
+(function initHeroReveal() {
+  const hero = document.querySelector('.hero, .atelier-hero, .bdc-hero, .media-hero, .collectif-hero');
+  if (!hero) return;
+
+  const selectors = '.s-label, .hero-tag, .hero-meta, .hero-sub, p, .btn, .hero-cta, h2, .hero-badge';
+  const els = hero.querySelectorAll(selectors);
+  if (!els.length) return;
+
+  els.forEach((el, i) => {
+    /* Ne pas interférer avec les éléments déjà animés autrement */
+    if (el.closest('.rw-word')) return;
+    el.classList.add('hero-reveal');
+    el.style.animationDelay = (0.15 + i * 0.11) + 's';
   });
 })();
