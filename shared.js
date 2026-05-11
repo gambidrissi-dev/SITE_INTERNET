@@ -241,7 +241,12 @@ if (!isTouch) {
   onScroll(); // état initial au chargement
 
   // Marquer la page courante active dans l'overlay
-  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  // cleanUrls:true dans vercel.json supprime le .html — on le réinjecte si absent
+  const currentPage = (() => {
+    let p = window.location.pathname.split('/').pop() || 'index';
+    if (p && !p.includes('.')) p += '.html';
+    return p;
+  })();
   const pageToEnv = {
     'collectif.html': 'e0',
     'studio.html': 'e1', 'projets.html': 'e1', 'services.html': 'e1', 'projet.html': 'e1',
