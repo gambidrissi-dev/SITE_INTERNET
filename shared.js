@@ -258,6 +258,76 @@ if (!isTouch) {
   }
 
 
+  /* ── PILL CONTEXTUELLE RETOUR (sous-pages uniquement) ── */
+  const PARENT_MAP = {
+    'projets.html':           { href: 'studio.html',        label: 'Le Studio',      env: 'e1' },
+    'services.html':          { href: 'studio.html',        label: 'Le Studio',      env: 'e1' },
+    'atelier-projets.html':   { href: 'atelier.html',       label: "L'Atelier",      env: 'e2' },
+    'atelier-services.html':  { href: 'atelier.html',       label: "L'Atelier",      env: 'e2' },
+    'atelier-drops.html':     { href: 'atelier.html',       label: "L'Atelier",      env: 'e2' },
+    'bleu-cabinets.html':     { href: 'bleu-de-cobalt.html', label: 'Bleu de Cobalt', env: 'e3' },
+    'bleu-particuliers.html': { href: 'bleu-de-cobalt.html', label: 'Bleu de Cobalt', env: 'e3' },
+    'bleu-programme.html':    { href: 'bleu-de-cobalt.html', label: 'Bleu de Cobalt', env: 'e3' },
+    'bleu-projets.html':      { href: 'bleu-de-cobalt.html', label: 'Bleu de Cobalt', env: 'e3' },
+    'media-journal.html':     { href: 'media.html',          label: 'Le Média',       env: 'e4' },
+  };
+  const parentInfo = PARENT_MAP[currentPage];
+  if (parentInfo) {
+    const backPill = document.createElement('a');
+    backPill.href = parentInfo.href;
+    backPill.className = 'nav-back-pill';
+    backPill.setAttribute('data-env', parentInfo.env);
+    backPill.setAttribute('aria-label', 'Retour vers ' + parentInfo.label);
+    backPill.innerHTML =
+      '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2L4 6L8 10"/></svg>' +
+      '<span class="nav-back-label">' + parentInfo.label + '</span>';
+    const burger = nav.querySelector('.nav-burger-btn');
+    if (burger) nav.insertBefore(backPill, burger);
+    else nav.appendChild(backPill);
+  }
+
+  /* ── ACCORDÉON OVERLAY MOBILE — sous-liens en chips ── */
+  (function initMobileAccordion() {
+    overlay.querySelectorAll('.lg-strip').forEach(strip => {
+      const linksEl = strip.querySelector('.lg-strip-links');
+      if (!linksEl) return;
+
+      /* Chevron dans strip-primary */
+      const primary = strip.querySelector('.lg-strip-primary');
+      if (primary) {
+        const chev = document.createElement('span');
+        chev.className = 'lg-strip-chevron';
+        chev.setAttribute('aria-hidden', 'true');
+        chev.textContent = '›';
+        primary.appendChild(chev);
+      }
+
+      /* Chips extraites des sous-liens existants */
+      const chips = document.createElement('div');
+      chips.className = 'lg-strip-chips';
+      linksEl.querySelectorAll('a').forEach(a => {
+        const chip = document.createElement('a');
+        chip.href = a.href;
+        chip.className = 'lg-strip-chip';
+        chip.textContent = a.textContent.trim();
+        chips.appendChild(chip);
+      });
+      strip.appendChild(chips);
+
+      /* Toggle accordéon — mobile seulement, clic sur le primary */
+      if (primary) {
+        primary.addEventListener('click', e => {
+          if (window.innerWidth > 768) return; /* desktop → navigation normale */
+          e.preventDefault();
+          const isOpen = strip.classList.contains('expanded');
+          /* Fermer les autres */
+          overlay.querySelectorAll('.lg-strip.expanded').forEach(s => s.classList.remove('expanded'));
+          if (!isOpen) strip.classList.add('expanded');
+        });
+      }
+    });
+  })();
+
   const burgerBtn = document.getElementById('nav-burger');
   if (!burgerBtn) return;
 
