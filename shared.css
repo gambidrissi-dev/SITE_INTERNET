@@ -183,6 +183,21 @@ body > nav.nav-scrolled {
 .nav-burger-btn:hover { opacity: .8; }
 .nav-burger-btn.open  { opacity: .9; }
 
+/* ── DOT D'ENVIRONNEMENT sur la pill burger ── */
+.nav-burger-btn::after {
+  content: '';
+  position: absolute; bottom: 7px; right: 7px;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: transparent;
+  transition: background .3s ease, box-shadow .3s ease;
+}
+/* Couleur selon l'env de la page courante (data-env sur body > nav) */
+body > nav[data-env="e0"] .nav-burger-btn::after { background: rgba(255,255,255,0.7); }
+body > nav[data-env="e1"] .nav-burger-btn::after { background: #4A82DC; box-shadow: 0 0 6px rgba(74,130,220,.6); }
+body > nav[data-env="e2"] .nav-burger-btn::after { background: #5DA16B; box-shadow: 0 0 6px rgba(93,161,107,.6); }
+body > nav[data-env="e3"] .nav-burger-btn::after { background: #F1CB4F; box-shadow: 0 0 6px rgba(241,203,79,.5); }
+body > nav[data-env="e4"] .nav-burger-btn::after { background: #BB3B34; box-shadow: 0 0 6px rgba(187,59,52,.6); }
+
 /* Lignes */
 .nav-burger-btn span {
   display: block; height: 1.5px;
