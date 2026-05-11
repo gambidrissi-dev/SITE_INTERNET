@@ -972,21 +972,7 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
   })();
 })();
 
-/* ── HERO H1 GRADIENT ANIMÉ ── */
-(function initGradientText() {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  /* Cible le premier h1 dans le hero, hors word-reveal (pour ne pas casser l'anim) */
-  const hero = document.querySelector('.hero, .atelier-hero, .bdc-hero, .media-hero, .collectif-hero');
-  if (!hero) return;
-
-  const h1 = hero.querySelector('h1');
-  if (!h1) return;
-
-  /* Si le h1 contient un word-reveal, on applique sur les spans directs uniquement
-     via une classe sur le h1 lui-même (CSS background-clip) */
-  h1.classList.add('hero-gradient-text');
-})();
+/* initGradientText supprimé — background-clip:text rend le h1 invisible sur fonds colorés */
 
 /* ── COUNTER ANIMATION — éléments [data-count="N"] ── */
 (function initCounters() {

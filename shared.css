@@ -1003,25 +1003,7 @@ body.page-entering-done #page-transition { opacity: 0; }
   100% { opacity: 0;    transform: translate(-50%, -50%) scale(0.2); }
 }
 
-/* ── HERO H1 GRADIENT ANIMÉ ── */
-.hero-gradient-text {
-  background: linear-gradient(
-    110deg,
-    var(--noir) 0%,
-    var(--bleu) 30%,
-    var(--noir) 55%,
-    var(--noir) 100%
-  );
-  background-size: 250% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradientSlide 5s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
-}
-@keyframes gradientSlide {
-  0%   { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
-}
+/* .hero-gradient-text désactivé — incompatible avec texte blanc sur fonds colorés */
 
 /* ── COUNTER ANIMATION ── */
 [data-count] { font-variant-numeric: tabular-nums; }
