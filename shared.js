@@ -921,6 +921,165 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
   document.querySelectorAll('.section, section').forEach(s => io.observe(s));
 })();
 
+/* ── SCROLL PROGRESS BAR ── */
+(function initScrollProgress() {
+  const bar = document.createElement('div');
+  bar.id = 'scroll-progress';
+  document.body.appendChild(bar);
+
+  let ticking = false;
+  function update() {
+    const scrolled = window.scrollY;
+    const total    = document.documentElement.scrollHeight - window.innerHeight;
+    const pct      = total > 0 ? (scrolled / total) * 100 : 0;
+    bar.style.width = pct.toFixed(2) + '%';
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+
+  update(); /* état initial */
+})();
+
+/* ── CURSOR TRAIL PARTICLES ── */
+(function initCursorTrail() {
+  if (isTouch) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  let lastX = 0, lastY = 0, frameCount = 0;
+  const INTERVAL = 3; /* 1 particule tous les N frames */
+
+  document.addEventListener('mousemove', e => {
+    lastX = e.clientX; lastY = e.clientY;
+  });
+
+  (function trailLoop() {
+    frameCount++;
+    if (frameCount % INTERVAL === 0) {
+      const dot = document.createElement('div');
+      dot.className = 'cursor-trail';
+      dot.style.left = lastX + 'px';
+      dot.style.top  = lastY + 'px';
+      /* Légère variation de taille */
+      const s = 0.5 + Math.random() * 0.8;
+      dot.style.transform = `translate(-50%,-50%) scale(${s.toFixed(2)})`;
+      document.body.appendChild(dot);
+      setTimeout(() => dot.remove(), 580);
+    }
+    requestAnimationFrame(trailLoop);
+  })();
+})();
+
+/* ── HERO H1 GRADIENT ANIMÉ ── */
+(function initGradientText() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  /* Cible le premier h1 dans le hero, hors word-reveal (pour ne pas casser l'anim) */
+  const hero = document.querySelector('.hero, .atelier-hero, .bdc-hero, .media-hero, .collectif-hero');
+  if (!hero) return;
+
+  const h1 = hero.querySelector('h1');
+  if (!h1) return;
+
+  /* Si le h1 contient un word-reveal, on applique sur les spans directs uniquement
+     via une classe sur le h1 lui-même (CSS background-clip) */
+  h1.classList.add('hero-gradient-text');
+})();
+
+/* ── COUNTER ANIMATION — éléments [data-count="N"] ── */
+(function initCounters() {
+  const els = document.querySelectorAll('[data-count]');
+  if (!els.length) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    els.forEach(el => { el.textContent = el.dataset.count; });
+    return;
+  }
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el     = entry.target;
+      const target = parseFloat(el.dataset.count);
+      const suffix = el.dataset.suffix || '';
+      const dur    = 1600; /* ms */
+      const start  = performance.now();
+
+      function tick(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / dur, 1);
+        /* Ease out cubic */
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = target * eased;
+        el.textContent = (Number.isInteger(target)
+          ? Math.round(value)
+          : value.toFixed(1)) + suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+      io.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+
+  els.forEach(el => io.observe(el));
+})();
+
+/* ── IMAGE PARALLAX IN-CARD — object-position suit le scroll ── */
+(function initCardImgParallax() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const CARD_SEL = '.proj-card, .feat-card, .atelier-card';
+  const cards    = [...document.querySelectorAll(CARD_SEL)];
+  if (!cards.length) return;
+
+  let ticking = false;
+
+  function update() {
+    const vh = window.innerHeight;
+    cards.forEach(card => {
+      const img = card.querySelector('img');
+      if (!img) return;
+      const r   = card.getBoundingClientRect();
+      /* Progression de la card dans le viewport : 0 (bas) → 1 (haut) */
+      const progress = 1 - (r.bottom / (vh + r.height));
+      /* object-position Y : 55% (card en bas) → 45% (card en haut), ±5% */
+      const py = 50 + (progress - 0.5) * -10;
+      img.style.setProperty('--py', py.toFixed(1) + '%');
+    });
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+
+  update();
+})();
+
+/* ── MAGNETIC NAV LINKS (overlay) ── */
+(function initMagneticNav() {
+  if (isTouch) return;
+
+  document.querySelectorAll('.lg-strip-name').forEach(el => {
+    const strip = el.closest('.lg-strip');
+    if (!strip) return;
+
+    strip.addEventListener('pointermove', e => {
+      const r  = el.getBoundingClientRect();
+      const cx = r.left + r.width  / 2;
+      const cy = r.top  + r.height / 2;
+      const dx = (e.clientX - cx) * 0.18;
+      const dy = (e.clientY - cy) * 0.18;
+      el.style.transform = `translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px)`;
+    });
+
+    strip.addEventListener('pointerleave', () => {
+      el.style.transform = '';
+    });
+  });
+})();
+
 /* ── TEXT SCRAMBLE — titres de l'overlay nav au hover ── */
 (function initTextScramble() {
   const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';

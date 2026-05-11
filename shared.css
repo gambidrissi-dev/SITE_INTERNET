@@ -973,6 +973,94 @@ body.page-entering-done #page-transition { opacity: 0; }
   animation: heroReveal 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
+/* ── SCROLL PROGRESS BAR ── */
+#scroll-progress {
+  position: fixed; top: 0; left: 0; z-index: 10000;
+  height: 2px; width: 0%;
+  background: linear-gradient(90deg, var(--bleu) 0%, #8BB8F0 50%, var(--bleu) 100%);
+  background-size: 200% 100%;
+  animation: progressShimmer 2.4s linear infinite;
+  pointer-events: none;
+  transform-origin: left center;
+  transition: width 0.08s linear;
+}
+@keyframes progressShimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── CURSOR TRAIL PARTICLES ── */
+.cursor-trail {
+  position: fixed; pointer-events: none; z-index: 9990;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--bleu);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  animation: trailFade 0.55s ease-out forwards;
+}
+@keyframes trailFade {
+  0%   { opacity: 0.45; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0;    transform: translate(-50%, -50%) scale(0.2); }
+}
+
+/* ── HERO H1 GRADIENT ANIMÉ ── */
+.hero-gradient-text {
+  background: linear-gradient(
+    110deg,
+    var(--noir) 0%,
+    var(--bleu) 30%,
+    var(--noir) 55%,
+    var(--noir) 100%
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientSlide 5s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+}
+@keyframes gradientSlide {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* ── COUNTER ANIMATION ── */
+[data-count] { font-variant-numeric: tabular-nums; }
+
+/* ── MAGNETIC LINKS overlay nav ── */
+.lg-strip-name {
+  display: inline-block;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ── UNDERLINE MORPH — liens footer + inner pages ── */
+.footer-nav a,
+.lg-footer-link,
+.nav-back-pill {
+  position: relative;
+}
+.footer-nav a::after,
+.lg-footer-link::after {
+  content: '';
+  position: absolute; bottom: -2px; left: 0;
+  width: 0%; height: 1px;
+  background: currentColor;
+  transition: width 0.30s cubic-bezier(0.34, 1.20, 0.64, 1);
+}
+.footer-nav a:hover::after,
+.lg-footer-link:hover::after { width: 100%; }
+
+/* ── MARQUEE HOVER RALENTI ── */
+.marquee-wrap:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* ── IMAGE PARALLAX IN-CARD (object-position bougé par JS via --py) ── */
+.proj-card .proj-img img,
+.feat-card .feat-img img,
+.atelier-card .atelier-img img {
+  object-position: center var(--py, 50%);
+}
+
 /* ── SECTION REVEAL (IntersectionObserver, injecté par JS) ── */
 @keyframes revealUp {
   from { opacity: 0; transform: translateY(28px); }
@@ -1058,5 +1146,10 @@ body.page-entering-done #page-transition { opacity: 0; }
   .btn-ripple     { animation: none; }
   .hero-reveal    { animation: none; opacity: 1; }
   .sl-letter      { animation: none; opacity: 1; }
+  .sr-el          { opacity: 1; }
+  .sr-el.sr-in    { animation: none; }
   .proj-card, .feat-card, .atelier-card, .media-card { will-change: auto; }
+  #scroll-progress { animation: none; }
+  .cursor-trail   { display: none; }
+  .hero-gradient-text { animation: none; background: none; -webkit-text-fill-color: inherit; }
 }
