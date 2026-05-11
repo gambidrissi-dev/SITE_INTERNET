@@ -13,7 +13,7 @@
       "duree": "8 mois",
       "mission": "Architecture intérieure · Mobilier sur mesure",
       "client": "Particulier",
-      "cover": "assets/STUDIO/PROJETS/ANGOULEME/cover.png",
+      "cover": "assets/STUDIO/PROJETS/ANGOULEME/cover.webp",
       "intro": "Un appartement traversant repensé autour d'une seule règle : laisser respirer la lumière du sud. Cloisons retirées, sols unifiés, mobilier intégré.",
       "brief": [
         "Le client venait d'acheter un T4 mal compartimenté dans un immeuble années 30. La demande tenait en une phrase : « ouvrir, sans dénaturer ».",
@@ -27,11 +27,11 @@
         { "titre": "Chantier", "txt": "Suivi hebdomadaire pendant six mois, deux entreprises générales coordonnées en direct, livraison du mobilier en dernière phase." }
       ],
       "gallery": [
-        "assets/STUDIO/PROJETS/ANGOULEME/GALLERY/01.png",
-        "assets/STUDIO/PROJETS/ANGOULEME/GALLERY/02.png",
-        "assets/STUDIO/PROJETS/ANGOULEME/GALLERY/03.png",
-        "assets/STUDIO/PROJETS/ANGOULEME/GALLERY/04.png",
-        "assets/STUDIO/PROJETS/ANGOULEME/GALLERY/05.png"
+        "assets/STUDIO/PROJETS/ANGOULEME/GALLERY/01.webp",
+        "assets/STUDIO/PROJETS/ANGOULEME/GALLERY/02.webp",
+        "assets/STUDIO/PROJETS/ANGOULEME/GALLERY/03.webp",
+        "assets/STUDIO/PROJETS/ANGOULEME/GALLERY/04.webp",
+        "assets/STUDIO/PROJETS/ANGOULEME/GALLERY/05.webp"
       ],
       "quote": "Un appartement bien dessiné, c'est un appartement où l'on ne remarque plus le dessin."
     },
@@ -48,7 +48,7 @@
       "duree": "10 mois",
       "mission": "Architecture intérieure · Direction de chantier",
       "client": "Studio de création indépendant",
-      "cover": "assets/STUDIO/PROJETS/BORDEAUX/cover.png",
+      "cover": "assets/STUDIO/PROJETS/BORDEAUX/cover.webp",
       "intro": "Un ancien entrepôt de stockage des Bassins à flot transformé en atelier mixte — bureaux, espace de tournage, zone de prototypage bois.",
       "brief": [
         "Le client cherchait un lieu unique pouvant accueillir cinq postes de travail, un espace de tournage modulable et un coin atelier pour les prototypes — sans renoncer à la lumière naturelle.",
@@ -62,11 +62,11 @@
         { "titre": "Acoustique", "txt": "Panneaux acoustiques en feutre recyclé suspendus sous les sheds — invisibles depuis l'entrée." }
       ],
       "gallery": [
-        "assets/STUDIO/PROJETS/BORDEAUX/GALLERY/01.png",
-        "assets/STUDIO/PROJETS/BORDEAUX/GALLERY/02.png",
-        "assets/STUDIO/PROJETS/BORDEAUX/GALLERY/03.png",
-        "assets/STUDIO/PROJETS/BORDEAUX/GALLERY/04.png",
-        "assets/STUDIO/PROJETS/BORDEAUX/GALLERY/05.png"
+        "assets/STUDIO/PROJETS/BORDEAUX/GALLERY/01.webp",
+        "assets/STUDIO/PROJETS/BORDEAUX/GALLERY/02.webp",
+        "assets/STUDIO/PROJETS/BORDEAUX/GALLERY/03.webp",
+        "assets/STUDIO/PROJETS/BORDEAUX/GALLERY/04.webp",
+        "assets/STUDIO/PROJETS/BORDEAUX/GALLERY/05.webp"
       ],
       "quote": "Un atelier ne se cloisonne pas, il se zone. La frontière, c'est la lumière."
     },
@@ -83,7 +83,7 @@
       "duree": "5 mois",
       "mission": "Design d'espace · Mobilier sur mesure · Identité visuelle",
       "client": "Marque indépendante",
-      "cover": "assets/STUDIO/PROJETS/BAYONNE/cover.png",
+      "cover": "assets/STUDIO/PROJETS/BAYONNE/cover.webp",
       "intro": "Une boutique de centre-ville pensée comme un appartement : entrer, traîner, essayer, repartir. Pas de comptoir frontal, pas de portants alignés.",
       "brief": [
         "La cliente, créatrice de la marque depuis huit ans, voulait sortir du code « boutique » classique : moins de portants, moins d'éclairage froid, plus de matières.",
@@ -97,11 +97,11 @@
         { "titre": "Identité", "txt": "Refonte de la signalétique vitrine et du fronton, en lien avec le mobilier — même typographie, mêmes laitons." }
       ],
       "gallery": [
-        "assets/STUDIO/PROJETS/BAYONNE/GALLERY/01.png",
-        "assets/STUDIO/PROJETS/BAYONNE/GALLERY/02.png",
-        "assets/STUDIO/PROJETS/BAYONNE/GALLERY/03.png",
-        "assets/STUDIO/PROJETS/BAYONNE/GALLERY/04.png",
-        "assets/STUDIO/PROJETS/BAYONNE/GALLERY/05.png"
+        "assets/STUDIO/PROJETS/BAYONNE/GALLERY/01.webp",
+        "assets/STUDIO/PROJETS/BAYONNE/GALLERY/02.webp",
+        "assets/STUDIO/PROJETS/BAYONNE/GALLERY/03.webp",
+        "assets/STUDIO/PROJETS/BAYONNE/GALLERY/04.webp",
+        "assets/STUDIO/PROJETS/BAYONNE/GALLERY/05.webp"
       ],
       "quote": "Une boutique réussie, c'est un lieu où l'on entre par curiosité et où l'on reste par confort."
     },
@@ -118,7 +118,7 @@
       "duree": "12 mois (en cours)",
       "mission": "Architecture intérieure · Mobilier intégré",
       "client": "Particulier",
-      "cover": "assets/STUDIO/PROJETS/ILE-DE-RE/cover.png",
+      "cover": "assets/STUDIO/PROJETS/ILE-DE-RE/cover.webp",
       "intro": "Une maison rétaise classique, repensée autour de deux contraintes : le sel et la lumière rasante. Tous les matériaux ont été choisis pour vieillir au lieu de se dégrader.",
       "brief": [
         "La maison, héritage familial, n'avait pas été touchée depuis les années 80. Sols carrelés bruns, faux plafonds, menuiseries PVC.",
@@ -132,11 +132,11 @@
         { "titre": "Cuisine", "txt": "En cours de fabrication — façades chêne brut, plan de travail pierre de Charente." }
       ],
       "gallery": [
-        "assets/STUDIO/PROJETS/ILE-DE-RE/GALLERY/01.png",
-        "assets/STUDIO/PROJETS/ILE-DE-RE/GALLERY/02.png",
-        "assets/STUDIO/PROJETS/ILE-DE-RE/GALLERY/03.png",
-        "assets/STUDIO/PROJETS/ILE-DE-RE/GALLERY/04.png",
-        "assets/STUDIO/PROJETS/ILE-DE-RE/GALLERY/05.png"
+        "assets/STUDIO/PROJETS/ILE-DE-RE/GALLERY/01.webp",
+        "assets/STUDIO/PROJETS/ILE-DE-RE/GALLERY/02.webp",
+        "assets/STUDIO/PROJETS/ILE-DE-RE/GALLERY/03.webp",
+        "assets/STUDIO/PROJETS/ILE-DE-RE/GALLERY/04.webp",
+        "assets/STUDIO/PROJETS/ILE-DE-RE/GALLERY/05.webp"
       ],
       "quote": "Sur l'île, un matériau qui ne patine pas, c'est un matériau qui se dégrade."
     },
@@ -153,7 +153,7 @@
       "duree": "9 mois (en cours)",
       "mission": "Design d'espace · Coordination avec architecte",
       "client": "Particulier",
-      "cover": "assets/STUDIO/PROJETS/DAX/cover.png",
+      "cover": "assets/STUDIO/PROJETS/DAX/cover.webp",
       "intro": "Une maison landaise traditionnelle prolongée par un volume contemporain en pin maritime. Notre rôle : faire dialoguer les deux intérieurs sans rupture.",
       "brief": [
         "L'extension est dessinée par un architecte voisin. Notre mission commence à la coque livrée : sols, menuiseries intérieures, mobilier intégré, éclairage.",
@@ -167,11 +167,11 @@
         { "titre": "Lumière", "txt": "Un seul plan d'éclairage pour les deux volumes, avec scénarios variables." }
       ],
       "gallery": [
-        "assets/STUDIO/PROJETS/DAX/GALLERY/01.png",
-        "assets/STUDIO/PROJETS/DAX/GALLERY/02.png",
-        "assets/STUDIO/PROJETS/DAX/GALLERY/03.png",
-        "assets/STUDIO/PROJETS/DAX/GALLERY/04.png",
-        "assets/STUDIO/PROJETS/DAX/GALLERY/05.png"
+        "assets/STUDIO/PROJETS/DAX/GALLERY/01.webp",
+        "assets/STUDIO/PROJETS/DAX/GALLERY/02.webp",
+        "assets/STUDIO/PROJETS/DAX/GALLERY/03.webp",
+        "assets/STUDIO/PROJETS/DAX/GALLERY/04.webp",
+        "assets/STUDIO/PROJETS/DAX/GALLERY/05.webp"
       ],
       "quote": "Une extension réussie, ce n'est pas un volume qui se voit. C'est un volume qui se traverse."
     },
@@ -188,7 +188,7 @@
       "duree": "Phase concept",
       "mission": "Design d'espace · Identité visuelle · Mobilier",
       "client": "Restaurateur indépendant",
-      "cover": "assets/STUDIO/PROJETS/CHARENTE/cover.png",
+      "cover": "assets/STUDIO/PROJETS/CHARENTE/cover.webp",
       "intro": "Un projet en phase concept : un restaurant de produits locaux dans une ancienne distillerie, où la cuisine ouverte devient le décor principal.",
       "brief": [
         "Le client porte un projet de restaurant centré sur la production charentaise — vins, fromages, viandes, légumes — avec une cuisine en flux tendu.",
@@ -202,11 +202,11 @@
         { "titre": "Suite", "txt": "Phase APD à venir — recherche de financement en cours côté client." }
       ],
       "gallery": [
-        "assets/STUDIO/PROJETS/CHARENTE/GALLERY/01.png",
-        "assets/STUDIO/PROJETS/CHARENTE/GALLERY/02.png",
-        "assets/STUDIO/PROJETS/CHARENTE/GALLERY/03.png",
-        "assets/STUDIO/PROJETS/CHARENTE/GALLERY/04.png",
-        "assets/STUDIO/PROJETS/CHARENTE/GALLERY/05.png"
+        "assets/STUDIO/PROJETS/CHARENTE/GALLERY/01.webp",
+        "assets/STUDIO/PROJETS/CHARENTE/GALLERY/02.webp",
+        "assets/STUDIO/PROJETS/CHARENTE/GALLERY/03.webp",
+        "assets/STUDIO/PROJETS/CHARENTE/GALLERY/04.webp",
+        "assets/STUDIO/PROJETS/CHARENTE/GALLERY/05.webp"
       ],
       "quote": "Dans un restaurant de produit, le plus beau décor, c'est la cuisine qui travaille."
     }
