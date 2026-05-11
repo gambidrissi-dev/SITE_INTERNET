@@ -490,14 +490,18 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
   wrap.setAttribute('aria-hidden', 'true');
   wrap.innerHTML = `<div class="marquee-track"><span class="marquee-item">${item}</span><span class="marquee-item">${item}</span></div>`;
 
-  // Insérer après le premier <section> de la page
-  const firstSection = document.querySelector('section');
-  if (firstSection && firstSection.nextSibling) {
-    firstSection.parentNode.insertBefore(wrap, firstSection.nextSibling);
+  // Insérer après le premier bloc hero/section — jamais directement après la nav
+  const anchor =
+    document.querySelector('section') ||
+    document.querySelector('.page-hero, .hero, .atelier-hero, .bdc-hero, .media-hero, .collectif-hero') ||
+    document.querySelector('main > *:first-child') ||
+    document.querySelector('body > *:not(nav):not(script):not(style):not([id$="-overlay"])');
+
+  if (anchor) {
+    anchor.insertAdjacentElement('afterend', wrap);
   } else {
-    // Fallback : après la nav
-    const nav = document.querySelector('body > nav');
-    if (nav) nav.insertAdjacentElement('afterend', wrap);
+    // Dernier recours : fin du body (jamais juste après la nav)
+    document.body.appendChild(wrap);
   }
 })();
 
