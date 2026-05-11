@@ -267,9 +267,11 @@ if (!isTouch) {
   const PARENT_MAP = {
     'projets.html':           { href: 'studio.html',        label: 'Le Studio',      env: 'e1' },
     'services.html':          { href: 'studio.html',        label: 'Le Studio',      env: 'e1' },
+    'projet.html':            { href: 'projets.html',       label: 'Les Projets',    env: 'e1' },
     'atelier-projets.html':   { href: 'atelier.html',       label: "L'Atelier",      env: 'e2' },
     'atelier-services.html':  { href: 'atelier.html',       label: "L'Atelier",      env: 'e2' },
     'atelier-drops.html':     { href: 'atelier.html',       label: "L'Atelier",      env: 'e2' },
+    'drop-piece.html':        { href: 'atelier-drops.html', label: 'Les Drops',      env: 'e2' },
     'bleu-cabinets.html':     { href: 'bleu-de-cobalt.html', label: 'Bleu de Cobalt', env: 'e3' },
     'bleu-particuliers.html': { href: 'bleu-de-cobalt.html', label: 'Bleu de Cobalt', env: 'e3' },
     'bleu-programme.html':    { href: 'bleu-de-cobalt.html', label: 'Bleu de Cobalt', env: 'e3' },

@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="shared.css?v=17">
+  <link rel="stylesheet" href="shared.css?v=18">
   <style>
     :root { --accent: var(--vert); }
     .stripe { background: linear-gradient(90deg, var(--vert) 25%, var(--noir) 25% 50%, var(--vert) 50% 75%, var(--noir) 75%); }
@@ -22,20 +22,6 @@
       background: var(--cream);
     }
     .dp-loading .s-label { margin: 0; }
-
-    /* ── BACK BAR ── */
-    .back-bar {
-      padding: 18px 44px; background: var(--cream);
-      border-bottom: 1px solid rgba(26,26,26,.1);
-      display: flex; align-items: center; gap: 12px;
-    }
-    .back-link {
-      font-size: .65rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
-      color: rgba(26,26,26,.5); display: inline-flex; align-items: center; gap: 8px;
-      transition: color .15s, gap .15s;
-    }
-    .back-link::before { content: '←'; }
-    .back-link:hover { color: var(--noir); gap: 12px; }
 
     /* ── HERO ── */
     .dp-hero {
@@ -260,7 +246,6 @@
       .mk-step:nth-last-child(-n+2) { border-bottom: none; }
       .dp-order { grid-template-columns: 1fr; gap: 36px; padding: 56px 24px; }
       .dp-related { padding: 56px 24px; }
-      .back-bar { padding: 16px 24px; }
     }
     @media (max-width: 560px) {
       .dp-hero-content { padding: 36px 20px; }
@@ -304,7 +289,7 @@
     <div class="lb-count" id="lb-count"></div>
   </div>
 
-  <script src="shared.js?v=17"></script>
+  <script src="shared.js?v=18"></script>
   <script>
     /* ─── DONNÉES DES PIÈCES ─── */
     const PIECES = [
@@ -478,11 +463,6 @@
         </a>`).join('');
 
       root.innerHTML = `
-        <!-- BACK -->
-        <div class="back-bar">
-          <a href="atelier-drops.html" class="back-link">Retour aux drops</a>
-        </div>
-
         <!-- HERO -->
         <section class="dp-hero">
           <div class="dp-hero-img sr">
