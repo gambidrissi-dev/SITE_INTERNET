@@ -757,3 +757,195 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
     el.style.animationDelay = (0.15 + i * 0.11) + 's';
   });
 })();
+
+/* ── CURSOR VELOCITY BLOB + LABEL "VOIR →" ── */
+(function initCursorBlob() {
+  if (isTouch) return;
+  const ring = document.getElementById('cursor-ring');
+  if (!ring) return;
+
+  /* Label flottant */
+  const lbl = document.createElement('div');
+  lbl.id = 'cursor-label';
+  lbl.textContent = 'VOIR →';
+  document.body.appendChild(lbl);
+
+  let cx = 0, cy = 0, pcx = 0, pcy = 0;
+
+  document.addEventListener('mousemove', e => {
+    cx = e.clientX; cy = e.clientY;
+    lbl.style.left = cx + 'px';
+    lbl.style.top  = cy + 'px';
+  });
+
+  /* Cartes projet → label-mode */
+  const CARD_SEL = '.proj-card, .feat-card, .atelier-card, .media-card, .drop-card';
+  document.querySelectorAll(CARD_SEL).forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      ring.classList.add('label-mode');
+      lbl.style.opacity = '1';
+    });
+    card.addEventListener('mouseleave', () => {
+      ring.classList.remove('label-mode');
+      lbl.style.opacity = '0';
+    });
+  });
+
+  /* rAF : blob velocity stretch (désactivé en label-mode pour lisibilité) */
+  (function blobLoop() {
+    const vx = cx - pcx;
+    const vy = cy - pcy;
+    pcx = cx; pcy = cy;
+
+    if (!ring.classList.contains('label-mode')) {
+      const speed   = Math.sqrt(vx * vx + vy * vy);
+      const angle   = Math.atan2(vy, vx) * 180 / Math.PI;
+      const stretch = Math.min(speed * 0.036, 0.28);
+      const sx      = 1 + stretch;
+      const sy      = 1 - stretch * 0.55;
+      ring.style.transform =
+        `translate(-50%,-50%) rotate(${angle.toFixed(1)}deg) scaleX(${sx.toFixed(3)}) scaleY(${sy.toFixed(3)})`;
+    } else {
+      ring.style.transform = 'translate(-50%,-50%)';
+    }
+
+    requestAnimationFrame(blobLoop);
+  })();
+})();
+
+/* ── CARDS 3D TILT (desktop uniquement) ── */
+(function initCardTilt() {
+  if (isTouch) return;
+
+  const SEL = '.proj-card, .feat-card, .atelier-card, .media-card';
+  document.querySelectorAll(SEL).forEach(card => {
+    card.addEventListener('pointermove', e => {
+      const r  = card.getBoundingClientRect();
+      const nx = (e.clientX - r.left) / r.width  - 0.5; /* -0.5 → +0.5 */
+      const ny = (e.clientY - r.top)  / r.height - 0.5;
+      const rx = -ny * 10; /* max ±5deg sur X */
+      const ry =  nx * 10; /* max ±5deg sur Y */
+      card.style.transform =
+        `perspective(800px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) scale(1.016)`;
+    });
+
+    card.addEventListener('pointerleave', () => {
+      card.style.transform = '';
+    });
+  });
+})();
+
+/* ── LETTER STAGGER — split .s-label en .sl-letter, déclenché par IntersectionObserver ── */
+(function initLabelStagger() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const labels = document.querySelectorAll('.s-label');
+  if (!labels.length) return;
+
+  labels.forEach(el => {
+    if (el.querySelector('.sl-letter')) return; /* déjà splité */
+    const text = el.textContent.trim();
+    el.textContent = '';
+    [...text].forEach((ch, i) => {
+      const span = document.createElement('span');
+      span.className = 'sl-letter';
+      span.style.setProperty('--i', i);
+      span.textContent = ch === ' ' ? ' ' : ch;
+      el.appendChild(span);
+    });
+  });
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.querySelectorAll('.sl-letter').forEach(s => s.classList.add('in'));
+      io.unobserve(entry.target);
+    });
+  }, { threshold: 0.25 });
+
+  labels.forEach(el => io.observe(el));
+})();
+
+/* ── SCROLL PARALLAX — hero shapes flottent plus lentement que le scroll ── */
+(function initScrollParallax() {
+  const wrap = document.querySelector('.hs-wrap');
+  if (!wrap) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    requestAnimationFrame(() => {
+      wrap.style.transform = `translateY(${(window.scrollY * 0.12).toFixed(1)}px)`;
+      ticking = false;
+    });
+    ticking = true;
+  }, { passive: true });
+})();
+
+/* ── SECTION REVEAL — fade-up staggeré sur les enfants de .section ── */
+(function initSectionReveal() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  /* Sélecteurs à animer à l'intérieur de chaque .section */
+  const CHILD_SEL = [
+    'h2', 'h3', 'p', '.btn', '.proj-card', '.feat-card',
+    '.atelier-card', '.media-card', '.service-item',
+    '.team-card', '.stat-block', '.testimonial',
+    'figure', 'blockquote', '.cfg-step'
+  ].join(', ');
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const section = entry.target;
+
+      /* Stagger sur les enfants directs ciblés */
+      const children = [...section.querySelectorAll(CHILD_SEL)]
+        .filter(el => !el.closest('.hero, .atelier-hero, .bdc-hero, .media-hero, .collectif-hero'));
+
+      children.forEach((el, i) => {
+        if (el.classList.contains('sr-el')) return; /* déjà marqué */
+        el.classList.add('sr-el');
+        /* Double rAF pour s'assurer que opacity:0 est peint avant l'animation */
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          el.classList.add('sr-in');
+          el.style.animationDelay = (i * 0.07) + 's';
+        }));
+      });
+
+      io.unobserve(section);
+    });
+  }, { threshold: 0.10, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.section, section').forEach(s => io.observe(s));
+})();
+
+/* ── TEXT SCRAMBLE — titres de l'overlay nav au hover ── */
+(function initTextScramble() {
+  const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+
+  function scramble(el) {
+    const original = el.dataset.original || el.textContent.trim();
+    el.dataset.original = original;
+
+    let frame = 0;
+    const totalFrames = 14;
+    const interval = setInterval(() => {
+      el.textContent = [...original].map((ch, i) => {
+        if (ch === ' ') return ' ';
+        if (frame / totalFrames > i / original.length) return ch;
+        return CHARS[Math.floor(Math.random() * CHARS.length)];
+      }).join('');
+
+      if (++frame > totalFrames) {
+        clearInterval(interval);
+        el.textContent = original;
+      }
+    }, 28);
+  }
+
+  document.querySelectorAll('.lg-strip-name').forEach(el => {
+    el.closest('.lg-strip')?.addEventListener('mouseenter', () => scramble(el));
+  });
+})();

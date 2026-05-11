@@ -973,6 +973,83 @@ body.page-entering-done #page-transition { opacity: 0; }
   animation: heroReveal 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
+/* ── SECTION REVEAL (IntersectionObserver, injecté par JS) ── */
+@keyframes revealUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.sr-el {
+  opacity: 0;
+}
+.sr-el.sr-in {
+  animation: revealUp 0.60s cubic-bezier(0.34, 1.20, 0.64, 1) both;
+}
+
+/* ── IMAGE ZOOM CLIP-PATH sur cartes projet ── */
+.proj-card .proj-img,
+.feat-card .feat-img,
+.atelier-card .atelier-img {
+  overflow: hidden;
+}
+.proj-card .proj-img img,
+.feat-card .feat-img img,
+.atelier-card .atelier-img img {
+  transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              clip-path  0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  clip-path: inset(0% 0% 0% 0% round 0px);
+  transform-origin: center center;
+}
+.proj-card:hover   .proj-img img,
+.feat-card:hover   .feat-img img,
+.atelier-card:hover .atelier-img img {
+  transform: scale(1.07);
+  clip-path: inset(3% 3% 3% 3% round 4px);
+}
+
+/* ── NAV SCRAMBLE — placeholder pour les lettres en cours de scramble ── */
+.lg-strip-name[data-scrambling] { letter-spacing: inherit; }
+
+/* ── CURSOR LABEL "VOIR →" ── */
+#cursor-label {
+  position: fixed; z-index: 9999; pointer-events: none;
+  font-family: var(--sans); font-size: .48rem; font-weight: 700;
+  letter-spacing: .20em; text-transform: uppercase;
+  color: var(--noir);
+  opacity: 0;
+  transition: opacity .20s ease;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+}
+#cursor-ring.label-mode {
+  width: 76px; height: 76px;
+  background: rgba(243,239,215,0.93);
+  border-color: rgba(26,26,26,0.16);
+  mix-blend-mode: normal;
+  transition: width .28s cubic-bezier(.34,1.56,.64,1),
+              height .28s cubic-bezier(.34,1.56,.64,1),
+              background .22s ease, border-color .15s ease;
+}
+
+/* ── LETTER STAGGER — .s-label splitté par JS ── */
+@keyframes letterIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.sl-letter {
+  display: inline-block;
+  opacity: 0;
+}
+.sl-letter.in {
+  animation: letterIn 0.40s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation-delay: calc(var(--i, 0) * 42ms);
+}
+
+/* ── CARDS 3D TILT — transform gérée par JS via pointermove ── */
+.proj-card, .feat-card, .atelier-card, .media-card {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
 /* ── PREFERS-REDUCED-MOTION ── */
 @media (prefers-reduced-motion: reduce) {
   .hs-wrap > div  { animation: none; }
@@ -980,4 +1057,6 @@ body.page-entering-done #page-transition { opacity: 0; }
   .btn-shimmer::after { animation: none; }
   .btn-ripple     { animation: none; }
   .hero-reveal    { animation: none; opacity: 1; }
+  .sl-letter      { animation: none; opacity: 1; }
+  .proj-card, .feat-card, .atelier-card, .media-card { will-change: auto; }
 }
