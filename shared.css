@@ -252,7 +252,7 @@ body > nav[data-env="e4"] .nav-burger-btn::after { background: #BB3B34; box-shad
 }
 .lg-close-btn:hover { color: rgba(255,255,255,.9); background: rgba(255,255,255,.07); }
 .lg-esc {
-  font-size: 11px; font-weight: 600; letter-spacing: .14em;
+  font-size: 13px; font-weight: 600; letter-spacing: .13em;
   text-transform: uppercase; color: rgba(255,255,255,.22);
 }
 
@@ -301,8 +301,8 @@ body > nav[data-env="e4"] .nav-burger-btn::after { background: #BB3B34; box-shad
   display: flex;
   align-items: center;
   padding: 0 22px;
-  font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
-  color: rgba(255,255,255,.35);
+  font-size: 13px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase;
+  color: rgba(255,255,255,.38);
   border-right: 1px solid rgba(255,255,255,.07);
   transition: color .2s, background .2s;
   text-decoration: none;
@@ -370,9 +370,9 @@ body > nav[data-env="e4"] .nav-burger-btn::after { background: #BB3B34; box-shad
 
 /* Numéro */
 .lg-strip-num {
-  font-size: 12px; font-weight: 700; letter-spacing: .22em;
-  color: rgba(255,255,255,.22);
-  width: 52px; flex-shrink: 0;
+  font-size: 14px; font-weight: 700; letter-spacing: .20em;
+  color: rgba(255,255,255,.25);
+  width: 58px; flex-shrink: 0;
   transition: color .25s;
 }
 .lg-strip:hover .lg-strip-num { color: rgba(255,255,255,.45); }
@@ -382,7 +382,7 @@ body > nav[data-env="e4"] .nav-burger-btn::after { background: #BB3B34; box-shad
 
 .lg-strip-name {
   font-family: var(--f-display);
-  font-size: clamp(30px, 4.2vw, 56px);
+  font-size: clamp(42px, 6vw, 80px);
   letter-spacing: -.03em; line-height: 1;
   color: rgba(255,255,255,.80);
   transition: color .25s;
@@ -390,9 +390,9 @@ body > nav[data-env="e4"] .nav-burger-btn::after { background: #BB3B34; box-shad
 .lg-strip:hover .lg-strip-name { color: rgba(255,255,255,1); }
 
 .lg-strip-sub {
-  font-size: 13px; font-weight: 400; letter-spacing: .06em;
+  font-size: 16px; font-weight: 400; letter-spacing: .06em;
   color: rgba(255,255,255,.32);
-  margin-top: 6px;
+  margin-top: 7px;
   transition: color .25s;
 }
 .lg-strip:hover .lg-strip-sub { color: rgba(255,255,255,.55); }
@@ -400,7 +400,7 @@ body > nav[data-env="e4"] .nav-burger-btn::after { background: #BB3B34; box-shad
 
 /* Flèche */
 .lg-strip-arrow {
-  font-size: 22px;
+  font-size: 28px;
   color: rgba(255,255,255,.20);
   flex-shrink: 0;
   transition: color .25s, transform .32s cubic-bezier(.34,1.56,.64,1);
@@ -514,19 +514,19 @@ body > nav[data-env="e4"] .nav-burger-btn::after { background: #BB3B34; box-shad
   background: none; border: 1px solid rgba(255,255,255,.15);
   border-radius: 999px; padding: 7px 16px;
   cursor: none; color: rgba(255,255,255,.45);
-  font-size: 11px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase;
+  font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
   transition: color .2s, border-color .2s;
 }
 .lg-overlay-back:hover { color: rgba(255,255,255,.85); border-color: rgba(255,255,255,.40); }
 .lg-footer-contact {
-  font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
-  color: rgba(255,255,255,.35);
+  font-size: 13px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
+  color: rgba(255,255,255,.38);
   transition: color .2s;
 }
 .lg-footer-contact:hover { color: rgba(255,255,255,.90); }
 .lg-footer-socials { display: flex; gap: 22px; }
 .lg-footer-socials a {
-  font-size: 11px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase;
+  font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
   color: rgba(255,255,255,.22);
   transition: color .2s;
 }
