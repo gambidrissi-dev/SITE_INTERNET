@@ -758,15 +758,32 @@ footer { background: var(--noir); position: relative; overflow: hidden; }
 
   /* Overlay mobile */
   .lg-strip-primary { padding: 0 18px; }
-  .lg-header { padding: 0 18px; }
+  .lg-header { height: 56px; padding: 0 18px; }
+  .lg-esc { display: none; }
   .lg-strip-ghost { display: none; }
   .lg-strip-links { display: none; }
   .lg-strip-body { padding: 0 10px; }
   .lg-strip-num { width: 36px; font-size: 8px; }
   .lg-strip-name { font-size: clamp(22px, 8vw, 32px); }
   .lg-strip-sub { font-size: 9px; margin-top: 3px; }
-  .lg-overlay-footer { padding: 0 18px; }
+  .lg-overlay-footer { height: 52px; padding: 0 18px; }
+  .lg-footer-contact { font-size: 12px; }
   .lg-footer-socials { gap: 14px; }
+  .lg-footer-socials a { font-size: 12px; }
+  .lg-overlay-back { font-size: 12px; padding: 8px 14px; }
+}
+
+/* ── OVERLAY TABLETTE (560px–960px) : pills réduites ── */
+@media (max-width: 960px) and (min-width: 561px) {
+  .lg-header { height: 62px; padding: 0 22px; }
+  .lg-esc { font-size: 12px; }
+  .lg-overlay-footer { height: 56px; padding: 0 22px; }
+  .lg-footer-contact,
+  .lg-footer-socials a,
+  .lg-overlay-back { font-size: 13px; }
+  .lg-strip-links { padding: 0 16px; gap: 6px; }
+  .lg-strip-link { font-size: 10px; padding: 7px 13px; }
+  .lg-strip-name { font-size: clamp(28px, 5vw, 52px); }
 }
 
 /* ── PAGE TRANSITION ── */
