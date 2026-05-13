@@ -398,17 +398,21 @@ body > nav[data-env="e4"] .nav-burger-btn::after { background: #BB3B34; box-shad
   transition: color .25s;
 }
 .lg-strip:hover .lg-strip-sub { color: rgba(255,255,255,.55); }
+.e1:hover .lg-strip-sub { color: rgba(74,130,220,.75); }
+.e2:hover .lg-strip-sub { color: rgba(93,161,107,.75); }
+.e3:hover .lg-strip-sub { color: rgba(241,203,79,.70); }
+.e4:hover .lg-strip-sub { color: rgba(187,59,52,.75); }
 
 
 /* Flèche masquée */
 .lg-strip-arrow { display: none; }
 
-/* Hover : tint subtil par env */
-.e0:hover { background: rgba(255,255,255,.03); }
-.e1:hover { background: rgba(74,130,220,.05); }
-.e2:hover { background: rgba(93,161,107,.05); }
-.e3:hover { background: rgba(241,203,79,.04); }
-.e4:hover { background: rgba(187,59,52,.05); }
+/* Hover : tint coloré visible par env */
+.e0:hover { background: rgba(255,255,255,.07); }
+.e1:hover { background: rgba(74,130,220,.14); }
+.e2:hover { background: rgba(93,161,107,.13); }
+.e3:hover { background: rgba(241,203,79,.11); }
+.e4:hover { background: rgba(187,59,52,.13); }
 
 /* Nom → couleur env au hover */
 .e0:hover .lg-strip-name { color: #ffffff; }
