@@ -445,24 +445,12 @@ body > nav[data-env="e4"] .nav-burger-btn::after { background: #BB3B34; box-shad
 .lg-strip.active .lg-strip-num { color: rgba(255,255,255,.55); }
 .lg-strip.active .lg-strip-sub { color: rgba(255,255,255,.50); }
 .lg-strip.active .lg-strip-link { color: rgba(255,255,255,.55); border-color: rgba(255,255,255,.28); }
-/* Nom actif → couleur de l'entité courante */
-.e0.active .lg-strip-name { color: #ffffff; }
-.e1.active .lg-strip-name { color: #4A82DC; }
-.e2.active .lg-strip-name { color: #5DA16B; }
-.e3.active .lg-strip-name { color: #F1CB4F; }
-.e4.active .lg-strip-name { color: #BB3B34; }
-/* Barre latérale active → glow coloré */
-.e0.active::before { box-shadow: 2px 0 20px rgba(255,255,255,.40), 0 0 8px rgba(255,255,255,.20); }
-.e1.active::before { box-shadow: 2px 0 20px rgba(74,130,220,.55), 0 0 8px rgba(74,130,220,.3); }
-.e2.active::before { box-shadow: 2px 0 20px rgba(93,161,107,.55), 0 0 8px rgba(93,161,107,.3); }
-.e3.active::before { box-shadow: 2px 0 20px rgba(241,203,79,.50), 0 0 8px rgba(241,203,79,.28); }
-.e4.active::before { box-shadow: 2px 0 20px rgba(187,59,52,.55), 0 0 8px rgba(187,59,52,.3); }
-/* Tint de fond actif → légèrement plus fort que le repos */
-.e0.active { background: rgba(255,255,255,.05); }
-.e1.active { background: rgba(74,130,220,.07); }
-.e2.active { background: rgba(93,161,107,.07); }
-.e3.active { background: rgba(241,203,79,.055); }
-.e4.active { background: rgba(187,59,52,.07); }
+/* Barre latérale active → seul indicateur visible (glow subtil) */
+.e0.active::before { opacity: 1; box-shadow: 2px 0 14px rgba(255,255,255,.25); }
+.e1.active::before { opacity: 1; box-shadow: 2px 0 14px rgba(74,130,220,.40); }
+.e2.active::before { opacity: 1; box-shadow: 2px 0 14px rgba(93,161,107,.40); }
+.e3.active::before { opacity: 1; box-shadow: 2px 0 14px rgba(241,203,79,.35); }
+.e4.active::before { opacity: 1; box-shadow: 2px 0 14px rgba(187,59,52,.40); }
 
 /* Grand nombre fantôme en fond — teinté par env au repos */
 .lg-strip-ghost {
