@@ -314,12 +314,12 @@ body > nav[data-env="e4"] .nav-burger-btn::after { background: #BB3B34; box-shad
   position: relative; z-index: 2;
 }
 .lg-strip-link:hover { color: #fff; background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.45); }
-/* Pills colorées par env au hover */
-.e0 .lg-strip-link:hover { color: #fff; background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.50); }
-.e1 .lg-strip-link:hover { color: #4A82DC !important; background: rgba(74,130,220,.14) !important; border-color: rgba(74,130,220,.60) !important; }
-.e2 .lg-strip-link:hover { color: #5DA16B; background: rgba(93,161,107,.12); border-color: rgba(93,161,107,.55); }
-.e3 .lg-strip-link:hover { color: #F1CB4F; background: rgba(241,203,79,.12); border-color: rgba(241,203,79,.50); }
-.e4 .lg-strip-link:hover { color: #BB3B34; background: rgba(187,59,52,.12); border-color: rgba(187,59,52,.55); }
+/* Pills colorées par env au hover (bouton lui-même) */
+.lg-strip.e0 .lg-strip-link:hover { color: #fff; background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.50); }
+.lg-strip.e1 .lg-strip-link:hover { color: #4A82DC; background: rgba(74,130,220,.14); border-color: rgba(74,130,220,.65); }
+.lg-strip.e2 .lg-strip-link:hover { color: #5DA16B; background: rgba(93,161,107,.12); border-color: rgba(93,161,107,.55); }
+.lg-strip.e3 .lg-strip-link:hover { color: #F1CB4F; background: rgba(241,203,79,.12); border-color: rgba(241,203,79,.50); }
+.lg-strip.e4 .lg-strip-link:hover { color: #BB3B34; background: rgba(187,59,52,.12); border-color: rgba(187,59,52,.55); }
 .lg-strip:last-child { border-bottom: none; }
 #lg-overlay.open .lg-strip { opacity: 1; transform: translateY(0); }
 #lg-overlay.open .lg-strip:nth-child(1) { transition-delay: .06s; }
@@ -425,12 +425,12 @@ body > nav[data-env="e4"] .nav-burger-btn::after { background: #BB3B34; box-shad
 .e4:hover .lg-strip-num { color: rgba(187,59,52,.75); }
 
 
-/* Pills colorées dès que le strip est hovéré */
-.e0:hover .lg-strip-link { color: rgba(255,255,255,.80); border-color: rgba(255,255,255,.45); }
-.e1:hover .lg-strip-link { color: #4A82DC; border-color: rgba(74,130,220,.60); }
-.e2:hover .lg-strip-link { color: #5DA16B; border-color: rgba(93,161,107,.60); }
-.e3:hover .lg-strip-link { color: #F1CB4F; border-color: rgba(241,203,79,.55); }
-.e4:hover .lg-strip-link { color: #BB3B34; border-color: rgba(187,59,52,.60); }
+/* Pills colorées dès que le strip est hovéré (spécificité 0,3,0 pour passer après .active) */
+.lg-strip.e0:hover .lg-strip-link { color: rgba(255,255,255,.80); border-color: rgba(255,255,255,.45); }
+.lg-strip.e1:hover .lg-strip-link { color: #4A82DC; border-color: rgba(74,130,220,.60); }
+.lg-strip.e2:hover .lg-strip-link { color: #5DA16B; border-color: rgba(93,161,107,.60); }
+.lg-strip.e3:hover .lg-strip-link { color: #F1CB4F; border-color: rgba(241,203,79,.55); }
+.lg-strip.e4:hover .lg-strip-link { color: #BB3B34; border-color: rgba(187,59,52,.60); }
 
 /* Sous-titre → plus lisible au hover */
 .e0:hover .lg-strip-sub { color: rgba(255,255,255,.50); }
