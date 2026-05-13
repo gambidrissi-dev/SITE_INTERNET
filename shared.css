@@ -425,12 +425,12 @@ body > nav[data-env="e4"] .nav-burger-btn::after { background: #BB3B34; box-shad
 .e4:hover .lg-strip-num { color: rgba(187,59,52,.75); }
 
 
-/* Pills plus visibles quand le strip est hovéré */
-.e0:hover .lg-strip-link { color: rgba(255,255,255,.65); border-color: rgba(255,255,255,.30); }
-.e1:hover .lg-strip-link { color: rgba(74,130,220,.70); border-color: rgba(74,130,220,.35); }
-.e2:hover .lg-strip-link { color: rgba(93,161,107,.70); border-color: rgba(93,161,107,.35); }
-.e3:hover .lg-strip-link { color: rgba(241,203,79,.65); border-color: rgba(241,203,79,.32); }
-.e4:hover .lg-strip-link { color: rgba(187,59,52,.70); border-color: rgba(187,59,52,.35); }
+/* Pills colorées dès que le strip est hovéré */
+.e0:hover .lg-strip-link { color: rgba(255,255,255,.80); border-color: rgba(255,255,255,.45); }
+.e1:hover .lg-strip-link { color: #4A82DC; border-color: rgba(74,130,220,.60); }
+.e2:hover .lg-strip-link { color: #5DA16B; border-color: rgba(93,161,107,.60); }
+.e3:hover .lg-strip-link { color: #F1CB4F; border-color: rgba(241,203,79,.55); }
+.e4:hover .lg-strip-link { color: #BB3B34; border-color: rgba(187,59,52,.60); }
 
 /* Sous-titre → plus lisible au hover */
 .e0:hover .lg-strip-sub { color: rgba(255,255,255,.50); }
