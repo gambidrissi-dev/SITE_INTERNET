@@ -443,18 +443,7 @@ body > nav[data-env="e4"] .nav-burger-btn::after { background: #BB3B34; box-shad
 .e3:hover .lg-strip-sub { color: rgba(241,203,79,.50); }
 .e4:hover .lg-strip-sub { color: rgba(187,59,52,.55); }
 
-/* Strip actif (page courante) — coloré par entité */
-.lg-strip.active { background: rgba(255,255,255,.04); }
-.lg-strip.active::before { opacity: 1; width: 4px; }
-.lg-strip.active .lg-strip-num { color: rgba(255,255,255,.55); }
-.lg-strip.active .lg-strip-sub { color: rgba(255,255,255,.50); }
-.lg-strip.active .lg-strip-link { color: rgba(255,255,255,.55); border-color: rgba(255,255,255,.28); }
-/* Barre latérale active → seul indicateur visible (glow subtil) */
-.e0.active::before { opacity: 1; box-shadow: 2px 0 14px rgba(255,255,255,.25); }
-.e1.active::before { opacity: 1; box-shadow: 2px 0 14px rgba(74,130,220,.40); }
-.e2.active::before { opacity: 1; box-shadow: 2px 0 14px rgba(93,161,107,.40); }
-.e3.active::before { opacity: 1; box-shadow: 2px 0 14px rgba(241,203,79,.35); }
-.e4.active::before { opacity: 1; box-shadow: 2px 0 14px rgba(187,59,52,.40); }
+/* Strip actif — aucun style particulier, toutes les bandes identiques au repos */
 
 /* Grand nombre fantôme en fond — teinté par env au repos */
 .lg-strip-ghost {
