@@ -92,6 +92,24 @@
     .ch-submit span { position: relative; z-index: 1; }
     .ch-submit:disabled { opacity: .6; pointer-events: none; }
 
+    /* Budget & délai pills */
+    .ch-pills-opts { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+    .ch-pill-btn {
+      padding: 7px 16px; border-radius: var(--r-pill);
+      border: 1.5px solid rgba(240,235,216,.30); background: transparent;
+      font-family: var(--f-body); font-size: .62rem; font-weight: 600;
+      letter-spacing: .07em; text-transform: uppercase; color: rgba(240,235,216,.50);
+      transition: all .2s; cursor: pointer;
+    }
+    .ch-pill-btn.sel { background: rgba(240,235,216,.12); color: var(--cream); border-color: rgba(240,235,216,.65); }
+    .ch-pill-btn:hover:not(.sel) { border-color: rgba(240,235,216,.55); color: rgba(240,235,216,.80); }
+    /* Compteur message */
+    .ch-field-meta { display: flex; justify-content: flex-end; }
+    .ch-char-count { font-size: .58rem; color: rgba(240,235,216,.25); letter-spacing: .06em; transition: color .2s; }
+    .ch-char-count.warn { color: rgba(241,203,79,.70); }
+    /* Séparateur de section */
+    .ch-sep { border: none; border-top: 1px solid rgba(240,235,216,.08); margin: 4px 0; }
+
     /* Success / Error states */
     .ch-feedback {
       display: none; padding: 18px 24px; border-radius: var(--r-md);
@@ -214,6 +232,17 @@
           <label class="ch-lbl" for="f-email">Email</label>
           <input class="ch-input" id="f-email" name="email" type="email" placeholder="camille@mail.fr" required>
         </div>
+        <div class="ch-row">
+          <div class="ch-field">
+            <label class="ch-lbl" for="f-tel">Téléphone <span style="opacity:.4;font-weight:400;text-transform:none;letter-spacing:0">optionnel</span></label>
+            <input class="ch-input" id="f-tel" name="telephone" type="tel" placeholder="+33 6 00 00 00 00">
+          </div>
+          <div class="ch-field">
+            <label class="ch-lbl" for="f-ville">Ville</label>
+            <input class="ch-input" id="f-ville" name="ville" type="text" placeholder="Bordeaux">
+          </div>
+        </div>
+        <hr class="ch-sep">
         <div class="ch-subject">
           <label class="ch-lbl">Sujet</label>
           <div class="ch-subject-opts">
@@ -224,9 +253,31 @@
             <button type="button" class="ch-subject-btn" data-subject="Autre">Autre</button>
           </div>
         </div>
+        <div class="ch-subject">
+          <label class="ch-lbl">Budget approximatif <span style="opacity:.4;font-weight:400;text-transform:none;letter-spacing:0">optionnel</span></label>
+          <div class="ch-pills-opts" id="budget-opts">
+            <button type="button" class="ch-pill-btn" data-budget="Moins de 10 000 €">— 10k€</button>
+            <button type="button" class="ch-pill-btn" data-budget="10 000 — 30 000 €">10–30k€</button>
+            <button type="button" class="ch-pill-btn" data-budget="30 000 — 80 000 €">30–80k€</button>
+            <button type="button" class="ch-pill-btn" data-budget="Plus de 80 000 €">+ 80k€</button>
+            <button type="button" class="ch-pill-btn" data-budget="À définir ensemble">À définir</button>
+          </div>
+        </div>
+        <div class="ch-subject">
+          <label class="ch-lbl">Délai envisagé <span style="opacity:.4;font-weight:400;text-transform:none;letter-spacing:0">optionnel</span></label>
+          <div class="ch-pills-opts" id="delai-opts">
+            <button type="button" class="ch-pill-btn" data-delai="Urgent (moins d'1 mois)">Urgent</button>
+            <button type="button" class="ch-pill-btn" data-delai="3 à 6 mois">3–6 mois</button>
+            <button type="button" class="ch-pill-btn" data-delai="6 à 12 mois">6–12 mois</button>
+            <button type="button" class="ch-pill-btn" data-delai="Plus d'1 an">+ 1 an</button>
+            <button type="button" class="ch-pill-btn" data-delai="À définir ensemble">À définir</button>
+          </div>
+        </div>
+        <hr class="ch-sep">
         <div class="ch-field">
           <label class="ch-lbl" for="f-message">Message</label>
           <textarea class="ch-ta" id="f-message" name="message" placeholder="Décrivez votre projet, vos contraintes, votre ambition…" required></textarea>
+          <div class="ch-field-meta"><span class="ch-char-count" id="char-count">0 / 1000</span></div>
         </div>
         <button type="submit" class="ch-submit" id="form-submit"><span>Envoyer ma demande →</span></button>
         <div class="ch-feedback success" id="form-success" role="status">
@@ -320,7 +371,7 @@
 
   <script src="shared.js?v=18"></script>
   <script>
-    /* Subject pills → hidden input */
+    /* ── Subject pills ── */
     const subjectHidden = document.getElementById('form-subject-hidden');
     document.querySelectorAll('.ch-subject-btn').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -330,7 +381,38 @@
       });
     });
 
-    /* AJAX submit → Web3Forms */
+    /* ── Budget pills ── */
+    let selectedBudget = '';
+    document.querySelectorAll('#budget-opts .ch-pill-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const already = btn.classList.contains('sel');
+        document.querySelectorAll('#budget-opts .ch-pill-btn').forEach(b => b.classList.remove('sel'));
+        if (!already) { btn.classList.add('sel'); selectedBudget = btn.dataset.budget; }
+        else { selectedBudget = ''; }
+      });
+    });
+
+    /* ── Délai pills ── */
+    let selectedDelai = '';
+    document.querySelectorAll('#delai-opts .ch-pill-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const already = btn.classList.contains('sel');
+        document.querySelectorAll('#delai-opts .ch-pill-btn').forEach(b => b.classList.remove('sel'));
+        if (!already) { btn.classList.add('sel'); selectedDelai = btn.dataset.delai; }
+        else { selectedDelai = ''; }
+      });
+    });
+
+    /* ── Compteur de caractères ── */
+    const msgArea   = document.getElementById('f-message');
+    const charCount = document.getElementById('char-count');
+    msgArea.addEventListener('input', () => {
+      const n = msgArea.value.length;
+      charCount.textContent = `${n} / 1000`;
+      charCount.classList.toggle('warn', n > 800);
+    });
+
+    /* ── AJAX submit → Web3Forms avec récap complet ── */
     const form      = document.getElementById('contact-form');
     const submitBtn = document.getElementById('form-submit');
     const successEl = document.getElementById('form-success');
@@ -347,18 +429,57 @@
 
       try {
         const data = new FormData(form);
+
+        /* Récap complet formaté dans le body du mail */
+        const prenom  = data.get('prenom')    || '';
+        const nom     = data.get('nom')        || '';
+        const email   = data.get('email')      || '';
+        const tel     = data.get('telephone')  || '';
+        const ville   = data.get('ville')      || '';
+        const sujet   = document.querySelector('.ch-subject-btn.sel')?.dataset.subject || 'Non précisé';
+        const budget  = selectedBudget         || 'Non précisé';
+        const delai   = selectedDelai          || 'Non précisé';
+        const message = data.get('message')    || '';
+        const date    = new Date().toLocaleString('fr-FR', { dateStyle:'full', timeStyle:'short' });
+
+        const recap = `NOUVEAU MESSAGE — COLLECTIF COBALT
+══════════════════════════════════════
+
+📋 CONTACT
+Nom       : ${prenom} ${nom}
+Email     : ${email}${tel    ? `\nTéléphone : ${tel}` : ''}${ville  ? `\nVille     : ${ville}` : ''}
+
+🎯 PROJET
+Entité    : ${sujet}
+Budget    : ${budget}
+Délai     : ${delai}
+
+💬 MESSAGE
+${message}
+
+══════════════════════════════════════
+Envoyé le ${date}
+Via collectifcobalt.eu/contact`;
+
+        data.set('message', recap);
+        data.set('replyto', email);
+        data.set('subject', `[Cobalt] Nouveau message — ${sujet} — ${prenom} ${nom}`);
+
         const res  = await fetch(form.action, {
           method: 'POST',
           body: data,
           headers: { 'Accept': 'application/json' }
         });
         const json = await res.json();
+
         if (json.success) {
           form.reset();
-          /* Reset pills */
           document.querySelectorAll('.ch-subject-btn').forEach(b => b.classList.remove('sel'));
           document.querySelector('.ch-subject-btn[data-subject="Studio"]').classList.add('sel');
-          document.getElementById('form-subject-hidden').value = 'Nouveau message — Studio';
+          document.querySelectorAll('.ch-pill-btn').forEach(b => b.classList.remove('sel'));
+          subjectHidden.value = 'Nouveau message — Studio';
+          selectedBudget = ''; selectedDelai = '';
+          charCount.textContent = '0 / 1000';
           successEl.classList.add('visible');
           submitBtn.querySelector('span').textContent = 'Message envoyé ✓';
         } else {

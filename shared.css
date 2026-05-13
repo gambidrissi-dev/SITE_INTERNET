@@ -45,6 +45,39 @@ a { color: inherit; text-decoration: none; }
 }
 .skip-link:focus { top: 0; outline: 2px solid #fff; outline-offset: 2px; cursor: auto; }
 button, input, textarea { font-family: var(--f-body); }
+
+/* ── FOCUS VISIBLE — accessibilité clavier ── */
+:focus-visible {
+  outline: 2px solid var(--bleu);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+/* Pills et boutons : ring plus arrondi */
+.btn:focus-visible,
+.btn-dark:focus-visible,
+.btn-cream:focus-visible,
+.btn-primary:focus-visible,
+.btn-outline:focus-visible,
+.ch-submit:focus-visible,
+.ch-subject-btn:focus-visible,
+.ch-pill-btn:focus-visible,
+.lg-strip-link:focus-visible,
+.nav-burger-btn:focus-visible {
+  outline: 2px solid var(--bleu);
+  outline-offset: 4px;
+  border-radius: 999px;
+}
+/* Sur fond sombre (overlay) */
+.lg-strip-link:focus-visible,
+.lg-close-btn:focus-visible,
+.lg-overlay-back:focus-visible {
+  outline-color: rgba(74,130,220,.90);
+}
+/* Inputs */
+.ch-input:focus-visible,
+.ch-ta:focus-visible {
+  outline: none; /* déjà géré via border-color bleu */
+}
 /* cursor:none uniquement sur souris précise — préserve l'accessibilité */
 @media (pointer: fine) {
   html, body, a, button, input, textarea { cursor: none; }
