@@ -8,7 +8,6 @@
   <link rel="manifest" href="/assets/FAVICON/site.webmanifest">
   <meta name="theme-color" content="#F3EFD7">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#F5F0E6">
   <meta name="description" content="Collectif Cobalt — Trois personnes, un manifeste. Une pratique qui pense, fait et transmet depuis le Sud-Ouest — Nouvelle-Aquitaine & Occitanie.">
   <title>Le Collectif — Qui sommes-nous | Collectif Cobalt</title>
   <!-- Open Graph -->
@@ -261,11 +260,19 @@
     }
     .eq-contact {
       margin-top: 24px;
-      font-size: .65rem; font-weight: 700; letter-spacing: .14em;
-      text-transform: uppercase; color: rgba(26,26,26,.30);
-      transition: color .2s;
+      display: inline-flex; align-items: center;
+      padding: 9px 20px; border-radius: 999px;
+      border: 1.5px solid rgba(26,26,26,.55);
+      font-size: .60rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: rgba(26,26,26,.80);
+      background: transparent;
+      transition: background .2s, border-color .2s, color .2s;
+      align-self: flex-start;
     }
-    .eq-contact:hover { color: var(--noir); }
+    .eq-contact:hover {
+      background: var(--noir); color: var(--cream);
+      border-color: var(--noir);
+    }
 
     /* pip couleurs */
     .eq-person:nth-child(1) .eq-pip { background: var(--bleu); box-shadow: 0 0 6px rgba(74,130,220,.5); }

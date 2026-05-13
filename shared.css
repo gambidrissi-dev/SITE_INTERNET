@@ -600,104 +600,57 @@ body > nav[data-env="e4"] .nav-burger-btn::after { background: #BB3B34; box-shad
 .btn:hover  { transform: scale(1.04); }
 .btn:active { transform: scale(0.97); transition-duration: .1s; }
 
-/* ── Glass clair — sur fonds sombres / colorés ── */
+/* ── Solid clair — sur fonds sombres / colorés ── */
 .btn-cream {
-  background: rgba(243,239,215,0.13);
-  color: var(--cream);
-  border: 1px solid rgba(255,255,255,0.24);
-  box-shadow:
-    0 3px 14px rgba(0,0,0,0.20),
-    inset  2px  2px 0.5px -2.5px rgba(255,255,255,0.14),
-    inset -2px -2px 0.5px -2.5px rgba(255,255,255,0.90),
-    inset  1px  1px 1px   -0.5px rgba(255,255,255,0.62),
-    inset -1px -1px 1px   -0.5px rgba(255,255,255,0.55),
-    inset 0 0 10px 4px rgba(255,255,255,0.06),
-    0 0 20px rgba(0,0,0,0.10);
+  background: var(--cream);
+  color: var(--noir);
+  border: 1.5px solid var(--cream);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.22);
 }
 .btn-cream:hover {
-  color: var(--cream);
-  background: rgba(243,239,215,0.22);
-  box-shadow:
-    0 5px 18px rgba(0,0,0,0.24),
-    inset  2px  2px 0.5px -2.5px rgba(255,255,255,0.18),
-    inset -2px -2px 0.5px -2.5px rgba(255,255,255,0.92),
-    inset  1px  1px 1px   -0.5px rgba(255,255,255,0.68),
-    inset -1px -1px 1px   -0.5px rgba(255,255,255,0.60),
-    inset 0 0 10px 4px rgba(255,255,255,0.09),
-    0 0 24px rgba(0,0,0,0.13);
+  background: #fffef5;
+  color: var(--noir);
+  border-color: #fffef5;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.28);
 }
 
-/* ── Glass sombre — sur fond crème ── */
+/* ── Solid sombre — sur fond crème ── */
 .btn-dark {
-  background: rgba(26,26,26,0.07);
-  color: var(--noir);
-  border: 1px solid rgba(26,26,26,0.13);
-  box-shadow:
-    0 2px 10px rgba(0,0,0,0.11),
-    inset  2px  2px 0.5px -2.5px rgba(0,0,0,0.88),
-    inset -2px -2px 0.5px -2.5px rgba(0,0,0,0.82),
-    inset  1px  1px 1px   -0.5px rgba(0,0,0,0.58),
-    inset -1px -1px 1px   -0.5px rgba(0,0,0,0.58),
-    inset 0 0 10px 4px rgba(0,0,0,0.06),
-    0 0 18px rgba(255,255,255,0.20);
+  background: var(--noir);
+  color: var(--cream);
+  border: 1.5px solid var(--noir);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.18);
 }
 .btn-dark:hover {
-  color: var(--noir);
-  background: rgba(26,26,26,0.13);
-  box-shadow:
-    0 3px 14px rgba(0,0,0,0.15),
-    inset  2px  2px 0.5px -2.5px rgba(0,0,0,0.90),
-    inset -2px -2px 0.5px -2.5px rgba(0,0,0,0.85),
-    inset  1px  1px 1px   -0.5px rgba(0,0,0,0.62),
-    inset -1px -1px 1px   -0.5px rgba(0,0,0,0.62),
-    inset 0 0 10px 4px rgba(0,0,0,0.09),
-    0 0 22px rgba(255,255,255,0.25);
+  background: #2e2e2e;
+  color: var(--cream);
+  border-color: #2e2e2e;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.24);
 }
 
-/* ── Bouton primary — verre teinté couleur accent de la page ── */
+/* ── Bouton primary — couleur accent pleine ── */
 .btn.btn-primary {
-  background: color-mix(in srgb, var(--accent, var(--bleu)) 20%, transparent);
-  border-color: color-mix(in srgb, var(--accent, var(--bleu)) 38%, rgba(255,255,255,0.18));
+  background: color-mix(in srgb, var(--accent, var(--bleu)) 90%, rgba(0,0,0,0.12));
+  border-color: color-mix(in srgb, var(--accent, var(--bleu)) 95%, transparent);
   color: var(--cream);
-  box-shadow:
-    0 3px 16px color-mix(in srgb, var(--accent, var(--bleu)) 30%, rgba(0,0,0,0.12)),
-    inset  2px  2px 0.5px -2.5px rgba(255,255,255,0.18),
-    inset -2px -2px 0.5px -2.5px rgba(255,255,255,0.88),
-    inset  1px  1px 1px   -0.5px rgba(255,255,255,0.64),
-    inset -1px -1px 1px   -0.5px rgba(255,255,255,0.56),
-    inset 0 0 10px 5px color-mix(in srgb, var(--accent, var(--bleu)) 14%, transparent),
-    0 0 22px color-mix(in srgb, var(--accent, var(--bleu)) 20%, rgba(0,0,0,0.06));
+  box-shadow: 0 3px 16px color-mix(in srgb, var(--accent, var(--bleu)) 40%, rgba(0,0,0,0.14));
 }
 .btn.btn-primary:hover {
   color: var(--cream);
-  background: color-mix(in srgb, var(--accent, var(--bleu)) 30%, transparent);
-  box-shadow:
-    0 5px 22px color-mix(in srgb, var(--accent, var(--bleu)) 38%, rgba(0,0,0,0.14)),
-    inset  2px  2px 0.5px -2.5px rgba(255,255,255,0.22),
-    inset -2px -2px 0.5px -2.5px rgba(255,255,255,0.92),
-    inset  1px  1px 1px   -0.5px rgba(255,255,255,0.70),
-    inset -1px -1px 1px   -0.5px rgba(255,255,255,0.62),
-    inset 0 0 10px 5px color-mix(in srgb, var(--accent, var(--bleu)) 20%, transparent),
-    0 0 28px color-mix(in srgb, var(--accent, var(--bleu)) 26%, rgba(0,0,0,0.08));
+  background: color-mix(in srgb, var(--accent, var(--bleu)) 100%, rgba(0,0,0,0.08));
+  box-shadow: 0 5px 22px color-mix(in srgb, var(--accent, var(--bleu)) 50%, rgba(0,0,0,0.16));
 }
 
-/* ── Glass neutre — outline adaptatif ── */
+/* ── Outline — bouton secondaire sur fond crème ── */
 .btn-outline {
-  background: rgba(26,26,26,0.04);
+  background: transparent;
   color: var(--noir);
-  border: 1.5px solid rgba(26,26,26,0.20);
-  box-shadow:
-    0 2px 8px rgba(0,0,0,0.08),
-    inset  2px  2px 0.5px -2.5px rgba(0,0,0,0.78),
-    inset -2px -2px 0.5px -2.5px rgba(0,0,0,0.72),
-    inset  1px  1px 1px   -0.5px rgba(0,0,0,0.48),
-    inset -1px -1px 1px   -0.5px rgba(0,0,0,0.48),
-    inset 0 0 10px 4px rgba(0,0,0,0.05),
-    0 0 14px rgba(255,255,255,0.14);
+  border: 1.5px solid rgba(26,26,26,0.78);
 }
 .btn-outline:hover {
-  background: rgba(26,26,26,0.09);
-  color: inherit;
+  background: rgba(26,26,26,0.07);
+  border-color: var(--noir);
+  color: var(--noir);
 }
 
 /* ── MARQUEE ── */

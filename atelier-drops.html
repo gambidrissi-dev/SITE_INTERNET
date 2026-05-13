@@ -8,7 +8,6 @@
   <link rel="manifest" href="/assets/FAVICON/site.webmanifest">
   <meta name="theme-color" content="#F3EFD7">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#F3EFD7">
   <title>Éditions limitées mobilier Angoulême · L'Atelier | Collectif Cobalt</title>
   <!-- Open Graph -->
   <meta property="og:type"        content="website">
@@ -106,9 +105,14 @@
     .drop-card-meta { display: flex; justify-content: space-between; align-items: baseline; margin-top: auto; padding-top: 16px; border-top: 1px solid rgba(26,26,26,.1); }
     .drop-card-price { font-family: var(--f-display); font-size: 24px; color: var(--noir); }
     .drop-card-price small { font-family: var(--f-body); font-size: .55rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: rgba(26,26,26,.45); display: block; margin-top: 2px; }
-    .drop-card-cta { font-size: .62rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--vert); display: inline-flex; align-items: center; gap: 8px; transition: gap .2s; }
+    .drop-card-cta {
+      font-size: .60rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--vert); display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 18px; border-radius: 999px; border: 1.5px solid rgba(93,161,107,.65);
+      transition: background .2s, border-color .2s, color .2s, gap .2s;
+    }
     .drop-card-cta::after { content: '→'; }
-    .drop-card-cta:hover { gap: 14px; }
+    .drop-card-cta:hover { gap: 14px; background: var(--vert); color: var(--cream); border-color: var(--vert); }
 
     /* COMMENT ÇA MARCHE — 4 étapes */
     .how { background: var(--noir); padding: 100px 44px; }
@@ -215,7 +219,7 @@
     <p class="dh-sub sr sr-d2">Premières éditions en cours de co-design avec nos partenaires ébénistes. Quelques pièces, fabriquées d'un coup, vendues d'un coup. La première série sort à l'été 2026 — inscrivez-vous pour être prévenus.</p>
     <div class="dh-actions sr sr-d3">
       <a href="#current" class="btn btn-cream btn-primary"><span>Voir la première édition →</span></a>
-      <a href="#waitlist" class="btn btn-outline" style="color:var(--cream); border-color:rgba(240,235,216,.4)"><span>Liste d'attente</span></a>
+      <a href="#waitlist" class="btn btn-outline" style="color:var(--cream); border-color:rgba(240,235,216,.65)"><span>Liste d'attente</span></a>
     </div>
   </section>
 
