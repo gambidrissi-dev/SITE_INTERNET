@@ -236,9 +236,9 @@ body > nav[data-env="e4"] .nav-burger-btn::after { background: #BB3B34; box-shad
 #lg-overlay.open { transform: translateY(0); }
 
 .lg-header {
-  height: 58px; flex-shrink: 0;
+  height: 76px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 22px 0 32px;
+  padding: 0 28px 0 36px;
   border-bottom: 1px solid rgba(255,255,255,.07);
 }
 .lg-logo { display: flex; align-items: center; }
@@ -252,7 +252,7 @@ body > nav[data-env="e4"] .nav-burger-btn::after { background: #BB3B34; box-shad
 }
 .lg-close-btn:hover { color: rgba(255,255,255,.9); background: rgba(255,255,255,.07); }
 .lg-esc {
-  font-size: 13px; font-weight: 600; letter-spacing: .13em;
+  font-size: 15px; font-weight: 600; letter-spacing: .13em;
   text-transform: uppercase; color: rgba(255,255,255,.22);
 }
 
@@ -316,7 +316,7 @@ body > nav[data-env="e4"] .nav-burger-btn::after { background: #BB3B34; box-shad
 .lg-strip-link:hover { color: #fff; background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.45); }
 /* Pills colorées par env au hover */
 .e0 .lg-strip-link:hover { color: #fff; background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.50); }
-.e1 .lg-strip-link:hover { color: #4A82DC; background: rgba(74,130,220,.12); border-color: rgba(74,130,220,.55); }
+.e1 .lg-strip-link:hover { color: #4A82DC !important; background: rgba(74,130,220,.14) !important; border-color: rgba(74,130,220,.60) !important; }
 .e2 .lg-strip-link:hover { color: #5DA16B; background: rgba(93,161,107,.12); border-color: rgba(93,161,107,.55); }
 .e3 .lg-strip-link:hover { color: #F1CB4F; background: rgba(241,203,79,.12); border-color: rgba(241,203,79,.50); }
 .e4 .lg-strip-link:hover { color: #BB3B34; background: rgba(187,59,52,.12); border-color: rgba(187,59,52,.55); }
@@ -487,30 +487,30 @@ body > nav[data-env="e4"] .nav-burger-btn::after { background: #BB3B34; box-shad
 
 /* Footer de l'overlay */
 .lg-overlay-footer {
-  height: 50px; flex-shrink: 0;
+  height: 66px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 32px;
+  padding: 0 36px;
   border-top: 1px solid rgba(255,255,255,.07);
 }
 /* C — Retour dans l'overlay */
 .lg-overlay-back {
-  display: flex; align-items: center; gap: 7px;
+  display: flex; align-items: center; gap: 8px;
   background: none; border: 1px solid rgba(255,255,255,.15);
-  border-radius: 999px; padding: 7px 16px;
+  border-radius: 999px; padding: 10px 20px;
   cursor: none; color: rgba(255,255,255,.45);
-  font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  font-size: 15px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
   transition: color .2s, border-color .2s;
 }
 .lg-overlay-back:hover { color: rgba(255,255,255,.85); border-color: rgba(255,255,255,.40); }
 .lg-footer-contact {
-  font-size: 13px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
+  font-size: 15px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
   color: rgba(255,255,255,.38);
   transition: color .2s;
 }
 .lg-footer-contact:hover { color: rgba(255,255,255,.90); }
-.lg-footer-socials { display: flex; gap: 22px; }
+.lg-footer-socials { display: flex; gap: 26px; }
 .lg-footer-socials a {
-  font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  font-size: 15px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
   color: rgba(255,255,255,.22);
   transition: color .2s;
 }
