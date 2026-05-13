@@ -256,29 +256,22 @@ body > nav[data-env="e4"] .nav-burger-btn::after { background: #BB3B34; box-shad
   text-transform: uppercase; color: rgba(255,255,255,.22);
 }
 
-/* ── Conteneur nav classique ── */
+/* ── Conteneur bandes ── */
 .lg-strips {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 0 60px;
-  max-width: 860px;
-  margin: 0 auto;
-  width: 100%;
 }
 
-/* ── Item nav individuel ── */
+/* ── Bande individuelle ── */
 .lg-strip {
-  flex: 0 0 auto;
+  flex: 1;
   position: relative;
   display: flex;
-  flex-direction: column;
   align-items: stretch;
   border-bottom: 1px solid rgba(255,255,255,.06);
-  overflow: visible;
+  overflow: hidden;
   cursor: none;
-  padding: 22px 0;
   /* Entrée animée */
   opacity: 0;
   transform: translateY(18px);
@@ -289,22 +282,22 @@ body > nav[data-env="e4"] .nav-burger-btn::after { background: #BB3B34; box-shad
 
 /* Zone principale cliquable */
 .lg-strip-primary {
-  flex: none;
+  flex: 1;
   display: flex;
   align-items: center;
-  padding: 0 0 0 32px;
+  padding: 0 24px 0 32px;
   text-decoration: none;
   color: inherit;
 }
 
-/* Sous-liens — rangée de pills en dessous du nom */
+/* Sous-liens — pills alignées à droite */
 .lg-strip-links {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
   gap: 8px;
-  padding: 14px 0 0 90px;
-  border-left: none;
-  align-items: flex-start;
+  padding: 0 28px;
+  flex-shrink: 0;
+  border-left: 1px solid rgba(255,255,255,.07);
 }
 .lg-strip-link {
   display: inline-flex;
@@ -367,7 +360,6 @@ body > nav[data-env="e4"] .nav-burger-btn::after { background: #BB3B34; box-shad
 .lg-strip.soon:hover { background: inherit !important; }
 .lg-strip.soon:hover .lg-strip-name { color: rgba(255,255,255,.25) !important; }
 .lg-strip.soon:hover .lg-strip-num  { color: rgba(255,255,255,.12) !important; }
-.lg-strip.soon:hover .lg-strip-arrow { color: transparent !important; }
 .lg-strip.soon:hover::before { opacity: .2 !important; box-shadow: none !important; }
 .lg-strip.soon:hover .lg-strip-ghost { color: transparent !important; transform: translateY(-50%) !important; }
 .lg-strip-soon-badge {
@@ -408,14 +400,8 @@ body > nav[data-env="e4"] .nav-burger-btn::after { background: #BB3B34; box-shad
 .lg-strip:hover .lg-strip-sub { color: rgba(255,255,255,.55); }
 
 
-/* Flèche */
-.lg-strip-arrow {
-  font-size: 28px;
-  color: rgba(255,255,255,.20);
-  flex-shrink: 0;
-  transition: color .25s, transform .32s cubic-bezier(.34,1.56,.64,1);
-}
-.lg-strip:hover .lg-strip-arrow { color: rgba(255,255,255,.9); transform: translateX(12px) scale(1.15); }
+/* Flèche masquée */
+.lg-strip-arrow { display: none; }
 
 /* Hover : tint subtil par env */
 .e0:hover { background: rgba(255,255,255,.03); }
@@ -438,12 +424,6 @@ body > nav[data-env="e4"] .nav-burger-btn::after { background: #BB3B34; box-shad
 .e3:hover .lg-strip-num { color: rgba(241,203,79,.75); }
 .e4:hover .lg-strip-num { color: rgba(187,59,52,.75); }
 
-/* Flèche → couleur env au hover */
-.e0:hover .lg-strip-arrow { color: rgba(255,255,255,.80); }
-.e1:hover .lg-strip-arrow { color: #4A82DC; }
-.e2:hover .lg-strip-arrow { color: #5DA16B; }
-.e3:hover .lg-strip-arrow { color: #F1CB4F; }
-.e4:hover .lg-strip-arrow { color: #BB3B34; }
 
 /* Pills plus visibles quand le strip est hovéré */
 .e0:hover .lg-strip-link { color: rgba(255,255,255,.65); border-color: rgba(255,255,255,.30); }
