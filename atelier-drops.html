@@ -267,7 +267,7 @@
 
     <div class="drop-grid sr sr-d1">
       <div class="drop-card sr">
-        <a href="drop-piece.html?id=cob-01" class="drop-card-img-link" aria-label="Voir la fiche Tabouret COB-01">
+        <a href="#waitlist" class="drop-card-img-link" aria-label="S\'inscrire sur liste d\'attente pour Tabouret COB-01">
           <div class="drop-card-img"><img src="assets/ATELIER/DROPS/COB-01/cover.webp" alt="Tabouret COB-01 — Pin maritime Gironde" loading="lazy"></div>
         </a>
         <div class="drop-card-tag">
@@ -278,11 +278,11 @@
         <p class="drop-card-desc">Tripied bas, assise tournée à la main. 42 cm de haut, finition huile naturelle. Empilable.</p>
         <div class="drop-card-meta">
           <div class="drop-card-price">180 €<small>livré · Nouvelle-Aquitaine</small></div>
-          <a href="drop-piece.html?id=cob-01" class="drop-card-cta">Voir la pièce</a>
+          <a href="#waitlist" class="drop-card-cta">S'inscrire →</a>
         </div>
       </div>
       <div class="drop-card sr">
-        <a href="drop-piece.html?id=cob-02" class="drop-card-img-link" aria-label="Voir la fiche Table COB-02">
+        <a href="#waitlist" class="drop-card-img-link" aria-label="S\'inscrire sur liste d\'attente pour Table COB-02">
           <div class="drop-card-img"><img src="assets/ATELIER/DROPS/COB-02/cover.webp" alt="Table COB-02 — Pin brossé" loading="lazy"></div>
         </a>
         <div class="drop-card-tag">
@@ -293,11 +293,11 @@
         <p class="drop-card-desc">Plateau rond Ø 42 cm, plateau bas pour magazines. 56 cm de haut. Pin brossé.</p>
         <div class="drop-card-meta">
           <div class="drop-card-price">340 €<small>livré · Nouvelle-Aquitaine</small></div>
-          <a href="drop-piece.html?id=cob-02" class="drop-card-cta">Voir la pièce</a>
+          <a href="#waitlist" class="drop-card-cta">S'inscrire →</a>
         </div>
       </div>
       <div class="drop-card sr">
-        <a href="drop-piece.html?id=cob-03" class="drop-card-img-link" aria-label="Voir la fiche Porte-revues COB-03">
+        <a href="#waitlist" class="drop-card-img-link" aria-label="S\'inscrire sur liste d\'attente pour Porte-revues COB-03">
           <div class="drop-card-img"><img src="assets/ATELIER/DROPS/COB-03/cover.webp" alt="Porte-revues COB-03 — finition cire" loading="lazy"></div>
         </a>
         <div class="drop-card-tag">
@@ -308,7 +308,7 @@
         <p class="drop-card-desc">Format A4, deux compartiments, finition cire. La plus simple des trois — partie en premier.</p>
         <div class="drop-card-meta">
           <div class="drop-card-price">95 €<small>livré · Nouvelle-Aquitaine</small></div>
-          <a href="drop-piece.html?id=cob-03" class="drop-card-cta">Voir la pièce</a>
+          <a href="#waitlist" class="drop-card-cta">S'inscrire →</a>
         </div>
       </div>
     </div>
@@ -353,18 +353,21 @@
         <h2 class="wl-title">Premier <em>servi</em>,<br>premier prévenu.</h2>
         <p class="wl-body">La liste d'attente reçoit chaque drop 48 h avant qu'il soit public. Pas de spam : un mail par drop, deux à trois fois par an. On vous prévient aussi quand une pièce vous intéresse revient en cas de désistement.</p>
       </div>
-      <form class="wl-form sr sr-d1" onsubmit="alert('Merci ! On vous prévient au prochain drop.'); return false;">
+      <p class="form-sent-msg" id="wl-sent" style="display:none; padding:14px 18px; background:rgba(93,161,107,.10); border:1px solid rgba(93,161,107,.25); border-radius:12px; font-size:.82rem; color:#2B6B38; margin-bottom:16px;">✓ Inscription enregistrée — on vous prévient au prochain drop.</p>
+      <form class="wl-form sr sr-d1" action="https://formspree.io/f/PLACEHOLDER" method="POST">
+        <input type="hidden" name="_subject" value="Liste d'attente Drop — Atelier Cobalt">
+        <input type="hidden" name="_next" value="atelier-drops.html?sent=1">
         <div class="wl-field">
-          <label class="wl-lbl">Prénom</label>
-          <input class="wl-input" type="text" placeholder="Camille" required>
+          <label class="wl-lbl" for="wl-prenom">Prénom</label>
+          <input class="wl-input" type="text" id="wl-prenom" name="prenom" placeholder="Camille" required>
         </div>
         <div class="wl-field">
-          <label class="wl-lbl">Email</label>
-          <input class="wl-input" type="email" placeholder="camille@mail.fr" required>
+          <label class="wl-lbl" for="wl-email">Email</label>
+          <input class="wl-input" type="email" id="wl-email" name="email" placeholder="camille@mail.fr" required>
         </div>
         <div class="wl-field">
-          <label class="wl-lbl">Pièce qui vous intéresse (optionnel)</label>
-          <input class="wl-input" type="text" placeholder="Tabouret, table, porte-revues, autre…">
+          <label class="wl-lbl" for="wl-piece">Pièce qui vous intéresse (optionnel)</label>
+          <input class="wl-input" type="text" id="wl-piece" name="piece" placeholder="Tabouret, table, porte-revues, autre…">
         </div>
         <button type="submit" class="btn btn-dark wl-submit"><span>Rejoindre la liste →</span></button>
         <p class="wl-note">Aucun engagement. Désinscription d'un clic.</p>
@@ -479,5 +482,11 @@
   </footer>
 
   <script src="shared.js?v=22"></script>
+  <script>
+    if (new URLSearchParams(window.location.search).get('sent') === '1') {
+      var sentEl = document.getElementById('wl-sent');
+      if (sentEl) sentEl.style.display = 'block';
+    }
+  </script>
 </body>
 </html>

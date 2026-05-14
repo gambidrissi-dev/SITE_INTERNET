@@ -128,28 +128,6 @@
     .cb-text { font-family: var(--f-display); font-size: clamp(32px,5vw,64px); color: var(--noir); line-height: .9; }
     .cb-text em { font-family: var(--f-serif); font-style: italic; color: rgba(26,26,26,.4); }
 
-    /* ── NAV DROPDOWN MISSIONS ── */
-    .nav-missions { position: relative; }
-    .nav-missions-trigger {
-      display: inline-flex; align-items: center; gap: 6px; background: none; border: none; padding: 0;
-      font-family: var(--f-body); font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
-      color: rgba(26,26,26,.45); cursor: none; transition: color .15s;
-    }
-    .nav-missions-trigger:hover, .nav-missions-trigger.open { color: var(--noir); }
-    .nav-missions-trigger .ch { display: inline-block; font-size: .55rem; transition: transform .25s ease; }
-    .nav-missions-trigger.open .ch { transform: rotate(180deg); }
-    .nav-missions-menu {
-      position: absolute; top: calc(100% + 14px); left: -14px;
-      background: var(--cream); border: 1px solid rgba(26,26,26,.12);
-      border-radius: var(--r-md); padding: 10px; min-width: 220px;
-      box-shadow: var(--shadow); display: none; flex-direction: column; gap: 2px; z-index: 510;
-    }
-    .nav-missions-menu.open { display: flex; }
-    .nav-missions-menu a { display: flex; flex-direction: column; gap: 2px; padding: 12px 14px; border-radius: var(--r-sm); transition: background .15s; }
-    .nav-missions-menu a:hover { background: rgba(241,203,79,.18); }
-    .nav-missions-menu a .nm-name { font-size: .78rem; font-weight: 700; color: var(--noir); text-transform: none; letter-spacing: 0; }
-    .nav-missions-menu a .nm-desc { font-size: .64rem; color: rgba(26,26,26,.5); text-transform: none; letter-spacing: 0; }
-
     /* ── RESPONSIVE ── */
     @media (max-width: 960px) {
       .bdc-hero { padding: 110px 20px 56px; min-height: 0; }
@@ -189,6 +167,7 @@
       .cta-band { padding: 52px 18px; gap: 24px; }
       .cb-text { font-size: clamp(26px, 9vw, 38px); }
     }
+    .stat-unit { font-size: .5em; font-weight: 400; }
   </style>
 </head>
 <body>
@@ -236,11 +215,11 @@
         <div class="ms-stat-lbl">Lancement de la première cohorte</div>
       </div>
       <div class="ms-stat">
-        <div class="ms-stat-num">3<span style="font-size:.5em">→12</span></div>
+        <div class="ms-stat-num">3<span class="stat-unit">→12</span></div>
         <div class="ms-stat-lbl">Semaines par mission, format court</div>
       </div>
       <div class="ms-stat">
-        <div class="ms-stat-num">100<span style="font-size:.5em">%</span></div>
+        <div class="ms-stat-num">100<span class="stat-unit">%</span></div>
         <div class="ms-stat-lbl">Missions sur projets réels du collectif</div>
       </div>
       <img class="ms-img" src="assets/BLEU-DE-COBALT/PROGRAMME/atelier.webp" alt="Étudiants en atelier — Bleu de Cobalt" loading="lazy">
@@ -406,25 +385,6 @@
 
   <script src="shared.js?v=22"></script>
   <script>
-    const mTrigger = document.querySelector('.nav-missions-trigger');
-    const mMenu = document.querySelector('.nav-missions-menu');
-    if (mTrigger && mMenu) {
-      mTrigger.addEventListener('click', e => {
-        e.preventDefault(); e.stopPropagation();
-        const open = !mMenu.classList.contains('open');
-        mMenu.classList.toggle('open', open);
-        mTrigger.classList.toggle('open', open);
-      });
-      document.addEventListener('click', e => {
-        if (!mMenu.contains(e.target) && e.target !== mTrigger && !mTrigger.contains(e.target)) {
-          mMenu.classList.remove('open');
-          mTrigger.classList.remove('open');
-        }
-      });
-      document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') { mMenu.classList.remove('open'); mTrigger.classList.remove('open'); }
-      });
-    }
   </script>
 </body>
 </html>

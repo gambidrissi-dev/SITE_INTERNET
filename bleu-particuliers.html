@@ -34,73 +34,6 @@
     :root { --accent: var(--jaune); }
     .stripe { background: linear-gradient(90deg, var(--jaune) 25%, var(--noir) 25% 50%, var(--jaune) 50% 75%, var(--noir) 75%); }
 
-    /* Mini-dropdown Missions ▾ */
-    .nav-missions { position: relative; }
-    .nav-missions-trigger {
-      display: inline-flex; align-items: center; gap: 6px; background: none; border: none; padding: 0;
-      font-family: var(--f-body); font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
-      color: var(--noir); cursor: none; transition: color .15s;
-    }
-    .nav-missions-trigger.is-current { color: var(--noir); }
-    .nav-missions-trigger.is-current::after { content: ''; display: block; height: 2px; background: var(--jaune); margin-top: 2px; }
-    .nav-missions-trigger .ch { display: inline-block; font-size: .55rem; transition: transform .25s ease; }
-    .nav-missions-trigger.open .ch { transform: rotate(180deg); }
-    .nav-missions-menu {
-      position: absolute; top: calc(100% + 14px); left: -14px;
-      background: var(--cream); border: 1px solid rgba(26,26,26,.12);
-      border-radius: var(--r-md); padding: 10px; min-width: 220px;
-      box-shadow: var(--shadow); display: none; flex-direction: column; gap: 2px; z-index: 510;
-    }
-    .nav-missions-menu.open { display: flex; }
-    .nav-missions-menu a { display: flex; flex-direction: column; gap: 2px; padding: 12px 14px; border-radius: var(--r-sm); transition: background .15s; }
-    .nav-missions-menu a:hover { background: rgba(241,203,79,.18); }
-    .nav-missions-menu a.is-here { background: rgba(241,203,79,.28); }
-    .nav-missions-menu a .nm-name { font-size: .78rem; font-weight: 700; color: var(--noir); text-transform: none; letter-spacing: 0; }
-    .nav-missions-menu a .nm-desc { font-size: .64rem; color: rgba(26,26,26,.5); text-transform: none; letter-spacing: 0; }
-
-    /* HERO chaleureux particulier */
-    .pt-hero {
-      background: var(--jaune); padding: 140px 44px 80px; position: relative; overflow: hidden;
-      display: grid; grid-template-columns: 1.1fr 1fr; gap: 60px; align-items: end;
-    }
-    .pt-bg-num {
-      position: absolute; right: -40px; bottom: -60px;
-      font-family: var(--f-display); font-size: clamp(260px,32vw,420px);
-      color: rgba(26,26,26,.05); line-height: 1; pointer-events: none; user-select: none;
-    }
-    .pt-eyebrow { font-size: .62rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--noir); display: flex; align-items: center; gap: 14px; margin-bottom: 32px; }
-    .pt-eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--noir); }
-    .pt-title { font-family: var(--f-display); font-size: clamp(56px,9vw,140px); line-height: .82; color: var(--noir); margin-bottom: 36px; }
-    .pt-title em { font-family: var(--f-serif); font-style: italic; color: var(--cream); font-weight: 400; }
-    .pt-sub { font-size: 1rem; line-height: 1.85; font-weight: 300; color: rgba(26,26,26,.7); margin-bottom: 36px; }
-    .pt-actions { display: flex; gap: 14px; flex-wrap: wrap; }
-
-    .pt-card {
-      background: var(--noir); border-radius: var(--r-md); padding: 36px;
-      display: flex; flex-direction: column; gap: 18px;
-    }
-    .pt-card-tag { font-size: .58rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--jaune); }
-    .pt-card-quote { font-family: var(--f-serif); font-style: italic; font-size: 1.45rem; line-height: 1.4; color: var(--cream); }
-    .pt-card-author { font-size: .78rem; font-weight: 600; color: rgba(240,235,216,.55); padding-top: 16px; border-top: 1px solid rgba(240,235,216,.15); }
-
-    /* DIFF — pourquoi pas un archi classique */
-    .diff { background: var(--cream); padding: 80px 44px; }
-    .df-header { max-width: 760px; margin-bottom: 56px; }
-    .df-title { font-family: var(--f-display); font-size: clamp(48px,7vw,100px); line-height: .88; margin-bottom: 24px; }
-    .df-title em { font-family: var(--f-serif); font-style: italic; color: var(--jaune); font-weight: 400; }
-    .df-intro { font-size: .95rem; line-height: 1.85; font-weight: 300; color: rgba(26,26,26,.65); }
-    .df-table {
-      display: grid; grid-template-columns: 1fr 1fr 1fr;  
-    }
-    .df-row { display: contents; }
-    .df-cell { padding: 24px 28px; border-right: 1px solid rgba(26,26,26,.1); border-bottom: 1px solid rgba(26,26,26,.06); }
-    .df-cell:nth-child(3n) { border-right: none; }
-    .df-cell.head { font-size: .58rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(26,26,26,.5); padding-top: 22px; padding-bottom: 22px;  }
-    .df-cell.head.col-bleu { background: var(--jaune); color: var(--noir); }
-    .df-cell.label { font-family: var(--f-display); font-size: 16px; color: var(--noir); }
-    .df-cell.val { font-size: .9rem; line-height: 1.6; font-weight: 300; color: rgba(26,26,26,.65); }
-    .df-cell.val.col-bleu { background: rgba(241,203,79,.12); color: var(--noir); font-weight: 500; }
-
     /* OFFRES — 3 formules */
     .offres { background: var(--noir); padding: 80px 44px; }
     .of-header { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 56px; }
@@ -115,7 +48,9 @@
     }
     .of-card:hover { border-color: var(--jaune); background: rgba(241,203,79,.1); }
     .of-card.featured { background: var(--jaune); border-color: var(--jaune); }
-    .of-card.featured * { color: var(--noir) !important; }
+    .of-card.featured .of-card-name,
+    .of-card.featured .of-card-desc,
+    .of-card.featured .of-card-list li { color: var(--noir); }
     .of-card.featured .of-card-list li::before { color: var(--noir) !important; background: none !important; content: '✓'; }
     .of-card-tag { font-size: .58rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--jaune); }
     .of-card.featured .of-card-tag { color: rgba(26,26,26,.55); }
@@ -359,34 +294,37 @@
         <p class="ct-body">Pas besoin de plans, pas besoin de tout connaître. Quelques infos basiques sur votre logement et votre besoin — on revient sous 48 h avec un devis indicatif et un appel proposé.</p>
         <p class="ct-body" style="font-size:.85rem; color:rgba(26,26,26,.55)">Ou écrivez à <strong style="color:var(--noir)">bleu@collectifcobalt.eu</strong>.</p>
       </div>
-      <form class="ct-form sr sr-d1" onsubmit="alert('Merci ! Réponse sous 48 h.'); return false;">
+      <p class="form-sent-msg" id="ct-sent" style="display:none; padding:14px 18px; background:rgba(241,203,79,.15); border:1px solid rgba(241,203,79,.4); border-radius:12px; font-size:.82rem; color:#7A5500; margin-bottom:16px;">✓ Demande envoyée — réponse sous 48 h.</p>
+      <form class="ct-form sr sr-d1" action="https://formspree.io/f/PLACEHOLDER" method="POST">
+        <input type="hidden" name="_subject" value="Demande particulier — Bleu de Cobalt">
+        <input type="hidden" name="_next" value="bleu-particuliers.html?sent=1">
         <div class="ct-row">
           <div class="ct-field">
-            <label class="ct-lbl">Prénom</label>
-            <input class="ct-input" type="text" placeholder="Camille" required>
+            <label class="ct-lbl" for="ct-prenom">Prénom</label>
+            <input class="ct-input" type="text" id="ct-prenom" name="prenom" placeholder="Camille" required>
           </div>
           <div class="ct-field">
-            <label class="ct-lbl">Email</label>
-            <input class="ct-input" type="email" placeholder="camille@mail.fr" required>
+            <label class="ct-lbl" for="ct-email">Email</label>
+            <input class="ct-input" type="email" id="ct-email" name="email" placeholder="camille@mail.fr" required>
           </div>
         </div>
         <div class="ct-row">
           <div class="ct-field">
-            <label class="ct-lbl">Ville · code postal</label>
-            <input class="ct-input" type="text" placeholder="Bordeaux 33000" required>
+            <label class="ct-lbl" for="ct-ville">Ville · code postal</label>
+            <input class="ct-input" type="text" id="ct-ville" name="ville" placeholder="Bordeaux 33000" required>
           </div>
           <div class="ct-field">
-            <label class="ct-lbl">Surface (m²)</label>
-            <input class="ct-input" type="text" placeholder="65" required>
+            <label class="ct-lbl" for="ct-surface">Surface (m²)</label>
+            <input class="ct-input" type="text" id="ct-surface" name="surface" placeholder="65" required>
           </div>
         </div>
         <div class="ct-field">
-          <label class="ct-lbl">Votre projet en 3 phrases</label>
-          <textarea class="ct-ta" placeholder="Réagencement T3 Mérignac, ouvrir cuisine sur séjour, refaire entrée. Budget travaux 25k. Démarrage idéalement avant l'été." required></textarea>
+          <label class="ct-lbl" for="ct-projet">Votre projet en 3 phrases</label>
+          <textarea class="ct-ta" id="ct-projet" name="projet" placeholder="Réagencement T3 Mérignac, ouvrir cuisine sur séjour, refaire entrée. Budget travaux 25k. Démarrage idéalement avant l'été." required></textarea>
         </div>
         <div class="ct-field">
-          <label class="ct-lbl">Formule envisagée (optionnel)</label>
-          <input class="ct-input" type="text" placeholder="Diagnostic · Réagencement · Suivi chantier · Pas sûr">
+          <label class="ct-lbl" for="ct-formule">Formule envisagée (optionnel)</label>
+          <input class="ct-input" type="text" id="ct-formule" name="formule" placeholder="Diagnostic · Réagencement · Suivi chantier · Pas sûr">
         </div>
         <button type="submit" class="btn btn-dark" style="margin-top:8px; align-self:flex-start"><span>Envoyer →</span></button>
       </form>
@@ -490,24 +428,11 @@
 
   <script src="shared.js?v=22"></script>
   <script>
-    const mTrigger = document.querySelector('.nav-missions-trigger');
-    const mMenu = document.querySelector('.nav-missions-menu');
-    if (mTrigger && mMenu) {
-      mTrigger.addEventListener('click', e => {
-        e.preventDefault(); e.stopPropagation();
-        const open = !mMenu.classList.contains('open');
-        mMenu.classList.toggle('open', open);
-        mTrigger.classList.toggle('open', open);
-      });
-      document.addEventListener('click', e => {
-        if (!mMenu.contains(e.target) && e.target !== mTrigger && !mTrigger.contains(e.target)) {
-          mMenu.classList.remove('open');
-          mTrigger.classList.remove('open');
-        }
-      });
-      document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') { mMenu.classList.remove('open'); mTrigger.classList.remove('open'); }
-      });
+  </script>
+  <script>
+    if (new URLSearchParams(window.location.search).get('sent') === '1') {
+      var sentEl = document.getElementById('ct-sent');
+      if (sentEl) sentEl.style.display = 'block';
     }
   </script>
 </body>

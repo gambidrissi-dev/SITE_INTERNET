@@ -34,31 +34,6 @@
     :root { --accent: var(--jaune); }
     .stripe { background: linear-gradient(90deg, var(--jaune) 25%, var(--noir) 25% 50%, var(--jaune) 50% 75%, var(--noir) 75%); }
 
-    /* Mini-dropdown Missions ▾ */
-    .nav-missions { position: relative; }
-    .nav-missions-trigger {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: none; border: none; padding: 0;
-      font-family: var(--f-body); font-size: .72rem; font-weight: 600;
-      letter-spacing: .12em; text-transform: uppercase;
-      color: rgba(26,26,26,.45); cursor: none; transition: color .15s;
-    }
-    .nav-missions-trigger:hover, .nav-missions-trigger.open { color: var(--noir); }
-    .nav-missions-trigger .ch { display: inline-block; font-size: .55rem; line-height: 1; transition: transform .25s ease; }
-    .nav-missions-trigger.open .ch { transform: rotate(180deg); }
-    .nav-missions-menu {
-      position: absolute; top: calc(100% + 14px); left: -14px;
-      background: var(--cream); border: 1px solid rgba(26,26,26,.12);
-      border-radius: var(--r-md); padding: 10px; min-width: 220px;
-      box-shadow: var(--shadow); display: none; flex-direction: column; gap: 2px;
-      z-index: 510;
-    }
-    .nav-missions-menu.open { display: flex; }
-    .nav-missions-menu a { display: flex; flex-direction: column; gap: 2px; padding: 12px 14px; border-radius: var(--r-sm); transition: background .15s; }
-    .nav-missions-menu a:hover { background: rgba(241,203,79,.18); }
-    .nav-missions-menu a .nm-name { font-size: .78rem; font-weight: 700; letter-spacing: .04em; color: var(--noir); text-transform: none; }
-    .nav-missions-menu a .nm-desc { font-size: .64rem; font-weight: 400; color: rgba(26,26,26,.5); letter-spacing: 0; text-transform: none; }
-
     /* HERO */
     .pg-hero {
       min-height: 72vh; background: var(--noir);
@@ -140,7 +115,7 @@
       .ch-grid { grid-template-columns: 1fr; }
       .ch-cell { border-right: none;  padding: 36px 24px; }
       .ch-cell:last-child { border-bottom: none; }
-.profils { padding: 64px 20px; }
+      .profils { padding: 64px 20px; }
       .pf-title { font-size: clamp(36px, 10vw, 64px); margin-bottom: 36px; }
       .pf-grid { grid-template-columns: 1fr; }
       .candidater { padding: 64px 20px; }
@@ -153,7 +128,7 @@
       .pg-actions { gap: 12px; }
       .change { padding: 52px 18px; }
       .ch-cell { padding: 28px 20px; }
-.profils { padding: 52px 18px; }
+      .profils { padding: 52px 18px; }
       .pf-card { padding: 28px 22px; }
       .candidater { padding: 52px 18px; }
       .cd-form { padding: 28px 22px; }
@@ -197,26 +172,26 @@
   <section class="change">
     <div class="ch-header sr">
       <h2 class="ch-title">CE QUE BLEU <em>change</em>.</h2>
-      <p class="ch-intro">L'alternance classique te fait dessiner les WC pendant 18 mois. Bleu te place sur des projets variés, courts, encadrés. Tu accumules des livrables réels. Tu vois plusieurs cabinets, plusieurs façons de travailler. Tu négocies tes conditions plutôt que d'attendre la fin du contrat.</p>
+      <p class="ch-intro">L'alternance classique vous fait dessiner les WC pendant 18 mois. Bleu vous place sur des projets variés, courts, encadrés. Vous accumulez des livrables réels. Vous voyez plusieurs cabinets, plusieurs façons de travailler. Vous négociez vos conditions plutôt que d'attendre la fin du contrat.</p>
     </div>
     <div class="ch-grid sr sr-d1">
       <div class="ch-cell">
         <div class="ch-cell-num">01</div>
         <div class="ch-cell-bar"></div>
         <div class="ch-cell-name">Plusieurs cabinets, plusieurs cultures</div>
-        <p class="ch-cell-desc">Tu rotates entre 3 à 6 missions par an, dans des structures différentes. Tu comprends ce qui te correspond avant de signer un CDI les yeux fermés.</p>
+        <p class="ch-cell-desc">Vous alternez entre 3 à 6 missions par an, dans des structures différentes. Vous comprenez ce qui vous correspond avant de signer un CDI les yeux fermés.</p>
       </div>
       <div class="ch-cell">
         <div class="ch-cell-num">02</div>
         <div class="ch-cell-bar"></div>
         <div class="ch-cell-name">Encadrement Cobalt, pas l'oubli total</div>
-        <p class="ch-cell-desc">Un référent du collectif te suit en parallèle de la mission — point hebdo, retour critique, accès à l'atelier et au studio si besoin. Tu n'es jamais seul·e face au cabinet d'accueil.</p>
+        <p class="ch-cell-desc">Un référent du collectif vous suit en parallèle de la mission — point hebdo, retour critique, accès à l'atelier et au studio si besoin. Vous n'êtes jamais seul·e face au cabinet d'accueil.</p>
       </div>
       <div class="ch-cell">
         <div class="ch-cell-num">03</div>
         <div class="ch-cell-bar"></div>
         <div class="ch-cell-name">Portfolio qui parle</div>
-        <p class="ch-cell-desc">Chaque mission produit un livrable documenté que tu peux montrer. À la sortie, ton portfolio raconte un parcours, pas une attestation administrative.</p>
+        <p class="ch-cell-desc">Chaque mission produit un livrable documenté que vous pouvez montrer. À la sortie, votre portfolio raconte un parcours, pas une attestation administrative.</p>
       </div>
     </div>
   </section>
@@ -238,7 +213,7 @@
       <div class="pf-card sr sr-d1">
         <div class="pf-card-num">02</div>
         <div class="pf-card-name">Reconversion vers le métier</div>
-        <p class="pf-card-desc">Tu as 25, 35 ou 45 ans, tu basculé·e ou en formation reconversion vers l'archi. Tu cherches du terrain rapidement, pas un nouveau diplôme avant 5 ans.</p>
+        <p class="pf-card-desc">Vous avez 25, 35 ou 45 ans, vous êtes basculé·e ou en formation reconversion vers l'archi. Vous cherchez du terrain rapidement, pas un nouveau diplôme avant 5 ans.</p>
         <ul class="pf-card-list">
           <li>Formation en cours (école certifiée RNCP) ou récente</li>
           <li>Premier book / portfolio même modeste</li>
@@ -248,7 +223,7 @@
       <div class="pf-card sr sr-d2">
         <div class="pf-card-num">03</div>
         <div class="pf-card-name">Jeune diplômé·e cherchant du terrain</div>
-        <p class="pf-card-desc">Tu es sorti·e d'école il y a 0 à 24 mois, tu galères à trouver un poste qui ne soit pas du dessin technique mal payé. Bleu te fait varier les contextes avant d'engager un CDI.</p>
+        <p class="pf-card-desc">Vous êtes sorti·e d'école il y a 0 à 24 mois, vous galèrez à trouver un poste qui ne soit pas du dessin technique mal payé. Bleu vous fait varier les contextes avant d'engager un CDI.</p>
         <ul class="pf-card-list">
           <li>Diplôme archi / design / scénographie</li>
           <li>Portfolio existant</li>
@@ -264,33 +239,36 @@
       <div class="sr">
         <div class="cd-eyebrow">Postuler à Bleu</div>
         <h2 class="cd-title">Envoie-nous <em>3 choses</em>.</h2>
-        <p class="cd-body">Pas de CV obligatoire, pas de lettre de motivation type. On préfère du concret. Si ce que tu envoies nous donne envie, on te recontacte sous 7 jours pour un entretien court.</p>
+        <p class="cd-body">Pas de CV obligatoire, pas de lettre de motivation type. On préfère du concret. Si ce que vous envoyez nous donne envie, on vous recontacte sous 7 jours pour un entretien court.</p>
         <ul class="cd-list">
-          <li><strong>Ton portfolio</strong> ou 3 projets que tu trouves représentatifs (PDF ou lien web)</li>
+          <li><strong>Votre portfolio</strong> ou 3 projets que vous trouvez représentatifs (PDF ou lien web)</li>
           <li><strong>3 phrases</strong> sur pourquoi Bleu et pas une alternance classique</li>
-          <li><strong>Ta dispo</strong> — quand tu peux commencer, sur combien de temps</li>
+          <li><strong>Votre dispo</strong> — quand vous pouvez commencer, sur combien de temps</li>
         </ul>
       </div>
-      <form class="cd-form sr sr-d1" onsubmit="alert('Merci ! On revient vers toi sous 7 jours.'); return false;">
+      <p class="form-sent-msg" id="cd-sent" style="display:none; padding:14px 18px; background:rgba(241,203,79,.15); border:1px solid rgba(241,203,79,.4); border-radius:12px; font-size:.82rem; color:#7A5500; margin-bottom:16px;">✓ Candidature envoyée — on vous recontacte sous 7 jours.</p>
+      <form class="cd-form sr sr-d1" action="https://formspree.io/f/PLACEHOLDER" method="POST">
+        <input type="hidden" name="_subject" value="Candidature Bleu de Cobalt">
+        <input type="hidden" name="_next" value="bleu-programme.html?sent=1">
         <div class="cd-field">
-          <label class="cd-lbl">Prénom · Nom</label>
-          <input class="cd-input" type="text" placeholder="Camille Dupont" required>
+          <label class="cd-lbl" for="cd-nom">Prénom · Nom</label>
+          <input class="cd-input" type="text" id="cd-nom" name="nom" placeholder="Camille Dupont" required>
         </div>
         <div class="cd-field">
-          <label class="cd-lbl">Email</label>
-          <input class="cd-input" type="email" placeholder="camille@mail.fr" required>
+          <label class="cd-lbl" for="cd-email">Email</label>
+          <input class="cd-input" type="email" id="cd-email" name="email" placeholder="camille@mail.fr" required>
         </div>
         <div class="cd-field">
-          <label class="cd-lbl">Lien portfolio · ou PDF (à envoyer à bleu@collectifcobalt.eu)</label>
-          <input class="cd-input" type="url" placeholder="https://…">
+          <label class="cd-lbl" for="cd-portfolio">Lien portfolio · ou PDF (à envoyer à bleu@collectifcobalt.eu)</label>
+          <input class="cd-input" type="url" id="cd-portfolio" name="portfolio" placeholder="https://…">
         </div>
         <div class="cd-field">
-          <label class="cd-lbl">Pourquoi Bleu ? (3 phrases)</label>
-          <textarea class="cd-ta" placeholder="Sois honnête, court, et précis." required></textarea>
+          <label class="cd-lbl" for="cd-motivation">Pourquoi Bleu ? (3 phrases)</label>
+          <textarea class="cd-ta" id="cd-motivation" name="motivation" placeholder="Sois honnête, court, et précis." required></textarea>
         </div>
         <div class="cd-field">
-          <label class="cd-lbl">Dispo</label>
-          <input class="cd-input" type="text" placeholder="Septembre 2026, 6 mois, mi-temps possible" required>
+          <label class="cd-lbl" for="cd-dispo">Dispo</label>
+          <input class="cd-input" type="text" id="cd-dispo" name="dispo" placeholder="Septembre 2026, 6 mois, mi-temps possible" required>
         </div>
         <button type="submit" class="btn btn-dark" style="margin-top:8px; align-self:flex-start"><span>Envoyer ma candidature →</span></button>
       </form>
@@ -394,24 +372,11 @@
 
   <script src="shared.js?v=22"></script>
   <script>
-    const mTrigger = document.querySelector('.nav-missions-trigger');
-    const mMenu = document.querySelector('.nav-missions-menu');
-    if (mTrigger && mMenu) {
-      mTrigger.addEventListener('click', e => {
-        e.preventDefault(); e.stopPropagation();
-        const open = !mMenu.classList.contains('open');
-        mMenu.classList.toggle('open', open);
-        mTrigger.classList.toggle('open', open);
-      });
-      document.addEventListener('click', e => {
-        if (!mMenu.contains(e.target) && e.target !== mTrigger && !mTrigger.contains(e.target)) {
-          mMenu.classList.remove('open');
-          mTrigger.classList.remove('open');
-        }
-      });
-      document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') { mMenu.classList.remove('open'); mTrigger.classList.remove('open'); }
-      });
+  </script>
+  <script>
+    if (new URLSearchParams(window.location.search).get('sent') === '1') {
+      var sentEl = document.getElementById('cd-sent');
+      if (sentEl) sentEl.style.display = 'block';
     }
   </script>
 </body>

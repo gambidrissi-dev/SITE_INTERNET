@@ -34,30 +34,6 @@
     :root { --accent: var(--jaune); }
     .stripe { background: linear-gradient(90deg, var(--jaune) 25%, var(--noir) 25% 50%, var(--jaune) 50% 75%, var(--noir) 75%); }
 
-    /* Mini-dropdown Missions ▾ */
-    .nav-missions { position: relative; }
-    .nav-missions-trigger {
-      display: inline-flex; align-items: center; gap: 6px; background: none; border: none; padding: 0;
-      font-family: var(--f-body); font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
-      color: var(--noir); cursor: none; transition: color .15s;
-    }
-    .nav-missions-trigger.is-current { color: var(--noir); }
-    .nav-missions-trigger.is-current::after { content: ''; display: block; height: 2px; background: var(--jaune); margin-top: 2px; }
-    .nav-missions-trigger .ch { display: inline-block; font-size: .55rem; transition: transform .25s ease; }
-    .nav-missions-trigger.open .ch { transform: rotate(180deg); }
-    .nav-missions-menu {
-      position: absolute; top: calc(100% + 14px); left: -14px;
-      background: var(--cream); border: 1px solid rgba(26,26,26,.12);
-      border-radius: var(--r-md); padding: 10px; min-width: 220px;
-      box-shadow: var(--shadow); display: none; flex-direction: column; gap: 2px; z-index: 510;
-    }
-    .nav-missions-menu.open { display: flex; }
-    .nav-missions-menu a { display: flex; flex-direction: column; gap: 2px; padding: 12px 14px; border-radius: var(--r-sm); transition: background .15s; }
-    .nav-missions-menu a:hover { background: rgba(241,203,79,.18); }
-    .nav-missions-menu a.is-here { background: rgba(241,203,79,.28); }
-    .nav-missions-menu a .nm-name { font-size: .78rem; font-weight: 700; color: var(--noir); text-transform: none; letter-spacing: 0; }
-    .nav-missions-menu a .nm-desc { font-size: .64rem; color: rgba(26,26,26,.5); text-transform: none; letter-spacing: 0; }
-
     /* HERO — split clean */
     .cab-hero {
       background: var(--noir); padding: 140px 44px 80px; position: relative; overflow: hidden;
@@ -139,7 +115,7 @@
     .pr-title { font-family: var(--f-display); font-size: clamp(48px,7vw,100px); line-height: .88; margin-bottom: 56px; }
     .pr-title em { font-family: var(--f-serif); font-style: italic; color: var(--jaune); font-weight: 400; }
     .pr-steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 0;  }
-    .pr-step { padding: 40px 28px;  }
+    .pr-step { padding: 40px 28px; border-right: 1px solid rgba(26,26,26,.1); }
     .pr-step:last-child { border-right: none; }
     .pr-step-num { font-family: var(--f-display); font-size: 44px; color: rgba(241,203,79,.4); line-height: 1; margin-bottom: 18px; }
     .pr-step-bar { width: 28px; height: 3px; background: var(--jaune); margin-bottom: 18px; }
@@ -393,22 +369,25 @@
         <p class="st-body">Pas besoin de brief ultra cadré. Une phrase sur le contexte, une sur le besoin, votre durée, votre démarrage souhaité. On revient avec 1 à 2 profils.</p>
         <p class="st-body" style="font-size:.85rem; color:rgba(26,26,26,.55)">Ou écrivez directement à <strong style="color:var(--noir)">bleu@collectifcobalt.eu</strong>.</p>
       </div>
-      <form class="st-form sr sr-d1" onsubmit="alert('Merci ! Réponse sous 48 h.'); return false;">
+      <p class="form-sent-msg" id="st-sent" style="display:none; padding:14px 18px; background:rgba(241,203,79,.15); border:1px solid rgba(241,203,79,.4); border-radius:12px; font-size:.82rem; color:#7A5500; margin-bottom:16px;">✓ Demande envoyée — réponse sous 48 h.</p>
+      <form class="st-form sr sr-d1" action="https://formspree.io/f/PLACEHOLDER" method="POST">
+        <input type="hidden" name="_subject" value="Demande cabinet — Bleu de Cobalt">
+        <input type="hidden" name="_next" value="bleu-cabinets.html?sent=1">
         <div class="st-field">
-          <label class="st-lbl">Cabinet · contact</label>
-          <input class="st-input" type="text" placeholder="Cabinet X · Camille Dupont" required>
+          <label class="st-lbl" for="st-cabinet">Cabinet · contact</label>
+          <input class="st-input" type="text" id="st-cabinet" name="cabinet" placeholder="Cabinet X · Camille Dupont" required>
         </div>
         <div class="st-field">
-          <label class="st-lbl">Email pro</label>
-          <input class="st-input" type="email" placeholder="camille@cabinet-x.fr" required>
+          <label class="st-lbl" for="st-email">Email pro</label>
+          <input class="st-input" type="email" id="st-email" name="email" placeholder="camille@cabinet-x.fr" required>
         </div>
         <div class="st-field">
-          <label class="st-lbl">Mission en deux phrases</label>
-          <textarea class="st-ta" placeholder="Concours équipement public, besoin de production esquisse + 8 vues 3D. 6 semaines, démarrage juin." required></textarea>
+          <label class="st-lbl" for="st-mission">Mission en deux phrases</label>
+          <textarea class="st-ta" id="st-mission" name="mission" placeholder="Concours équipement public, besoin de production esquisse + 8 vues 3D. 6 semaines, démarrage juin." required></textarea>
         </div>
         <div class="st-field">
-          <label class="st-lbl">Démarrage souhaité</label>
-          <input class="st-input" type="text" placeholder="Sous 2 semaines · juin 2026 · etc." required>
+          <label class="st-lbl" for="st-demarrage">Démarrage souhaité</label>
+          <input class="st-input" type="text" id="st-demarrage" name="demarrage" placeholder="Sous 2 semaines · juin 2026 · etc." required>
         </div>
         <button type="submit" class="btn btn-dark" style="margin-top:8px; align-self:flex-start"><span>Envoyer la demande →</span></button>
       </form>
@@ -512,24 +491,11 @@
 
   <script src="shared.js?v=22"></script>
   <script>
-    const mTrigger = document.querySelector('.nav-missions-trigger');
-    const mMenu = document.querySelector('.nav-missions-menu');
-    if (mTrigger && mMenu) {
-      mTrigger.addEventListener('click', e => {
-        e.preventDefault(); e.stopPropagation();
-        const open = !mMenu.classList.contains('open');
-        mMenu.classList.toggle('open', open);
-        mTrigger.classList.toggle('open', open);
-      });
-      document.addEventListener('click', e => {
-        if (!mMenu.contains(e.target) && e.target !== mTrigger && !mTrigger.contains(e.target)) {
-          mMenu.classList.remove('open');
-          mTrigger.classList.remove('open');
-        }
-      });
-      document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') { mMenu.classList.remove('open'); mTrigger.classList.remove('open'); }
-      });
+  </script>
+  <script>
+    if (new URLSearchParams(window.location.search).get('sent') === '1') {
+      var sentEl = document.getElementById('st-sent');
+      if (sentEl) sentEl.style.display = 'block';
     }
   </script>
 </body>
