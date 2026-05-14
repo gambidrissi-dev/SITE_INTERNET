@@ -29,7 +29,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="shared.css?v=20">
+  <link rel="stylesheet" href="shared.css?v=21">
   <style>
     :root { --accent: var(--vert); }
     .stripe { background: linear-gradient(90deg, var(--vert) 25%, var(--noir) 25% 50%, var(--vert) 50% 75%, var(--noir) 75%); }
@@ -213,6 +213,16 @@
   </nav>
 <!-- HERO -->
   <section class="drops-hero">
+  <div class="hero-shape" aria-hidden="true">
+    <svg viewBox="0 0 750 450" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMax meet">
+    <path fill="rgba(243,239,215,0.06)" d="M0 180.85H750V450H0V180.85Z"/>
+    <path fill="rgba(243,239,215,0.06)" d="M375 180.85C375 280.73 291.053 361.699 187.5 361.699C83.9466 361.699 0 280.73 0 180.85C0 80.9692 83.9466 0 187.5 0C291.053 0 375 80.9692 375 180.85Z"/>
+    <path fill="rgba(243,239,215,0.06)" d="M750 180.85C750 280.73 666.053 361.699 562.5 361.699C458.947 361.699 375 280.73 375 180.85C375 80.9692 458.947 0 562.5 0C666.053 0 750 80.9692 750 180.85Z"/>
+    <path class="hero-stroke" fill="none" stroke="rgba(243,239,215,0.22)" stroke-width="1.4" stroke-linejoin="round" d="M0 180.85H750V450H0V180.85Z"/>
+    <path class="hero-stroke" fill="none" stroke="rgba(243,239,215,0.22)" stroke-width="1.4" stroke-linejoin="round" d="M375 180.85C375 280.73 291.053 361.699 187.5 361.699C83.9466 361.699 0 280.73 0 180.85C0 80.9692 83.9466 0 187.5 0C291.053 0 375 80.9692 375 180.85Z"/>
+    <path class="hero-stroke" fill="none" stroke="rgba(243,239,215,0.22)" stroke-width="1.4" stroke-linejoin="round" d="M750 180.85C750 280.73 666.053 361.699 562.5 361.699C458.947 361.699 375 280.73 375 180.85C375 80.9692 458.947 0 562.5 0C666.053 0 750 80.9692 750 180.85Z"/>
+    </svg>
+  </div>
     <div class="dh-bg-num" aria-hidden="true">02·E</div>
     <div class="dh-eyebrow sr">L'Atelier — Éditions</div>
     <h1 class="dh-title sr">PETITES SÉRIES,<br><em>par éditions.</em></h1>
@@ -394,9 +404,6 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-stripe"></div>
-    <div class="footer-silhouette" aria-hidden="true">
-      <svg width="500" height="340" viewBox="0 0 750 450"><rect fill="rgba(240,235,216,0.04)" x="0" y="220" width="750" height="230"/><rect x="0" y="220" width="750" height="230" fill="none" stroke="rgba(240,235,216,0.24)" stroke-width="1.5" stroke-linejoin="round" class="sil-stroke"/><rect fill="rgba(240,235,216,0.04)" x="60" y="0" width="130" height="220"/><rect x="60" y="0" width="130" height="220" fill="none" stroke="rgba(240,235,216,0.24)" stroke-width="1.5" stroke-linejoin="round" class="sil-stroke"/><rect fill="rgba(240,235,216,0.04)" x="280" y="60" width="130" height="160"/><rect x="280" y="60" width="130" height="160" fill="none" stroke="rgba(240,235,216,0.24)" stroke-width="1.5" stroke-linejoin="round" class="sil-stroke"/><rect fill="rgba(240,235,216,0.04)" x="500" y="30" width="130" height="190"/><rect x="500" y="30" width="130" height="190" fill="none" stroke="rgba(240,235,216,0.24)" stroke-width="1.5" stroke-linejoin="round" class="sil-stroke"/></svg>
-    </div>
     <div class="footer-top">
       <!-- Col 1 — Identité -->
       <div>
@@ -473,6 +480,6 @@
     </div>
   </footer>
 
-  <script src="shared.js?v=20"></script>
+  <script src="shared.js?v=21"></script>
 </body>
 </html>

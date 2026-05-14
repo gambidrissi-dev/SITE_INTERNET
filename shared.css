@@ -1188,3 +1188,22 @@ body > nav {
   .feat-card .feat-img::after,
   .atelier-card .atelier-img::after { display: none; }
 }
+
+/* ── HERO SHAPE SVG — stroke drawing au chargement ── */
+.hero-shape {
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 52%; max-width: 580px;
+  pointer-events: none; z-index: 0;
+}
+.hero-shape svg { width: 100%; height: auto; display: block; }
+
+@media (max-width: 960px) {
+  .hero-shape { width: 70%; }
+}
+@media (max-width: 560px) {
+  .hero-shape { width: 90%; opacity: .6; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-stroke { transition: none !important; stroke-dashoffset: 0 !important; }
+}

@@ -1267,3 +1267,36 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
 
   sections.forEach(function(s) { io.observe(s); });
 })();
+
+/* ── HERO SHAPE STROKE DRAWING — déclenché au chargement ── */
+(function initHeroShapeReveal() {
+  var shapes = document.querySelectorAll('.hero-shape');
+  if (!shapes.length) return;
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.hero-stroke').forEach(function(p) {
+      p.style.strokeDashoffset = 0;
+    });
+    return;
+  }
+
+  /* Init : cacher tous les traits */
+  document.querySelectorAll('.hero-stroke').forEach(function(path) {
+    try {
+      var len = path.getTotalLength();
+      path.style.strokeDasharray  = len;
+      path.style.strokeDashoffset = len;
+    } catch(e) {}
+  });
+
+  /* Déclencher après 280ms (hero déjà visible) */
+  setTimeout(function() {
+    shapes.forEach(function(shape) {
+      shape.querySelectorAll('.hero-stroke').forEach(function(path, i) {
+        path.style.transition =
+          'stroke-dashoffset 2.0s cubic-bezier(0.16, 1, 0.3, 1) ' + (0.28 + i * 0.22) + 's';
+        path.style.strokeDashoffset = 0;
+      });
+    });
+  }, 280);
+})();

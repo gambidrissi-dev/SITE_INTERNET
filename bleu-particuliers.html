@@ -29,7 +29,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="shared.css?v=20">
+  <link rel="stylesheet" href="shared.css?v=21">
   <style>
     :root { --accent: var(--jaune); }
     .stripe { background: linear-gradient(90deg, var(--jaune) 25%, var(--noir) 25% 50%, var(--jaune) 50% 75%, var(--noir) 75%); }
@@ -216,6 +216,12 @@
   </nav>
 <!-- HERO -->
   <section class="pt-hero">
+  <div class="hero-shape" aria-hidden="true">
+    <svg viewBox="0 0 750 450" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMax meet">
+    <path fill="rgba(26,26,26,0.05)" d="M375 0C582.107 0 750 84.5762 750 188.906C750 189.063 749.998 189.219 749.997 189.375H750V450H0V189.375H0.00292969C0.0021765 189.219 0 188.906C0 84.5762 167.893 0 375 0Z"/>
+    <path class="hero-stroke" fill="none" stroke="rgba(26,26,26,0.14)" stroke-width="1.4" stroke-linejoin="round" d="M375 0C582.107 0 750 84.5762 750 188.906C750 189.063 749.998 189.219 749.997 189.375H750V450H0V189.375H0.00292969C0.0021765 189.219 0 188.906C0 84.5762 167.893 0 375 0Z"/>
+    </svg>
+  </div>
     <div class="pt-bg-num" aria-hidden="true">B2C</div>
     <div class="sr">
       <div class="pt-eyebrow">Bleu de Cobalt — Missions · Particuliers</div>
@@ -405,9 +411,6 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-stripe"></div>
-    <div class="footer-silhouette" aria-hidden="true">
-      <svg width="500" height="340" viewBox="0 0 750 450"><rect fill="rgba(240,235,216,0.04)" x="0" y="220" width="750" height="230"/><rect x="0" y="220" width="750" height="230" fill="none" stroke="rgba(240,235,216,0.24)" stroke-width="1.5" stroke-linejoin="round" class="sil-stroke"/><path fill="rgba(240,235,216,0.04)" d="M375 0 A375 220 0 0 1 750 220 L0 220Z"/><path d="M375 0 A375 220 0 0 1 750 220 L0 220Z" fill="none" stroke="rgba(240,235,216,0.24)" stroke-width="1.5" stroke-linejoin="round" class="sil-stroke"/></svg>
-    </div>
     <div class="footer-top">
       <!-- Col 1 — Identité -->
       <div>
@@ -484,7 +487,7 @@
     </div>
   </footer>
 
-  <script src="shared.js?v=20"></script>
+  <script src="shared.js?v=21"></script>
   <script>
     const mTrigger = document.querySelector('.nav-missions-trigger');
     const mMenu = document.querySelector('.nav-missions-menu');
