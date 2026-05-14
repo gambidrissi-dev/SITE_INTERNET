@@ -640,14 +640,17 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
   target.appendChild(div);
 })();
 
-/* ── WORD REVEAL — h1 mot par mot, spring (équivalent Framer Motion stagger) ── */
+/* ── WORD REVEAL — clip-mask slide up, h1 + gros h2 ── */
 (function initWordReveal() {
-  /* Parcourt les noeuds texte, emballe chaque mot dans un .rw-word */
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  /* Wrap chaque mot texte en <span class="rw-word"><span class="rw-word-inner">mot</span></span>
+     On parcourt les TextNodes pour préserver les balises enfants (<em>, <br>…) */
   function splitWords(el) {
-    el.classList.remove('sr'); /* word reveal remplace le scroll reveal global */
+    el.classList.remove('sr');
 
     const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
-    const nodes = [];
+    const nodes  = [];
     let n;
     while ((n = walker.nextNode())) nodes.push(n);
 
@@ -659,36 +662,50 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
         if (/^\s+$/.test(part)) {
           frag.appendChild(document.createTextNode(part));
         } else {
-          const span = document.createElement('span');
-          span.className = 'rw-word';
-          span.textContent = part;
-          frag.appendChild(span);
+          const outer = document.createElement('span');
+          outer.className = 'rw-word';
+          const inner = document.createElement('span');
+          inner.className = 'rw-word-inner';
+          inner.textContent = part;
+          outer.appendChild(inner);
+          frag.appendChild(outer);
         }
       });
       tn.parentNode.replaceChild(frag, tn);
     });
   }
 
-  function revealWords(h) {
-    /* Double rAF : s'assure que le browser a peint opacity:0 avant de déclencher
-       la transition — sans ça l'état initial est ignoré et on voit juste un flash */
+  function revealWords(el) {
+    /* Double rAF garantit que le navigateur a calculé la position initiale
+       translateY(112%) avant de démarrer la transition */
     requestAnimationFrame(() => requestAnimationFrame(() => {
-      h.querySelectorAll('.rw-word').forEach((w, i) => {
-        setTimeout(() => w.classList.add('in'), i * 80);
+      el.querySelectorAll('.rw-word').forEach((w, i) => {
+        /* Stagger : 55 ms entre chaque mot, max 8 mots décalés au-delà */
+        const delay = Math.min(i, 8) * 55;
+        setTimeout(() => w.classList.add('in'), delay);
       });
     }));
   }
 
-  document.querySelectorAll('h1').forEach(h => {
-    splitWords(h);
+  /* Cible : tous les h1, plus les h2 ayant une font-size calculée ≥ 44px */
+  const targets = [
+    ...document.querySelectorAll('h1'),
+    ...[...document.querySelectorAll('h2')].filter(h => {
+      const fs = parseFloat(getComputedStyle(h).fontSize);
+      return fs >= 44;
+    })
+  ];
+
+  targets.forEach(el => {
+    splitWords(el);
 
     const obs = new IntersectionObserver(([entry]) => {
       if (!entry.isIntersecting) return;
-      obs.unobserve(h);
-      revealWords(h);
-    }, { threshold: 0, rootMargin: '0px' });
+      obs.unobserve(el);
+      revealWords(el);
+    }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
 
-    obs.observe(h);
+    obs.observe(el);
   });
 })();
 
