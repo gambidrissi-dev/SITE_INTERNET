@@ -137,13 +137,13 @@ if (!isTouch) {
         <a href="collectif.html" class="lg-strip-primary">
           <div class="lg-strip-num">01</div>
           <div class="lg-strip-body">
-            <div class="lg-strip-name">Le Collectif</div>
+            <div class="lg-strip-name">Le Collectif Cobalt</div>
             <div class="lg-strip-sub">Manifeste · Équipe · Intention</div>
           </div>
           <div class="lg-strip-arrow">→</div>
         </a>
         <div class="lg-strip-links">
-          <a href="collectif.html" class="lg-strip-link">Manifeste</a>
+          <a href="collectif.html" class="lg-strip-link">Présentation</a>
           <a href="collectif.html#equipe" class="lg-strip-link">Équipe</a>
         </div>
       </div>
@@ -161,6 +161,7 @@ if (!isTouch) {
         <div class="lg-strip-links">
           <a href="studio.html" class="lg-strip-link">Présentation</a>
           <a href="projets.html" class="lg-strip-link">Projets</a>
+          <a href="services.html" class="lg-strip-link">Prestations</a>
           <a href="contact.html" class="lg-strip-link">Démarrer un projet</a>
         </div>
       </div>
@@ -171,15 +172,16 @@ if (!isTouch) {
           <div class="lg-strip-num">03</div>
           <div class="lg-strip-body">
             <div class="lg-strip-name">L'Atelier</div>
-            <div class="lg-strip-sub">Fabrication & Prototypage</div>
+            <div class="lg-strip-sub">Co-design · Éditions · E-Shop</div>
           </div>
           <div class="lg-strip-arrow">→</div>
         </a>
         <div class="lg-strip-links">
           <a href="atelier.html" class="lg-strip-link">Présentation</a>
+          <a href="atelier-drops.html" class="lg-strip-link">E-Shop</a>
           <a href="atelier-projets.html" class="lg-strip-link">Projets</a>
-          <a href="atelier-services.html" class="lg-strip-link">Services</a>
-          <a href="atelier-drops.html" class="lg-strip-link">Drops</a>
+          <a href="atelier-services.html" class="lg-strip-link">Prestation sur mesure</a>
+          <a href="contact.html" class="lg-strip-link">Démarrer un projet</a>
         </div>
       </div>
 
@@ -189,14 +191,17 @@ if (!isTouch) {
           <div class="lg-strip-num">04</div>
           <div class="lg-strip-body">
             <div class="lg-strip-name">Bleu de Cobalt</div>
-            <div class="lg-strip-sub">Programme & Cabinets partenaires</div>
+            <div class="lg-strip-sub">Programme · Cabinets · Particuliers</div>
           </div>
           <div class="lg-strip-arrow">→</div>
         </a>
         <div class="lg-strip-links">
-          <a href="bleu-de-cobalt.html" class="lg-strip-link">Le programme</a>
-          <a href="bleu-cabinets.html" class="lg-strip-link">Cabinets</a>
+          <a href="bleu-de-cobalt.html" class="lg-strip-link">Présentation</a>
+          <a href="bleu-programme.html" class="lg-strip-link">Programme</a>
+          <a href="bleu-cabinets.html" class="lg-strip-link">Professionnels</a>
           <a href="bleu-particuliers.html" class="lg-strip-link">Particuliers</a>
+          <a href="contact.html" class="lg-strip-link">Démarrer un projet</a>
+          <a href="bleu-projets.html" class="lg-strip-link">Postuler</a>
         </div>
       </div>
 
@@ -206,13 +211,14 @@ if (!isTouch) {
           <div class="lg-strip-num">05</div>
           <div class="lg-strip-body">
             <div class="lg-strip-name">Le Média</div>
-            <div class="lg-strip-sub">ARCHITALK · FRAGMENTS · CARNET BLEU · RACCOURCI</div>
+            <div class="lg-strip-sub">Architalk · Journal · Formats</div>
           </div>
           <div class="lg-strip-arrow">→</div>
         </a>
         <div class="lg-strip-links">
-          <a href="media.html" class="lg-strip-link">Les formats</a>
-          <a href="contact.html" class="lg-strip-link">Suivre</a>
+          <a href="media.html" class="lg-strip-link">Présentation</a>
+          <a href="media-journal.html" class="lg-strip-link">Formats</a>
+          <a href="https://www.instagram.com/collectifcobalt_/" target="_blank" rel="noopener" class="lg-strip-link">Suivre →</a>
         </div>
       </div>
 
