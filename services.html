@@ -29,13 +29,17 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="shared.css?v=17">
+  <link rel="stylesheet" href="shared.css?v=18">
   <style>
+    /* STRIPE — 4 couleurs */
+    .stripe { background: linear-gradient(90deg, var(--bleu) 25%, var(--jaune) 25% 50%, var(--vert) 50% 75%, var(--rouge) 75%); }
+
     /* PAGE HERO */
     .page-hero { padding: 140px 44px 80px; background: var(--noir); border-bottom: 2px solid rgba(240,235,216,.1); }
     .page-hero .s-label { color: rgba(240,235,216,.3); }
     .page-hero .s-label::before { background: rgba(240,235,216,.3); }
     .ph-title { font-family: var(--f-display); font-size: clamp(64px,10vw,130px); line-height: .86; color: var(--cream); }
+    .ph-title em { font-family: var(--f-serif); font-style: italic; color: var(--bleu); font-weight: 400; }
     .ph-sub { max-width: 500px; font-size: .92rem; line-height: 1.85; font-weight: 300; color: rgba(240,235,216,.5); margin-top: 32px; }
 
     /* SERVICES DÉTAIL */
@@ -188,10 +192,123 @@
 
   <nav>
     <a href="index.html" class="nav-logo"><img src="assets/LOGO/LOGO_COBALT.svg" alt="Collectif Cobalt" class="nav-logo-img" width="200" height="45"></a>
-    <button class="nav-burger-btn" id="nav-burger" aria-label="Ouvrir le menu">
+    <button class="nav-burger-btn" id="nav-burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="lg-overlay">
       <span></span><span></span><span></span><span></span>
     </button>
   </nav>
+  <!-- HERO -->
+  <div class="page-hero">
+    <div class="s-label sr">Le Studio — Accompagnement</div>
+    <h1 class="ph-title sr">ARCHITECTURE<br>D'INTÉRIEUR &<br><em>maîtrise d'œuvre.</em></h1>
+    <p class="ph-sub sr sr-d2">De la première esquisse à la remise des clés — on conçoit, on coordonne, on fabrique. Chaque mission est taillée sur mesure selon le projet et son stade d'avancement.</p>
+  </div>
+
+  <!-- SERVICE 1 — Conception & Design -->
+  <div class="service-block sr">
+    <div class="sb-info">
+      <div class="sb-lbl">01 — Conception</div>
+      <h2 class="sb-title">DESIGN<br>D'ESPACE.</h2>
+      <blockquote class="sb-quote">« L'espace a un impact direct sur la façon dont on vit, on travaille, on crée. »</blockquote>
+      <p class="sb-body">De l'analyse des usages à la livraison du dossier technique, on construit un projet qui tient debout à chaque étape — et qui ressemble vraiment à qui vous êtes.</p>
+      <ul class="sb-list">
+        <li>Analyse des usages et programme spatial</li>
+        <li>Esquisses, concept et choix de parti pris</li>
+        <li>Plans, coupes et élévations techniques</li>
+        <li>Mood board matériaux & palettes chromatiques</li>
+        <li>Rendus 3D ou maquette selon le projet</li>
+      </ul>
+    </div>
+    <div class="sb-visual sb-v-bleu">
+      <div class="sb-v-inner">
+        <div class="sb-v-num">01</div>
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="rgba(240,235,216,.25)" class="sb-v-icon">
+          <rect x="8" y="8" width="22" height="30"/><rect x="34" y="8" width="22" height="18"/>
+          <rect x="8" y="44" width="48" height="12"/><rect x="34" y="30" width="22" height="10"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICE 2 — Maîtrise d'œuvre (alt) -->
+  <div class="service-block sb-alt sr">
+    <div class="sb-info">
+      <div class="sb-lbl">02 — Coordination</div>
+      <h2 class="sb-title">MAÎTRISE<br>D'ŒUVRE.</h2>
+      <blockquote class="sb-quote">« Un projet bien coordonné évite les mauvaises surprises sur chantier. »</blockquote>
+      <p class="sb-body">On prend en charge le pilotage complet des travaux : consultation des entreprises, planification, suivi hebdomadaire, levée des réserves. Vous avez un interlocuteur unique du début à la fin.</p>
+      <ul class="sb-list">
+        <li>Cahier des charges et DPGF</li>
+        <li>Consultation et sélection des entreprises</li>
+        <li>Suivi de chantier hebdomadaire</li>
+        <li>Gestion budgétaire et avenants</li>
+        <li>Réception des travaux et levée de réserves</li>
+      </ul>
+    </div>
+    <div class="sb-visual sb-v-jaune">
+      <div class="sb-v-inner">
+        <div class="sb-v-num">02</div>
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="rgba(26,26,26,.2)" class="sb-v-icon">
+          <rect x="8" y="28" width="48" height="4"/><rect x="8" y="40" width="48" height="4"/>
+          <rect x="8" y="16" width="28" height="4"/><circle cx="50" cy="18" r="8" fill="rgba(26,26,26,.18)"/>
+          <line x1="47" y1="18" x2="53" y2="18" stroke="rgba(26,26,26,.4)" stroke-width="2"/>
+          <line x1="50" y1="15" x2="50" y2="21" stroke="rgba(26,26,26,.4)" stroke-width="2"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICE 3 — Mobilier sur mesure -->
+  <div class="service-block sb-vert sr">
+    <div class="sb-info">
+      <div class="sb-lbl">03 — Fabrication</div>
+      <h2 class="sb-title">MOBILIER<br>SUR MESURE.</h2>
+      <blockquote class="sb-quote">« Chaque pièce sort de l'atelier avec l'intention du lieu qu'elle habite. »</blockquote>
+      <p class="sb-body">En direct avec L'Atelier Cobalt : on conçoit et fabrique le mobilier intégré au projet. Cuisine, bibliothèque encastrée, comptoir, signalétique — tout ce qui ne se commande pas en catalogue.</p>
+      <ul class="sb-list">
+        <li>Co-design mobilier intégré au projet d'espace</li>
+        <li>Fabrication artisanale en atelier (Angoulême)</li>
+        <li>Essences locales prioritaires — chêne, pin, frêne</li>
+        <li>Installation sur site par notre équipe</li>
+        <li>Finitions personnalisées (huile, laque, laiton…)</li>
+      </ul>
+    </div>
+    <div class="sb-visual sb-v-vert">
+      <div class="sb-v-inner">
+        <div class="sb-v-num">03</div>
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="rgba(240,235,216,.22)" class="sb-v-icon">
+          <rect x="8" y="36" width="48" height="6"/><rect x="12" y="42" width="6" height="14"/>
+          <rect x="46" y="42" width="6" height="14"/><rect x="14" y="18" width="36" height="18"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICE 4 — Accompagnement global (rouge) -->
+  <div class="service-block sb-alt sb-rouge sr">
+    <div class="sb-info">
+      <div class="sb-lbl">04 — Global</div>
+      <h2 class="sb-title">PROJET<br>CLÉ EN MAIN.</h2>
+      <blockquote class="sb-quote">« Du brief initial au dernier coup de pinceau, on reste à vos côtés. »</blockquote>
+      <p class="sb-body">Pour ceux qui veulent tout déléguer — on coordonne toutes les parties prenantes, on gère le planning et le budget, on est le seul interlocuteur jusqu'à la remise des clés.</p>
+      <ul class="sb-list">
+        <li>Réunions de lancement et brief approfondi</li>
+        <li>Coordination de tous les corps de métier</li>
+        <li>Planning détaillé et reporting régulier</li>
+        <li>Gestion des achats et des livraisons</li>
+        <li>Remise des clés et dossier des ouvrages exécutés</li>
+      </ul>
+    </div>
+    <div class="sb-visual sb-v-rouge">
+      <div class="sb-v-inner">
+        <div class="sb-v-num">04</div>
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="rgba(240,235,216,.22)" class="sb-v-icon">
+          <circle cx="32" cy="32" r="22" fill="none" stroke="rgba(240,235,216,.2)" stroke-width="2"/>
+          <path d="M32 12 L32 32 L48 32" fill="none" stroke="rgba(240,235,216,.3)" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
   <section id="config">
     <div class="cfg-wrap">
       <div class="cfg-head sr">
@@ -299,17 +416,21 @@
       <div class="cfg-panel" data-p="5">
         <p class="cfg-step-lbl">Étape 06 — Coordonnées</p>
         <h3 class="cfg-q">Comment vous contacter ?</h3>
-        <form class="cfg-form" onsubmit="return false;">
+        <form class="cfg-form" id="cfg-form">
           <div class="cfg-row">
-            <div class="cfg-field"><label class="cfg-lbl">Prénom</label><input class="cfg-input" type="text" placeholder="Camille"></div>
-            <div class="cfg-field"><label class="cfg-lbl">Nom</label><input class="cfg-input" type="text" placeholder="Dupont"></div>
+            <div class="cfg-field"><label class="cfg-lbl">Prénom</label><input class="cfg-input" id="cfg-prenom" type="text" placeholder="Camille" required></div>
+            <div class="cfg-field"><label class="cfg-lbl">Nom</label><input class="cfg-input" id="cfg-nom" type="text" placeholder="Dupont" required></div>
           </div>
           <div class="cfg-row">
-            <div class="cfg-field"><label class="cfg-lbl">Email</label><input class="cfg-input" type="email" placeholder="camille@mail.fr"></div>
-            <div class="cfg-field"><label class="cfg-lbl">Téléphone</label><input class="cfg-input" type="tel" placeholder="+33 6 …"></div>
+            <div class="cfg-field"><label class="cfg-lbl">Email</label><input class="cfg-input" id="cfg-email" type="email" placeholder="camille@mail.fr" required></div>
+            <div class="cfg-field"><label class="cfg-lbl">Téléphone</label><input class="cfg-input" id="cfg-tel" type="tel" placeholder="+33 6 …"></div>
           </div>
-          <div class="cfg-field"><label class="cfg-lbl">Message libre</label><textarea class="cfg-ta" placeholder="Décrivez votre projet, vos contraintes, votre ambition…"></textarea></div>
-          <div class="cfg-nav"><button type="button" class="cfg-back" onclick="cfgPrev()">Retour</button><button class="cfg-next"><span>Envoyer ma demande →</span></button></div>
+          <div class="cfg-field"><label class="cfg-lbl">Message libre</label><textarea class="cfg-ta" id="cfg-message" placeholder="Décrivez votre projet, vos contraintes, votre ambition…"></textarea></div>
+          <div class="cfg-nav">
+            <button type="button" class="cfg-back" onclick="cfgPrev()">Retour</button>
+            <button type="submit" class="cfg-next" id="cfg-submit"><span>Envoyer ma demande →</span></button>
+          </div>
+          <p id="cfg-status" style="font-size:.8rem;color:rgba(240,235,216,.5);margin-top:12px;display:none"></p>
         </form>
       </div>
     </div>
@@ -373,7 +494,10 @@
 
   <script src="shared.js?v=18"></script>
   <script>
+    // ── Configurateur navigation ──────────────────────
     let cfgStep = 0;
+    const cfgSelections = {};
+
     function cfgUpdateDashes() {
       document.querySelectorAll('.step-dash').forEach((d, i) => {
         d.classList.toggle('done', i < cfgStep);
@@ -386,6 +510,7 @@
         cfgStep++;
         document.querySelector(`[data-p="${cfgStep}"]`).classList.add('active');
         cfgUpdateDashes();
+        window.scrollTo({ top: document.getElementById('config').offsetTop - 80, behavior: 'smooth' });
       }
     }
     function cfgPrev() {
@@ -396,11 +521,77 @@
         cfgUpdateDashes();
       }
     }
+
+    // ── Option selection ──────────────────────────────
+    const stepLabels = ['Type de projet','Surface','Phase','Budget','Localisation'];
     document.querySelectorAll('.cfg-opt').forEach(o => {
       o.addEventListener('click', () => {
-        o.closest('.cfg-opts').querySelectorAll('.cfg-opt').forEach(x => x.classList.remove('sel'));
+        const panel = o.closest('[data-p]');
+        const p = +panel.dataset.p;
+        panel.querySelectorAll('.cfg-opt').forEach(x => x.classList.remove('sel'));
         o.classList.add('sel');
+        cfgSelections[stepLabels[p]] = o.querySelector('.cfg-opt-lbl').textContent.trim();
       });
+    });
+
+    // ── Form submit → Web3Forms ───────────────────────
+    document.getElementById('cfg-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn    = document.getElementById('cfg-submit');
+      const status = document.getElementById('cfg-status');
+      const prenom = document.getElementById('cfg-prenom').value.trim();
+      const nom    = document.getElementById('cfg-nom').value.trim();
+      const email  = document.getElementById('cfg-email').value.trim();
+      const tel    = document.getElementById('cfg-tel').value.trim() || '—';
+      const msg    = document.getElementById('cfg-message').value.trim() || '—';
+      const date   = new Date().toLocaleString('fr-FR', { timeZone: 'Europe/Paris' });
+
+      const recap = `DEMANDE DE PROJET — COLLECTIF COBALT
+══════════════════════════════════════
+👤 CONTACT
+Nom       : ${prenom} ${nom}
+Email     : ${email}
+Téléphone : ${tel}
+
+🏗️ PROJET
+${Object.entries(cfgSelections).map(([k,v]) => `${k.padEnd(18)}: ${v}`).join('\n')}
+
+💬 MESSAGE
+${msg}
+
+══════════════════════════════════════
+Envoyé le ${date}
+Via collectifcobalt.eu/services`;
+
+      const data = new FormData();
+      data.set('access_key',  'f4653ab2-acd0-41d9-bcf6-b0fd5c1b197b');
+      data.set('to',          'team@collectifcobalt.eu');
+      data.set('subject',     `[Cobalt] Nouvelle demande projet — ${prenom} ${nom}`);
+      data.set('message',     recap);
+      data.set('replyto',     email);
+      data.set('botcheck',    '');
+
+      btn.disabled = true;
+      btn.querySelector('span').textContent = 'Envoi…';
+      status.style.display = 'block';
+      status.textContent = '';
+
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: data });
+        const json = await res.json();
+        if (json.success) {
+          btn.querySelector('span').textContent = '✓ Demande envoyée';
+          status.style.color = 'rgba(93,161,107,.8)';
+          status.textContent = 'On revient vers vous sous 48 h. Merci !';
+        } else {
+          throw new Error(json.message || 'Erreur');
+        }
+      } catch {
+        btn.disabled = false;
+        btn.querySelector('span').textContent = 'Envoyer ma demande →';
+        status.style.color = 'rgba(187,59,52,.8)';
+        status.textContent = 'Erreur d\'envoi. Réessayez ou écrivez à team@collectifcobalt.eu.';
+      }
     });
   </script>
 </body>

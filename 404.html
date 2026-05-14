@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="shared.css?v=17">
+  <link rel="stylesheet" href="shared.css?v=18">
   <style>
     .stripe { background: linear-gradient(90deg, #4A82DC 25%, #F1CB4F 25% 50%, #5DA16B 50% 75%, #BB3B34 75%); }
 
@@ -34,6 +34,11 @@
       position: absolute; top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       pointer-events: none; user-select: none;
+      animation: e404-float 6s ease-in-out infinite;
+    }
+    @keyframes e404-float {
+      0%, 100% { transform: translate(-50%, -50%); }
+      50%       { transform: translate(-50%, calc(-50% - 12px)); }
     }
 
     .e404-label {
@@ -61,22 +66,30 @@
     }
 
     .e404-links {
-      display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+      display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
       position: relative; z-index: 1;
     }
     .e404-link {
       font-size: .72rem; font-weight: 700; letter-spacing: .12em;
-      text-transform: uppercase; padding: 12px 24px;
+      text-transform: uppercase; padding: 12px 26px;
       border-radius: 999px; border: 1.5px solid currentColor;
-      transition: opacity .2s;
+      transition: background .2s, color .2s, border-color .2s, transform .15s;
     }
-    .e404-link:hover { opacity: .65; }
-    .e404-link.home { color: #4A82DC; }
+    .e404-link:hover { transform: translateY(-2px); }
+
+    .e404-link.home    { color: #4A82DC; }
     .e404-link.studio  { color: #4A82DC; }
     .e404-link.atelier { color: #5DA16B; }
-    .e404-link.bleu    { color: #B8940A; }
+    .e404-link.bleu    { color: #F1CB4F; }
     .e404-link.media   { color: #BB3B34; }
     .e404-link.contact { color: rgba(26,26,26,.4); border-color: rgba(26,26,26,.2); }
+
+    .e404-link.home:hover,
+    .e404-link.studio:hover  { background: #4A82DC; color: #F3EFD7; border-color: #4A82DC; }
+    .e404-link.atelier:hover { background: #5DA16B; color: #F3EFD7; border-color: #5DA16B; }
+    .e404-link.bleu:hover    { background: #F1CB4F; color: #1A1A1A; border-color: #F1CB4F; }
+    .e404-link.media:hover   { background: #BB3B34; color: #F3EFD7; border-color: #BB3B34; }
+    .e404-link.contact:hover { background: rgba(26,26,26,.07); color: #1A1A1A; border-color: rgba(26,26,26,.35); }
 
     @media (max-width: 560px) {
       .e404-wrap { padding: 60px 20px; }
