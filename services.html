@@ -29,7 +29,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="shared.css?v=21">
+  <link rel="stylesheet" href="shared.css?v=22">
   <style>
     :root { --accent: var(--bleu); }
 
@@ -76,12 +76,14 @@
     .pc-split { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin-bottom: 3px; }
     .pc-partial { background: var(--cream); padding: 48px 44px; display: flex; flex-direction: column; }
     .pc-partial-lbl { font-size: .58rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: rgba(26,26,26,.35); margin-bottom: 28px; padding-bottom: 14px; border-bottom: 1px solid rgba(26,26,26,.1); }
-    .pc-partial-row { padding: 24px 0; border-bottom: 1px solid rgba(26,26,26,.07); display: flex; flex-direction: column; gap: 10px; }
+    .pc-partial-row { padding: 20px 0; border-bottom: 1px solid rgba(26,26,26,.07); display: grid; grid-template-columns: 1fr auto; gap: 8px 16px; align-items: start; }
     .pc-partial-row:last-child { border-bottom: none; }
-    .pc-partial-name { font-family: var(--f-display); font-size: 20px; line-height: 1.05; color: var(--noir); }
-    .pc-partial-name small { font-family: var(--f-body); font-size: .72rem; font-weight: 400; color: rgba(26,26,26,.45); display: block; margin-top: 3px; text-transform: none; letter-spacing: 0; }
-    .pc-partial-price { font-family: var(--f-display); font-size: 28px; color: var(--noir); line-height: 1; }
-    .pc-partial-desc { font-size: .8rem; line-height: 1.7; font-weight: 300; color: rgba(26,26,26,.5); }
+    .pc-partial-name { font-family: var(--f-display); font-size: 17px; line-height: 1.05; color: var(--noir); }
+    .pc-partial-name small { font-family: var(--f-body); font-size: .68rem; font-weight: 400; color: rgba(26,26,26,.45); display: block; margin-top: 3px; text-transform: none; letter-spacing: 0; }
+    .pc-partial-tag { font-size: .55rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--bleu); margin-bottom: 6px; }
+    .pc-partial-price { font-family: var(--f-display); font-size: 18px; color: var(--noir); line-height: 1; white-space: nowrap; padding-top: 2px; }
+    .pc-partial-price small { font-family: var(--f-body); font-size: .58rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: rgba(26,26,26,.4); display: block; margin-top: 4px; }
+    .pc-partial-desc { font-size: .78rem; line-height: 1.65; font-weight: 300; color: rgba(26,26,26,.5); grid-column: 1 / -1; }
     /* Mission complète */
     .pc-complete { background: var(--noir); padding: 48px 44px; display: flex; flex-direction: column; justify-content: center; }
     .pc-complete-lbl { font-size: .58rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: rgba(240,235,216,.35); margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid rgba(240,235,216,.12); }
@@ -154,6 +156,13 @@
     <button class="nav-burger-btn" id="nav-burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="lg-overlay">
       <span></span><span></span><span></span><span></span>
     </button>
+  </nav>
+  <nav class="subnav" data-env="e1" aria-label="Navigation e1">
+    <a href="studio.html">Présentation</a>
+    <div class="subnav-sep" aria-hidden="true"></div>
+    <a href="projets.html">Projets</a>
+    <div class="subnav-sep" aria-hidden="true"></div>
+    <a href="services.html" class="is-current">Prestations</a>
   </nav>
 
   <!-- HERO -->
@@ -242,16 +251,38 @@
     <div class="pc-split sr sr-d1">
       <!-- Missions partielles -->
       <div class="pc-partial">
-        <div class="pc-partial-lbl">Missions partielles — forfait</div>
+        <div class="pc-partial-lbl">Missions partielles — forfait · phases cumulables</div>
         <div class="pc-partial-row">
-          <div class="pc-partial-name">Conception<small>EDL → Esquisse</small></div>
-          <div class="pc-partial-price">600 — 4 500 €</div>
-          <p class="pc-partial-desc">Relevé, analyse des usages, concept spatial, sélection de matériaux. Chaque phase inclut les précédentes. L'EDL seul est déductible si la mission s'étend.</p>
+          <div>
+            <div class="pc-partial-tag">Phase 01</div>
+            <div class="pc-partial-name">EDL<small>État des lieux</small></div>
+          </div>
+          <div class="pc-partial-price">600 — 1 200 €<small>surface indépendante</small></div>
+          <p class="pc-partial-desc">Visite sur site, relevé de cotes, analyse des contraintes techniques et réglementaires. Livré sous 5 jours. Déductible si la mission s'étend.</p>
         </div>
         <div class="pc-partial-row">
-          <div class="pc-partial-name">Technique<small>APD → DCE</small></div>
-          <div class="pc-partial-price">5 000 — 20 000 €</div>
-          <p class="pc-partial-desc">Plans techniques, estimatif, cahier des charges, consultation des entreprises. Mission de conception complète — coordination de chantier non incluse.</p>
+          <div>
+            <div class="pc-partial-tag">Jusqu'à Phase 02</div>
+            <div class="pc-partial-name">ESQ<small>Esquisse</small></div>
+          </div>
+          <div class="pc-partial-price">1 800 — 4 500 €<small>EDL inclus</small></div>
+          <p class="pc-partial-desc">Concept spatial, parti pris architectural, plans au 1:100, sélection de références matériaux. Validation du programme avant approfondissement.</p>
+        </div>
+        <div class="pc-partial-row">
+          <div>
+            <div class="pc-partial-tag">Jusqu'à Phase 03</div>
+            <div class="pc-partial-name">APD<small>Avant-Projet Détaillé</small></div>
+          </div>
+          <div class="pc-partial-price">5 000 — 14 000 €<small>ESQ inclus</small></div>
+          <p class="pc-partial-desc">Plans au 1:50, élévations, coupes, choix définitifs de matériaux, estimatif travaux. Dossier pour permis si requis.</p>
+        </div>
+        <div class="pc-partial-row">
+          <div>
+            <div class="pc-partial-tag">Jusqu'à Phase 04</div>
+            <div class="pc-partial-name">DCE<small>Dossier de Consultation</small></div>
+          </div>
+          <div class="pc-partial-price">8 000 — 20 000 €<small>APD inclus</small></div>
+          <p class="pc-partial-desc">Plans d'exécution, DPGF, CCTP, consultation et analyse comparative des offres entreprises. Conception complète — MOe non incluse.</p>
         </div>
       </div>
 
@@ -381,7 +412,7 @@
           <a href="bleu-cabinets.html">Professionnels</a>
           <a href="bleu-particuliers.html">Particuliers</a>
           <a href="contact.html">Démarrer un projet</a>
-          <a href="bleu-projets.html">Postuler</a>
+          <a href="bleu-programme.html">Candidater</a>
         </nav>
       </div>
 
@@ -405,6 +436,6 @@
     </div>
   </footer>
 
-  <script src="shared.js?v=21"></script>
+  <script src="shared.js?v=22"></script>
 </body>
 </html>

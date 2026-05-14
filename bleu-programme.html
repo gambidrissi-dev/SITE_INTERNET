@@ -29,7 +29,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="shared.css?v=21">
+  <link rel="stylesheet" href="shared.css?v=22">
   <style>
     :root { --accent: var(--jaune); }
     .stripe { background: linear-gradient(90deg, var(--jaune) 25%, var(--noir) 25% 50%, var(--jaune) 50% 75%, var(--noir) 75%); }
@@ -61,7 +61,7 @@
 
     /* HERO */
     .pg-hero {
-      min-height: 92vh; background: var(--noir);
+      min-height: 72vh; background: var(--noir);
       display: flex; flex-direction: column; justify-content: flex-end;
       padding: 140px 44px 90px; position: relative; overflow: hidden;
     }
@@ -90,18 +90,6 @@
     .ch-cell-bar { width: 32px; height: 3px; background: var(--noir); margin-bottom: 18px; }
     .ch-cell-name { font-size: .82rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--noir); margin-bottom: 14px; }
     .ch-cell-desc { font-size: .9rem; line-height: 1.75; font-weight: 300; color: rgba(26,26,26,.65); }
-
-    /* FORMAT — comment se passe une mission */
-    .format-section { background: var(--cream); padding: 100px 44px;  }
-    .fs-title { font-family: var(--f-display); font-size: clamp(48px,7vw,100px); line-height: .88; margin-bottom: 56px; }
-    .fs-title em { font-family: var(--f-serif); font-style: italic; color: var(--jaune); font-weight: 400; }
-    .fs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0;   }
-    .fs-row { padding: 32px 44px; border-bottom: 1px solid rgba(26,26,26,.1); display: grid; grid-template-columns: 200px 1fr; gap: 32px; align-items: center; }
-    .fs-row:nth-last-child(-n+2) { border-bottom: none; }
-    .fs-row:nth-child(2n+1) {  }
-    .fs-key { font-family: var(--f-display); font-size: 22px; line-height: 1; color: var(--jaune); }
-    .fs-val { font-size: .9rem; line-height: 1.7; font-weight: 300; color: rgba(26,26,26,.65); }
-    .fs-val strong { font-weight: 700; color: var(--noir); }
 
     /* POUR QUI — profils */
     .profils { background: var(--noir); padding: 100px 44px; }
@@ -152,11 +140,7 @@
       .ch-grid { grid-template-columns: 1fr; }
       .ch-cell { border-right: none;  padding: 36px 24px; }
       .ch-cell:last-child { border-bottom: none; }
-      .format-section { padding: 64px 20px; }
-      .fs-title { font-size: clamp(36px, 10vw, 64px); margin-bottom: 36px; }
-      .fs-grid { grid-template-columns: 1fr; }
-      .fs-row { grid-template-columns: 1fr; gap: 8px; padding: 24px 20px; border-right: none !important; }
-      .profils { padding: 64px 20px; }
+.profils { padding: 64px 20px; }
       .pf-title { font-size: clamp(36px, 10vw, 64px); margin-bottom: 36px; }
       .pf-grid { grid-template-columns: 1fr; }
       .candidater { padding: 64px 20px; }
@@ -169,9 +153,7 @@
       .pg-actions { gap: 12px; }
       .change { padding: 52px 18px; }
       .ch-cell { padding: 28px 20px; }
-      .format-section { padding: 52px 18px; }
-      .fs-row { padding: 22px 18px; }
-      .profils { padding: 52px 18px; }
+.profils { padding: 52px 18px; }
       .pf-card { padding: 28px 22px; }
       .candidater { padding: 52px 18px; }
       .cd-form { padding: 28px 22px; }
@@ -189,6 +171,17 @@
       <span></span><span></span><span></span><span></span>
     </button>
   </nav>
+  <nav class="subnav" data-env="e3" aria-label="Navigation e3">
+    <a href="bleu-de-cobalt.html">Présentation</a>
+    <div class="subnav-sep" aria-hidden="true"></div>
+    <a href="bleu-programme.html" class="is-current">Programme</a>
+    <div class="subnav-sep" aria-hidden="true"></div>
+    <a href="bleu-cabinets.html">Cabinets</a>
+    <div class="subnav-sep" aria-hidden="true"></div>
+    <a href="bleu-particuliers.html">Particuliers</a>
+    <div class="subnav-sep" aria-hidden="true"></div>
+    <a href="bleu-projets.html">Projets</a>
+  </nav>
 <!-- HERO -->
   <section class="pg-hero">
     <div class="pg-bg-num" aria-hidden="true">03·P</div>
@@ -197,7 +190,7 @@
     <p class="pg-sub sr sr-d2">Un format hybride freelance + intérim + alternance. Vous êtes encadré·e par le collectif, formé·e en continu, et placé·e sur des missions réelles chez des cabinets partenaires ou des particuliers à budget serré. Vous sortez avec un portfolio qui sent le terrain, pas l'atelier d'école.</p>
     <div class="pg-actions sr sr-d3">
       <a href="#candidater" class="btn btn-cream"><span>Candidater →</span></a>
-      <a href="#format" class="btn btn-outline" style="color:var(--cream); border-color:rgba(240,235,216,.4)"><span>Comment ça marche</span></a>
+      <a href="bleu-de-cobalt.html" class="btn btn-outline" style="color:var(--cream); border-color:rgba(240,235,216,.4)"><span>Comment ça marche</span></a>
     </div>
   </section>
 
@@ -225,45 +218,6 @@
         <div class="ch-cell-bar"></div>
         <div class="ch-cell-name">Portfolio qui parle</div>
         <p class="ch-cell-desc">Chaque mission produit un livrable documenté que tu peux montrer. À la sortie, ton portfolio raconte un parcours, pas une attestation administrative.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- FORMAT — comment se passe une mission -->
-  <section id="format" class="format-section">
-    <h2 class="fs-title sr">LE <em>format</em>, en clair.</h2>
-    <div class="fs-grid sr sr-d1">
-      <div class="fs-row">
-        <div class="fs-key">Durée mission</div>
-        <div class="fs-val"><strong>3 à 12 semaines</strong> selon le brief. Pas de contrats à rallonge — chaque mission a un début et une fin nets.</div>
-      </div>
-      <div class="fs-row">
-        <div class="fs-key">Statut</div>
-        <div class="fs-val"><strong>Contrat d'alternance via Bleu de Cobalt.</strong> Ton employeur, c'est nous — pas le cabinet. On gère la paperasse à ta place.</div>
-      </div>
-      <div class="fs-row">
-        <div class="fs-key">Rémunération</div>
-        <div class="fs-val"><strong>Indemnité par mission</strong> — barème public, fonction du niveau d'études et de la complexité. Pas de stage gratuit.</div>
-      </div>
-      <div class="fs-row">
-        <div class="fs-key">Encadrement</div>
-        <div class="fs-val"><strong>1 référent Cobalt</strong> dédié. Point hebdo, retour critique sur livrable, recadrage si besoin. Tu n'es jamais seul face à la mission.</div>
-      </div>
-      <div class="fs-row">
-        <div class="fs-key">Lieu</div>
-        <div class="fs-val">Présentiel chez le cabinet, ou hybride (Cobalt + cabinet), ou full distant — selon la mission. Zone couverte : <strong>Nouvelle-Aquitaine & Toulouse</strong>.</div>
-      </div>
-      <div class="fs-row">
-        <div class="fs-key">Livrable</div>
-        <div class="fs-val"><strong>Documenté pour le portfolio</strong>. Chaque mission produit une fiche projet validée par le cabinet d'accueil et par Cobalt.</div>
-      </div>
-      <div class="fs-row">
-        <div class="fs-key">Engagement</div>
-        <div class="fs-val">Mission par mission. Tu peux faire <strong>une seule mission</strong> ou <strong>une année complète</strong> en enchaînant. Ton choix, on s'adapte.</div>
-      </div>
-      <div class="fs-row">
-        <div class="fs-key">À la sortie</div>
-        <div class="fs-val">Recommandation Cobalt + cabinets traversés, portfolio enrichi, réseau pro, et souvent une <strong>proposition d'embauche</strong> d'un des cabinets.</div>
       </div>
     </div>
   </section>
@@ -415,7 +369,7 @@
           <a href="bleu-cabinets.html">Professionnels</a>
           <a href="bleu-particuliers.html">Particuliers</a>
           <a href="contact.html">Démarrer un projet</a>
-          <a href="bleu-projets.html">Postuler</a>
+          <a href="bleu-programme.html">Candidater</a>
         </nav>
       </div>
 
@@ -439,7 +393,7 @@
     </div>
   </footer>
 
-  <script src="shared.js?v=21"></script>
+  <script src="shared.js?v=22"></script>
   <script>
     const mTrigger = document.querySelector('.nav-missions-trigger');
     const mMenu = document.querySelector('.nav-missions-menu');
