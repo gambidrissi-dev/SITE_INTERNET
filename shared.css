@@ -182,36 +182,37 @@ body > nav.nav-scrolled {
   color: var(--noir);
 }
 
-/* ── NAV-SUBNAV — liens contextuels dans la pilule nav gauche ── */
-.nav-subnav {
-  pointer-events: all;
-  display: inline-flex; align-items: center; gap: 2px;
-  flex-shrink: 0;
-  background: rgba(243,239,215,0.85);
+/* ── SUBNAV BAR — barre contextuelle pleine largeur sous le nav ── */
+.subnav-bar {
+  position: fixed; top: 66px; left: 0; right: 0; z-index: 489;
+  display: flex; align-items: center; justify-content: center; gap: 4px;
+  padding: 10px 20px;
+  background: rgba(243,239,215,0.78);
   backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255,255,255,0.50);
-  border-radius: 999px; padding: 5px 8px;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-  animation: pillPop 0.48s cubic-bezier(0.34,1.56,0.64,1) 0.10s both;
+  border-bottom: 1px solid rgba(255,255,255,0.20);
+  transition: opacity 0.30s ease, transform 0.30s ease;
 }
-.nav-subnav a {
+.subnav-bar.is-hidden {
+  opacity: 0; pointer-events: none; transform: translateY(-6px);
+}
+.subnav-bar a {
   font-family: var(--f-body); font-size: .63rem; font-weight: 600;
-  letter-spacing: .10em; text-transform: uppercase;
-  color: rgba(26,26,26,.45); text-decoration: none;
-  padding: 7px 14px; border-radius: 999px; white-space: nowrap;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(26,26,26,.42); text-decoration: none;
+  padding: 6px 14px; border-radius: 999px; white-space: nowrap;
   transition: color .15s, background .15s;
 }
-.nav-subnav a:hover { color: var(--noir); background: rgba(26,26,26,.06); }
-.nav-subnav a.is-current { color: var(--noir); font-weight: 700; background: rgba(26,26,26,.09); }
-body > nav[data-env="e1"] .nav-subnav a.is-current { background: rgba(74,130,220,.15); color: #1A4A99; }
-body > nav[data-env="e2"] .nav-subnav a.is-current { background: rgba(93,161,107,.15); color: #2B6B38; }
-body > nav[data-env="e3"] .nav-subnav a.is-current { background: rgba(241,203,79,.28); color: #7A5500; }
-body > nav[data-env="e4"] .nav-subnav a.is-current { background: rgba(187,59,52,.12); color: #991E18; }
-.nav-subnav-sep { width: 1px; height: 14px; background: rgba(26,26,26,.15); flex-shrink: 0; margin: 0 2px; }
+.subnav-bar a:hover { color: var(--noir); background: rgba(26,26,26,.06); }
+.subnav-bar a.is-current { color: var(--noir); font-weight: 700; background: rgba(26,26,26,.08); }
+.subnav-bar[data-env="e1"] a.is-current { background: rgba(74,130,220,.13); color: #1A4A99; }
+.subnav-bar[data-env="e2"] a.is-current { background: rgba(93,161,107,.13); color: #2B6B38; }
+.subnav-bar[data-env="e3"] a.is-current { background: rgba(241,203,79,.25); color: #7A5500; }
+.subnav-bar[data-env="e4"] a.is-current { background: rgba(187,59,52,.11); color: #991E18; }
+.subnav-bar-sep { width: 1px; height: 13px; background: rgba(26,26,26,.13); flex-shrink: 0; margin: 0 2px; }
 @media (max-width: 680px) {
-  .nav-subnav { gap: 0; padding: 4px 6px; overflow-x: auto; max-width: calc(100vw - 80px); }
-  .nav-subnav a { font-size: .56rem; padding: 6px 9px; }
-  .nav-subnav-sep { display: none; }
+  .subnav-bar { gap: 0; justify-content: flex-start; overflow-x: auto; top: 62px; }
+  .subnav-bar a { font-size: .58rem; padding: 5px 10px; }
+  .subnav-bar-sep { display: none; }
 }
 
 /* ── PILULE LOGO ── */
