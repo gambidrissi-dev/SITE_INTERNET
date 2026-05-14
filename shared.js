@@ -1113,3 +1113,135 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
     el.closest('.lg-strip')?.addEventListener('mouseenter', () => scramble(el));
   });
 })();
+
+
+/* ═══════════════════════════════════════════
+   ANIMATIONS v18 — Lenis · Clip reveal · Progress · Ambient · Morph
+═══════════════════════════════════════════ */
+
+/* ── LENIS SMOOTH SCROLL ── */
+(function initLenis() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (isTouch) return; /* scroll natif sur mobile */
+  const s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.45/bundled/lenis.min.js';
+  s.onload = function () {
+    const lenis = new Lenis({
+      duration:     1.15,
+      easing:       function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+      smoothWheel:  true,
+      smoothTouch:  false,
+    });
+    window.lenis = lenis;
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+
+    /* Anchor scroll : utilise Lenis au lieu du comportement natif */
+    document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        const id = a.getAttribute('href').slice(1);
+        if (!id) return;
+        const target = document.getElementById(id);
+        if (target) { e.preventDefault(); lenis.scrollTo(target, { offset: -80, duration: 1.4 }); }
+      });
+    });
+  };
+  document.head.appendChild(s);
+})();
+
+/* ── IMAGE CLIP REVEAL — scroll-triggered, stagger par rangée ── */
+(function initImgReveal() {
+  const cards = document.querySelectorAll('.proj-card, .feat-card, .atelier-card');
+  if (!cards.length) return;
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    cards.forEach(function(c) { c.classList.add('img-in'); });
+    return;
+  }
+
+  const io = new IntersectionObserver(function(entries) {
+    /* Trier par position verticale pour un stagger naturel */
+    const visible = entries.filter(function(e) { return e.isIntersecting; });
+    visible
+      .slice()
+      .sort(function(a, b) {
+        const ra = a.target.getBoundingClientRect();
+        const rb = b.target.getBoundingClientRect();
+        return ra.top !== rb.top ? ra.top - rb.top : ra.left - rb.left;
+      })
+      .forEach(function(entry, i) {
+        setTimeout(function() { entry.target.classList.add('img-in'); }, i * 90);
+        io.unobserve(entry.target);
+      });
+  }, { threshold: 0.12 });
+
+  cards.forEach(function(c) { io.observe(c); });
+})();
+
+/* ── FOOTER SILHOUETTE REVEAL ── */
+(function initSilhouetteReveal() {
+  const sils = document.querySelectorAll('.footer-silhouette');
+  if (!sils.length) return;
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    sils.forEach(function(s) { s.classList.add('sil-in'); });
+    return;
+  }
+
+  const io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('sil-in');
+      io.unobserve(entry.target);
+    });
+  }, { threshold: 0.01 });
+
+  sils.forEach(function(s) { io.observe(s); });
+})();
+
+
+/* ── OVERLAY AMBIENT — teinte de fond selon entité survolée ── */
+(function initOverlayAmbient() {
+  const overlay = document.getElementById('lg-overlay');
+  if (!overlay) return;
+
+  const AMB_MAP = { e1: 'amb-e1', e2: 'amb-e2', e3: 'amb-e3', e4: 'amb-e4' };
+  const ALL_AMB = Object.values(AMB_MAP);
+
+  document.querySelectorAll('.lg-strip').forEach(function(strip) {
+    const cls = Array.from(strip.classList).find(function(c) { return /^e\d$/.test(c); });
+    if (!cls) return;
+
+    strip.addEventListener('mouseenter', function() {
+      overlay.classList.remove.apply(overlay.classList, ALL_AMB);
+      if (AMB_MAP[cls]) overlay.classList.add(AMB_MAP[cls]);
+    });
+    strip.addEventListener('mouseleave', function() {
+      /* Délai court : laisse le temps de passer sur une autre bande */
+      setTimeout(function() {
+        if (!overlay.querySelector('.lg-strip:hover')) {
+          overlay.classList.remove.apply(overlay.classList, ALL_AMB);
+        }
+      }, 90);
+    });
+  });
+})();
+
+/* ── NAV COLOR MORPH — sections avec data-nav-color="#hex" ── */
+(function initNavColorMorph() {
+  const nav = document.querySelector('body > nav');
+  if (!nav) return;
+  const sections = document.querySelectorAll('[data-nav-color]');
+  if (!sections.length) return;
+
+  const io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) return;
+      const color = entry.target.dataset.navColor;
+      /* Recolore le dot/indicator nav sans forcer un repaint complet */
+      nav.style.setProperty('--nav-section-color', color);
+    });
+  }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
+
+  sections.forEach(function(s) { io.observe(s); });
+})();

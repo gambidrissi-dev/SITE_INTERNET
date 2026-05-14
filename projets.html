@@ -29,7 +29,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="shared.css?v=18">
+  <link rel="stylesheet" href="shared.css?v=19">
   <style>
     :root { --accent: var(--bleu); }
     .page-hero {
@@ -58,19 +58,48 @@
     .filter-btn.f-vert.active  { background: var(--vert); border-color: var(--vert); }
     .filter-btn.f-rouge.active { background: var(--rouge); border-color: var(--rouge); }
 
-    /* GRID */
-    .projets-grid { padding: 0 44px 100px; background: var(--cream); }
-    .proj-row { margin-top: 20px; display: grid; gap: 20px; }
-    .proj-row-1  { grid-template-columns: 1fr; }
-    .proj-row-2a { grid-template-columns: 1fr 2fr; }
-    .proj-row-2b { grid-template-columns: 2fr 1fr; }
-    .proj-row-3  { grid-template-columns: 1fr 1fr 1fr; }
+    /* ── HORIZONTAL GALLERY ── */
+    .projets-grid {
+      background: var(--cream);
+      overflow-x: auto; overflow-y: visible;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      display: flex; gap: 20px;
+      padding: 0 44px 64px;
+      scrollbar-width: none;
+    }
+    .projets-grid::-webkit-scrollbar { display: none; }
+    .projets-grid.hg-grabbing { cursor: grabbing; }
+    .proj-row { display: contents; }
+
+    /* Nav arrows */
+    .hgallery-nav {
+      background: var(--cream);
+      display: flex; align-items: center; justify-content: flex-end; gap: 10px;
+      padding: 0 44px 20px;
+    }
+    .hgallery-count {
+      font-size: .62rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      color: rgba(26,26,26,.35); flex: 1;
+    }
+    .hgallery-btn {
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 1.5px solid rgba(26,26,26,.25);
+      background: transparent; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; color: var(--noir);
+      transition: background .2s, border-color .2s, color .2s;
+    }
+    .hgallery-btn:hover:not(:disabled) { background: var(--noir); color: var(--cream); border-color: var(--noir); }
+    .hgallery-btn:disabled { opacity: .22; cursor: default; }
 
     .proj-card {
+      flex: 0 0 440px;
+      scroll-snap-align: start;
       position: relative; overflow: hidden; display: block;
       background: var(--noir); border-radius: var(--r-md);
     }
-    .proj-img { width: 100%; overflow: hidden; position: relative; display: block; }
+    .proj-img { width: 100%; height: 460px !important; overflow: hidden; position: relative; display: block; }
     .proj-img img {
       width: 100%; height: 100%; object-fit: cover; display: block;
       transition: transform .6s cubic-bezier(.25,.46,.45,.94);
@@ -112,8 +141,10 @@
       .page-hero-title { font-size: clamp(48px, 11vw, 90px); }
       .proj-filters { padding: 22px 20px; gap: 6px; }
       .filter-btn { padding: 6px 14px; font-size: .62rem; }
-      .projets-grid { padding: 0 20px 64px; }
-      .proj-row-1, .proj-row-2a, .proj-row-2b, .proj-row-3 { grid-template-columns: 1fr; }
+      .projets-grid { padding: 0 20px 48px; gap: 14px; }
+      .proj-card { flex: 0 0 340px; }
+      .proj-img { height: 360px !important; }
+      .hgallery-nav { padding: 0 20px 14px; }
       .proj-meta { padding: 22px 24px; }
       .proj-title { opacity: 1; transform: none; font-size: 1.4rem; }
       .featured-band { grid-template-columns: 1fr; gap: 32px; padding: 60px 20px; }
@@ -125,8 +156,10 @@
       .proj-filters { padding: 18px 16px; }
       .proj-filter-label { width: 100%; margin-bottom: 6px; }
       .filter-btn { padding: 6px 12px; font-size: .58rem; letter-spacing: .08em; }
-      .projets-grid { padding: 0 16px 52px; }
-      .proj-row { gap: 14px; margin-top: 14px; }
+      .projets-grid { padding: 0 16px 40px; gap: 12px; }
+      .proj-card { flex: 0 0 80vw; }
+      .proj-img { height: 280px !important; }
+      .hgallery-nav { padding: 0 16px 12px; }
       .proj-meta { padding: 18px 18px; }
       .proj-title { font-size: 1.2rem; margin-bottom: 10px; }
       .proj-info { font-size: .56rem; gap: 10px; }
@@ -166,8 +199,15 @@
     <button class="filter-btn f-rouge" data-filter="mobilier">Mobilier</button>
   </div>
 
-  <!-- GRILLE -->
-  <div class="projets-grid">
+  <!-- NAV ARROWS -->
+  <div class="hgallery-nav">
+    <span class="hgallery-count" id="hg-count"><!-- rempli par JS --></span>
+    <button class="hgallery-btn" id="hg-prev" aria-label="Précédent" disabled>&#8592;</button>
+    <button class="hgallery-btn" id="hg-next" aria-label="Suivant">&#8594;</button>
+  </div>
+
+  <!-- GRILLE (horizontal scroll) -->
+  <div class="projets-grid" id="proj-hgallery">
 
     <!-- Row 1 — pleine largeur -->
     <div class="proj-row proj-row-1 sr">
@@ -306,23 +346,85 @@
     </div>
   </footer>
 
-  <script src="shared.js?v=18"></script>
+  <script src="shared.js?v=19"></script>
   <script>
+    /* ── HORIZONTAL GALLERY ── */
+    (function() {
+      const gallery = document.getElementById('proj-hgallery');
+      const btnPrev = document.getElementById('hg-prev');
+      const btnNext = document.getElementById('hg-next');
+      const countEl = document.getElementById('hg-count');
+      if (!gallery || !btnPrev || !btnNext) return;
+
+      const STEP = 460; /* px per arrow click */
+
+      function updateBtns() {
+        const maxScroll = gallery.scrollWidth - gallery.clientWidth;
+        btnPrev.disabled = gallery.scrollLeft <= 4;
+        btnNext.disabled = gallery.scrollLeft >= maxScroll - 4;
+        const visible = [...gallery.querySelectorAll('.proj-card')].filter(c => c.style.display !== 'none');
+        countEl.textContent = visible.length + ' projet' + (visible.length > 1 ? 's' : '');
+      }
+
+      btnPrev.addEventListener('click', () => {
+        gallery.scrollBy({ left: -STEP, behavior: 'smooth' });
+      });
+      btnNext.addEventListener('click', () => {
+        gallery.scrollBy({ left:  STEP, behavior: 'smooth' });
+      });
+      gallery.addEventListener('scroll', updateBtns, { passive: true });
+
+      /* Drag-scroll (desktop) */
+      let isDragging = false, startX = 0, scrollStart = 0;
+      gallery.addEventListener('mousedown', e => {
+        isDragging = true; startX = e.pageX; scrollStart = gallery.scrollLeft;
+        gallery.classList.add('hg-grabbing');
+        gallery.style.cursor = 'grabbing';
+      });
+      window.addEventListener('mousemove', e => {
+        if (!isDragging) return;
+        gallery.scrollLeft = scrollStart - (e.pageX - startX);
+      });
+      window.addEventListener('mouseup', () => {
+        isDragging = false;
+        gallery.classList.remove('hg-grabbing');
+        gallery.style.cursor = '';
+        updateBtns();
+      });
+
+      /* Init */
+      updateBtns();
+    })();
+
+    /* ── FILTERS ── */
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         const f = btn.dataset.filter;
-        document.querySelectorAll('.proj-row').forEach(row => {
-          const cards = row.querySelectorAll('.proj-card');
-          let visible = 0;
-          cards.forEach(c => {
-            const show = f === 'all' || c.dataset.cat === f;
-            c.style.display = show ? '' : 'none';
-            if (show) visible++;
-          });
-          row.style.display = visible === 0 ? 'none' : '';
+        const gallery = document.getElementById('proj-hgallery');
+
+        document.querySelectorAll('.proj-card').forEach(c => {
+          const show = f === 'all' || c.dataset.cat === f;
+          c.style.display = show ? '' : 'none';
         });
+
+        /* Scroll to start */
+        if (gallery) gallery.scrollTo({ left: 0, behavior: 'smooth' });
+
+        /* Update count + buttons */
+        setTimeout(() => {
+          const btnPrev = document.getElementById('hg-prev');
+          const btnNext = document.getElementById('hg-next');
+          const countEl = document.getElementById('hg-count');
+          const maxScroll = gallery.scrollWidth - gallery.clientWidth;
+          if (btnPrev) btnPrev.disabled = true;
+          if (btnNext) btnNext.disabled = maxScroll <= 4;
+          if (countEl) {
+            const visible = [...gallery.querySelectorAll('.proj-card')].filter(c => c.style.display !== 'none');
+            countEl.textContent = visible.length + ' projet' + (visible.length > 1 ? 's' : '');
+          }
+        }, 50);
       });
     });
   </script>
