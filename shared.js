@@ -269,35 +269,6 @@ if (!isTouch) {
   }
 
 
-  /* ── PILL CONTEXTUELLE RETOUR (sous-pages uniquement) ── */
-  const PARENT_MAP = {
-    'projets.html':           { href: 'studio.html',        label: 'Le Studio',      env: 'e1' },
-    'services.html':          { href: 'studio.html',        label: 'Le Studio',      env: 'e1' },
-    'projet.html':            { href: 'projets.html',       label: 'Les Projets',    env: 'e1' },
-    'atelier-projets.html':   { href: 'atelier.html',       label: "L'Atelier",      env: 'e2' },
-    'atelier-services.html':  { href: 'atelier.html',       label: "L'Atelier",      env: 'e2' },
-    'atelier-drops.html':     { href: 'atelier.html',       label: "L'Atelier",      env: 'e2' },
-    'drop-piece.html':        { href: 'atelier-drops.html', label: 'Les Drops',      env: 'e2' },
-    'bleu-cabinets.html':     { href: 'bleu-de-cobalt.html', label: 'Bleu de Cobalt', env: 'e3' },
-    'bleu-particuliers.html': { href: 'bleu-de-cobalt.html', label: 'Bleu de Cobalt', env: 'e3' },
-    'bleu-programme.html':    { href: 'bleu-de-cobalt.html', label: 'Bleu de Cobalt', env: 'e3' },
-    'bleu-projets.html':      { href: 'bleu-de-cobalt.html', label: 'Bleu de Cobalt', env: 'e3' },
-    'media-journal.html':     { href: 'media.html',          label: 'Le Média',       env: 'e4' },
-  };
-  const parentInfo = PARENT_MAP[currentPage];
-  if (parentInfo) {
-    const backPill = document.createElement('a');
-    backPill.href = parentInfo.href;
-    backPill.className = 'nav-back-pill';
-    backPill.setAttribute('data-env', parentInfo.env);
-    backPill.setAttribute('aria-label', 'Retour vers ' + parentInfo.label);
-    backPill.innerHTML =
-      '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2L4 6L8 10"/></svg>' +
-      '<span class="nav-back-label">' + parentInfo.label + '</span>';
-    const burger = nav.querySelector('.nav-burger-btn');
-    if (burger) nav.insertBefore(backPill, burger);
-    else nav.appendChild(backPill);
-  }
 
   /* ── ACCORDÉON OVERLAY MOBILE — sous-liens en chips ── */
   (function initMobileAccordion() {
