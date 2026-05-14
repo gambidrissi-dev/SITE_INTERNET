@@ -353,10 +353,9 @@
         <h2 class="wl-title">Premier <em>servi</em>,<br>premier prévenu.</h2>
         <p class="wl-body">La liste d'attente reçoit chaque drop 48 h avant qu'il soit public. Pas de spam : un mail par drop, deux à trois fois par an. On vous prévient aussi quand une pièce vous intéresse revient en cas de désistement.</p>
       </div>
-      <p class="form-sent-msg" id="wl-sent" style="display:none; padding:14px 18px; background:rgba(93,161,107,.10); border:1px solid rgba(93,161,107,.25); border-radius:12px; font-size:.82rem; color:#2B6B38; margin-bottom:16px;">✓ Inscription enregistrée — on vous prévient au prochain drop.</p>
-      <form class="wl-form sr sr-d1" action="https://formspree.io/f/PLACEHOLDER" method="POST">
-        <input type="hidden" name="_subject" value="Liste d'attente Drop — Atelier Cobalt">
-        <input type="hidden" name="_next" value="atelier-drops.html?sent=1">
+      <form class="wl-form sr sr-d1" id="wl-form" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="2a573bb6-8303-48bd-8efd-6d93c29d3b34">
+        <input type="hidden" name="subject" value="[Cobalt] Liste d'attente Drop">
         <div class="wl-field">
           <label class="wl-lbl" for="wl-prenom">Prénom</label>
           <input class="wl-input" type="text" id="wl-prenom" name="prenom" placeholder="Camille" required>
@@ -483,10 +482,32 @@
 
   <script src="shared.js?v=22"></script>
   <script>
-    if (new URLSearchParams(window.location.search).get('sent') === '1') {
-      var sentEl = document.getElementById('wl-sent');
-      if (sentEl) sentEl.style.display = 'block';
-    }
+    (function() {
+      var form    = document.getElementById('wl-form');
+      var btn     = document.getElementById('wl-submit');
+      var success = document.getElementById('wl-success');
+      var error   = document.getElementById('wl-error');
+      if (!form) return;
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        if (!form.checkValidity()) { form.reportValidity(); return; }
+        btn.disabled = true;
+        btn.querySelector('span').textContent = 'Envoi en cours…';
+        success.style.display = error.style.display = 'none';
+        try {
+          var res  = await fetch(form.action, { method:'POST', body: new FormData(form), headers:{'Accept':'application/json'} });
+          var json = await res.json();
+          if (json.success) {
+            form.reset(); success.style.display = 'block';
+            btn.querySelector('span').textContent = 'Inscrit·e ✓';
+          } else { throw new Error(); }
+        } catch {
+          error.style.display = 'block';
+          btn.disabled = false;
+          btn.querySelector('span').textContent = 'S'inscrire sur la liste →';
+        }
+      });
+    })();
   </script>
 </body>
 </html>

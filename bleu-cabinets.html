@@ -369,10 +369,9 @@
         <p class="st-body">Pas besoin de brief ultra cadré. Une phrase sur le contexte, une sur le besoin, votre durée, votre démarrage souhaité. On revient avec 1 à 2 profils.</p>
         <p class="st-body" style="font-size:.85rem; color:rgba(26,26,26,.55)">Ou écrivez directement à <strong style="color:var(--noir)">bleu@collectifcobalt.eu</strong>.</p>
       </div>
-      <p class="form-sent-msg" id="st-sent" style="display:none; padding:14px 18px; background:rgba(241,203,79,.15); border:1px solid rgba(241,203,79,.4); border-radius:12px; font-size:.82rem; color:#7A5500; margin-bottom:16px;">✓ Demande envoyée — réponse sous 48 h.</p>
-      <form class="st-form sr sr-d1" action="https://formspree.io/f/PLACEHOLDER" method="POST">
-        <input type="hidden" name="_subject" value="Demande cabinet — Bleu de Cobalt">
-        <input type="hidden" name="_next" value="bleu-cabinets.html?sent=1">
+      <form class="st-form sr sr-d1" id="st-form" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="2a573bb6-8303-48bd-8efd-6d93c29d3b34">
+        <input type="hidden" name="subject" value="[Cobalt] Demande cabinet Bleu">
         <div class="st-field">
           <label class="st-lbl" for="st-cabinet">Cabinet · contact</label>
           <input class="st-input" type="text" id="st-cabinet" name="cabinet" placeholder="Cabinet X · Camille Dupont" required>
@@ -389,8 +388,10 @@
           <label class="st-lbl" for="st-demarrage">Démarrage souhaité</label>
           <input class="st-input" type="text" id="st-demarrage" name="demarrage" placeholder="Sous 2 semaines · juin 2026 · etc." required>
         </div>
-        <button type="submit" class="btn btn-dark" style="margin-top:8px; align-self:flex-start"><span>Envoyer la demande →</span></button>
+        <button type="submit" class="btn btn-dark" id="st-submit" style="margin-top:8px; align-self:flex-start"><span>Envoyer la demande →</span></button>
       </form>
+      <p id="st-success" role="status" style="display:none;margin-top:14px;padding:12px 16px;background:rgba(241,203,79,.15);border:1px solid rgba(241,203,79,.4);border-radius:10px;font-size:.82rem;color:#7A5500;">✓ Demande envoyée — réponse sous 48 h.</p>
+      <p id="st-error" role="alert" style="display:none;margin-top:14px;padding:12px 16px;background:rgba(187,59,52,.08);border:1px solid rgba(187,59,52,.25);border-radius:10px;font-size:.82rem;color:#991E18;">Une erreur est survenue — réessayez ou écrivez à bleu@collectifcobalt.eu.</p>
     </div>
   </section>
 
@@ -493,10 +494,32 @@
   <script>
   </script>
   <script>
-    if (new URLSearchParams(window.location.search).get('sent') === '1') {
-      var sentEl = document.getElementById('st-sent');
-      if (sentEl) sentEl.style.display = 'block';
-    }
+    (function() {
+      var form    = document.getElementById('st-form');
+      var btn     = document.getElementById('st-submit');
+      var success = document.getElementById('st-success');
+      var error   = document.getElementById('st-error');
+      if (!form) return;
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        if (!form.checkValidity()) { form.reportValidity(); return; }
+        btn.disabled = true;
+        btn.querySelector('span').textContent = 'Envoi en cours…';
+        success.style.display = error.style.display = 'none';
+        try {
+          var res  = await fetch(form.action, { method:'POST', body: new FormData(form), headers:{'Accept':'application/json'} });
+          var json = await res.json();
+          if (json.success) {
+            form.reset(); success.style.display = 'block';
+            btn.querySelector('span').textContent = 'Demande envoyée ✓';
+          } else { throw new Error(); }
+        } catch {
+          error.style.display = 'block';
+          btn.disabled = false;
+          btn.querySelector('span').textContent = 'Envoyer la demande →';
+        }
+      });
+    })();
   </script>
 </body>
 </html>

@@ -294,10 +294,9 @@
         <p class="ct-body">Pas besoin de plans, pas besoin de tout connaître. Quelques infos basiques sur votre logement et votre besoin — on revient sous 48 h avec un devis indicatif et un appel proposé.</p>
         <p class="ct-body" style="font-size:.85rem; color:rgba(26,26,26,.55)">Ou écrivez à <strong style="color:var(--noir)">bleu@collectifcobalt.eu</strong>.</p>
       </div>
-      <p class="form-sent-msg" id="ct-sent" style="display:none; padding:14px 18px; background:rgba(241,203,79,.15); border:1px solid rgba(241,203,79,.4); border-radius:12px; font-size:.82rem; color:#7A5500; margin-bottom:16px;">✓ Demande envoyée — réponse sous 48 h.</p>
-      <form class="ct-form sr sr-d1" action="https://formspree.io/f/PLACEHOLDER" method="POST">
-        <input type="hidden" name="_subject" value="Demande particulier — Bleu de Cobalt">
-        <input type="hidden" name="_next" value="bleu-particuliers.html?sent=1">
+      <form class="ct-form sr sr-d1" id="ct-form" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="2a573bb6-8303-48bd-8efd-6d93c29d3b34">
+        <input type="hidden" name="subject" value="[Cobalt] Demande particulier Bleu">
         <div class="ct-row">
           <div class="ct-field">
             <label class="ct-lbl" for="ct-prenom">Prénom</label>
@@ -326,7 +325,7 @@
           <label class="ct-lbl" for="ct-formule">Formule envisagée (optionnel)</label>
           <input class="ct-input" type="text" id="ct-formule" name="formule" placeholder="Diagnostic · Réagencement · Suivi chantier · Pas sûr">
         </div>
-        <button type="submit" class="btn btn-dark" style="margin-top:8px; align-self:flex-start"><span>Envoyer →</span></button>
+        <button type="submit" class="btn btn-dark" id="ct-submit" style="margin-top:8px; align-self:flex-start"><span>Envoyer →</span></button>
       </form>
     </div>
   </section>
@@ -430,10 +429,32 @@
   <script>
   </script>
   <script>
-    if (new URLSearchParams(window.location.search).get('sent') === '1') {
-      var sentEl = document.getElementById('ct-sent');
-      if (sentEl) sentEl.style.display = 'block';
-    }
+    (function() {
+      var form    = document.getElementById('ct-form');
+      var btn     = document.getElementById('ct-submit');
+      var success = document.getElementById('ct-success');
+      var error   = document.getElementById('ct-error');
+      if (!form) return;
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        if (!form.checkValidity()) { form.reportValidity(); return; }
+        btn.disabled = true;
+        btn.querySelector('span').textContent = 'Envoi en cours…';
+        success.style.display = error.style.display = 'none';
+        try {
+          var res  = await fetch(form.action, { method:'POST', body: new FormData(form), headers:{'Accept':'application/json'} });
+          var json = await res.json();
+          if (json.success) {
+            form.reset(); success.style.display = 'block';
+            btn.querySelector('span').textContent = 'Envoyé ✓';
+          } else { throw new Error(); }
+        } catch {
+          error.style.display = 'block';
+          btn.disabled = false;
+          btn.querySelector('span').textContent = 'Envoyer →';
+        }
+      });
+    })();
   </script>
 </body>
 </html>
