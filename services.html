@@ -66,42 +66,32 @@
     .sb-alt .sb-info { order: 2; }
     .sb-alt .sb-visual { order: 1; }
 
-    /* PROCESS */
-    .process { background: var(--cream); padding: 100px 44px; }
-    .pr-title { font-family: var(--f-display); font-size: clamp(48px,7vw,100px); line-height: .88; margin-bottom: 64px; }
-    .pr-steps { display: grid; grid-template-columns: repeat(5,1fr); gap: 0; }
-    .pr-step { padding: 48px 28px; }
-    .pr-step-num { font-family: var(--f-display); font-size: 44px; color: rgba(74,130,220,.25); line-height: 1; margin-bottom: 18px; }
-    .pr-step-bar { width: 28px; height: 3px; background: var(--bleu); margin-bottom: 18px; }
-    .pr-step-name { font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--noir); margin-bottom: 12px; }
-    .pr-step-desc { font-size: .8rem; line-height: 1.7; font-weight: 300; color: rgba(26,26,26,.55); }
-    .pr-step-time { font-family: var(--f-serif); font-style: italic; font-size: .8rem; color: var(--bleu); margin-top: 12px; }
-
     /* PRICING */
     .pricing { background: var(--bleu); padding: 100px 44px; }
     .pc-header { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 56px; }
     .pc-title { font-family: var(--f-display); font-size: clamp(48px,7vw,100px); line-height: .88; color: var(--cream); }
     .pc-title em { font-family: var(--f-serif); font-style: italic; color: var(--noir); font-weight: 400; }
     .pc-intro { font-size: .92rem; line-height: 1.85; font-weight: 300; color: rgba(240,235,216,.85); }
-    .pc-section-lbl { font-size: .58rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: rgba(240,235,216,.35); margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid rgba(240,235,216,.12); }
-    .pc-grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; margin-bottom: 3px; }
-    .pc-cell { padding: 36px 28px; background: var(--cream); border-right: 1px solid rgba(26,26,26,.08); }
-    .pc-cell:last-child { border-right: none; }
-    .pc-cell-tag { font-size: .58rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--bleu); margin-bottom: 10px; }
-    .pc-cell-name { font-family: var(--f-display); font-size: 20px; line-height: 1.05; margin-bottom: 16px; }
-    .pc-cell-name small { font-family: var(--f-body); font-size: .72rem; font-weight: 400; letter-spacing: .04em; text-transform: none; color: rgba(26,26,26,.45); display: block; margin-top: 3px; }
-    .pc-cell-price { font-family: var(--f-display); font-size: 26px; color: var(--noir); line-height: 1; margin-bottom: 14px; }
-    .pc-cell-price small { font-family: var(--f-body); font-size: .6rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: rgba(26,26,26,.4); display: block; margin-top: 5px; }
-    .pc-cell-desc { font-size: .8rem; line-height: 1.7; font-weight: 300; color: rgba(26,26,26,.55); }
-    /* Bloc mission complète */
-    .pc-complete { background: var(--noir); padding: 48px 44px; margin-top: 3px; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
-    .pc-complete-title { font-family: var(--f-display); font-size: clamp(28px,3vw,44px); color: var(--cream); line-height: .95; margin: 18px 0 16px; }
+    /* Split 2 colonnes */
+    .pc-split { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin-bottom: 3px; }
+    .pc-partial { background: var(--cream); padding: 48px 44px; display: flex; flex-direction: column; }
+    .pc-partial-lbl { font-size: .58rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: rgba(26,26,26,.35); margin-bottom: 28px; padding-bottom: 14px; border-bottom: 1px solid rgba(26,26,26,.1); }
+    .pc-partial-row { padding: 24px 0; border-bottom: 1px solid rgba(26,26,26,.07); display: flex; flex-direction: column; gap: 10px; }
+    .pc-partial-row:last-child { border-bottom: none; }
+    .pc-partial-name { font-family: var(--f-display); font-size: 20px; line-height: 1.05; color: var(--noir); }
+    .pc-partial-name small { font-family: var(--f-body); font-size: .72rem; font-weight: 400; color: rgba(26,26,26,.45); display: block; margin-top: 3px; text-transform: none; letter-spacing: 0; }
+    .pc-partial-price { font-family: var(--f-display); font-size: 28px; color: var(--noir); line-height: 1; }
+    .pc-partial-desc { font-size: .8rem; line-height: 1.7; font-weight: 300; color: rgba(26,26,26,.5); }
+    /* Mission complète */
+    .pc-complete { background: var(--noir); padding: 48px 44px; display: flex; flex-direction: column; justify-content: center; }
+    .pc-complete-lbl { font-size: .58rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: rgba(240,235,216,.35); margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid rgba(240,235,216,.12); }
+    .pc-complete-title { font-family: var(--f-display); font-size: clamp(28px,3vw,44px); color: var(--cream); line-height: .95; margin-bottom: 20px; }
     .pc-complete-sub { font-size: .82rem; line-height: 1.75; font-weight: 300; color: rgba(240,235,216,.5); }
     .pc-formula { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 24px 0; }
     .pc-formula-part { background: rgba(74,130,220,.15); border: 1px solid rgba(74,130,220,.3); padding: 10px 18px; font-family: var(--f-display); font-size: 17px; color: var(--cream); }
     .pc-formula-op { font-size: 20px; color: rgba(240,235,216,.3); font-weight: 300; }
-    .pc-coeff { display: flex; flex-direction: column; gap: 0; margin-top: 24px; }
-    .pc-coeff-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid rgba(240,235,216,.07); gap: 16px; }
+    .pc-coeff { display: flex; flex-direction: column; gap: 0; margin-top: 20px; }
+    .pc-coeff-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(240,235,216,.07); gap: 16px; }
     .pc-coeff-type { font-size: .8rem; font-weight: 400; color: rgba(240,235,216,.55); }
     .pc-coeff-val { font-family: var(--f-display); font-size: 22px; color: var(--bleu); flex-shrink: 0; }
     .pc-note { font-family: var(--f-serif); font-style: italic; font-size: .9rem; color: rgba(240,235,216,.65); margin-top: 32px; max-width: 760px; }
@@ -128,18 +118,12 @@
       .sb-body { font-size: .85rem; }
       .sb-alt .sb-info { order: 1; }
       .sb-alt .sb-visual { order: 2; }
-      .process { padding: 64px 20px; }
-      .pr-title { font-size: clamp(36px, 10vw, 64px); margin-bottom: 44px; }
-      .pr-steps { grid-template-columns: 1fr 1fr; }
-      .pr-step { padding: 32px 22px; border-right: none; }
-      .pr-step:last-child { border-right: none; border-bottom: none; grid-column: 1 / -1; }
       .pricing { padding: 64px 20px; }
       .pc-header { grid-template-columns: 1fr; gap: 24px; margin-bottom: 36px; }
       .pc-title { font-size: clamp(36px, 10vw, 64px); }
-      .pc-grid-4 { grid-template-columns: 1fr 1fr; }
-      .pc-cell { border-right: none; border-bottom: 1px solid rgba(26,26,26,.08); padding: 28px 22px; }
-      .pc-cell:last-child { border-bottom: none; }
-      .pc-complete { grid-template-columns: 1fr; gap: 36px; padding: 40px 22px; }
+      .pc-split { grid-template-columns: 1fr; }
+      .pc-partial { padding: 40px 24px; }
+      .pc-complete { padding: 40px 24px; }
       .cta-band { flex-direction: column; gap: 32px; padding: 64px 20px; text-align: center; align-items: center; }
       .cb-text { font-size: clamp(28px, 8vw, 44px); }
     }
@@ -152,13 +136,9 @@
       .sb-quote { font-size: .95rem; padding-left: 14px; }
       .sb-body { font-size: .82rem; }
       .sb-list li { font-size: .78rem; }
-      .process { padding: 52px 18px; }
-      .pr-title { font-size: clamp(32px, 11vw, 52px); }
-      .pr-steps { grid-template-columns: 1fr; }
-      .pr-step { border-right: none !important; padding: 28px 18px; }
       .pricing { padding: 52px 18px; }
-      .pc-grid-4 { grid-template-columns: 1fr; }
-      .pc-cell { padding: 28px 18px; }
+      .pc-partial { padding: 32px 18px; }
+      .pc-complete { padding: 32px 18px; }
       .cta-band { padding: 52px 18px; gap: 24px; }
       .cb-text { font-size: clamp(26px, 9vw, 38px); }
     }
@@ -252,90 +232,34 @@
     </div>
   </div>
 
-  <!-- PROCESS -->
-  <section class="process">
-    <h2 class="pr-title sr">COMMENT<br>ÇA SE PASSE.</h2>
-    <div class="pr-steps">
-      <div class="pr-step sr">
-        <div class="pr-step-bar"></div>
-        <div class="pr-step-num">01</div>
-        <div class="pr-step-name">Premier contact</div>
-        <p class="pr-step-desc">Vous nous écrivez avec une idée, une photo, un plan ou rien — juste un besoin. On répond sous 48 h.</p>
-        <div class="pr-step-time">48 h</div>
-      </div>
-      <div class="pr-step sr sr-d1">
-        <div class="pr-step-bar"></div>
-        <div class="pr-step-num">02</div>
-        <div class="pr-step-name">Visite et brief</div>
-        <p class="pr-step-desc">On vient sur place, on mesure, on observe les usages. Un compte-rendu de visite vous est envoyé.</p>
-        <div class="pr-step-time">1 RDV · 1 h 30</div>
-      </div>
-      <div class="pr-step sr sr-d2">
-        <div class="pr-step-bar"></div>
-        <div class="pr-step-num">03</div>
-        <div class="pr-step-name">Avant-projet</div>
-        <p class="pr-step-desc">Esquisse, concept spatial, choix de matériaux, budget estimé. Une proposition ferme avant de s'engager.</p>
-        <div class="pr-step-time">3 à 6 sem.</div>
-      </div>
-      <div class="pr-step sr sr-d3">
-        <div class="pr-step-bar"></div>
-        <div class="pr-step-num">04</div>
-        <div class="pr-step-name">Chantier</div>
-        <p class="pr-step-desc">On pilote les entreprises, on fait les visites hebdomadaires, on traite les aléas. Vous recevez un compte-rendu après chaque visite.</p>
-        <div class="pr-step-time">selon projet</div>
-      </div>
-      <div class="pr-step sr sr-d4">
-        <div class="pr-step-bar"></div>
-        <div class="pr-step-num">05</div>
-        <div class="pr-step-name">Réception</div>
-        <p class="pr-step-desc">Visite de réception, liste de réserves, levée des réserves. Dossier des ouvrages exécutés remis au client.</p>
-        <div class="pr-step-time">1 à 2 j</div>
-      </div>
-    </div>
-  </section>
-
   <!-- PRICING -->
   <section class="pricing">
     <div class="pc-header sr">
       <h2 class="pc-title">HONORAIRES <em>transparents</em>.</h2>
-      <p class="pc-intro">Deux logiques tarifaires selon le périmètre : forfait pour les missions partielles, pourcentage du budget travaux avec coefficient de complexité pour la mission complète. Tout est défini et figé dans la lettre de mission avant démarrage.</p>
+      <p class="pc-intro">Deux logiques tarifaires : forfait pour les missions partielles, pourcentage du budget travaux pour la mission complète. Tout est défini dans la lettre de mission avant démarrage.</p>
     </div>
 
-    <!-- MISSIONS PARTIELLES -->
-    <div class="pc-section-lbl sr">Missions partielles — honoraires forfaitaires</div>
-    <div class="pc-grid-4 sr sr-d1">
-      <div class="pc-cell">
-        <div class="pc-cell-tag">Phase 01</div>
-        <div class="pc-cell-name">EDL<small>État des lieux</small></div>
-        <div class="pc-cell-price">600 — 1 200 €<small>forfait · surface indépendante</small></div>
-        <p class="pc-cell-desc">Visite sur site, relevé de cotes, analyse des contraintes techniques et réglementaires. Compte-rendu écrit livré sous 5 jours. Déductible si la mission s'étend.</p>
+    <div class="pc-split sr sr-d1">
+      <!-- Missions partielles -->
+      <div class="pc-partial">
+        <div class="pc-partial-lbl">Missions partielles — forfait</div>
+        <div class="pc-partial-row">
+          <div class="pc-partial-name">Conception<small>EDL → Esquisse</small></div>
+          <div class="pc-partial-price">600 — 4 500 €</div>
+          <p class="pc-partial-desc">Relevé, analyse des usages, concept spatial, sélection de matériaux. Chaque phase inclut les précédentes. L'EDL seul est déductible si la mission s'étend.</p>
+        </div>
+        <div class="pc-partial-row">
+          <div class="pc-partial-name">Technique<small>APD → DCE</small></div>
+          <div class="pc-partial-price">5 000 — 20 000 €</div>
+          <p class="pc-partial-desc">Plans techniques, estimatif, cahier des charges, consultation des entreprises. Mission de conception complète — coordination de chantier non incluse.</p>
+        </div>
       </div>
-      <div class="pc-cell">
-        <div class="pc-cell-tag">Jusqu'à Phase 02</div>
-        <div class="pc-cell-name">ESQ<small>Esquisse</small></div>
-        <div class="pc-cell-price">1 800 — 4 500 €<small>forfait · EDL inclus</small></div>
-        <p class="pc-cell-desc">Concept spatial, parti pris architectural, plans d'intentions au 1:100, sélection de références matériaux. Validation du programme avant approfondissement.</p>
-      </div>
-      <div class="pc-cell">
-        <div class="pc-cell-tag">Jusqu'à Phase 03</div>
-        <div class="pc-cell-name">APD<small>Avant-Projet Détaillé</small></div>
-        <div class="pc-cell-price">5 000 — 14 000 €<small>forfait · ESQ inclus</small></div>
-        <p class="pc-cell-desc">Plans techniques au 1:50, élévations, coupes, choix définitifs de matériaux et finitions, estimatif travaux corps d'état. Dossier pour permis de construire si requis.</p>
-      </div>
-      <div class="pc-cell">
-        <div class="pc-cell-tag">Jusqu'à Phase 04</div>
-        <div class="pc-cell-name">DCE<small>Dossier de Consultation</small></div>
-        <div class="pc-cell-price">8 000 — 20 000 €<small>forfait · APD inclus</small></div>
-        <p class="pc-cell-desc">Plans d'exécution, DPGF, cahier des charges tous corps d'état, consultation des entreprises et analyse comparative des offres. Mission de conception complète — MOe non incluse.</p>
-      </div>
-    </div>
 
-    <!-- MISSION COMPLÈTE -->
-    <div class="pc-complete sr sr-d2">
-      <div>
-        <div class="pc-section-lbl">Mission complète — EDL → DCE + MOe</div>
+      <!-- Mission complète -->
+      <div class="pc-complete">
+        <div class="pc-complete-lbl">Mission complète — EDL → DCE + MOe</div>
         <div class="pc-complete-title">Honoraires<br>au pourcentage.</div>
-        <p class="pc-complete-sub">Pour la mission complète — de l'état des lieux jusqu'au suivi de chantier et à la réception des travaux — les honoraires sont calculés sur le budget travaux estimé, avec un coefficient de complexité appliqué selon la nature du projet.</p>
+        <p class="pc-complete-sub">De l'état des lieux jusqu'à la réception des travaux — honoraires calculés sur le budget travaux estimé, avec un coefficient de complexité.</p>
         <div class="pc-formula">
           <div class="pc-formula-part">Budget travaux HT</div>
           <div class="pc-formula-op">×</div>
@@ -343,39 +267,35 @@
           <div class="pc-formula-op">×</div>
           <div class="pc-formula-part">Coeff.</div>
         </div>
-        <p class="pc-complete-sub">Fourchette effective : <strong style="color:var(--bleu)">12 % à 19,2 %</strong> du budget travaux estimé (hors taxes, hors mobilier sur mesure). Le budget travaux est établi lors de l'APD — les honoraires sont recalculés et figés à ce stade.</p>
-      </div>
-      <div>
-        <div class="pc-section-lbl">Coefficient de complexité</div>
+        <p class="pc-complete-sub">Fourchette effective : <strong style="color:var(--bleu)">12 % à 19,2 %</strong> du budget travaux HT.</p>
         <div class="pc-coeff">
           <div class="pc-coeff-row">
             <div>
               <div class="pc-coeff-type" style="font-weight:600;color:rgba(240,235,216,.8)">Standard · ×1,0</div>
-              <div class="pc-coeff-type" style="font-size:.75rem;margin-top:4px">Résidentiel neuf, rénovation simple, espace mono-usage</div>
+              <div class="pc-coeff-type" style="font-size:.75rem;margin-top:4px">Résidentiel neuf, rénovation simple</div>
             </div>
             <div class="pc-coeff-val">12 %</div>
           </div>
           <div class="pc-coeff-row">
             <div>
               <div class="pc-coeff-type" style="font-weight:600;color:rgba(240,235,216,.8)">Intermédiaire · ×1,3</div>
-              <div class="pc-coeff-type" style="font-size:.75rem;margin-top:4px">Commerce, hospitality, réhabilitation, coordination multi-corps</div>
+              <div class="pc-coeff-type" style="font-size:.75rem;margin-top:4px">Commerce, hospitality, réhabilitation</div>
             </div>
             <div class="pc-coeff-val">15,6 %</div>
           </div>
           <div class="pc-coeff-row" style="border-bottom:none">
             <div>
               <div class="pc-coeff-type" style="font-weight:600;color:rgba(240,235,216,.8)">Complexe · ×1,6</div>
-              <div class="pc-coeff-type" style="font-size:.75rem;margin-top:4px">Patrimonial, technique spéciale, délais contraints, coordination étendue</div>
+              <div class="pc-coeff-type" style="font-size:.75rem;margin-top:4px">Patrimonial, technique spéciale</div>
             </div>
             <div class="pc-coeff-val">19,2 %</div>
           </div>
         </div>
-        <p class="pc-complete-sub" style="margin-top:20px">Le coefficient est défini lors du brief — inscrit dans la lettre de mission. Il ne peut pas être révisé en cours de projet sans avenant signé des deux parties.</p>
       </div>
     </div>
 
-    <p class="pc-note sr sr-d3">Si votre budget est en-dessous des fourchettes, dites-le franchement — on peut démarrer par un EDL seul pour y voir plus clair, puis décider ensemble de la suite.</p>
-    <div style="margin-top:40px;display:flex;gap:12px;flex-wrap:wrap;" class="sr sr-d4">
+    <p class="pc-note sr sr-d2">Si votre budget est en-dessous des fourchettes, dites-le franchement — on peut démarrer par un EDL seul pour y voir plus clair, puis décider ensemble de la suite.</p>
+    <div style="margin-top:40px;display:flex;gap:12px;flex-wrap:wrap;" class="sr sr-d3">
       <a href="contact.html" class="btn btn-cream btn-primary"><span>Démarrer un projet →</span></a>
       <a href="projets.html" class="btn btn-outline"><span>Voir les réalisations →</span></a>
     </div>
