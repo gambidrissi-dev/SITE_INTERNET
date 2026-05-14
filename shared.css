@@ -676,7 +676,7 @@ body > nav[data-env="e4"] .nav-burger-btn::after { background: #BB3B34; box-shad
 
 /* ── FOOTER ── */
 footer { background: var(--noir); position: relative; overflow: hidden; }
-.footer-silhouette { position: absolute; bottom: -10px; right: -60px; opacity: .04; pointer-events: none; }
+.footer-silhouette { position: absolute; bottom: -10px; right: -60px; pointer-events: none; }
 .footer-stripe { height: 4px; background: linear-gradient(90deg, var(--bleu) 25%, var(--jaune) 25% 50%, var(--vert) 50% 75%, var(--rouge) 75%); }
 .footer-top { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 80px; padding: 72px 44px 56px; position: relative; z-index: 1; }
 .footer-logo { font-family: var(--f-body); font-weight: 800; font-size: 2.6rem; letter-spacing: -.04em; color: var(--cream); line-height: .9; margin-bottom: 16px; }
@@ -1129,14 +1129,8 @@ body.page-entering-done #page-transition { opacity: 0; }
   clip-path: inset(0 0 0% 0);
 }
 
-/* ── FOOTER SILHOUETTE REVEAL ── */
-.footer-silhouette {
-  clip-path: inset(100% 0 0 0);
-  transition: clip-path 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.25s;
-}
-.footer-silhouette.sil-in {
-  clip-path: inset(0% 0 0 0);
-}
+/* ── FOOTER SILHOUETTE STROKE REVEAL ── */
+/* stroke-dashoffset géré via JS — pas de CSS transition ici */
 
 
 /* ── OVERLAY AMBIENT BACKGROUND — tinte selon entité survolée ── */
@@ -1162,10 +1156,7 @@ body > nav {
     clip-path: none !important;
     transition: none;
   }
-  .footer-silhouette {
-    clip-path: none !important;
-    transition: none;
-  }
+  .footer-silhouette .sil-stroke { transition: none !important; stroke-dashoffset: 0 !important; }
   #scroll-progress { transition: none; }
   #lg-overlay { transition: transform .55s cubic-bezier(.76,0,.24,1); }
 }

@@ -29,7 +29,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="shared.css?v=19">
+  <link rel="stylesheet" href="shared.css?v=20">
   <style>
     :root { --accent: var(--jaune); }
     .stripe { background: linear-gradient(90deg, var(--jaune) 25%, var(--noir) 25% 50%, var(--jaune) 50% 75%, var(--noir) 75%); }
@@ -321,7 +321,7 @@
   <footer>
     <div class="footer-stripe"></div>
     <div class="footer-silhouette" aria-hidden="true">
-      <svg width="500" height="340" viewBox="0 0 750 450" fill="rgba(240,235,216,1)"><rect x="0" y="220" width="750" height="230"/><path d="M375 0 A375 220 0 0 1 750 220 L0 220Z"/></svg>
+      <svg width="500" height="340" viewBox="0 0 750 450"><rect fill="rgba(240,235,216,0.04)" x="0" y="220" width="750" height="230"/><rect x="0" y="220" width="750" height="230" fill="none" stroke="rgba(240,235,216,0.24)" stroke-width="1.5" stroke-linejoin="round" class="sil-stroke"/><path fill="rgba(240,235,216,0.04)" d="M375 0 A375 220 0 0 1 750 220 L0 220Z"/><path d="M375 0 A375 220 0 0 1 750 220 L0 220Z" fill="none" stroke="rgba(240,235,216,0.24)" stroke-width="1.5" stroke-linejoin="round" class="sil-stroke"/></svg>
     </div>
     <div class="footer-top">
       <div>
@@ -361,7 +361,7 @@
     </div>
   </footer>
 
-  <script src="shared.js?v=19"></script>
+  <script src="shared.js?v=20"></script>
   <script>
     // Filtres
     document.querySelectorAll('.filter-btn').forEach(btn => {

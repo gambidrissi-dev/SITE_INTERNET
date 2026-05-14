@@ -1178,21 +1178,43 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
   cards.forEach(function(c) { io.observe(c); });
 })();
 
-/* ── FOOTER SILHOUETTE REVEAL ── */
+/* ── FOOTER SILHOUETTE — stroke-dashoffset drawing ── */
 (function initSilhouetteReveal() {
   const sils = document.querySelectorAll('.footer-silhouette');
   if (!sils.length) return;
 
+  /* Prefers-reduced-motion : afficher immédiatement */
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    sils.forEach(function(s) { s.classList.add('sil-in'); });
+    document.querySelectorAll('.sil-stroke').forEach(function(p) {
+      p.style.strokeDashoffset = 0;
+    });
     return;
   }
 
-  const io = new IntersectionObserver(function(entries) {
+  /* Init : cacher tous les traits (dashoffset = totalLength) */
+  document.querySelectorAll('.sil-stroke').forEach(function(path) {
+    try {
+      var len = path.getTotalLength();
+      path.style.strokeDasharray  = len;
+      path.style.strokeDashoffset = len;
+    } catch(e) { /* getTotalLength non dispo */ }
+  });
+
+  /* Observer : déclencher le dessin quand la silhouette entre en vue */
+  var io = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
       if (!entry.isIntersecting) return;
-      entry.target.classList.add('sil-in');
-      io.unobserve(entry.target);
+      var sil = entry.target;
+      sil.classList.add('sil-in');
+
+      sil.querySelectorAll('.sil-stroke').forEach(function(path, i) {
+        /* Stagger : chaque trait se dessine 250 ms après le précédent */
+        var delay = 0.10 + i * 0.28;
+        path.style.transition = 'stroke-dashoffset 1.8s cubic-bezier(0.16, 1, 0.3, 1) ' + delay + 's';
+        path.style.strokeDashoffset = 0;
+      });
+
+      io.unobserve(sil);
     });
   }, { threshold: 0.01 });
 
