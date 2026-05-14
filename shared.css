@@ -184,16 +184,16 @@ body > nav.nav-scrolled {
 
 /* ── SUBNAV BAR — barre contextuelle pleine largeur sous le nav ── */
 .subnav-bar {
-  position: fixed; top: 66px; left: 0; right: 0; z-index: 489;
-  display: flex; align-items: center; justify-content: center; gap: 4px;
-  padding: 10px 20px;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 489;
+  display: flex; align-items: flex-end; justify-content: center; gap: 4px;
+  padding: 72px 20px 10px;
   background: rgba(243,239,215,0.78);
   backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
   border-bottom: 1px solid rgba(255,255,255,0.20);
   transition: opacity 0.30s ease, transform 0.30s ease;
 }
 .subnav-bar.is-hidden {
-  opacity: 0; pointer-events: none; transform: translateY(-6px);
+  opacity: 0; pointer-events: none; transform: translateY(-100%);
 }
 .subnav-bar a {
   font-family: var(--f-body); font-size: .63rem; font-weight: 600;
