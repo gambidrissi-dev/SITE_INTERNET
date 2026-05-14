@@ -185,7 +185,8 @@ body > nav.nav-scrolled {
 /* ── NAV-SUBNAV — liens contextuels dans la pilule nav gauche ── */
 .nav-subnav {
   pointer-events: all;
-  display: flex; align-items: center; gap: 2px;
+  display: inline-flex; align-items: center; gap: 2px;
+  flex-shrink: 0;
   background: rgba(243,239,215,0.85);
   backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(255,255,255,0.50);
