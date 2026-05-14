@@ -33,9 +33,8 @@
   <style>
     /* HERO CONTACT */
     .contact-hero {
-      padding: 140px 44px 0; background: var(--cream);
+      padding: 140px 44px 100px; background: var(--cream);
       display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end;
-      
     }
     .ch-left { padding-bottom: 80px; }
     .ch-title { font-family: var(--f-display); font-size: clamp(64px,10vw,120px); line-height: .86; margin-bottom: 40px; }
@@ -146,7 +145,7 @@
     .testi-src { font-size: .6rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(26,26,26,.4); }
 
     @media (max-width: 960px) {
-      .contact-hero { grid-template-columns: 1fr; padding: 110px 20px 0; gap: 0; }
+      .contact-hero { grid-template-columns: 1fr; padding: 110px 20px 64px; gap: 0; }
       .ch-left { padding-bottom: 48px; }
       .ch-title { font-size: clamp(48px, 11vw, 88px); margin-bottom: 32px; }
       .ch-right { padding: 48px 24px; border-radius: var(--r-md); margin-bottom: 32px; }
@@ -159,7 +158,7 @@
       .testi-item:last-child { border-bottom: none; }
     }
     @media (max-width: 560px) {
-      .contact-hero { padding: 96px 18px 0; }
+      .contact-hero { padding: 96px 18px 52px; }
       .ch-title { font-size: clamp(40px, 13vw, 64px); }
       .ch-info { gap: 24px; }
       .ch-block-val { font-size: .9rem; }
