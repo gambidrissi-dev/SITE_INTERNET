@@ -242,11 +242,11 @@ if (!isTouch) {
   }
 
   // Scroll — jonction visible en haut, disparaît au scroll
-  const subnavBar = document.querySelector('.subnav-bar');
+  const subnavBar = document.querySelector('.nav-subnav');
   const onScroll = () => {
     const y = window.scrollY;
     nav.classList.toggle('nav-scrolled', y > 40);
-    if (subnavBar) subnavBar.classList.toggle('is-hidden', y > 60);
+    if (subnavBar) subnavBar.classList.toggle('is-hidden', y > 50);
   };
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll(); // état initial au chargement
