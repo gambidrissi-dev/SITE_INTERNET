@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="shared.css?v=22">
+  <link rel="stylesheet" href="shared.css?v=23">
   <style>
     :root { --accent: var(--vert); }
 
@@ -188,20 +188,19 @@
   <div id="cursor-dot"></div>
   <div id="cursor-ring"></div>
 
-  <nav>
-    <a href="index.html" class="nav-logo"><img src="assets/LOGO/LOGO_COBALT.svg" alt="Collectif Cobalt" class="nav-logo-img" width="200" height="45"></a>
+  <nav data-env="e2">
+    <div class="nav-subnav">
+      <a href="atelier.html" class="is-current">Présentation</a>
+      <span class="nav-subnav-sep" aria-hidden="true"></span>
+      <a href="atelier-drops.html">E-Shop</a>
+      <span class="nav-subnav-sep" aria-hidden="true"></span>
+      <a href="atelier-projets.html">Projets</a>
+      <span class="nav-subnav-sep" aria-hidden="true"></span>
+      <a href="atelier-services.html">Sur mesure</a>
+    </div>
     <button class="nav-burger-btn" id="nav-burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="lg-overlay">
       <span></span><span></span><span></span><span></span>
     </button>
-  </nav>
-  <nav class="subnav" data-env="e2" aria-label="Navigation e2">
-    <a href="atelier.html" class="is-current">Présentation</a>
-    <div class="subnav-sep" aria-hidden="true"></div>
-    <a href="atelier-drops.html">E-Shop</a>
-    <div class="subnav-sep" aria-hidden="true"></div>
-    <a href="atelier-projets.html">Projets</a>
-    <div class="subnav-sep" aria-hidden="true"></div>
-    <a href="atelier-services.html">Sur mesure</a>
   </nav>
 <!-- HERO -->
   <section class="atelier-hero">
