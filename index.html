@@ -121,6 +121,7 @@
       transition: opacity .2s ease, filter .2s ease;
     }
     .bs svg { width: 100%; height: auto; display: block; }
+    .bss > * { vector-effect: non-scaling-stroke; }
     .bs:hover { filter: brightness(1.12); }
     .bs:focus { outline: none; }
     .bs:focus-visible svg { outline: 2.5px solid currentColor; outline-offset: 4px; border-radius: 2px; }
@@ -911,12 +912,30 @@
         div.setAttribute('tabindex', '0');
         div.setAttribute('aria-label', `${ENV[envKey].name} — ${ENV[envKey].tag}`);
         const fadeDelay = (Math.random() * 0.7 + 0.05).toFixed(2);
+        div.dataset.fd = fadeDelay;
         div.style.cssText = `left:${(cx-sw/2)/W*100}%;top:${(cy-sh/2)/H*100}%;width:${SHAPE_VW}vw;transform:rotate(${rot}deg)${flip};color:${ENV_COLORS[envKey]};animation:bsFadeIn .65s ease ${fadeDelay}s both;`;
-        div.innerHTML = `<svg viewBox="0 0 750 450" fill="currentColor" xmlns="http://www.w3.org/2000/svg">${SHAPE_SVG[shapeKey]}</svg>`;
+        div.innerHTML = `<svg viewBox="0 0 750 450" xmlns="http://www.w3.org/2000/svg"><g fill="currentColor">${SHAPE_SVG[shapeKey]}</g><g class="bss" fill="none" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.5">${SHAPE_SVG[shapeKey]}</g></svg>`;
         fragment.appendChild(div);
       }
 
       bgShapes.appendChild(fragment);
+
+      // ── Stroke-dashoffset drawing animation ──
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        bgShapes.querySelectorAll('.bss > *').forEach(el => {
+          const len = el.getTotalLength ? el.getTotalLength() : 0;
+          if (!len) return;
+          el.style.strokeDasharray  = len;
+          el.style.strokeDashoffset = len;
+          const bs  = el.closest('.bs');
+          const fd  = parseFloat(bs?.dataset.fd || 0);
+          const dur = (0.9 + Math.random() * 0.7).toFixed(2);
+          setTimeout(() => {
+            el.style.transition       = `stroke-dashoffset ${dur}s cubic-bezier(.4,0,.2,1)`;
+            el.style.strokeDashoffset = '0';
+          }, (fd + 0.4) * 1000);
+        });
+      }
 
       // ── Événements délégués (1 listener par événement sur le container) ──
       if (!isTouch) {
