@@ -678,7 +678,7 @@ body > nav[data-env="e4"] .nav-burger-btn::after { background: #BB3B34; box-shad
 footer { background: var(--noir); position: relative; overflow: hidden; }
 .footer-silhouette { position: absolute; bottom: -10px; right: -60px; pointer-events: none; }
 .footer-stripe { height: 4px; background: linear-gradient(90deg, var(--bleu) 25%, var(--jaune) 25% 50%, var(--vert) 50% 75%, var(--rouge) 75%); }
-.footer-top { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 80px; padding: 72px 44px 56px; position: relative; z-index: 1; }
+.footer-top { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; padding: 72px 44px 56px; position: relative; z-index: 1; }
 .footer-logo { font-family: var(--f-body); font-weight: 800; font-size: 2.6rem; letter-spacing: -.04em; color: var(--cream); line-height: .9; margin-bottom: 16px; }
 .footer-logo .dot { color: var(--bleu); }
 .footer-tagline { font-family: var(--f-serif); font-style: italic; font-size: .9rem; color: rgba(240,235,216,.35); line-height: 1.6; margin-bottom: 24px; }
@@ -719,7 +719,7 @@ footer { background: var(--noir); position: relative; overflow: hidden; }
 /* ── RESPONSIVE TABLETTE PAYSAGE / PETIT DESKTOP (≤1100px) ── */
 @media (max-width: 1100px) {
   .section { padding: 84px 28px; }
-  .footer-top { padding: 64px 28px 48px; gap: 56px; }
+  .footer-top { grid-template-columns: 1fr 1fr; padding: 64px 28px 48px; gap: 40px; }
   .footer-bottom { padding: 20px 28px; }
 }
 
@@ -768,7 +768,7 @@ footer { background: var(--noir); position: relative; overflow: hidden; }
 @media (max-width: 960px) {
   body > nav { padding: 0 16px; height: 54px; }
   .section { padding: 64px 20px; }
-  .footer-top { grid-template-columns: 1fr; gap: 40px; padding: 52px 20px 40px; }
+  .footer-top { grid-template-columns: 1fr; gap: 32px; padding: 52px 20px 40px; }
   .footer-logo { font-size: 2.2rem; }
   .footer-bottom { flex-direction: column; gap: 10px; padding: 20px; text-align: center; }
   .footer-legal { text-align: center; }
