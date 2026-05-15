@@ -191,17 +191,16 @@ if (!isTouch) {
           <div class="lg-strip-num">04</div>
           <div class="lg-strip-body">
             <div class="lg-strip-name">Bleu de Cobalt</div>
-            <div class="lg-strip-sub">Programme · Cabinets · Particuliers</div>
+            <div class="lg-strip-sub">Alternance · Cabinets · Particuliers</div>
           </div>
           <div class="lg-strip-arrow">→</div>
         </a>
         <div class="lg-strip-links">
           <a href="bleu-de-cobalt.html" class="lg-strip-link">Présentation</a>
-          <a href="bleu-programme.html" class="lg-strip-link">Programme</a>
+          <a href="bleu-de-cobalt.html#candidater" class="lg-strip-link">Candidater</a>
+          <a href="bleu-confier.html" class="lg-strip-link">Confier une mission</a>
           <a href="bleu-cabinets.html" class="lg-strip-link">Professionnels</a>
           <a href="bleu-particuliers.html" class="lg-strip-link">Particuliers</a>
-          <a href="contact.html" class="lg-strip-link">Démarrer un projet</a>
-          <a href="bleu-projets.html" class="lg-strip-link">Postuler</a>
         </div>
       </div>
 
@@ -262,7 +261,7 @@ if (!isTouch) {
     'collectif.html': 'e0',
     'studio.html': 'e1', 'projets.html': 'e1', 'services.html': 'e1', 'projet.html': 'e1',
     'atelier.html': 'e2', 'atelier-projets.html': 'e2', 'atelier-services.html': 'e2', 'atelier-drops.html': 'e2',
-    'bleu-de-cobalt.html': 'e3', 'bleu-programme.html': 'e3', 'bleu-cabinets.html': 'e3', 'bleu-particuliers.html': 'e3',
+    'bleu-de-cobalt.html': 'e3', 'bleu-programme.html': 'e3', 'bleu-cabinets.html': 'e3', 'bleu-particuliers.html': 'e3', 'bleu-confier.html': 'e3',
     'media.html': 'e4', 'media-journal.html': 'e4',
   };
   const activeEnvClass = pageToEnv[currentPage];
