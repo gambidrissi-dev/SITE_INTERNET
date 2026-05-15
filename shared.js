@@ -197,7 +197,6 @@ if (!isTouch) {
         </a>
         <div class="lg-strip-links">
           <a href="bleu-de-cobalt.html" class="lg-strip-link">Présentation</a>
-          <a href="bleu-de-cobalt.html#candidater" class="lg-strip-link">Candidater</a>
           <a href="bleu-confier.html" class="lg-strip-link">Confier une mission</a>
           <a href="bleu-cabinets.html" class="lg-strip-link">Professionnels</a>
           <a href="bleu-particuliers.html" class="lg-strip-link">Particuliers</a>
