@@ -8,9 +8,8 @@
   <link rel="manifest" href="/assets/FAVICON/site.webmanifest">
   <meta name="theme-color" content="#F3EFD7">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Collectif Cobalt — Trois personnes, un manifeste. Une pratique qui pense, fait et transmet depuis le Sud-Ouest — Nouvelle-Aquitaine & Occitanie.">
+  <meta name="description" content="Collectif Cobalt — Trois personnes, un manifeste. Une pratique qui pense, fait et transmet depuis le Sud-Ouest.">
   <title>Le Collectif — Qui sommes-nous | Collectif Cobalt</title>
-  <!-- Open Graph -->
   <meta property="og:type"        content="website">
   <meta property="og:url"         content="https://collectifcobalt.eu/collectif.html">
   <meta property="og:title"       content="Le Collectif — Collectif Cobalt">
@@ -18,8 +17,6 @@
   <meta property="og:image"       content="https://collectifcobalt.eu/assets/OG/og-image.jpg">
   <meta property="og:locale"      content="fr_FR">
   <meta property="og:site_name"   content="Collectif Cobalt">
-
-  <!-- Twitter / X -->
   <meta name="twitter:card"        content="summary_large_image">
   <meta name="twitter:title"       content="Le Collectif — Collectif Cobalt">
   <meta name="twitter:description" content="Trois personnes. Un manifeste. Une pratique qui pense, fait et transmet.">
@@ -32,304 +29,323 @@
   <link rel="stylesheet" href="shared.css?v=27">
   <style>
     :root { --accent: var(--bleu); }
-    /* stripe */
     .stripe { background: linear-gradient(90deg, var(--noir) 33%, var(--bleu) 33% 66%, var(--rouge) 66%); }
 
-    /* ── HERO — fond blanc cassé ── */
+    /* ═══════════════════════════════════════
+       HERO — fond noir, titre massif
+    ═══════════════════════════════════════ */
     .hero {
-      min-height: 100vh; background: #F3EFD7;
+      min-height: 100dvh; background: var(--noir);
       display: flex; flex-direction: column; justify-content: flex-end;
       padding: 140px 44px 80px; position: relative; overflow: hidden;
-      
     }
-    /* Grille de fond subtile */
-    .hero::before {
-      content: '';
-      position: absolute; inset: 0; pointer-events: none;
-      background-image:
-        linear-gradient(rgba(26,26,26,.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(26,26,26,.04) 1px, transparent 1px);
-      background-size: 60px 60px;
-      mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.5) 30%, rgba(0,0,0,.5) 70%, transparent 100%);
+    .hero-bg-word {
+      position: absolute; right: -20px; bottom: -60px;
+      font-family: var(--f-display); font-size: clamp(200px, 28vw, 400px);
+      color: rgba(255,255,255,.03); line-height: 1;
+      pointer-events: none; user-select: none; letter-spacing: -.04em;
     }
-    .hero-bg-num {
-      position: absolute; right: -60px; bottom: -80px;
-      font-family: var(--f-display); font-size: clamp(300px,40vw,500px);
-      color: rgba(26,26,26,.05); line-height: 1; pointer-events: none; user-select: none;
-    }
-    /* Accent cobalt vertical */
-    .hero-accent {
-      position: absolute; left: 44px; top: 0; width: 2px; height: 100%;
-      background: linear-gradient(to bottom, transparent, var(--bleu) 35%, rgba(74,130,220,.15) 70%, transparent);
+    /* Ligne cobalt verticale gauche */
+    .hero-line {
+      position: absolute; left: 44px; top: 0; bottom: 0; width: 2px;
+      background: linear-gradient(to bottom, transparent 0%, var(--bleu) 30%, rgba(74,130,220,.2) 70%, transparent 100%);
       pointer-events: none;
     }
-    .hero-label {
-      font-size: .62rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
-      color: rgba(26,26,26,.40); display: flex; align-items: center; gap: 14px; margin-bottom: 32px;
+    .hero-eyebrow {
+      font-size: .60rem; font-weight: 700; letter-spacing: .26em; text-transform: uppercase;
+      color: rgba(240,235,216,.35); display: flex; align-items: center; gap: 14px; margin-bottom: 28px;
     }
-    .hero-label::before { content: ''; width: 24px; height: 2px; background: rgba(26,26,26,.35); }
+    .hero-eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--bleu); }
     .hero-title {
       font-family: var(--f-display);
-      font-size: clamp(72px, 12vw, 160px);
-      line-height: .84; color: var(--noir); margin-bottom: 0;
+      font-size: clamp(80px, 13vw, 180px);
+      line-height: .82; color: var(--cream); margin-bottom: 0;
+      letter-spacing: -.02em;
     }
-    .hero-title .serif-it {
+    .hero-title .t-bleu { color: var(--bleu); }
+    .hero-title .t-it {
       font-family: var(--f-serif); font-style: italic;
-      color: rgba(74,130,220,.65); font-weight: 400;
+      color: rgba(240,235,216,.35); font-weight: 400;
     }
-    /* Barre bleue sous le titre */
-    .hero-rule {
-      width: 48px; height: 3px; background: var(--bleu); margin: 32px 0 36px;
-    }
-    /* Grille bas : desc + infos */
+    .hero-divider { width: 48px; height: 3px; background: var(--bleu); margin: 36px 0; }
     .hero-bottom {
       display: grid; grid-template-columns: 1fr auto;
       gap: 60px; align-items: end;
     }
     .hero-desc {
-      max-width: 520px; font-size: 1rem; line-height: 1.85; font-weight: 300;
-      color: rgba(26,26,26,.60);
+      max-width: 520px; font-size: 1.05rem; line-height: 1.85; font-weight: 300;
+      color: rgba(240,235,216,.55);
     }
-    .hero-desc strong { color: var(--noir); font-weight: 500; }
-    /* Colonne droite : infos/stats */
-    .hero-meta {
-      display: flex; flex-direction: column; gap: 24px;
-      align-items: flex-end; padding-bottom: 4px; flex-shrink: 0;
+    .hero-desc strong { color: var(--cream); font-weight: 500; }
+    .hero-stats {
+      display: flex; flex-direction: column; gap: 20px;
+      align-items: flex-end; flex-shrink: 0;
     }
-    .hero-meta-item {
-      text-align: right;
+    .hero-stat { text-align: right; }
+    .hero-stat-num {
+      font-family: var(--f-display); font-size: clamp(28px, 3vw, 40px);
+      color: var(--cream); line-height: 1; letter-spacing: -.02em;
     }
-    .hero-meta-lbl {
+    .hero-stat-lbl {
       font-size: .52rem; font-weight: 700; letter-spacing: .2em;
-      text-transform: uppercase; color: rgba(26,26,26,.28); margin-bottom: 4px;
+      text-transform: uppercase; color: rgba(240,235,216,.28); margin-top: 3px;
     }
-    .hero-meta-val {
-      font-family: var(--f-display);
-      font-size: clamp(14px, 1.5vw, 18px);
-      color: rgba(26,26,26,.70); letter-spacing: -.01em;
-    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 40px; }
 
-    /* ── MANIFESTE ── */
-    .manifeste {
-      background: #F3EFD7; padding: 120px 44px;
-      
+    /* ═══════════════════════════════════════
+       4 PÔLES — carte de l'activité
+    ═══════════════════════════════════════ */
+    .poles { background: var(--cream); padding: 100px 44px; }
+    .poles-header { margin-bottom: 56px; }
+    .poles-eyebrow {
+      font-size: .60rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
+      color: rgba(26,26,26,.35); display: flex; align-items: center; gap: 14px; margin-bottom: 20px;
     }
-    /* Pull-quote pleine largeur */
-    .man-pullquote {
-      border-left: 3px solid var(--bleu);
-      padding: 0 0 0 36px; margin-bottom: 80px;
-    }
-    .man-pullquote-text {
-      font-family: var(--f-serif); font-style: italic;
-      font-size: clamp(1.4rem, 3vw, 2.2rem); line-height: 1.35;
-      color: var(--noir); font-weight: 400; letter-spacing: -.01em;
-    }
-    .man-pullquote-text em { color: rgba(26,26,26,.35); font-style: normal; }
-    .man-grid {
-      display: grid; grid-template-columns: 1fr 1.5fr; gap: 100px;
-      align-items: start;
-    }
-    .man-left {}
-    .man-label {
-      font-size: .62rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
-      color: rgba(26,26,26,.35); margin-bottom: 28px;
-    }
-    .man-title {
-      font-family: var(--f-display);
-      font-size: clamp(40px, 5.5vw, 72px);
+    .poles-eyebrow::before { content: ''; width: 24px; height: 2px; background: rgba(26,26,26,.35); }
+    .poles-title {
+      font-family: var(--f-display); font-size: clamp(40px, 6vw, 80px);
       line-height: .88; color: var(--noir);
     }
-    .man-title em {
-      font-family: var(--f-serif); font-style: italic;
-      color: rgba(26,26,26,.40); font-weight: 400;
-    }
-    .man-year {
-      font-family: var(--f-display);
-      font-size: clamp(80px, 12vw, 160px);
-      color: rgba(26,26,26,.05); line-height: 1;
-      margin-top: 32px; user-select: none;
-    }
-    .man-right {}
-    .man-body p {
-      font-size: 1.05rem; line-height: 1.9; font-weight: 300;
-      color: rgba(26,26,26,.70); margin-bottom: 28px;
-    }
-    .man-body p:last-child { margin-bottom: 0; }
-    .man-body strong { color: var(--noir); font-weight: 600; }
-    .man-divider {
-      width: 32px; height: 2px; background: var(--noir);
-      margin: 48px 0;
-    }
-    .man-axioms { display: flex; flex-direction: column; gap: 0; }
-    .man-axiom {
-      display: flex; align-items: baseline; gap: 20px;
-      padding: 20px 0; border-bottom: 1px solid rgba(26,26,26,.1);
-    }
-    .man-axiom:last-child { border-bottom: none; }
-    .man-axiom-num {
-      font-size: .58rem; font-weight: 700; letter-spacing: .2em;
-      color: rgba(26,26,26,.25); flex-shrink: 0; width: 24px;
-    }
-    .man-axiom-text {
-      font-family: var(--f-display);
-      font-size: clamp(16px, 1.8vw, 22px);
-      line-height: 1.1; color: var(--noir);
-    }
-
-    /* ── ÉQUIPE — fond blanc cassé teinté ── */
-    .equipe {
-      background: #F3EFD7; padding: 120px 44px;
-      
-    }
-    .eq-header { margin-bottom: 72px; }
-    .eq-label {
-      font-size: .62rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
-      color: rgba(26,26,26,.35); margin-bottom: 20px;
-    }
-    .eq-title {
-      font-family: var(--f-display);
-      font-size: clamp(48px, 6vw, 80px);
-      line-height: .88; color: var(--noir);
-    }
-    .eq-title em {
+    .poles-title em {
       font-family: var(--f-serif); font-style: italic;
       color: rgba(26,26,26,.35); font-weight: 400;
     }
+    .poles-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    }
+    .pole-card {
+      display: flex; flex-direction: column; gap: 20px;
+      padding: 40px 32px; border-radius: var(--r-md);
+      text-decoration: none; position: relative; overflow: hidden;
+      transition: transform .25s ease, box-shadow .25s ease;
+      min-height: 300px;
+    }
+    .pole-card:hover { transform: translateY(-6px); box-shadow: 0 20px 56px rgba(26,26,26,.18); }
+    .pole-card::after {
+      content: '→'; position: absolute; bottom: 32px; right: 32px;
+      font-family: var(--f-display); font-size: 28px; opacity: .3;
+      transition: opacity .25s, transform .25s;
+    }
+    .pole-card:hover::after { opacity: .8; transform: translateX(4px); }
+    .pole-studio { background: var(--bleu); }
+    .pole-atelier { background: var(--vert); }
+    .pole-media { background: var(--rouge); }
+    .pole-bleu { background: var(--jaune); }
+    .pole-num {
+      font-family: var(--f-display); font-size: 48px; line-height: 1;
+      color: rgba(255,255,255,.2); letter-spacing: -.02em;
+    }
+    .pole-bleu .pole-num { color: rgba(26,26,26,.15); }
+    .pole-name {
+      font-family: var(--f-display); font-size: clamp(22px, 2.5vw, 32px);
+      line-height: 1; color: var(--cream); letter-spacing: -.01em;
+    }
+    .pole-bleu .pole-name { color: var(--noir); }
+    .pole-sub {
+      font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      color: rgba(255,255,255,.5);
+    }
+    .pole-bleu .pole-sub { color: rgba(26,26,26,.45); }
+    .pole-desc {
+      font-size: .88rem; line-height: 1.7; font-weight: 300;
+      color: rgba(255,255,255,.65); margin-top: auto;
+    }
+    .pole-bleu .pole-desc { color: rgba(26,26,26,.65); }
+
+    /* ═══════════════════════════════════════
+       MANIFESTE — fond noir, axiomes dramatiques
+    ═══════════════════════════════════════ */
+    .manifeste { background: var(--noir); padding: 120px 44px; }
+    .man-pullquote {
+      border-left: 3px solid var(--bleu);
+      padding-left: 40px; margin-bottom: 100px;
+    }
+    .man-pullquote-text {
+      font-family: var(--f-serif); font-style: italic;
+      font-size: clamp(1.5rem, 3.2vw, 2.6rem); line-height: 1.3;
+      color: var(--cream); font-weight: 400; letter-spacing: -.01em;
+    }
+    .man-pullquote-text em { color: rgba(240,235,216,.3); font-style: normal; }
+    .man-axioms { display: flex; flex-direction: column; gap: 0; }
+    .man-axiom {
+      display: grid; grid-template-columns: 120px 1fr;
+      gap: 48px; align-items: center;
+      padding: 52px 0; border-bottom: 1px solid rgba(240,235,216,.07);
+      transition: background .2s;
+    }
+    .man-axiom:first-child { border-top: 1px solid rgba(240,235,216,.07); }
+    .man-axiom-num {
+      font-family: var(--f-display); font-size: clamp(64px, 8vw, 100px);
+      color: rgba(240,235,216,.06); line-height: 1; letter-spacing: -.04em;
+    }
+    .man-axiom-content {}
+    .man-axiom-label {
+      font-size: .58rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--bleu); margin-bottom: 10px;
+    }
+    .man-axiom-text {
+      font-family: var(--f-display); font-size: clamp(24px, 3vw, 40px);
+      line-height: 1.05; color: var(--cream); letter-spacing: -.01em;
+    }
+
+    /* ═══════════════════════════════════════
+       ÉQUIPE — fond cream, photos en portrait
+    ═══════════════════════════════════════ */
+    .equipe { background: var(--cream); padding: 120px 44px; }
+    .eq-header { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 80px; }
+    .eq-eyebrow {
+      font-size: .60rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
+      color: rgba(26,26,26,.35); display: flex; align-items: center; gap: 14px; margin-bottom: 20px;
+    }
+    .eq-eyebrow::before { content: ''; width: 24px; height: 2px; background: rgba(26,26,26,.35); }
+    .eq-title {
+      font-family: var(--f-display); font-size: clamp(64px, 10vw, 140px);
+      line-height: .82; color: var(--noir); letter-spacing: -.02em;
+    }
+    .eq-title em {
+      font-family: var(--f-serif); font-style: italic;
+      color: rgba(26,26,26,.25); font-weight: 400;
+    }
+    .eq-intro {
+      font-size: 1rem; line-height: 1.85; font-weight: 300;
+      color: rgba(26,26,26,.6); align-self: end;
+    }
     .eq-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 0; 
+      gap: 0;
     }
     .eq-person {
-      padding: 52px 40px 52px;
-      border-right: 1px solid rgba(26,26,26,.14);
+      padding-right: 48px; border-right: 1px solid rgba(26,26,26,.12);
+      padding-top: 0;
       display: flex; flex-direction: column;
       position: relative;
-      transition: background .3s;
     }
-    .eq-person:last-child { border-right: none; }
-    /* Barre couleur au dessus de chaque colonne */
+    .eq-person:nth-child(2) { padding-left: 48px; }
+    .eq-person:nth-child(3) { padding-left: 48px; border-right: none; }
+    /* Barre couleur en haut de chaque carte */
     .eq-person::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0;
-      height: 3px;
-      transition: opacity .3s;
+      content: ''; display: block; width: 48px; height: 4px;
+      border-radius: 2px; margin-bottom: 36px; flex-shrink: 0;
     }
     .eq-person:nth-child(1)::before { background: var(--bleu); }
     .eq-person:nth-child(2)::before { background: #B8940A; }
     .eq-person:nth-child(3)::before { background: var(--vert); }
-    .eq-person:hover { background: rgba(255,255,255,.35); }
 
-    /* Photo réelle */
-    .eq-photo-wrap {
-      width: 100%; aspect-ratio: 3/4;
-      overflow: hidden; border-radius: var(--r-md);
-      margin-bottom: 32px; background: rgba(26,26,26,.10);
-      box-shadow: 0 4px 20px rgba(26,26,26,.12);
+    /* Photo portrait */
+    .eq-photo {
+      width: 100%; aspect-ratio: 3/4; overflow: hidden;
+      border-radius: var(--r-md); margin-bottom: 28px;
+      background: rgba(26,26,26,.08); position: relative;
     }
-    .eq-photo-wrap img {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform .6s cubic-bezier(.25,.46,.45,.94), filter .4s ease;
-      filter: grayscale(20%);
-      display: block;
+    .eq-photo img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform .6s cubic-bezier(.25,.46,.45,.94), filter .4s;
+      filter: grayscale(15%);
     }
-    .eq-person:hover .eq-photo-wrap img { transform: scale(1.04); filter: grayscale(0%); }
+    .eq-person:hover .eq-photo img { transform: scale(1.04); filter: grayscale(0%); }
+    /* Fallback SVG si image absente */
+    .eq-photo-fallback {
+      position: absolute; inset: 0; display: flex; align-items: center;
+      justify-content: center; opacity: .18;
+    }
+    .eq-photo-fallback svg { width: 40%; }
 
-    /* Placeholder si image absente */
-    .eq-photo-wrap.placeholder {
-      display: flex; align-items: center; justify-content: center;
-    }
-    .eq-photo-wrap.placeholder svg { width: 36%; opacity: .18; }
-
-    .eq-pip {
-      display: inline-block; width: 7px; height: 7px; border-radius: 50%;
-      margin-right: 10px; vertical-align: middle; margin-bottom: 2px;
-    }
     .eq-name {
-      font-family: var(--f-display);
-      font-size: clamp(22px, 2.5vw, 32px);
-      color: var(--noir); line-height: 1; margin-bottom: 6px;
-      letter-spacing: -.02em;
+      font-family: var(--f-display); font-size: clamp(28px, 3vw, 40px);
+      color: var(--noir); line-height: 1; margin-bottom: 6px; letter-spacing: -.02em;
     }
     .eq-role {
-      font-size: .65rem; font-weight: 700; letter-spacing: .18em;
-      text-transform: uppercase; color: rgba(26,26,26,.40);
+      font-size: .62rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
       margin-bottom: 20px;
     }
-    .eq-bio {
-      font-size: .82rem; line-height: 1.75; font-weight: 300;
-      color: rgba(26,26,26,.60); flex: 1;
-    }
-    .eq-contact {
-      margin-top: 24px;
-      display: inline-flex; align-items: center;
-      padding: 9px 20px; border-radius: 999px;
-      border: 1.5px solid rgba(26,26,26,.55);
-      font-size: .60rem; font-weight: 700; letter-spacing: .14em;
-      text-transform: uppercase; color: rgba(26,26,26,.80);
-      background: transparent;
-      transition: background .2s, border-color .2s, color .2s;
-      align-self: flex-start;
-    }
-    .eq-contact:hover {
-      background: var(--noir); color: var(--cream);
-      border-color: var(--noir);
-    }
-
-    /* pip couleurs */
-    .eq-person:nth-child(1) .eq-pip { background: var(--bleu); box-shadow: 0 0 6px rgba(74,130,220,.5); }
-    .eq-person:nth-child(2) .eq-pip { background: #B8940A; box-shadow: 0 0 6px rgba(184,148,10,.4); }
-    .eq-person:nth-child(3) .eq-pip { background: var(--vert); box-shadow: 0 0 6px rgba(93,161,107,.5); }
     .eq-person:nth-child(1) .eq-role { color: var(--bleu); }
     .eq-person:nth-child(2) .eq-role { color: #B8940A; }
     .eq-person:nth-child(3) .eq-role { color: var(--vert); }
+    .eq-bio {
+      font-size: .88rem; line-height: 1.8; font-weight: 300;
+      color: rgba(26,26,26,.6); flex: 1; margin-bottom: 28px;
+    }
+    .eq-contact {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 10px 20px; border-radius: 999px;
+      border: 1.5px solid rgba(26,26,26,.2);
+      font-size: .60rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      color: rgba(26,26,26,.7); background: transparent; text-decoration: none;
+      transition: background .2s, border-color .2s, color .2s;
+      align-self: flex-start;
+    }
+    .eq-contact:hover { background: var(--noir); color: var(--cream); border-color: var(--noir); }
 
-    /* ── CTA BANDE ── */
-    .cta-band {
-      background: #F3EFD7; padding: 100px 44px;
-      display: flex; align-items: center; justify-content: space-between;
-      
+    /* ═══════════════════════════════════════
+       CTA FINAL — fond jaune
+    ═══════════════════════════════════════ */
+    .cta-final {
+      background: var(--jaune); padding: 120px 44px;
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 60px; align-items: center;
     }
-    .cb-text {
-      font-family: var(--f-display);
-      font-size: clamp(32px,5vw,64px); color: var(--noir); line-height: .9;
+    .cta-final-title {
+      font-family: var(--f-display); font-size: clamp(48px, 8vw, 120px);
+      line-height: .85; color: var(--noir); letter-spacing: -.02em;
     }
-    .cb-text em {
-      font-family: var(--f-serif); font-style: italic; color: rgba(26,26,26,.35);
+    .cta-final-title em {
+      font-family: var(--f-serif); font-style: italic;
+      color: rgba(26,26,26,.35); font-weight: 400;
+    }
+    .cta-final-right {
+      display: flex; flex-direction: column; gap: 14px;
+      align-items: flex-end; flex-shrink: 0;
+    }
+    .cta-final-sub {
+      font-size: .88rem; line-height: 1.7; font-weight: 300;
+      color: rgba(26,26,26,.6); max-width: 300px; text-align: right; margin-bottom: 8px;
     }
 
-    /* ── RESPONSIVE ── */
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════ */
+    @media (max-width: 1100px) {
+      .poles-grid { grid-template-columns: repeat(2, 1fr); }
+    }
     @media (max-width: 960px) {
       .hero { padding: 110px 20px 56px; min-height: 0; }
-      .hero-accent { display: none; }
-      .hero-title { font-size: clamp(56px, 12vw, 110px); }
-      .hero-bottom { grid-template-columns: 1fr; gap: 32px; }
-      .hero-meta { align-items: flex-start; flex-direction: row; flex-wrap: wrap; gap: 16px 40px; }
-      .hero-meta-item { text-align: left; }
-      .man-pullquote { margin-bottom: 56px; padding-left: 24px; }
-      .manifeste { padding: 72px 20px; }
-      .man-grid { grid-template-columns: 1fr; gap: 48px; }
-      .man-year { display: none; }
-      .equipe { padding: 72px 20px; }
-      .eq-header { margin-bottom: 48px; }
-      .eq-grid { grid-template-columns: 1fr; }
-      .eq-person { border-right: none; border-bottom: 1px solid rgba(26,26,26,.10); padding: 40px 20px; }
-      .eq-person::before { left: 0; right: 0; top: 0; height: 3px; }
-      .eq-person:last-child { border-bottom: none; }
-      .eq-photo-wrap { max-width: 280px; }
-      .cta-band { flex-direction: column; gap: 32px; padding: 64px 20px; text-align: center; align-items: center; }
+      .hero-line { display: none; }
+      .hero-title { font-size: clamp(64px, 13vw, 110px); }
+      .hero-bottom { grid-template-columns: 1fr; gap: 28px; }
+      .hero-stats { align-items: flex-start; flex-direction: row; flex-wrap: wrap; gap: 16px 36px; }
+      .hero-stat { text-align: left; }
+      .poles { padding: 72px 20px; }
+      .poles-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .pole-card { padding: 32px 24px; min-height: 260px; }
+      .manifeste { padding: 80px 20px; }
+      .man-pullquote { padding-left: 24px; margin-bottom: 64px; }
+      .man-axiom { grid-template-columns: 80px 1fr; gap: 28px; padding: 40px 0; }
+      .man-axiom-num { font-size: clamp(48px, 8vw, 72px); }
+      .equipe { padding: 80px 20px; }
+      .eq-header { grid-template-columns: 1fr; gap: 20px; margin-bottom: 56px; }
+      .eq-grid { grid-template-columns: 1fr; gap: 52px; }
+      .eq-person { padding-right: 0; border-right: none; border-bottom: 1px solid rgba(26,26,26,.1); padding-bottom: 52px; }
+      .eq-person:nth-child(2), .eq-person:nth-child(3) { padding-left: 0; }
+      .eq-person:last-child { border-bottom: none; padding-bottom: 0; }
+      .eq-photo { max-width: 320px; }
+      .cta-final { grid-template-columns: 1fr; gap: 36px; padding: 80px 20px; }
+      .cta-final-right { align-items: flex-start; }
+      .cta-final-sub { text-align: left; }
     }
     @media (max-width: 560px) {
       .hero { padding: 96px 18px 48px; }
-      .hero-title { font-size: clamp(52px, 14vw, 84px); }
-      .hero-desc { font-size: .88rem; }
-      .man-pullquote { padding-left: 18px; }
-      .man-pullquote-text { font-size: clamp(1.2rem, 5vw, 1.5rem); }
-      .manifeste { padding: 56px 18px; }
-      .man-title { font-size: clamp(32px, 9vw, 48px); }
-      .man-body p { font-size: .92rem; }
+      .hero-title { font-size: clamp(52px, 15vw, 84px); }
+      .poles { padding: 56px 18px; }
+      .poles-grid { grid-template-columns: 1fr; }
+      .pole-card { min-height: 220px; }
+      .manifeste { padding: 60px 18px; }
+      .man-pullquote-text { font-size: clamp(1.25rem, 5vw, 1.6rem); }
+      .man-axiom { grid-template-columns: 60px 1fr; gap: 20px; padding: 32px 0; }
+      .man-axiom-text { font-size: clamp(20px, 5vw, 28px); }
       .equipe { padding: 56px 18px; }
-      .eq-title { font-size: clamp(36px, 10vw, 56px); }
-      .eq-person { padding: 32px 0; }
-      .cta-band { padding: 52px 18px; }
+      .eq-title { font-size: clamp(52px, 14vw, 100px); }
+      .cta-final { padding: 60px 18px; }
+      .cta-final-title { font-size: clamp(40px, 12vw, 72px); }
     }
   </style>
 </head>
@@ -345,136 +361,205 @@
     </button>
   </nav>
 
-  <!-- HERO -->
-  <section class="hero" id="main-content">
-    <div class="hero-accent" aria-hidden="true"></div>
-    <div class="hero-bg-num" aria-hidden="true">01</div>
-    <div class="hero-label sr">Le Collectif</div>
+  <!-- ══ HERO ══ -->
+  <section class="hero">
+    <div class="hero-line" aria-hidden="true"></div>
+    <div class="hero-bg-word" aria-hidden="true">COBALT</div>
+    <div class="hero-eyebrow sr">Le Collectif</div>
     <h1 class="hero-title sr">
-      COBALT<span class="serif-it">+</span><br>
-      COLLECTIF.
+      LE<br>
+      COLLECTIF<br>
+      <span class="t-it">Cobalt.</span>
     </h1>
-    <div class="hero-rule sr" aria-hidden="true"></div>
+    <div class="hero-divider sr" aria-hidden="true"></div>
     <div class="hero-bottom sr sr-d2">
-      <p class="hero-desc">
-        Trois personnes. Un territoire — la <strong>Nouvelle-Aquitaine</strong>.<br>
-        Une conviction : que le travail bien fait mérite d'être <strong>pensé, fait et transmis</strong>.
-      </p>
-      <div class="hero-meta">
-        <div class="hero-meta-item">
-          <div class="hero-meta-lbl">Fondé en</div>
-          <div class="hero-meta-val">Avril 2026</div>
+      <div>
+        <p class="hero-desc">
+          Pas un cabinet. Pas une agence. Un <strong>collectif</strong> — trois personnes qui décident ensemble, travaillent sur tous les fronts, et portent une pratique qui <strong>pense, fait et transmet</strong> depuis la Nouvelle-Aquitaine.
+        </p>
+        <div class="hero-actions">
+          <a href="studio.html" class="btn btn-cream"><span>Voir les projets →</span></a>
+          <a href="contact.html" class="btn btn-outline" style="color:var(--cream); border-color:rgba(240,235,216,.3)"><span>Nous contacter</span></a>
         </div>
-        <div class="hero-meta-item">
-          <div class="hero-meta-lbl">Territoire</div>
-          <div class="hero-meta-val">Nouvelle-Aquitaine</div>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-num">2026</div>
+          <div class="hero-stat-lbl">Fondé en</div>
         </div>
-        <div class="hero-meta-item">
-          <div class="hero-meta-lbl">Membres</div>
-          <div class="hero-meta-val">3 personnes</div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">3</div>
+          <div class="hero-stat-lbl">Membres</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">4</div>
+          <div class="hero-stat-lbl">Pôles d'activité</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">N-A</div>
+          <div class="hero-stat-lbl">Territoire</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- MANIFESTE -->
+  <!-- ══ 4 PÔLES ══ -->
+  <section class="poles">
+    <div class="poles-header sr">
+      <div class="poles-eyebrow">Ce qu'on fait</div>
+      <h2 class="poles-title">QUATRE PÔLES.<br><em>Une pratique.</em></h2>
+    </div>
+    <div class="poles-grid">
+      <a href="studio.html" class="pole-card pole-studio sr">
+        <div class="pole-num">01</div>
+        <div class="pole-name">Le Studio</div>
+        <div class="pole-sub">Architecture d'intérieur</div>
+        <p class="pole-desc">Conception de projets résidentiels et tertiaires — de l'esquisse à la livraison. Petites surfaces, grandes ambitions.</p>
+      </a>
+      <a href="atelier.html" class="pole-card pole-atelier sr sr-d1">
+        <div class="pole-num">02</div>
+        <div class="pole-name">L'Atelier</div>
+        <div class="pole-sub">Design d'objet & éditions</div>
+        <p class="pole-desc">Pièces en co-design avec des ébénistes partenaires. Éditions limitées, fabrication locale, matières du Sud-Ouest.</p>
+      </a>
+      <a href="media.html" class="pole-card pole-media sr sr-d2">
+        <div class="pole-num">03</div>
+        <div class="pole-name">Le Média</div>
+        <div class="pole-sub">Contenu & diffusion</div>
+        <p class="pole-desc">Documentaire de pratique, formats courts, ligne éditoriale sur l'architecture et la fabrication artisanale.</p>
+      </a>
+      <a href="bleu-de-cobalt.html" class="pole-card pole-bleu sr sr-d3">
+        <div class="pole-num">04</div>
+        <div class="pole-name">Bleu de Cobalt</div>
+        <div class="pole-sub">Formation & alternance</div>
+        <p class="pole-desc">Association employeur. Les alternants travaillent sur de vraies commandes — pas des exercices. Missions courtes, encadrement dédié.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- ══ MANIFESTE ══ -->
   <section class="manifeste">
     <div class="man-pullquote sr">
       <p class="man-pullquote-text">
-        "Pas un cabinet. Pas une agence.<br>
-        Un collectif — <em>au sens concret du mot.</em>"
+        "L'espace change la qualité de vie.<br>
+        Le travail bien fait mérite d'être pensé, fait — <em>et transmis.</em>"
       </p>
     </div>
-    <div class="man-grid">
-      <div class="man-left sr">
-        <div class="man-label">Notre intention</div>
-        <h2 class="man-title">PENSER.<br>FAIRE.<br><em>Transmettre.</em></h2>
-        <div class="man-year" aria-hidden="true">2026</div>
-      </div>
-      <div class="man-right sr sr-d2">
-        <div class="man-body">
-          <p>Collectif Cobalt, c'est d'abord une envie de travailler autrement. Pas un cabinet. Pas une agence. Un collectif — au sens concret : des personnes qui décident ensemble, qui s'impliquent sur tous les sujets, et qui portent un projet commun sans hiérarchie de façade.</p>
-          <p>Notre terrain, c'est l'espace. Sa conception, sa fabrication, sa narration — et sa transmission. Le <strong>Studio</strong> conçoit des projets d'architecture d'intérieur. <strong>L'Atelier</strong> produit des pièces en co-design avec des artisans locaux. Le <strong>Média</strong> documente et questionne la pratique. Et <strong>Bleu de Cobalt</strong>, notre association, forme la prochaine génération en la mettant au travail — sur de vraies commandes, avec de vraies contraintes. Les quatre activités se nourrissent.</p>
-          <p>On travaille en <strong>Nouvelle-Aquitaine</strong>. On ancre notre pratique dans ses matériaux, ses artisans, ses paysages. Ce n'est pas un positionnement marketing — c'est une contrainte choisie et une conviction.</p>
+    <div class="man-axioms">
+      <div class="man-axiom sr">
+        <div class="man-axiom-num">01</div>
+        <div class="man-axiom-content">
+          <div class="man-axiom-label">Intention</div>
+          <div class="man-axiom-text">On travaille autrement. Pas de hiérarchie de façade — chacun s'implique sur tous les sujets et porte le projet collectif.</div>
         </div>
-        <div class="man-divider"></div>
-        <div class="man-axioms">
-          <div class="man-axiom">
-            <div class="man-axiom-num">01</div>
-            <div class="man-axiom-text">L'espace change la qualité de vie. On le prend au sérieux.</div>
-          </div>
-          <div class="man-axiom">
-            <div class="man-axiom-num">02</div>
-            <div class="man-axiom-text">Le travail bien fait se transmet — par l'image, par la parole, par la mise au travail.</div>
-          </div>
-          <div class="man-axiom">
-            <div class="man-axiom-num">03</div>
-            <div class="man-axiom-text">La Nouvelle-Aquitaine n'est pas une contrainte. C'est notre matière première.</div>
-          </div>
+      </div>
+      <div class="man-axiom sr sr-d1">
+        <div class="man-axiom-num">02</div>
+        <div class="man-axiom-content">
+          <div class="man-axiom-label">Territoire</div>
+          <div class="man-axiom-text">La Nouvelle-Aquitaine n'est pas une contrainte. C'est notre matière première — ses artisans, ses matériaux, ses paysages.</div>
+        </div>
+      </div>
+      <div class="man-axiom sr sr-d2">
+        <div class="man-axiom-num">03</div>
+        <div class="man-axiom-content">
+          <div class="man-axiom-label">Transmission</div>
+          <div class="man-axiom-text">Le savoir-faire se transmet par la mise au travail réelle — pas par les cours magistraux ni les stages-parking.</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA INLINE MANIFESTE -->
-  <div style="padding: 0 44px 80px; display:flex; gap:16px; flex-wrap:wrap;">
-    <a href="studio.html" class="btn btn-dark btn-primary sr"><span>Démarrer un projet →</span></a>
-    <a href="contact.html" class="btn btn-outline sr sr-d1"><span>Nous contacter →</span></a>
-  </div>
-
-  <!-- ÉQUIPE -->
-  <section class="equipe">
-    <div class="eq-header sr">
-      <div class="eq-label">Trois personnes</div>
-      <h2 class="eq-title">LES<br><em>visages.</em></h2>
+  <!-- ══ ÉQUIPE ══ -->
+  <section class="equipe" id="equipe">
+    <div class="eq-header">
+      <div class="sr">
+        <div class="eq-eyebrow">Les membres</div>
+        <h2 class="eq-title">TROIS.<br><em>personnes.</em></h2>
+      </div>
+      <p class="eq-intro sr sr-d1">Organisation organique : on fait tous un peu tout. Chacun porte un pôle principal, mais aucune décision ne se prend seul. C'est la définition concrète du mot collectif.</p>
     </div>
-    <div class="eq-grid sr sr-d1">
+    <div class="eq-grid">
 
       <!-- GAMBI -->
-      <div class="eq-person">
-        <div class="eq-photo-wrap">
+      <div class="eq-person sr">
+        <div class="eq-photo">
           <img src="assets/TEAM/gambi.jpg" alt="Gambi — Architecte, Président du Collectif Cobalt" loading="lazy"
-               onerror="this.closest('.eq-photo-wrap').classList.add('placeholder');this.style.display='none';this.insertAdjacentHTML('afterend','<svg viewBox=\'0 0 80 100\' fill=\'rgba(26,26,26,0.18)\' xmlns=\'http://www.w3.org/2000/svg\'><circle cx=\'40\' cy=\'30\' r=\'22\'/><path d=\'M0 100C0 72 18 56 40 56C62 56 80 72 80 100H0Z\'/></svg>')">
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div class="eq-photo-fallback" style="display:none">
+            <svg viewBox="0 0 80 100" fill="rgba(26,26,26,0.18)" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="40" cy="30" r="22"/><path d="M0 100C0 72 18 56 40 56C62 56 80 72 80 100H0Z"/>
+            </svg>
+          </div>
         </div>
-        <div class="eq-name"><span class="eq-pip"></span>Gambi</div>
+        <div class="eq-name">Gambi</div>
         <div class="eq-role">Architecte · Président</div>
-        <p class="eq-bio">La pratique et la vision. Conception de projets d'architecture d'intérieur en Nouvelle-Aquitaine et à Toulouse, de la première esquisse à la livraison. Il porte l'intention du collectif.</p>
+        <p class="eq-bio">La pratique et la vision. Conception de projets d'architecture d'intérieur en Nouvelle-Aquitaine, de la première esquisse à la livraison. Il porte l'intention et la direction du collectif.</p>
         <a href="mailto:gambi@collectifcobalt.eu" class="eq-contact">gambi@collectifcobalt.eu</a>
       </div>
 
       <!-- LOLA -->
-      <div class="eq-person">
-        <div class="eq-photo-wrap">
+      <div class="eq-person sr sr-d1">
+        <div class="eq-photo">
           <img src="assets/TEAM/lola.jpg" alt="Lola — Co-fondatrice du Collectif Cobalt" loading="lazy"
-               onerror="this.closest('.eq-photo-wrap').classList.add('placeholder');this.style.display='none';this.insertAdjacentHTML('afterend','<svg viewBox=\'0 0 80 100\' fill=\'rgba(26,26,26,0.18)\' xmlns=\'http://www.w3.org/2000/svg\'><circle cx=\'40\' cy=\'30\' r=\'22\'/><path d=\'M0 100C0 72 18 56 40 56C62 56 80 72 80 100H0Z\'/></svg>')">
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div class="eq-photo-fallback" style="display:none">
+            <svg viewBox="0 0 80 100" fill="rgba(26,26,26,0.18)" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="40" cy="30" r="22"/><path d="M0 100C0 72 18 56 40 56C62 56 80 72 80 100H0Z"/>
+            </svg>
+          </div>
         </div>
-        <div class="eq-name"><span class="eq-pip"></span>Lola</div>
+        <div class="eq-name">Lola</div>
         <div class="eq-role">Co-fondatrice · Architecture & Atelier</div>
-        <p class="eq-bio">Conception, coordination, terrain. Lola est au cœur des projets d'espace — elle suit les chantiers, pilote les relations avec les artisans partenaires, et s'assure que ce qui est dessiné finit par exister.</p>
+        <p class="eq-bio">Conception, coordination, terrain. Lola suit les chantiers, pilote les relations avec les artisans partenaires et s'assure que ce qui est dessiné finit par exister — dans les matières et dans les délais.</p>
         <a href="mailto:lola@collectifcobalt.eu" class="eq-contact">lola@collectifcobalt.eu</a>
       </div>
 
       <!-- LOU-ANN -->
-      <div class="eq-person">
-        <div class="eq-photo-wrap">
+      <div class="eq-person sr sr-d2">
+        <div class="eq-photo">
           <img src="assets/TEAM/lou-ann.jpg" alt="Lou-Ann — Co-fondatrice du Collectif Cobalt" loading="lazy"
-               onerror="this.closest('.eq-photo-wrap').classList.add('placeholder');this.style.display='none';this.insertAdjacentHTML('afterend','<svg viewBox=\'0 0 80 100\' fill=\'rgba(26,26,26,0.18)\' xmlns=\'http://www.w3.org/2000/svg\'><circle cx=\'40\' cy=\'30\' r=\'22\'/><path d=\'M0 100C0 72 18 56 40 56C62 56 80 72 80 100H0Z\'/></svg>')">
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div class="eq-photo-fallback" style="display:none">
+            <svg viewBox="0 0 80 100" fill="rgba(26,26,26,0.18)" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="40" cy="30" r="22"/><path d="M0 100C0 72 18 56 40 56C62 56 80 72 80 100H0Z"/>
+            </svg>
+          </div>
         </div>
-        <div class="eq-name"><span class="eq-pip"></span>Lou-Ann</div>
+        <div class="eq-name">Lou-Ann</div>
         <div class="eq-role">Co-fondatrice · Média & Bleu de Cobalt</div>
-        <p class="eq-bio">Transmission et ligne éditoriale. Lou-Ann porte la dimension médiatique du collectif et pilote Bleu de Cobalt, l'association de formation — ce qu'on montre, ce qu'on transmet, pourquoi ça compte de le faire.</p>
+        <p class="eq-bio">Transmission et ligne éditoriale. Lou-Ann porte la dimension médiatique du collectif et pilote Bleu de Cobalt — ce qu'on montre, ce qu'on transmet, et pourquoi ça compte de le faire vraiment.</p>
         <a href="mailto:louann@collectifcobalt.eu" class="eq-contact">louann@collectifcobalt.eu</a>
       </div>
 
     </div>
   </section>
 
-  <!-- CTA -->
-  <div class="cta-band">
-    <div class="cb-text sr">UN PROJET ?<br><em>Travaillons ensemble.</em></div>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
-      <a href="contact.html" class="btn btn-dark btn-primary sr sr-d1"><span>Nous contacter →</span></a>
-      <a href="projets.html" class="btn btn-outline sr sr-d2"><span>Voir nos projets →</span></a>
+  <!-- ══ CTA FINAL ══ -->
+  <div class="cta-final">
+    <h2 class="cta-final-title sr">UN PROJET ?<br><em>Travaillons.</em></h2>
+    <div class="cta-final-right sr sr-d1">
+      <p class="cta-final-sub">Une idée, un chantier, une mission Bleu — on répond sous 48 h.</p>
+      <a href="contact.html" class="btn btn-dark btn-primary"><span>Nous contacter →</span></a>
+      <a href="projets.html" class="btn btn-outline"><span>Voir les projets</span></a>
+    </div>
+  </div>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <div class="marquee-item">PENSER<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--bleu)">FAIRE</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">TRANSMETTRE<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--bleu)">COBALT</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">NOUVELLE-AQUITAINE<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--bleu)">COLLECTIF</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">PENSER<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--bleu)">FAIRE</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">TRANSMETTRE<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--bleu)">COBALT</span><div class="marquee-sep"></div></div>
+      <div class="marquee-item">NOUVELLE-AQUITAINE<div class="marquee-sep"></div></div>
+      <div class="marquee-item"><span class="hi" style="color:var(--bleu)">COLLECTIF</span><div class="marquee-sep"></div></div>
     </div>
   </div>
 
@@ -482,7 +567,6 @@
   <footer>
     <div class="footer-stripe"></div>
     <div class="footer-top">
-      <!-- Col 1 — Identité -->
       <div>
         <div class="footer-logo">cobalt<span class="dot">.</span></div>
         <p class="footer-tagline">Penser. Faire. Transmettre.<br>Architecture &amp; Médias — Nouvelle-Aquitaine.</p>
@@ -494,8 +578,6 @@
           <a href="https://www.linkedin.com/company/collectif-cobalt" target="_blank" rel="noopener">LinkedIn</a>
         </div>
       </div>
-
-      <!-- Col 2 — Le Collectif & Le Studio -->
       <div>
         <div class="footer-col-title">Le Collectif Cobalt</div>
         <nav class="footer-nav">
@@ -509,8 +591,6 @@
           <a href="contact.html">Démarrer un projet</a>
         </nav>
       </div>
-
-      <!-- Col 3 — L'Atelier -->
       <div>
         <div class="footer-col-title">L'Atelier</div>
         <nav class="footer-nav">
@@ -521,21 +601,16 @@
           <a href="contact.html">Démarrer un projet</a>
         </nav>
       </div>
-
-      <!-- Col 4 — Bleu de Cobalt -->
       <div>
         <div class="footer-col-title">Bleu de Cobalt</div>
         <nav class="footer-nav">
           <a href="bleu-de-cobalt.html">Présentation</a>
-          <a href="bleu-de-cobalt.html">Programme</a>
+          <a href="bleu-de-cobalt.html#candidater">Candidater</a>
           <a href="bleu-cabinets.html">Professionnels</a>
           <a href="bleu-particuliers.html">Particuliers</a>
           <a href="contact.html">Démarrer un projet</a>
-          <a href="bleu-de-cobalt.html#candidater">Candidater</a>
         </nav>
       </div>
-
-      <!-- Col 5 — Média & Contact -->
       <div>
         <div class="footer-col-title">Le Média</div>
         <nav class="footer-nav">
