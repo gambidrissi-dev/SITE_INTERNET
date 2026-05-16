@@ -225,6 +225,38 @@
       .ch-sc-card { padding: 44px 24px; }
       .ch-sc-num { font-size: clamp(80px,20vw,120px); }
     }
+
+    /* ── MENU BLEU DE COBALT ── */
+    .ch-bleu-menu {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+      padding: 32px 56px;
+      background: var(--bleu);
+      border-top: 1px solid rgba(255,255,255,.12);
+    }
+    .ch-bleu-menu-label {
+      font-family: var(--f-ui); font-size: 10px; letter-spacing: .2em;
+      text-transform: uppercase; color: rgba(243,239,215,.5);
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .ch-bleu-menu-links {
+      display: flex; align-items: center; gap: 0; flex-wrap: wrap;
+    }
+    .ch-bleu-menu-links a {
+      font-family: var(--f-ui); font-size: 13px; letter-spacing: .04em;
+      color: rgba(243,239,215,.75); text-decoration: none;
+      padding: 8px 20px; border-left: 1px solid rgba(255,255,255,.15);
+      transition: color .2s;
+    }
+    .ch-bleu-menu-links a:first-child { border-left: none; padding-left: 0; }
+    .ch-bleu-menu-links a:hover { color: var(--cream); }
+    @media (max-width: 768px) {
+      .ch-bleu-menu { padding: 24px; flex-direction: column; align-items: flex-start; gap: 16px; }
+      .ch-bleu-menu-links { flex-direction: column; gap: 0; }
+      .ch-bleu-menu-links a { border-left: none; padding: 10px 0; border-top: 1px solid rgba(255,255,255,.12); }
+      .ch-bleu-menu-links a:first-child { border-top: none; padding-top: 0; }
+    }
   </style>
 </head>
 <body>
@@ -364,6 +396,17 @@
       <div class="ch-sc-arrow" aria-hidden="true">→</div>
     </a>
   </section>
+
+  <!-- MENU BLEU DE COBALT -->
+  <div class="ch-bleu-menu">
+    <div class="ch-bleu-menu-label">Bleu de Cobalt</div>
+    <nav class="ch-bleu-menu-links">
+      <a href="bleu-de-cobalt.html">Présentation</a>
+      <a href="bleu-confier.html">Confier une mission</a>
+      <a href="bleu-cabinets.html">Professionnels</a>
+      <a href="bleu-particuliers.html">Particuliers</a>
+    </nav>
+  </div>
 
   <!-- TÉMOIGNAGES -->
   <section id="temoignages">
