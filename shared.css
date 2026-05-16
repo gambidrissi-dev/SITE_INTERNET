@@ -116,12 +116,12 @@ body.hov #cursor-ring { width: 54px; height: 54px; }
 
 /* ── NAV (inner pages) — pilules flottantes ── */
 body > nav {
-  position: fixed; top: 20px; left: 20px; right: 20px; z-index: 500;
-  /* Connecting bar : fond subtil SANS backdrop-filter (évite le bug pointer-events) */
+  position: fixed; top: 20px; left: 20px; z-index: 500;
+  /* Pilule logo uniquement — burger et subnav flottent en fixed séparément */
   background: rgba(243,239,215,0.20);
   border: 1px solid rgba(255,255,255,0.25);
   border-radius: 999px;
-  display: flex; align-items: center; justify-content: space-between;
+  display: inline-flex; align-items: center;
   padding: 5px; height: auto; overflow: visible;
   pointer-events: none;
   transition: background .4s ease, border-color .4s ease, box-shadow .4s ease;
@@ -184,11 +184,13 @@ body > nav.nav-scrolled {
 
 /* ── SUBNAV IN-NAV — liens contextuels dans le fond verre de la nav ── */
 .nav-subnav {
-  flex: 1;
+  position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
   display: flex; align-items: center; justify-content: center; gap: 0;
+  height: 48px;
   pointer-events: all;
   overflow: hidden;
   transition: opacity 0.25s ease;
+  z-index: 500;
 }
 .nav-subnav.is-hidden {
   opacity: 0; pointer-events: none;
@@ -237,7 +239,7 @@ body > nav.nav-scrolled {
   border: 1px solid rgba(255,255,255,0.5);
   border-radius: 999px; padding: 13px 16px;
   box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-  width: auto; height: auto; position: relative;
+  width: auto; height: auto; position: fixed; top: 20px; right: 20px;
   transition: opacity .2s;
   animation: pillPop 0.48s cubic-bezier(0.34,1.56,0.64,1) 0.34s both;
 }
