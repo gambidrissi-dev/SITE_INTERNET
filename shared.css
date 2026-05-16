@@ -116,7 +116,7 @@ body.hov #cursor-ring { width: 54px; height: 54px; }
 
 /* ── NAV (inner pages) — pilules flottantes ── */
 body > nav {
-  position: fixed; top: 16px; left: 20px; right: 20px; z-index: 500;
+  position: fixed; top: 20px; left: 20px; right: 20px; z-index: 500;
   /* Connecting bar : fond subtil SANS backdrop-filter (évite le bug pointer-events) */
   background: rgba(243,239,215,0.20);
   border: 1px solid rgba(255,255,255,0.25);
