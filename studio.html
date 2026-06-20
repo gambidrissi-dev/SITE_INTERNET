@@ -12,7 +12,7 @@
   <title>Architecture d'intérieur Bordeaux · Le Studio | Collectif Cobalt</title>
   <!-- Open Graph -->
   <meta property="og:type"        content="website">
-  <meta property="og:url"         content="https://collectifcobalt.eu/studio.html">
+  <meta property="og:url"         content="https://collectifcobalt.eu/studio">
   <meta property="og:title"       content="Le Studio — Collectif Cobalt">
   <meta property="og:description" content="Studio de design d'espace et d'architecture d'intérieur dans le Sud-Ouest. Bordeaux · Angoulême · Bayonne · Toulouse.">
   <meta property="og:image"       content="https://collectifcobalt.eu/assets/OG/og-image.jpg">
@@ -25,7 +25,7 @@
   <meta name="twitter:description" content="Studio de design d'espace et d'architecture d'intérieur dans le Sud-Ouest. Bordeaux · Angoulême · Bayonne · Toulouse.">
   <meta name="twitter:image"       content="https://collectifcobalt.eu/assets/OG/og-image.jpg">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://collectifcobalt.eu/studio.html">
+  <link rel="canonical" href="https://collectifcobalt.eu/studio">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
@@ -230,13 +230,13 @@
   <div id="cursor-ring"></div>
 
   <nav data-env="e1">
-    <a href="index.html" class="nav-logo"><img src="assets/LOGO/LOGO_COBALT.svg" alt="Collectif Cobalt" class="nav-logo-img" width="200" height="45"></a>
+    <a href="/" class="nav-logo"><img src="assets/LOGO/LOGO_COBALT.svg" alt="Collectif Cobalt" class="nav-logo-img" width="200" height="45"></a>
       <div class="nav-subnav" data-env="e1">
-    <a href="studio.html" class="is-current">Présentation</a>
+    <a href="studio" class="is-current">Présentation</a>
     <span class="nav-subnav-sep" aria-hidden="true"></span>
-    <a href="projets.html">Projets</a>
+    <a href="projets">Projets</a>
     <span class="nav-subnav-sep" aria-hidden="true"></span>
-    <a href="services.html">Prestations</a>
+    <a href="services">Prestations</a>
   </div>
   <button class="nav-burger-btn" id="nav-burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="lg-overlay">
       <span></span><span></span><span></span><span></span>
@@ -253,8 +253,8 @@
     </h1>
     <p class="hero-desc sr sr-d2">Studio de design d'espace et d'architecture d'intérieur. <strong>Bordeaux · Angoulême · Bayonne · Toulouse</strong>. Trois designers diplômés — des intérieurs justes, des matières honnêtes, des espaces qui durent.</p>
     <div class="hero-actions sr sr-d3">
-      <a href="projets.html" class="btn btn-cream btn-primary"><span>Voir les projets →</span></a>
-      <a href="contact.html" class="btn btn-outline" style="color:var(--cream);border-color:rgba(243,239,215,.45)"><span>Nous contacter</span></a>
+      <a href="projets" class="btn btn-cream btn-primary"><span>Voir les projets →</span></a>
+      <a href="contact" class="btn btn-outline" style="color:var(--cream);border-color:rgba(243,239,215,.45)"><span>Nous contacter</span></a>
     </div>
   </section>
 
@@ -293,11 +293,11 @@
         <div class="s-label">Réalisations sélectionnées</div>
         <h2 class="feat-title">PROJETS<br>RÉCENTS.</h2>
       </div>
-      <a href="projets.html" class="feat-link">Tous les projets →</a>
+      <a href="projets" class="feat-link">Tous les projets →</a>
     </div>
     <div class="feat-grid sr sr-d1">
       <!-- Projet principal -->
-      <a href="projet.html?id=angouleme" class="feat-card feat-main">
+      <a href="projet?id=angouleme" class="feat-card feat-main">
         <img src="assets/STUDIO/PROJETS/ANGOULEME/cover.webp" alt="Appartement Angoulême" loading="lazy">
         <div class="feat-overlay"></div>
         <div class="feat-meta">
@@ -309,7 +309,7 @@
         </div>
       </a>
       <!-- Projet secondaire 1 -->
-      <a href="projet.html?id=bordeaux" class="feat-card feat-side">
+      <a href="projet?id=bordeaux" class="feat-card feat-side">
         <img src="assets/STUDIO/PROJETS/BORDEAUX/cover.webp" alt="Atelier Bordeaux" loading="lazy">
         <div class="feat-overlay"></div>
         <div class="feat-meta">
@@ -321,7 +321,7 @@
         </div>
       </a>
       <!-- Projet secondaire 2 -->
-      <a href="projet.html?id=bayonne" class="feat-card feat-side">
+      <a href="projet?id=bayonne" class="feat-card feat-side">
         <img src="assets/STUDIO/PROJETS/BAYONNE/cover.webp" alt="Boutique Bayonne" loading="lazy">
         <div class="feat-overlay"></div>
         <div class="feat-meta">
@@ -351,8 +351,8 @@
         <p>Notre territoire, c'est le <strong>Sud-Ouest</strong> — de <strong>Bordeaux</strong> à <strong>Angoulême</strong>, de <strong>Bayonne</strong> à <strong>Toulouse</strong>. Ses matériaux, ses artisans, ses paysages.</p>
       </div>
       <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:40px;">
-        <a href="services.html" class="btn btn-cream btn-primary"><span>Démarrer un projet →</span></a>
-        <a href="contact.html" class="btn btn-outline" style="color:var(--cream);border-color:rgba(243,239,215,.45)"><span>Nous contacter →</span></a>
+        <a href="services" class="btn btn-cream btn-primary"><span>Démarrer un projet →</span></a>
+        <a href="contact" class="btn btn-outline" style="color:var(--cream);border-color:rgba(243,239,215,.45)"><span>Nous contacter →</span></a>
       </div>
     </div>
   </div>
@@ -374,14 +374,14 @@
       <div>
         <div class="footer-col-title">Le Collectif Cobalt</div>
         <nav class="footer-nav">
-          <a href="collectif.html">Présentation</a>
+          <a href="collectif">Présentation</a>
         </nav>
         <div class="footer-col-title" style="margin-top:28px">Le Studio</div>
         <nav class="footer-nav">
-          <a href="studio.html">Présentation</a>
-          <a href="projets.html">Projets</a>
-          <a href="services.html">Prestations</a>
-          <a href="contact.html">Démarrer un projet</a>
+          <a href="studio">Présentation</a>
+          <a href="projets">Projets</a>
+          <a href="services">Prestations</a>
+          <a href="contact">Démarrer un projet</a>
         </nav>
       </div>
 
@@ -389,11 +389,11 @@
       <div>
         <div class="footer-col-title">L'Atelier</div>
         <nav class="footer-nav">
-          <a href="atelier.html">Présentation</a>
-          <a href="atelier-drops.html">E-Shop</a>
-          <a href="atelier-projets.html">Projets</a>
-          <a href="atelier-services.html">Prestation sur mesure</a>
-          <a href="contact.html">Démarrer un projet</a>
+          <a href="atelier">Présentation</a>
+          <a href="atelier-drops">E-Shop</a>
+          <a href="atelier-projets">Projets</a>
+          <a href="atelier-services">Prestation sur mesure</a>
+          <a href="contact">Démarrer un projet</a>
         </nav>
       </div>
 
@@ -401,9 +401,9 @@
       <div>
         <div class="footer-col-title">Bleu de Cobalt</div>
         <nav class="footer-nav">
-          <a href="bleu-de-cobalt.html">Présentation</a>          <a href="bleu-confier.html">Confier une mission</a>
-          <a href="bleu-cabinets.html">Professionnels</a>
-          <a href="bleu-particuliers.html">Particuliers</a>
+          <a href="bleu-de-cobalt">Présentation</a>          <a href="bleu-confier">Confier une mission</a>
+          <a href="bleu-cabinets">Professionnels</a>
+          <a href="bleu-particuliers">Particuliers</a>
         </nav>
       </div>
 
@@ -411,12 +411,12 @@
       <div>
         <div class="footer-col-title">Le Média</div>
         <nav class="footer-nav">
-          <a href="media.html">Présentation</a>
-          <a href="media-journal.html">Formats</a>
+          <a href="media">Présentation</a>
+          <a href="media-journal">Formats</a>
         </nav>
         <div class="footer-col-title" style="margin-top:28px">Contact</div>
         <nav class="footer-nav">
-          <a href="contact.html">Nous écrire</a>
+          <a href="contact">Nous écrire</a>
         </nav>
       </div>
     </div>

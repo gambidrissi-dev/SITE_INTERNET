@@ -134,7 +134,7 @@ if (!isTouch) {
 
       <div class="lg-strip e0">
         <div class="lg-strip-ghost">01</div>
-        <a href="collectif.html" class="lg-strip-primary">
+        <a href="collectif" class="lg-strip-primary">
           <div class="lg-strip-num">01</div>
           <div class="lg-strip-body">
             <div class="lg-strip-name">Le Collectif Cobalt</div>
@@ -143,13 +143,13 @@ if (!isTouch) {
           <div class="lg-strip-arrow">→</div>
         </a>
         <div class="lg-strip-links">
-          <a href="collectif.html" class="lg-strip-link">Présentation</a>
+          <a href="collectif" class="lg-strip-link">Présentation</a>
         </div>
       </div>
 
       <div class="lg-strip e1">
         <div class="lg-strip-ghost">02</div>
-        <a href="studio.html" class="lg-strip-primary">
+        <a href="studio" class="lg-strip-primary">
           <div class="lg-strip-num">02</div>
           <div class="lg-strip-body">
             <div class="lg-strip-name">Le Studio</div>
@@ -158,16 +158,16 @@ if (!isTouch) {
           <div class="lg-strip-arrow">→</div>
         </a>
         <div class="lg-strip-links">
-          <a href="studio.html" class="lg-strip-link">Présentation</a>
-          <a href="projets.html" class="lg-strip-link">Projets</a>
-          <a href="services.html" class="lg-strip-link">Prestations</a>
-          <a href="contact.html" class="lg-strip-link">Démarrer un projet</a>
+          <a href="studio" class="lg-strip-link">Présentation</a>
+          <a href="projets" class="lg-strip-link">Projets</a>
+          <a href="services" class="lg-strip-link">Prestations</a>
+          <a href="contact" class="lg-strip-link">Démarrer un projet</a>
         </div>
       </div>
 
       <div class="lg-strip e2">
         <div class="lg-strip-ghost">03</div>
-        <a href="atelier.html" class="lg-strip-primary">
+        <a href="atelier" class="lg-strip-primary">
           <div class="lg-strip-num">03</div>
           <div class="lg-strip-body">
             <div class="lg-strip-name">L'Atelier</div>
@@ -176,17 +176,17 @@ if (!isTouch) {
           <div class="lg-strip-arrow">→</div>
         </a>
         <div class="lg-strip-links">
-          <a href="atelier.html" class="lg-strip-link">Présentation</a>
-          <a href="atelier-drops.html" class="lg-strip-link">E-Shop</a>
-          <a href="atelier-projets.html" class="lg-strip-link">Projets</a>
-          <a href="atelier-services.html" class="lg-strip-link">Prestation sur mesure</a>
-          <a href="contact.html" class="lg-strip-link">Démarrer un projet</a>
+          <a href="atelier" class="lg-strip-link">Présentation</a>
+          <a href="atelier-drops" class="lg-strip-link">E-Shop</a>
+          <a href="atelier-projets" class="lg-strip-link">Projets</a>
+          <a href="atelier-services" class="lg-strip-link">Prestation sur mesure</a>
+          <a href="contact" class="lg-strip-link">Démarrer un projet</a>
         </div>
       </div>
 
       <div class="lg-strip e3">
         <div class="lg-strip-ghost">04</div>
-        <a href="bleu-de-cobalt.html" class="lg-strip-primary">
+        <a href="bleu-de-cobalt" class="lg-strip-primary">
           <div class="lg-strip-num">04</div>
           <div class="lg-strip-body">
             <div class="lg-strip-name">Bleu de Cobalt</div>
@@ -195,16 +195,16 @@ if (!isTouch) {
           <div class="lg-strip-arrow">→</div>
         </a>
         <div class="lg-strip-links">
-          <a href="bleu-de-cobalt.html" class="lg-strip-link">Présentation</a>
-          <a href="bleu-confier.html" class="lg-strip-link">Confier une mission</a>
-          <a href="bleu-cabinets.html" class="lg-strip-link">Professionnels</a>
-          <a href="bleu-particuliers.html" class="lg-strip-link">Particuliers</a>
+          <a href="bleu-de-cobalt" class="lg-strip-link">Présentation</a>
+          <a href="bleu-confier" class="lg-strip-link">Confier une mission</a>
+          <a href="bleu-cabinets" class="lg-strip-link">Professionnels</a>
+          <a href="bleu-particuliers" class="lg-strip-link">Particuliers</a>
         </div>
       </div>
 
       <div class="lg-strip e4">
         <div class="lg-strip-ghost">05</div>
-        <a href="media.html" class="lg-strip-primary">
+        <a href="media" class="lg-strip-primary">
           <div class="lg-strip-num">05</div>
           <div class="lg-strip-body">
             <div class="lg-strip-name">Le Média</div>
@@ -213,15 +213,15 @@ if (!isTouch) {
           <div class="lg-strip-arrow">→</div>
         </a>
         <div class="lg-strip-links">
-          <a href="media.html" class="lg-strip-link">Présentation</a>
-          <a href="media-journal.html" class="lg-strip-link">Formats</a>
+          <a href="media" class="lg-strip-link">Présentation</a>
+          <a href="media-journal" class="lg-strip-link">Formats</a>
           <a href="https://www.instagram.com/collectifcobalt_/" target="_blank" rel="noopener" class="lg-strip-link">Suivre →</a>
         </div>
       </div>
 
     </div>
     <div class="lg-overlay-footer">
-      <a href="contact.html" class="lg-footer-contact">Contact</a>
+      <a href="contact" class="lg-footer-contact">Contact</a>
       <div class="lg-footer-socials">
         <a href="https://www.instagram.com/collectifcobalt_/" target="_blank" rel="noopener">Instagram</a>
         <a href="https://www.linkedin.com/company/collectif-cobalt" target="_blank" rel="noopener">LinkedIn</a>
@@ -258,7 +258,7 @@ if (!isTouch) {
   const pageToEnv = {
     'collectif.html': 'e0',
     'studio.html': 'e1', 'projets.html': 'e1', 'services.html': 'e1', 'projet.html': 'e1',
-    'atelier.html': 'e2', 'atelier-projets.html': 'e2', 'atelier-services.html': 'e2', 'atelier-drops.html': 'e2',
+    'atelier.html': 'e2', 'atelier-projets.html': 'e2', 'atelier-services.html': 'e2', 'atelier-drops.html': 'e2', 'drop-piece.html': 'e2',
     'bleu-de-cobalt.html': 'e3', 'bleu-programme.html': 'e3', 'bleu-cabinets.html': 'e3', 'bleu-particuliers.html': 'e3', 'bleu-confier.html': 'e3',
     'media.html': 'e4', 'media-journal.html': 'e4',
   };

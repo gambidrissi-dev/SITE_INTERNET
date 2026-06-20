@@ -270,7 +270,7 @@
   <div id="cursor-ring"></div>
 
   <nav>
-    <a href="index.html" class="nav-logo"><img src="assets/LOGO/LOGO_COBALT.svg" alt="Collectif Cobalt" class="nav-logo-img" width="200" height="45"></a>
+    <a href="/" class="nav-logo"><img src="assets/LOGO/LOGO_COBALT.svg" alt="Collectif Cobalt" class="nav-logo-img" width="200" height="45"></a>
     <button class="nav-burger-btn" id="nav-burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="lg-overlay">
       <span></span><span></span><span></span><span></span>
     </button>
@@ -410,7 +410,7 @@
 
     function orderBlock(p) {
       if (p.stock === 'coming') {
-        return `<div class="or-soldout-msg"><p>Cette pièce est en cours de co-design — disponible à l'été 2026. <a href="contact.html">Être notifié →</a></p></div>`;
+        return `<div class="or-soldout-msg"><p>Cette pièce est en cours de co-design — disponible à l'été 2026. <a href="contact">Être notifié →</a></p></div>`;
       }
       if (p.stock === 'soldout') {
         return `
@@ -418,7 +418,7 @@
             <strong>Cette pièce est sold out.</strong>
             Inscrivez-vous sur la liste d'attente — en cas de désistement ou de prochain drop similaire, vous serez prévenus en premier.
           </div>
-          <a href="atelier-drops.html#waitlist" class="or-btn-secondary" style="margin-top:0">Liste d'attente →</a>`;
+          <a href="atelier-drops#waitlist" class="or-btn-secondary" style="margin-top:0">Liste d'attente →</a>`;
       }
       return `
         <a href="https://www.instagram.com/collectifcobalt_/" target="_blank" rel="noopener" class="or-btn-primary">DM Instagram → Réserver</a>
@@ -451,7 +451,7 @@
         </div>`).join('');
 
       const relatedHTML = related.map(r => `
-        <a href="drop-piece.html?id=${escapeHTML(r.id)}" class="rel-card">
+        <a href="drop-piece?id=${escapeHTML(r.id)}" class="rel-card">
           <div class="rel-card-img">
             <img src="${escapeHTML(r.gallery[0])}" alt="${escapeHTML(r.name)}" loading="lazy">
           </div>
@@ -559,14 +559,14 @@
       <div>
         <div class="footer-col-title">Le Collectif Cobalt</div>
         <nav class="footer-nav">
-          <a href="collectif.html">Présentation</a>
+          <a href="collectif">Présentation</a>
         </nav>
         <div class="footer-col-title" style="margin-top:28px">Le Studio</div>
         <nav class="footer-nav">
-          <a href="studio.html">Présentation</a>
-          <a href="projets.html">Projets</a>
-          <a href="services.html">Prestations</a>
-          <a href="contact.html">Démarrer un projet</a>
+          <a href="studio">Présentation</a>
+          <a href="projets">Projets</a>
+          <a href="services">Prestations</a>
+          <a href="contact">Démarrer un projet</a>
         </nav>
       </div>
 
@@ -574,11 +574,11 @@
       <div>
         <div class="footer-col-title">L'Atelier</div>
         <nav class="footer-nav">
-          <a href="atelier.html">Présentation</a>
-          <a href="atelier-drops.html">E-Shop</a>
-          <a href="atelier-projets.html">Projets</a>
-          <a href="atelier-services.html">Prestation sur mesure</a>
-          <a href="contact.html">Démarrer un projet</a>
+          <a href="atelier">Présentation</a>
+          <a href="atelier-drops">E-Shop</a>
+          <a href="atelier-projets">Projets</a>
+          <a href="atelier-services">Prestation sur mesure</a>
+          <a href="contact">Démarrer un projet</a>
         </nav>
       </div>
 
@@ -586,9 +586,9 @@
       <div>
         <div class="footer-col-title">Bleu de Cobalt</div>
         <nav class="footer-nav">
-          <a href="bleu-de-cobalt.html">Présentation</a>          <a href="bleu-confier.html">Confier une mission</a>
-          <a href="bleu-cabinets.html">Professionnels</a>
-          <a href="bleu-particuliers.html">Particuliers</a>
+          <a href="bleu-de-cobalt">Présentation</a>          <a href="bleu-confier">Confier une mission</a>
+          <a href="bleu-cabinets">Professionnels</a>
+          <a href="bleu-particuliers">Particuliers</a>
         </nav>
       </div>
 
@@ -596,12 +596,12 @@
       <div>
         <div class="footer-col-title">Le Média</div>
         <nav class="footer-nav">
-          <a href="media.html">Présentation</a>
-          <a href="media-journal.html">Formats</a>
+          <a href="media">Présentation</a>
+          <a href="media-journal">Formats</a>
         </nav>
         <div class="footer-col-title" style="margin-top:28px">Contact</div>
         <nav class="footer-nav">
-          <a href="contact.html">Nous écrire</a>
+          <a href="contact">Nous écrire</a>
         </nav>
       </div>
     </div>
@@ -650,12 +650,12 @@
 
     /* ─── ROUTE ─── */
     if (!pieceId) {
-      root.innerHTML = `<div class="dp-loading"><div class="s-label" style="margin:0">Aucune pièce spécifiée — <a href="atelier-drops.html">voir les drops</a></div></div>`;
+      root.innerHTML = `<div class="dp-loading"><div class="s-label" style="margin:0">Aucune pièce spécifiée — <a href="atelier-drops">voir les drops</a></div></div>`;
     } else {
       const piece = PIECES.find(x => x.id === pieceId);
       if (piece) { render(piece); }
       else {
-        root.innerHTML = `<div class="dp-loading"><div class="s-label" style="margin:0">Pièce introuvable — <a href="atelier-drops.html">retour aux drops</a></div></div>`;
+        root.innerHTML = `<div class="dp-loading"><div class="s-label" style="margin:0">Pièce introuvable — <a href="atelier-drops">retour aux drops</a></div></div>`;
       }
     }
   </script>
