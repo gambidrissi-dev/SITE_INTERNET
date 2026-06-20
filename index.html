@@ -369,6 +369,14 @@
       .ec-tag  { font-size: 10px; margin-bottom: 14px; }
       .ec-cta  { font-size: 11px; }
       .ec-pip  { width: 7px; height: 7px; top: 16px; right: 16px; }
+
+      /* Réserve de l'espace en haut (logo/burger) et en bas (pilules nav) autour
+         du bloc centré (titre + baseline), pour qu'ils ne se touchent jamais
+         même sur petit écran ou en orientation paysage. */
+      #hero {
+        padding-top: 64px;
+        padding-bottom: clamp(72px, 13vh, 104px);
+      }
     }
 
     /* Slot text plus petit sur très petit écran */
@@ -402,8 +410,25 @@
     .escape-link[data-c="media"]   { color: #BB3B34; border-color: rgba(187,59,52,.45); }
     .escape-link[data-c="contact"] { color: rgba(26,26,26,.8); border-color: rgba(26,26,26,.5); font-weight: 600; }
     @media (pointer: coarse) {
-      #escape-nav { bottom: 20px; }
-      .escape-link { font-size: 11px; padding: 11px 20px; }
+      /* Sur mobile, 6 pilules ne tiennent pas sur une ligne : si on laisse le
+         flex-wrap, la nav passe sur 2-3 lignes et grimpe assez haut pour
+         chevaucher le titre/la baseline centrés au milieu de l'écran.
+         → on passe en bandeau scrollable horizontal sur une seule ligne,
+         donc une hauteur fixe et prévisible, quel que soit le nombre de liens. */
+      #escape-nav {
+        bottom: 20px;
+        left: 0; right: 0; transform: none;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding: 0 20px;
+        mask-image: linear-gradient(90deg, transparent, #000 22px, #000 calc(100% - 22px), transparent);
+        -webkit-mask-image: linear-gradient(90deg, transparent, #000 22px, #000 calc(100% - 22px), transparent);
+      }
+      #escape-nav::-webkit-scrollbar { display: none; }
+      .escape-link { font-size: 11px; padding: 11px 20px; flex-shrink: 0; }
     }
 
     /* ── TAGLINE STATIQUE (SEO + compréhension) ── */
