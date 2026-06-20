@@ -832,21 +832,42 @@
 
       // Zone centrale (slot + hint + tagline) — rectangle autour de #slot-outer avec marges
       // NB: on NE prend PAS getBoundingClientRect(#hero) car #hero est fixed inset:0 (plein écran)
-      const HERO_PAD_X = sw * 1.5;
-      const HERO_PAD_Y = sh * 2.2;
+      // IMPORTANT : on mesure les rects RÉELS du hint et de la tagline plutôt que d'estimer
+      // une marge proportionnelle à la taille des formes (sw/sh) — sur petit écran les formes
+      // rétrécissent plus vite que le texte (clamp() avec un plancher en px), donc une marge
+      // calculée à partir de sw/sh devient trop petite et les formes finissent SUR le texte.
+      const hintEl     = document.getElementById('slot-hint');
+      const taglineEl  = document.getElementById('landing-tagline');
+      const hintR      = hintEl    ? hintEl.getBoundingClientRect()    : null;
+      const taglineR   = taglineEl ? taglineEl.getBoundingClientRect() : null;
+
+      let heroBottom = logoR.bottom;
+      [hintR, taglineR].forEach(r => { if (r && r.height > 0 && r.bottom > heroBottom) heroBottom = r.bottom; });
+
+      const HERO_SAFETY = Math.max(28, sh * 1.2); // marge de sécurité, jamais sous 28px
+      const HERO_PAD_X  = Math.max(sw * 1.5, 36);
       const HERO = {
         x1: logoR.left   - HERO_PAD_X,
         x2: logoR.right  + HERO_PAD_X,
-        y1: logoR.top    - sh * 0.5,      // peu de marge au-dessus du slot
-        y2: logoR.bottom + HERO_PAD_Y,    // grande marge en bas (hint + tagline)
+        y1: logoR.top    - Math.max(sh * 0.5, 16),  // peu de marge au-dessus du slot
+        y2: heroBottom   + HERO_SAFETY,              // bas réel (hint + tagline) + marge fixe
       };
 
-      // Zone escape-nav (pilules en bas) avec marge
+      // Zone escape-nav (pilules en bas) avec marge — marge plancher fixe pour la même raison
       const navEl = document.getElementById('escape-nav');
-      const NAV_PAD = sh * 0.9;
+      const NAV_PAD = Math.max(sh * 0.9, 24);
       const NAV = navEl ? (() => {
         const r = navEl.getBoundingClientRect();
         return { x1: r.left - NAV_PAD, x2: r.right + NAV_PAD, y1: r.top - NAV_PAD, y2: r.bottom + NAV_PAD };
+      })() : null;
+
+      // Zone landing-nav (logo + burger en haut, sur mobile) avec marge
+      const topNavEl = document.getElementById('landing-nav');
+      const TOPNAV_PAD = Math.max(sh * 0.9, 20);
+      const TOPNAV = topNavEl ? (() => {
+        const r = topNavEl.getBoundingClientRect();
+        if (!r.height) return null;
+        return { x1: r.left - TOPNAV_PAD, x2: r.right + TOPNAV_PAD, y1: r.top - TOPNAV_PAD, y2: r.bottom + TOPNAV_PAD };
       })() : null;
 
       // Cap réduit sur mobile : 40 max, 120 max sur desktop
@@ -893,6 +914,8 @@
           if (cx > HERO.x1 && cx < HERO.x2 && cy > HERO.y1 && cy < HERO.y2) { ok = false; continue; }
           // Zone escape-nav
           if (NAV && cx > NAV.x1 && cx < NAV.x2 && cy > NAV.y1 && cy < NAV.y2) { ok = false; continue; }
+          // Zone landing-nav (logo/burger en haut)
+          if (TOPNAV && cx > TOPNAV.x1 && cx < TOPNAV.x2 && cy > TOPNAV.y1 && cy < TOPNAV.y2) { ok = false; continue; }
           for (const p of placed) {
             const d = Math.hypot(cx - p.cx, cy - p.cy);
             if (d < COL_MIN) { ok = false; break; }
@@ -938,6 +961,11 @@
       }
 
       // ── Événements délégués (1 listener par événement sur le container) ──
+      // Garde : ne s'attache qu'une fois, même si placeBgShapes() est rappelée
+      // (ex: regénération au resize / changement d'orientation sur mobile)
+      if (window.__bsListenersAttached) return;
+      window.__bsListenersAttached = true;
+
       if (!isTouch) {
         let hoverTarget = null;
 
@@ -1023,6 +1051,25 @@
         }, { passive: false });
       }
     }
+
+    /* ── Régénération au resize / changement d'orientation ──
+       Sur mobile, la barre d'adresse Safari qui apparaît/disparaît change
+       window.innerHeight sans recharger la page : les formes déjà placées
+       (en % d'un viewport qui a changé) peuvent dériver sur du texte.
+       On recalcule entièrement le placement (debounced) pour rester exact. */
+    function regenerateBgShapes() {
+      bgShapes.innerHTML = '';
+      placeBgShapes();
+    }
+    let resizeTO = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTO);
+      resizeTO = setTimeout(regenerateBgShapes, 180);
+    });
+    window.addEventListener('orientationchange', () => {
+      clearTimeout(resizeTO);
+      resizeTO = setTimeout(regenerateBgShapes, 220);
+    });
 
     /* ══════════════════════════════════════════════
        SLOT REEL
