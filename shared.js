@@ -405,77 +405,101 @@ const statObs = new IntersectionObserver(entries => {
 document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
 
 
-/* PAGE TRANSITION */
+/* PAGE TRANSITION — wipe diagonal (fallback) + View Transitions API (natif) */
 (function() {
-  const overlay = document.createElement('div');
-  overlay.id = 'page-transition';
-
-  // Filet de sécurité : si les rAF n'ont pas fait disparaître l'overlay
-  // (tab en arrière-plan, throttling, device lent...), on force la disparition
-  // après un délai max — évite un calque opaque bloqué indéfiniment sur le contenu.
-  let cleared = false;
-  function clearOverlay() {
-    if (cleared) return;
-    cleared = true;
-    overlay.style.transition = 'opacity .38s cubic-bezier(.76,0,.24,1)';
-    overlay.style.opacity = '0';
-    overlay.style.pointerEvents = 'none';
-  }
-
-  // Si on arrive depuis une transition (flag sessionStorage), démarrer opaque puis fade-in
-  const fromTransition = sessionStorage.getItem('pageTransition');
-  if (fromTransition) {
-    sessionStorage.removeItem('pageTransition');
-    overlay.style.cssText = 'opacity:1;pointer-events:all;transition:none;';
-    document.body.appendChild(overlay);
-    requestAnimationFrame(() => requestAnimationFrame(clearOverlay));
-    setTimeout(clearOverlay, 600);
-  } else {
-    // Chargement direct : overlay invisible, aucun flash
-    overlay.style.cssText = 'opacity:0;pointer-events:none;transition:none;';
-    document.body.appendChild(overlay);
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      overlay.style.transition = '';
-    }));
-  }
-
-  // Intercepter tous les liens internes
-  document.addEventListener('click', e => {
-    const link = e.target.closest('a[href]');
-    if (!link) return;
-    const href = link.getAttribute('href');
-    // Ignorer : externe, ancre, mailto, tel, nouvel onglet
-    if (!href || href.startsWith('http') || href.startsWith('#') ||
-        href.startsWith('mailto') || href.startsWith('tel') ||
-        link.target === '_blank') return;
-    e.preventDefault();
-
-    // Fermer l'overlay nav si ouvert — évite le flash overlay-sur-transition
+  function closeNavOverlay() {
     const lgOverlay = document.getElementById('lg-overlay');
     if (lgOverlay && lgOverlay.classList.contains('open')) {
       lgOverlay.classList.remove('open');
       const burger = document.getElementById('nav-burger');
       if (burger) { burger.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); }
     }
+  }
 
-    // Flag pour la page de destination
+  /* ── View Transitions API disponible : le CSS @view-transition gère tout ── */
+  if (CSS.supports('view-transition-name', 'none')) {
+    document.addEventListener('click', e => {
+      const link = e.target.closest('a[href]');
+      if (!link) return;
+      const href = link.getAttribute('href');
+      if (!href || href.startsWith('http') || href.startsWith('#') ||
+          href.startsWith('mailto') || href.startsWith('tel') ||
+          link.target === '_blank') return;
+      closeNavOverlay();
+      /* Pas de preventDefault — le navigateur déclenche la VT automatiquement */
+    });
+    return;
+  }
+
+  /* ── Fallback : wipe diagonal noir pour navigateurs sans VT API ── */
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const CLIP_HIDDEN   = 'polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)';
+  const CLIP_COVERED  = 'polygon(0% 0%, 110% 0%, 90% 100%, 0% 100%)';
+  const CLIP_OFFRIGHT = 'polygon(100% 0%, 110% 0%, 110% 100%, 100% 100%)';
+
+  const overlay = document.createElement('div');
+  overlay.id = 'page-transition';
+  overlay.style.cssText = `position:fixed;inset:0;z-index:9000;background:#1A1A1A;pointer-events:none;clip-path:${CLIP_HIDDEN};will-change:clip-path;`;
+  document.body.appendChild(overlay);
+
+  let cleared = false;
+  function clearOverlay() {
+    if (cleared) return;
+    cleared = true;
+    if (prefersReduced) {
+      overlay.style.pointerEvents = 'none';
+      return;
+    }
+    overlay.style.transition = 'clip-path .42s cubic-bezier(.25,0,.10,1)';
+    overlay.style.clipPath = CLIP_OFFRIGHT;
+    overlay.style.pointerEvents = 'none';
+    setTimeout(() => {
+      overlay.style.transition = 'none';
+      overlay.style.clipPath = CLIP_HIDDEN;
+    }, 480);
+  }
+
+  const fromTransition = sessionStorage.getItem('pageTransition');
+  if (fromTransition) {
+    sessionStorage.removeItem('pageTransition');
+    overlay.style.transition = 'none';
+    overlay.style.clipPath = prefersReduced ? CLIP_HIDDEN : CLIP_COVERED;
+    if (!prefersReduced) overlay.style.pointerEvents = 'all';
+    requestAnimationFrame(() => requestAnimationFrame(clearOverlay));
+    setTimeout(clearOverlay, 700);
+  }
+
+  document.addEventListener('click', e => {
+    const link = e.target.closest('a[href]');
+    if (!link) return;
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('http') || href.startsWith('#') ||
+        href.startsWith('mailto') || href.startsWith('tel') ||
+        link.target === '_blank') return;
+    e.preventDefault();
+
+    closeNavOverlay();
     sessionStorage.setItem('pageTransition', '1');
 
-    overlay.style.transition = 'opacity .28s cubic-bezier(.76,0,.24,1)';
-    overlay.style.opacity = '1';
+    if (prefersReduced) {
+      window.location.href = href;
+      return;
+    }
+    overlay.style.transition = 'clip-path .28s cubic-bezier(.76,0,.24,1)';
+    overlay.style.clipPath = CLIP_COVERED;
     overlay.style.pointerEvents = 'all';
-    setTimeout(() => { window.location.href = href; }, 300);
+    setTimeout(() => { window.location.href = href; }, 320);
   });
 
-  // Gestion du back/forward (bfcache)
   window.addEventListener('pageshow', e => {
     if (e.persisted) {
       cleared = false;
       overlay.style.transition = 'none';
-      overlay.style.opacity = '1';
+      overlay.style.clipPath = CLIP_COVERED;
       overlay.style.pointerEvents = 'all';
       requestAnimationFrame(() => requestAnimationFrame(clearOverlay));
-      setTimeout(clearOverlay, 600);
+      setTimeout(clearOverlay, 700);
     }
   });
 })();
@@ -686,7 +710,9 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
     requestAnimationFrame(() => requestAnimationFrame(() => {
       el.querySelectorAll('.rw-word').forEach((w, i) => {
         /* Stagger : 55 ms entre chaque mot, max 8 mots décalés au-delà */
-        const delay = Math.min(i, 8) * 55;
+        /* Stagger easé : rush naturel, les derniers mots se rejoignent (~125ms max) */
+        const idx = Math.min(i, 8);
+        const delay = Math.round(idx * 55 * Math.pow(0.85, idx));
         setTimeout(() => w.classList.add('in'), delay);
       });
     }));
@@ -843,20 +869,35 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
 
   const SEL = '.proj-card, .feat-card, .atelier-card, .media-card';
   document.querySelectorAll(SEL).forEach(card => {
+    let cachedRect = null;
+
+    /* Cacher le rect à l'entrée — évite getBoundingClientRect sur chaque pointermove */
+    card.addEventListener('pointerenter', () => {
+      cachedRect = card.getBoundingClientRect();
+    });
+
     card.addEventListener('pointermove', e => {
-      const r  = card.getBoundingClientRect();
-      const nx = (e.clientX - r.left) / r.width  - 0.5; /* -0.5 → +0.5 */
-      const ny = (e.clientY - r.top)  / r.height - 0.5;
-      const rx = -ny * 10; /* max ±5deg sur X */
-      const ry =  nx * 10; /* max ±5deg sur Y */
+      if (!cachedRect) return;
+      const nx = (e.clientX - cachedRect.left) / cachedRect.width  - 0.5;
+      const ny = (e.clientY - cachedRect.top)  / cachedRect.height - 0.5;
+      const rx = -ny * 10;
+      const ry =  nx * 10;
       card.style.transform =
         `perspective(800px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) scale(1.016)`;
     });
 
     card.addEventListener('pointerleave', () => {
+      cachedRect = null;
       card.style.transform = '';
     });
   });
+
+  /* Recalculer les rects mis en cache si la fenêtre est redimensionnée */
+  window.addEventListener('resize', () => {
+    document.querySelectorAll(SEL).forEach(card => {
+      card.dispatchEvent(new Event('pointerleave'));
+    });
+  }, { passive: true });
 })();
 
 /* ── LETTER STAGGER — split .s-label en .sl-letter, déclenché par IntersectionObserver ── */
@@ -970,30 +1011,45 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
   update(); /* état initial */
 })();
 
-/* ── CURSOR TRAIL PARTICLES ── */
+/* ── CURSOR TRAIL PARTICLES — Canvas 2D (zéro DOM thrashing) ── */
 (function initCursorTrail() {
   if (isTouch) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  let lastX = 0, lastY = 0, frameCount = 0;
-  const INTERVAL = 3; /* 1 particule tous les N frames */
+  const canvas = document.createElement('canvas');
+  canvas.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:9990;';
+  canvas.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
 
-  document.addEventListener('mousemove', e => {
-    lastX = e.clientX; lastY = e.clientY;
-  });
+  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+
+  const particles = [];
+  let lastX = 0, lastY = 0, frameCount = 0;
+  const INTERVAL = 3;
+  const MAX_LIFE = 34; /* ~0.55s @ 60fps */
+
+  document.addEventListener('mousemove', e => { lastX = e.clientX; lastY = e.clientY; });
 
   (function trailLoop() {
     frameCount++;
     if (frameCount % INTERVAL === 0) {
-      const dot = document.createElement('div');
-      dot.className = 'cursor-trail';
-      dot.style.left = lastX + 'px';
-      dot.style.top  = lastY + 'px';
-      /* Légère variation de taille */
-      const s = 0.5 + Math.random() * 0.8;
-      dot.style.transform = `translate(-50%,-50%) scale(${s.toFixed(2)})`;
-      document.body.appendChild(dot);
-      setTimeout(() => dot.remove(), 580);
+      particles.push({ x: lastX, y: lastY, size: (0.5 + Math.random() * 0.8) * 2.5, life: 0 });
+    }
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.life++;
+      const t = p.life / MAX_LIFE;
+      const r = p.size * (1 - t * 0.8);
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(74,130,220,${(0.45 * (1 - t)).toFixed(3)})`;
+      ctx.fill();
+      if (p.life >= MAX_LIFE) particles.splice(i, 1);
     }
     requestAnimationFrame(trailLoop);
   })();

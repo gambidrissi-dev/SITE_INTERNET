@@ -135,6 +135,14 @@ body > nav.nav-scrolled {
   border-color: transparent;
   box-shadow: none;
 }
+/* Pills plus ancrées quand la page est scrollée */
+body > nav.nav-scrolled .nav-logo,
+body > nav.nav-scrolled .nav-burger-btn,
+body > nav.nav-scrolled .nav-back-pill {
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  box-shadow: 0 4px 28px rgba(0,0,0,0.12);
+}
 
 /* ── PILULE CONTEXTUELLE RETOUR (sous-pages) ── */
 .nav-back-pill {
@@ -855,16 +863,13 @@ footer { background: var(--noir); position: relative; overflow: hidden; }
   .lg-strip-name { font-size: clamp(28px, 5vw, 52px); }
 }
 
-/* ── PAGE TRANSITION ── */
+/* ── PAGE TRANSITION — wipe diagonal (styles gérés par JS inline) ── */
 #page-transition {
   position: fixed; inset: 0; z-index: 9000;
-  background: #F3EFD7;
-  opacity: 0; pointer-events: none;
-  transition: opacity .32s cubic-bezier(.76,0,.24,1);
+  background: #1A1A1A;
+  pointer-events: none;
+  will-change: clip-path;
 }
-#page-transition.fade-out { opacity: 1; pointer-events: all; }
-body.page-entering #page-transition { opacity: 1; }
-body.page-entering-done #page-transition { opacity: 0; }
 
 /* ── FOOTER ADDRESS ── */
 .footer-address {
@@ -993,19 +998,7 @@ body.page-entering-done #page-transition { opacity: 0; }
   100% { background-position: -200% 0; }
 }
 
-/* ── CURSOR TRAIL PARTICLES ── */
-.cursor-trail {
-  position: fixed; pointer-events: none; z-index: 9990;
-  width: 5px; height: 5px; border-radius: 50%;
-  background: var(--bleu);
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  animation: trailFade 0.55s ease-out forwards;
-}
-@keyframes trailFade {
-  0%   { opacity: 0.45; transform: translate(-50%, -50%) scale(1); }
-  100% { opacity: 0;    transform: translate(-50%, -50%) scale(0.2); }
-}
+/* ── CURSOR TRAIL — canvas injecté par JS, aucun style CSS nécessaire ── */
 
 /* .hero-gradient-text désactivé — incompatible avec texte blanc sur fonds colorés */
 
@@ -1072,6 +1065,7 @@ body.page-entering-done #page-transition { opacity: 0; }
               clip-path  0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   clip-path: inset(0% 0% 0% 0% round 0px);
   transform-origin: center center;
+  will-change: transform, clip-path;
 }
 .proj-card:hover   .proj-img img,
 .feat-card:hover   .feat-img img,
@@ -1143,8 +1137,9 @@ body.page-entering-done #page-transition { opacity: 0; }
   .sr-el.sr-in    { animation: none; }
   .proj-card, .feat-card, .atelier-card, .media-card { will-change: auto; }
   #scroll-progress { animation: none; }
-  .cursor-trail   { display: none; }
   .hero-gradient-text { animation: none; background: none; -webkit-text-fill-color: inherit; }
+  ::view-transition-old(root),
+  ::view-transition-new(root) { animation: none; }
 }
 
 
@@ -1223,5 +1218,26 @@ body > nav {
   .proj-card .proj-img::after,
   .feat-card .feat-img::after,
   .atelier-card .atelier-img::after { display: none; }
+}
+
+/* ── VIEW TRANSITIONS API — navigation cross-document (Chrome 111+, Firefox 131+, Safari 18+) ── */
+@supports (view-transition-name: none) {
+  @view-transition { navigation: auto; }
+
+  ::view-transition-old(root) {
+    animation: vt-exit 0.28s cubic-bezier(.76,0,.24,1) both;
+  }
+  ::view-transition-new(root) {
+    animation: vt-enter 0.40s cubic-bezier(.25,0,.10,1) both;
+  }
+
+  @keyframes vt-exit {
+    from { opacity: 1; transform: translateX(0); }
+    to   { opacity: 0; transform: translateX(-2%); }
+  }
+  @keyframes vt-enter {
+    from { opacity: 0; transform: translateX(2%); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
 }
 
