@@ -39,6 +39,8 @@ if (!isTouch) {
       if (b > 140 && b > r + 50 && b > g + 50) return 'bleu';
       // Noir (#1A1A1A) : luminance basse
       if (0.299 * r + 0.587 * g + 0.114 * b < 80) return 'noir';
+      // Jaune (#F1CB4F) : R et G élevés, B faible
+      if (r > 200 && g > 180 && b < 110) return 'jaune';
       return 'cream'; // crème / blanc / fond clair
     }
 
@@ -49,6 +51,9 @@ if (!isTouch) {
       } else if (bgType === 'bleu') {
         dot.style.background   = '#1a1a1a';
         ring.style.borderColor = 'rgba(26,26,26,0.6)';
+      } else if (bgType === 'jaune') {
+        dot.style.background   = '#1A1A1A';
+        ring.style.borderColor = 'rgba(26,26,26,0.5)';
       } else {
         // cream / fond clair → curseur bleu
         dot.style.background   = '#4A82DC';
@@ -59,13 +64,20 @@ if (!isTouch) {
     // Initialisation par défaut (fond cream)
     applyCursorColor('cream');
 
+    let bgCheckPending = false;
     document.addEventListener('mousemove', e => {
       mx = e.clientX; my = e.clientY;
-      const bg     = getBgUnderCursor(mx, my);
-      const bgType = classifyBg(bg);
-      if (bgType !== lastBgType) {
-        lastBgType = bgType;
-        applyCursorColor(bgType);
+      if (!bgCheckPending) {
+        bgCheckPending = true;
+        requestAnimationFrame(() => {
+          const bg     = getBgUnderCursor(mx, my);
+          const bgType = classifyBg(bg);
+          if (bgType !== lastBgType) {
+            lastBgType = bgType;
+            applyCursorColor(bgType);
+          }
+          bgCheckPending = false;
+        });
       }
     });
 
@@ -240,10 +252,16 @@ if (!isTouch) {
 
   // Scroll — jonction visible en haut, disparaît au scroll
   const subnavBar = document.querySelector('.nav-subnav');
+  let scrollTicking = false;
   const onScroll = () => {
-    const y = window.scrollY;
-    nav.classList.toggle('nav-scrolled', y > 40);
-    if (subnavBar) subnavBar.classList.toggle('is-hidden', y > 50);
+    if (scrollTicking) return;
+    scrollTicking = true;
+    requestAnimationFrame(() => {
+      const y = window.scrollY;
+      nav.classList.toggle('nav-scrolled', y > 40);
+      if (subnavBar) subnavBar.classList.toggle('is-hidden', y > 50);
+      scrollTicking = false;
+    });
   };
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll(); // état initial au chargement
@@ -752,7 +770,7 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
   const hero = document.querySelector('.hero, .atelier-hero, .bdc-hero, .media-hero, .collectif-hero');
   if (!hero) return;
 
-  const selectors = '.s-label, .hero-tag, .hero-meta, .hero-sub, p, .btn, .hero-cta, h2, .hero-badge';
+  const selectors = '.s-label, .hero-tag, .hero-meta, .hero-sub, p, .btn, .hero-cta, .hero-badge';
   const els = hero.querySelectorAll(selectors);
   if (!els.length) return;
 
@@ -908,7 +926,10 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
 
       /* Stagger sur les enfants directs ciblés */
       const children = [...section.querySelectorAll(CHILD_SEL)]
-        .filter(el => !el.closest('.hero, .atelier-hero, .bdc-hero, .media-hero, .collectif-hero'));
+        .filter(el =>
+          !el.closest('.hero, .atelier-hero, .bdc-hero, .media-hero, .collectif-hero') &&
+          !el.classList.contains('sr') /* déjà géré par le système .sr manuel */
+        );
 
       children.forEach((el, i) => {
         if (el.classList.contains('sr-el')) return; /* déjà marqué */
@@ -916,7 +937,7 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
         /* Double rAF pour s'assurer que opacity:0 est peint avant l'animation */
         requestAnimationFrame(() => requestAnimationFrame(() => {
           el.classList.add('sr-in');
-          el.style.animationDelay = (i * 0.07) + 's';
+          el.style.animationDelay = Math.min(i * 0.07, 0.50) + 's';
         }));
       });
 
@@ -1082,7 +1103,13 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
 
     let frame = 0;
     const totalFrames = 14;
-    const interval = setInterval(() => {
+    let lastTime = 0;
+    const frameDuration = 28; /* ~35fps */
+
+    function tick(now) {
+      if (now - lastTime < frameDuration) { requestAnimationFrame(tick); return; }
+      lastTime = now;
+
       el.textContent = [...original].map((ch, i) => {
         if (ch === ' ') return ' ';
         if (frame / totalFrames > i / original.length) return ch;
@@ -1090,10 +1117,12 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
       }).join('');
 
       if (++frame > totalFrames) {
-        clearInterval(interval);
         el.textContent = original;
+      } else {
+        requestAnimationFrame(tick);
       }
-    }, 28);
+    }
+    requestAnimationFrame(tick);
   }
 
   document.querySelectorAll('.lg-strip-name').forEach(el => {

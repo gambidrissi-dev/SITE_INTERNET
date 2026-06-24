@@ -97,6 +97,7 @@ img { display: block; width: 100%; }
   border: 1.5px solid rgba(74,130,220,.5); transform: translate(-50%,-50%);
   pointer-events: none;
   transition: width .22s, height .22s, border-color .15s;
+  will-change: transform, width, height;
 }
 /* Taille au hover — couleur gérée par JS selon le fond */
 body.hov #cursor-ring { width: 54px; height: 54px; }
@@ -1077,6 +1078,13 @@ body.page-entering-done #page-transition { opacity: 0; }
 .atelier-card:hover .atelier-img img {
   transform: scale(1.07);
   clip-path: inset(3% 3% 3% 3% round 4px);
+}
+/* Bloquer le hover clip tant que le reveal n'est pas terminé */
+.proj-card:not(.img-in):hover .proj-img img,
+.feat-card:not(.img-in):hover .feat-img img,
+.atelier-card:not(.img-in):hover .atelier-img img {
+  transform: none;
+  clip-path: inset(0 0 100% 0);
 }
 
 /* ── NAV SCRAMBLE — placeholder pour les lettres en cours de scramble ── */
