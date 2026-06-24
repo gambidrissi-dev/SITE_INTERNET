@@ -392,17 +392,26 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
   const overlay = document.createElement('div');
   overlay.id = 'page-transition';
 
+  // Filet de sécurité : si les rAF n'ont pas fait disparaître l'overlay
+  // (tab en arrière-plan, throttling, device lent...), on force la disparition
+  // après un délai max — évite un calque opaque bloqué indéfiniment sur le contenu.
+  let cleared = false;
+  function clearOverlay() {
+    if (cleared) return;
+    cleared = true;
+    overlay.style.transition = 'opacity .38s cubic-bezier(.76,0,.24,1)';
+    overlay.style.opacity = '0';
+    overlay.style.pointerEvents = 'none';
+  }
+
   // Si on arrive depuis une transition (flag sessionStorage), démarrer opaque puis fade-in
   const fromTransition = sessionStorage.getItem('pageTransition');
   if (fromTransition) {
     sessionStorage.removeItem('pageTransition');
     overlay.style.cssText = 'opacity:1;pointer-events:all;transition:none;';
     document.body.appendChild(overlay);
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      overlay.style.transition = 'opacity .38s cubic-bezier(.76,0,.24,1)';
-      overlay.style.opacity = '0';
-      overlay.style.pointerEvents = 'none';
-    }));
+    requestAnimationFrame(() => requestAnimationFrame(clearOverlay));
+    setTimeout(clearOverlay, 600);
   } else {
     // Chargement direct : overlay invisible, aucun flash
     overlay.style.cssText = 'opacity:0;pointer-events:none;transition:none;';
@@ -443,13 +452,12 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
   // Gestion du back/forward (bfcache)
   window.addEventListener('pageshow', e => {
     if (e.persisted) {
+      cleared = false;
       overlay.style.transition = 'none';
       overlay.style.opacity = '1';
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        overlay.style.transition = 'opacity .38s cubic-bezier(.76,0,.24,1)';
-        overlay.style.opacity = '0';
-        overlay.style.pointerEvents = 'none';
-      }));
+      overlay.style.pointerEvents = 'all';
+      requestAnimationFrame(() => requestAnimationFrame(clearOverlay));
+      setTimeout(clearOverlay, 600);
     }
   });
 })();
