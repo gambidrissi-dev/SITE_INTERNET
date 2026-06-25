@@ -1220,6 +1220,103 @@ body > nav {
 }
 
 /* ── VIEW TRANSITIONS API — navigation cross-document (Chrome 111+, Firefox 131+, Safari 18+) ── */
+/* ═══════════════════════════════════════════
+   ROUND 4 — Grain · Marquee · Scroll FX · Dots · Progress
+═══════════════════════════════════════════ */
+
+/* ── GRAIN OVERLAY — texture argentique (CSS only) ── */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 9998;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C%2Fsvg%3E");
+  background-size: 200px 200px;
+}
+
+/* ── SCROLL FX — parallax + skew sur conteneurs image ── */
+:root { --scroll-skew: 0deg; }
+.proj-card .proj-img,
+.feat-card .feat-img,
+.atelier-card .atelier-img {
+  transform: translateY(calc(var(--parallax, 0) * 1px)) skewY(var(--scroll-skew, 0deg));
+}
+
+/* ── MARQUEE TICKER ── */
+.marquee-band {
+  overflow: hidden;
+  border-top: 1px solid rgba(26,26,26,0.08);
+  border-bottom: 1px solid rgba(26,26,26,0.08);
+  padding: 11px 0;
+  user-select: none;
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 30s linear infinite;
+}
+.marquee-band:hover .marquee-track { animation-play-state: paused; }
+.marquee-inner {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--noir);
+  white-space: nowrap;
+  opacity: 0.45;
+  padding-right: 0;
+}
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── DOT NAV ── */
+.dot-nav {
+  position: fixed;
+  right: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 900;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 4px;
+}
+.dot-nav-item {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  border: 1px solid rgba(26,26,26,0.4);
+  box-shadow: 0 0 0 1.5px rgba(243,239,215,0.6);
+  background: transparent;
+  display: block; cursor: pointer;
+  transition: background 0.22s, border-color 0.22s, transform 0.22s;
+}
+.dot-nav-item.active {
+  background: var(--noir);
+  border-color: var(--noir);
+  transform: scale(1.6);
+}
+@media (max-width: 768px) { .dot-nav { display: none; } }
+
+/* ── READING PROGRESS ── */
+.reading-progress {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: 2px; z-index: 9995; pointer-events: none;
+}
+.reading-progress-fill {
+  height: 100%;
+  background: var(--bleu);
+  transform: scaleX(0);
+  transform-origin: left;
+  will-change: transform;
+}
+
+/* ── REDUCED MOTION — round 4 ── */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+  .proj-card .proj-img, .feat-card .feat-img, .atelier-card .atelier-img { transform: none !important; }
+}
+
 @supports (view-transition-name: none) {
   @view-transition { navigation: auto; }
 

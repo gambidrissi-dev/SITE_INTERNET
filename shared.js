@@ -1337,6 +1337,132 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
   });
 })();
 
+/* ── MARQUEE BAND — bande défilante après le hero ── */
+(function initMarquee() {
+  const hero = document.querySelector(
+    '.page-hero, .hero, .bdc-hero, .atelier-hero, .media-hero, .collectif-hero'
+  );
+  if (!hero) return;
+
+  const ITEM = 'COLLECTIF COBALT — ARCHITECTURE — DESIGN — URBANISME — ';
+  const chunk = ITEM.repeat(6);
+
+  const band = document.createElement('div');
+  band.className = 'marquee-band';
+  band.setAttribute('aria-hidden', 'true');
+  band.innerHTML =
+    `<div class="marquee-track">` +
+    `<span class="marquee-inner">${chunk}</span>` +
+    `<span class="marquee-inner" aria-hidden="true">${chunk}</span>` +
+    `</div>`;
+  hero.insertAdjacentElement('afterend', band);
+})();
+
+/* ── SCROLL FX — skew global CSS var + parallax par carte ── */
+(function initScrollFX() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const cards = [...document.querySelectorAll('.proj-card, .feat-card, .atelier-card')];
+  let lastY = window.scrollY, skewTarget = 0, skewCurrent = 0;
+
+  window.addEventListener('scroll', () => {
+    skewTarget = Math.max(-2.5, Math.min(2.5, (window.scrollY - lastY) * 0.06));
+    lastY = window.scrollY;
+  }, { passive: true });
+
+  (function loop() {
+    if (!document.hidden) {
+      skewCurrent += (skewTarget - skewCurrent) * 0.10;
+      skewTarget  *= 0.88;
+
+      const skewVal = Math.abs(skewCurrent) > 0.005 ? skewCurrent.toFixed(3) : '0';
+      document.documentElement.style.setProperty('--scroll-skew', skewVal + 'deg');
+
+      const vh = window.innerHeight;
+      cards.forEach(card => {
+        const r = card.getBoundingClientRect();
+        if (r.bottom < -80 || r.top > vh + 80) return;
+        const progress = (vh * 0.5 - (r.top + r.height * 0.5)) / vh;
+        card.style.setProperty('--parallax', (progress * 22).toFixed(2));
+      });
+    }
+    requestAnimationFrame(loop);
+  })();
+})();
+
+/* ── DOT NAV — pastilles fixes par section ── */
+(function initDotNav() {
+  if (isTouch) return;
+
+  const POOLS = [
+    '.page-hero, .hero, .bdc-hero, .atelier-hero, .media-hero, .collectif-hero',
+    '.projets-grid, .featured-band, .feat-section, .services-section, .contact-section, .bdc-section, .media-section, .atelier-section',
+    '.cta-band',
+  ];
+
+  const seen = new Set();
+  const sections = [];
+  POOLS.forEach(sel => {
+    document.querySelectorAll(sel).forEach(el => {
+      if (!seen.has(el) && el.offsetHeight > 60) { seen.add(el); sections.push(el); }
+    });
+  });
+
+  if (sections.length < 2) return;
+  sections.forEach((el, i) => { if (!el.id) el.id = `ds-${i}`; });
+
+  const nav = document.createElement('nav');
+  nav.className = 'dot-nav';
+  nav.setAttribute('aria-label', 'Sections');
+
+  const dots = sections.map((sec, i) => {
+    const a = document.createElement('a');
+    a.className = 'dot-nav-item';
+    a.href = `#${sec.id}`;
+    a.setAttribute('aria-label', `Section ${i + 1}`);
+    nav.appendChild(a);
+    return a;
+  });
+
+  document.body.appendChild(nav);
+
+  let ticking = false;
+  function update() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const mid = window.innerHeight * 0.5;
+      let active = 0;
+      sections.forEach((sec, i) => {
+        if (sec.getBoundingClientRect().top <= mid) active = i;
+      });
+      dots.forEach((d, i) => d.classList.toggle('active', i === active));
+      ticking = false;
+    });
+  }
+
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+
+/* ── READING PROGRESS — fine ligne en haut de page ── */
+(function initReadingProgress() {
+  const bar = document.createElement('div');
+  bar.className = 'reading-progress';
+  bar.setAttribute('aria-hidden', 'true');
+  const fill = document.createElement('div');
+  fill.className = 'reading-progress-fill';
+  bar.appendChild(fill);
+  document.body.appendChild(bar);
+
+  function update() {
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    fill.style.transform = `scaleX(${total > 0 ? (window.scrollY / total).toFixed(4) : 0})`;
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+
 /* ── NAV COLOR MORPH — sections avec data-nav-color="#hex" ── */
 (function initNavColorMorph() {
   const nav = document.querySelector('body > nav');
