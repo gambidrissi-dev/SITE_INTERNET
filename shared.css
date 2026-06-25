@@ -1221,6 +1221,39 @@ body > nav {
 
 /* ── VIEW TRANSITIONS API — navigation cross-document (Chrome 111+, Firefox 131+, Safari 18+) ── */
 /* ═══════════════════════════════════════════
+   PRINT
+═══════════════════════════════════════════ */
+@media print {
+  /* Éléments décoratifs — masqués */
+  #cursor-dot, #cursor-ring,
+  .marquee-band, .dot-nav, .reading-progress,
+  .nav-burger-btn, #lg-overlay,
+  .stripe, #page-transition,
+  canvas { display: none !important; }
+
+  /* Grain overlay */
+  body::after { display: none !important; }
+
+  /* Figer toutes les animations */
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    will-change: auto !important;
+  }
+
+  /* Rétablir le contenu masqué par les animations */
+  .hero-reveal, .sl-letter,
+  .sr-el, .sr, .lg-strip { opacity: 1 !important; clip-path: none !important; }
+
+  /* Couleurs propres */
+  body { background: #fff !important; color: #000 !important; }
+  a    { color: inherit; text-decoration: underline; }
+
+  /* Éviter les coupures de page sur les cartes */
+  .proj-card, .feat-card, .atelier-card, .media-card { break-inside: avoid; }
+}
+
+/* ═══════════════════════════════════════════
    ROUND 4 — Grain · Marquee · Scroll FX · Dots · Progress
 ═══════════════════════════════════════════ */
 

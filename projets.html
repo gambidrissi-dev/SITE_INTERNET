@@ -435,32 +435,64 @@
     /* ── FILTERS ── */
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.addEventListener('click', () => {
+        if (btn.classList.contains('active')) return;
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        const f = btn.dataset.filter;
-        const gallery = document.getElementById('proj-hgallery');
 
-        document.querySelectorAll('.proj-card').forEach(c => {
-          const show = f === 'all' || c.dataset.cat === f;
-          c.style.display = show ? '' : 'none';
+        const f       = btn.dataset.filter;
+        const gallery = document.getElementById('proj-hgallery');
+        const cards   = [...document.querySelectorAll('.proj-card')];
+        const isHidden = c => c.style.display === 'none';
+
+        const leaving  = cards.filter(c => !isHidden(c) && f !== 'all' && c.dataset.cat !== f);
+        const entering = cards.filter(c =>  isHidden(c) && (f === 'all' || c.dataset.cat === f));
+
+        /* Phase 1 — fade out les cartes qui partent */
+        leaving.forEach(c => {
+          c.style.transition = 'opacity 0.18s ease';
+          c.style.opacity    = '0';
         });
 
-        /* Scroll to start */
-        if (gallery) gallery.scrollTo({ left: 0, behavior: 'smooth' });
-
-        /* Update count + buttons */
         setTimeout(() => {
-          const btnPrev = document.getElementById('hg-prev');
-          const btnNext = document.getElementById('hg-next');
-          const countEl = document.getElementById('hg-count');
-          const maxScroll = gallery.scrollWidth - gallery.clientWidth;
-          if (btnPrev) btnPrev.disabled = true;
-          if (btnNext) btnNext.disabled = maxScroll <= 4;
-          if (countEl) {
-            const visible = [...gallery.querySelectorAll('.proj-card')].filter(c => c.style.display !== 'none');
-            countEl.textContent = visible.length + ' projet' + (visible.length > 1 ? 's' : '');
-          }
-        }, 50);
+          /* Phase 2 — masquer les partantes, préparer les entrantes */
+          leaving.forEach(c => {
+            c.style.display    = 'none';
+            c.style.transition = '';
+            c.style.opacity    = '';
+          });
+          entering.forEach(c => {
+            c.style.display    = '';
+            c.style.opacity    = '0';
+            c.style.transition = '';
+          });
+
+          if (gallery) gallery.scrollTo({ left: 0, behavior: 'smooth' });
+
+          /* Phase 3 — fade in avec stagger */
+          requestAnimationFrame(() => {
+            entering.forEach((c, i) => {
+              setTimeout(() => {
+                c.style.transition = 'opacity 0.28s ease';
+                c.style.opacity    = '';
+                setTimeout(() => { c.style.transition = ''; }, 300);
+              }, i * 55);
+            });
+          });
+
+          /* Mettre à jour compteur + boutons nav */
+          const visible = cards.filter(c => c.style.display !== 'none');
+          setTimeout(() => {
+            const countEl = document.getElementById('hg-count');
+            if (countEl) countEl.textContent = visible.length + ' projet' + (visible.length > 1 ? 's' : '');
+            if (gallery) {
+              const max  = gallery.scrollWidth - gallery.clientWidth;
+              const prev = document.getElementById('hg-prev');
+              const next = document.getElementById('hg-next');
+              if (prev) prev.disabled = true;
+              if (next) next.disabled = max <= 4;
+            }
+          }, entering.length * 55 + 320);
+        }, leaving.length ? 200 : 0);
       });
     });
   </script>
