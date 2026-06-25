@@ -1390,64 +1390,6 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
   })();
 })();
 
-/* ── DOT NAV — pastilles fixes par section ── */
-(function initDotNav() {
-  if (isTouch) return;
-
-  const POOLS = [
-    '.page-hero, .hero, .bdc-hero, .atelier-hero, .media-hero, .collectif-hero',
-    '.projets-grid, .featured-band, .feat-section, .services-section, .contact-section, .bdc-section, .media-section, .atelier-section',
-    '.cta-band',
-  ];
-
-  const seen = new Set();
-  const sections = [];
-  POOLS.forEach(sel => {
-    document.querySelectorAll(sel).forEach(el => {
-      if (!seen.has(el) && el.offsetHeight > 60) { seen.add(el); sections.push(el); }
-    });
-  });
-
-  if (sections.length < 2) return;
-  sections.forEach((el, i) => { if (!el.id) el.id = `ds-${i}`; });
-
-  /* <div role=navigation> et non <nav> : évite la collision avec la règle
-     body > nav (barre de nav principale) qui le rendait pleine largeur */
-  const nav = document.createElement('div');
-  nav.className = 'dot-nav';
-  nav.setAttribute('role', 'navigation');
-  nav.setAttribute('aria-label', 'Sections');
-
-  const dots = sections.map((sec, i) => {
-    const a = document.createElement('a');
-    a.className = 'dot-nav-item';
-    a.href = `#${sec.id}`;
-    a.setAttribute('aria-label', `Section ${i + 1}`);
-    nav.appendChild(a);
-    return a;
-  });
-
-  document.body.appendChild(nav);
-
-  let ticking = false;
-  function update() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(() => {
-      const mid = window.innerHeight * 0.5;
-      let active = 0;
-      sections.forEach((sec, i) => {
-        if (sec.getBoundingClientRect().top <= mid) active = i;
-      });
-      dots.forEach((d, i) => d.classList.toggle('active', i === active));
-      ticking = false;
-    });
-  }
-
-  window.addEventListener('scroll', update, { passive: true });
-  update();
-})();
-
 /* ── READING PROGRESS — fine ligne en haut de page ── */
 (function initReadingProgress() {
   const bar = document.createElement('div');

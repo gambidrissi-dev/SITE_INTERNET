@@ -1249,7 +1249,7 @@ body > nav {
 @media print {
   /* Éléments décoratifs — masqués */
   #cursor-dot, #cursor-ring,
-  .marquee-band, .dot-nav, .reading-progress, .to-top,
+  .marquee-band, .reading-progress, .to-top,
   .nav-burger-btn, #lg-overlay,
   .stripe, #page-transition,
   canvas { display: none !important; }
@@ -1325,45 +1325,6 @@ body::after {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
-
-/* ── DOT NAV ── */
-.dot-nav {
-  position: fixed;
-  right: 1.25rem;
-  left: auto;               /* annule body>nav left:20px */
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 900;
-  width: auto; height: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 4px;
-  /* Reset des styles hérités de la pilule de nav principale */
-  background: none;
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
-  backdrop-filter: none; -webkit-backdrop-filter: none;
-  animation: none;
-  overflow: visible;
-  pointer-events: auto;
-}
-.dot-nav-item {
-  width: 5px; height: 5px;
-  border-radius: 50%;
-  border: 1px solid rgba(26,26,26,0.4);
-  box-shadow: 0 0 0 1.5px rgba(243,239,215,0.6);
-  background: transparent;
-  display: block; cursor: pointer;
-  transition: background 0.22s, border-color 0.22s, transform 0.22s;
-}
-.dot-nav-item.active {
-  background: var(--noir);
-  border-color: var(--noir);
-  transform: scale(1.6);
-}
-@media (max-width: 768px) { .dot-nav { display: none; } }
 
 /* ── ANCHOR SCROLL OFFSET — évite que la nav fixe masque la cible ── */
 /* :where() = spécificité 0, n'écrase jamais une règle existante ; */
