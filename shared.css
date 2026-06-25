@@ -1249,7 +1249,7 @@ body > nav {
 @media print {
   /* Éléments décoratifs — masqués */
   #cursor-dot, #cursor-ring,
-  .marquee-band, .dot-nav, .reading-progress,
+  .marquee-band, .dot-nav, .reading-progress, .to-top,
   .nav-burger-btn, #lg-overlay,
   .stripe, #page-transition,
   canvas { display: none !important; }
@@ -1353,6 +1353,36 @@ body::after {
   transform: scale(1.6);
 }
 @media (max-width: 768px) { .dot-nav { display: none; } }
+
+/* ── ANCHOR SCROLL OFFSET — évite que la nav fixe masque la cible ── */
+/* :where() = spécificité 0, n'écrase jamais une règle existante ; */
+/* scroll-margin-top n'a aucun effet visuel hors positionnement du scroll */
+:where([id]) { scroll-margin-top: 92px; }
+@media (max-width: 560px) { :where([id]) { scroll-margin-top: 72px; } }
+
+/* ── SCROLL-TO-TOP — bouton retour haut (injecté par JS) ── */
+.to-top {
+  position: fixed; right: 1.25rem; bottom: 1.25rem; z-index: 940;
+  width: 46px; height: 46px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(26,26,26,0.86); color: var(--cream);
+  border: 1px solid rgba(255,255,255,0.14);
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.22);
+  cursor: none;
+  opacity: 0; visibility: hidden; transform: translateY(14px) scale(0.85);
+  transition: opacity .3s ease, transform .35s cubic-bezier(0.34,1.56,0.64,1), visibility .3s, background .2s;
+}
+.to-top.visible { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
+.to-top:hover { background: var(--bleu); transform: translateY(-2px) scale(1.06); }
+.to-top svg { width: 16px; height: 16px; display: block; }
+@media (max-width: 560px) {
+  .to-top { right: 1rem; bottom: 1rem; width: 42px; height: 42px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .to-top { transition: opacity .2s ease, visibility .2s; transform: none !important; }
+  .to-top.visible { transform: none; }
+}
 
 /* ── READING PROGRESS ── */
 .reading-progress {

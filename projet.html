@@ -30,7 +30,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="shared.css?v=27">
+  <link rel="stylesheet" href="shared.css?v=28">
   <style>
     /* La stripe et les accents prennent la couleur du projet via [data-accent] */
     body[data-accent="bleu"]  .stripe { background: linear-gradient(90deg, var(--bleu) 25%, var(--noir) 25% 50%, var(--bleu) 50% 75%, var(--noir) 75%); }
@@ -466,12 +466,12 @@
   <div class="lightbox" id="lightbox" aria-hidden="true">
     <button class="lb-close" id="lb-close" aria-label="Fermer">✕</button>
     <button class="lb-nav lb-prev" id="lb-prev" aria-label="Précédent">←</button>
-    <img id="lb-img" alt="" loading="lazy">
+    <img id="lb-img" alt="" loading="lazy" decoding="async">
     <button class="lb-nav lb-next" id="lb-next" aria-label="Suivant">→</button>
     <div class="lb-count" id="lb-count"></div>
   </div>
 
-  <script src="shared.js?v=22"></script>
+  <script src="shared.js?v=23"></script>
   <script>
     /* ─────────── PROJECT PAGE LOGIC ─────────── */
     const params = new URLSearchParams(location.search);
@@ -506,7 +506,7 @@
 
       const galleryHTML = p.gallery.map((src, i) => `
         <div class="gal-item" data-idx="${i}">
-          <img src="${escapeHTML(src)}" alt="${escapeHTML(p.title)} — vue ${i + 1}" loading="lazy">
+          <img src="${escapeHTML(src)}" alt="${escapeHTML(p.title)} — vue ${i + 1}" loading="lazy" decoding="async">
         </div>`).join('');
 
       const processHTML = (p.process || []).map((step, i) => `
@@ -521,7 +521,7 @@
 
       const relatedHTML = related.map(r => `
         <a href="projet?id=${escapeHTML(r.id)}" class="rel-card">
-          <img src="${escapeHTML(r.cover)}" alt="${escapeHTML(r.title)}" loading="lazy">
+          <img src="${escapeHTML(r.cover)}" alt="${escapeHTML(r.title)}" loading="lazy" decoding="async">
           <div class="rel-overlay"></div>
           <div class="rel-meta">
             <div class="rel-card-title">${escapeHTML(r.title)}.</div>
@@ -539,7 +539,7 @@
           </div>
           <h1 class="p-title sr">${escapeHTML(p.title)}.</h1>
           <p class="p-tagline sr sr-d1">${escapeHTML(p.tagline)}</p>
-          <img class="p-cover sr sr-d2" src="${escapeHTML(p.cover)}" alt="${escapeHTML(p.title)}" loading="lazy">
+          <img class="p-cover sr sr-d2" src="${escapeHTML(p.cover)}" alt="${escapeHTML(p.title)}" loading="lazy" decoding="async">
         </section>
 
         <!-- FICHE TECHNIQUE -->

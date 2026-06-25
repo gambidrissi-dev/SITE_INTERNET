@@ -1482,3 +1482,41 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
   sections.forEach(function(s) { io.observe(s); });
 })();
 
+/* ── SCROLL-TO-TOP — bouton retour haut sur pages longues ── */
+(function initScrollTop() {
+  /* Pas sur la home (hero plein écran, pas de scroll vertical) */
+  if (document.getElementById('hero')) return;
+
+  const btn = document.createElement('button');
+  btn.className = 'to-top';
+  btn.type = 'button';
+  btn.setAttribute('aria-label', 'Revenir en haut de la page');
+  btn.innerHTML =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" ' +
+    'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    '<path d="M12 19V5M5 12l7-7 7 7"/></svg>';
+  document.body.appendChild(btn);
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  btn.addEventListener('click', function() {
+    if (window.lenis) {
+      window.lenis.scrollTo(0, { duration: reduce ? 0 : 1.2 });
+    } else {
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+    }
+  });
+
+  /* Affichage après ~70% de la hauteur écran, throttlé via rAF */
+  let ticking = false;
+  function update() {
+    const show = window.scrollY > window.innerHeight * 0.7;
+    btn.classList.toggle('visible', show);
+    ticking = false;
+  }
+  window.addEventListener('scroll', function() {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  }, { passive: true });
+  update();
+})();
+
