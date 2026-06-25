@@ -298,11 +298,7 @@
     </div>
     <div class="ch-right sr sr-d2">
       <h2 class="ch-form-title">Un projet en tête ?</h2>
-      <form class="ch-form" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
-        <input type="hidden" name="access_key" value="2a573bb6-8303-48bd-8efd-6d93c29d3b34">
-        <input type="hidden" name="subject" id="form-subject-hidden" value="Nouveau message — Studio">
-        <input type="hidden" name="from_name" value="Site Collectif Cobalt">
-        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+      <form class="ch-form" id="contact-form" novalidate>
         <div class="ch-row">
           <div class="ch-field">
             <label class="ch-lbl" for="f-prenom">Prénom</label>
@@ -366,10 +362,7 @@
         </div>
         <button type="submit" class="ch-submit" id="form-submit"><span>Envoyer ma demande →</span></button>
         <div class="ch-feedback success" id="form-success" role="status">
-          ✓ Message envoyé — nous vous répondrons sous 48 h.
-        </div>
-        <div class="ch-feedback error" id="form-error" role="alert">
-          Une erreur est survenue. Réessayez ou écrivez-nous directement à <a href="mailto:team@collectifcobalt.eu" style="color:inherit;text-decoration:underline">team@collectifcobalt.eu</a>.
+          Votre messagerie va s'ouvrir avec les informations pré-remplies. Si rien ne s'ouvre, écrivez-nous à <a href="mailto:studio@collectifcobalt.eu" style="color:inherit;text-decoration:underline">studio@collectifcobalt.eu</a>
         </div>
       </form>
     </div>
@@ -503,12 +496,12 @@
   <script src="shared.js?v=22"></script>
   <script>
     /* ── Subject pills ── */
-    const subjectHidden = document.getElementById('form-subject-hidden');
+    let selectedSubject = 'Studio';
     document.querySelectorAll('.ch-subject-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.ch-subject-btn').forEach(b => b.classList.remove('sel'));
         btn.classList.add('sel');
-        subjectHidden.value = `Nouveau message — ${btn.dataset.subject}`;
+        selectedSubject = btn.dataset.subject;
       });
     });
 
@@ -543,84 +536,48 @@
       charCount.classList.toggle('warn', n > 800);
     });
 
-    /* ── AJAX submit → Web3Forms avec récap complet ── */
+    /* ── Submit → mailto (zéro dépendance externe) ── */
     const form      = document.getElementById('contact-form');
     const submitBtn = document.getElementById('form-submit');
     const successEl = document.getElementById('form-success');
-    const errorEl   = document.getElementById('form-error');
 
-    form.addEventListener('submit', async e => {
+    form.addEventListener('submit', e => {
       e.preventDefault();
       if (!form.checkValidity()) { form.reportValidity(); return; }
 
-      submitBtn.disabled = true;
-      submitBtn.querySelector('span').textContent = 'Envoi en cours…';
-      successEl.classList.remove('visible');
-      errorEl.classList.remove('visible');
+      const get = id => (document.getElementById(id)?.value || '').trim();
+      const prenom  = get('f-prenom');
+      const nom     = get('f-nom');
+      const email   = get('f-email');
+      const tel     = get('f-tel');
+      const ville   = get('f-ville');
+      const message = get('f-message');
 
-      try {
-        const data = new FormData(form);
+      const lines = [
+        'COLLECTIF COBALT — Nouveau message',
+        '──────────────────────────────────',
+        '',
+        `Prenom  : ${prenom}`,
+        `Nom     : ${nom}`,
+        `Email   : ${email}`,
+        tel    ? `Tel     : ${tel}`             : null,
+        ville  ? `Ville   : ${ville}`           : null,
+        '',
+        `Entite  : ${selectedSubject}`,
+        selectedBudget ? `Budget  : ${selectedBudget}` : null,
+        selectedDelai  ? `Delai   : ${selectedDelai}`  : null,
+        '',
+        '──────────────────────────────────',
+        message,
+      ].filter(l => l !== null).join('\n');
 
-        /* Récap complet formaté dans le body du mail */
-        const prenom  = data.get('prenom')    || '';
-        const nom     = data.get('nom')        || '';
-        const email   = data.get('email')      || '';
-        const tel     = data.get('telephone')  || '';
-        const ville   = data.get('ville')      || '';
-        const sujet   = document.querySelector('.ch-subject-btn.sel')?.dataset.subject || 'Non précisé';
-        const budget  = selectedBudget         || 'Non précisé';
-        const delai   = selectedDelai          || 'Non précisé';
-        const message = data.get('message')    || '';
-        const date    = new Date().toLocaleString('fr-FR', { dateStyle:'full', timeStyle:'short' });
+      const mailto = 'mailto:studio@collectifcobalt.eu'
+        + '?subject=' + encodeURIComponent(`[Cobalt] ${selectedSubject} — ${prenom} ${nom}`)
+        + '&body='    + encodeURIComponent(lines);
 
-        const recap = `NOUVEAU MESSAGE — COLLECTIF COBALT
-══════════════════════════════════════
-
-📋 CONTACT
-Nom       : ${prenom} ${nom}
-Email     : ${email}${tel    ? `\nTéléphone : ${tel}` : ''}${ville  ? `\nVille     : ${ville}` : ''}
-
-🎯 PROJET
-Entité    : ${sujet}
-Budget    : ${budget}
-Délai     : ${delai}
-
-💬 MESSAGE
-${message}
-
-══════════════════════════════════════
-Envoyé le ${date}
-Via collectifcobalt.eu/contact`;
-
-        data.set('message', recap);
-        data.set('replyto', email);
-        data.set('subject', `[Cobalt] Nouveau message — ${sujet} — ${prenom} ${nom}`);
-
-        const res  = await fetch(form.action, {
-          method: 'POST',
-          body: data,
-          headers: { 'Accept': 'application/json' }
-        });
-        const json = await res.json();
-
-        if (json.success) {
-          form.reset();
-          document.querySelectorAll('.ch-subject-btn').forEach(b => b.classList.remove('sel'));
-          document.querySelector('.ch-subject-btn[data-subject="Studio"]').classList.add('sel');
-          document.querySelectorAll('.ch-pill-btn').forEach(b => b.classList.remove('sel'));
-          subjectHidden.value = 'Nouveau message — Studio';
-          selectedBudget = ''; selectedDelai = '';
-          charCount.textContent = '0 / 1000';
-          successEl.classList.add('visible');
-          submitBtn.querySelector('span').textContent = 'Message envoyé ✓';
-        } else {
-          throw new Error(json.message || 'Erreur');
-        }
-      } catch {
-        errorEl.classList.add('visible');
-        submitBtn.disabled = false;
-        submitBtn.querySelector('span').textContent = 'Envoyer ma demande →';
-      }
+      window.location.href = mailto;
+      successEl.classList.add('visible');
+      submitBtn.querySelector('span').textContent = "Messagerie en cours d'ouverture…";
     });
 
     // Raccourcis → pré-sélectionner le sujet du formulaire
@@ -632,8 +589,7 @@ Via collectifcobalt.eu/contact`;
         var btn = document.querySelector('.ch-subject-btn[data-subject="' + subject + '"]');
         if (btn) {
           btn.classList.add('sel');
-          var hidden = document.getElementById('form-subject-hidden');
-          if (hidden) hidden.value = 'Nouveau message — ' + subject;
+          selectedSubject = subject;
         }
       });
     });
