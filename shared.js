@@ -1411,8 +1411,11 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
   if (sections.length < 2) return;
   sections.forEach((el, i) => { if (!el.id) el.id = `ds-${i}`; });
 
-  const nav = document.createElement('nav');
+  /* <div role=navigation> et non <nav> : évite la collision avec la règle
+     body > nav (barre de nav principale) qui le rendait pleine largeur */
+  const nav = document.createElement('div');
   nav.className = 'dot-nav';
+  nav.setAttribute('role', 'navigation');
   nav.setAttribute('aria-label', 'Sections');
 
   const dots = sections.map((sec, i) => {
