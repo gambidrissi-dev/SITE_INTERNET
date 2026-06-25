@@ -14,12 +14,8 @@ if (!isTouch) {
 
     /* ── Détection du fond sous le curseur ── */
     function getBgUnderCursor(x, y) {
-      // Masquer temporairement les éléments cursor pour ne pas les détecter
-      dot.style.display  = 'none';
-      ring.style.display = 'none';
-      const el = document.elementFromPoint(x, y);
-      dot.style.display  = '';
-      ring.style.display = '';
+      const els = document.elementsFromPoint(x, y);
+      const el = els.find(e => e.id !== 'cursor-dot' && e.id !== 'cursor-ring') || null;
       if (!el) return null;
       let node = el;
       while (node && node !== document.documentElement) {
@@ -804,7 +800,7 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
     /* Ne pas interférer avec les éléments déjà animés autrement */
     if (el.closest('.rw-word')) return;
     el.classList.add('hero-reveal');
-    el.style.animationDelay = (0.15 + i * 0.11) + 's';
+    el.style.animationDelay = Math.min(0.15 + i * 0.11, 0.55) + 's';
   });
 })();
 
@@ -843,20 +839,22 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
 
   /* rAF : blob velocity stretch (désactivé en label-mode pour lisibilité) */
   (function blobLoop() {
-    const vx = cx - pcx;
-    const vy = cy - pcy;
-    pcx = cx; pcy = cy;
+    if (!document.hidden) {
+      const vx = cx - pcx;
+      const vy = cy - pcy;
+      pcx = cx; pcy = cy;
 
-    if (!ring.classList.contains('label-mode')) {
-      const speed   = Math.sqrt(vx * vx + vy * vy);
-      const angle   = Math.atan2(vy, vx) * 180 / Math.PI;
-      const stretch = Math.min(speed * 0.036, 0.28);
-      const sx      = 1 + stretch;
-      const sy      = 1 - stretch * 0.55;
-      ring.style.transform =
-        `translate(-50%,-50%) rotate(${angle.toFixed(1)}deg) scaleX(${sx.toFixed(3)}) scaleY(${sy.toFixed(3)})`;
-    } else {
-      ring.style.transform = 'translate(-50%,-50%)';
+      if (!ring.classList.contains('label-mode')) {
+        const speed   = Math.sqrt(vx * vx + vy * vy);
+        const angle   = Math.atan2(vy, vx) * 180 / Math.PI;
+        const stretch = Math.min(speed * 0.036, 0.28);
+        const sx      = 1 + stretch;
+        const sy      = 1 - stretch * 0.55;
+        ring.style.transform =
+          `translate(-50%,-50%) rotate(${angle.toFixed(1)}deg) scaleX(${sx.toFixed(3)}) scaleY(${sy.toFixed(3)})`;
+      } else {
+        ring.style.transform = 'translate(-50%,-50%)';
+      }
     }
 
     requestAnimationFrame(blobLoop);
@@ -866,6 +864,7 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
 /* ── CARDS 3D TILT (desktop uniquement) ── */
 (function initCardTilt() {
   if (isTouch) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   const SEL = '.proj-card, .feat-card, .atelier-card, .media-card';
   document.querySelectorAll(SEL).forEach(card => {
@@ -1022,7 +1021,17 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
   document.body.appendChild(canvas);
   const ctx = canvas.getContext('2d');
 
-  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  let cssW = window.innerWidth, cssH = window.innerHeight;
+  function resize() {
+    const dpr = window.devicePixelRatio || 1;
+    cssW = window.innerWidth;
+    cssH = window.innerHeight;
+    canvas.width  = cssW * dpr;
+    canvas.height = cssH * dpr;
+    canvas.style.width  = cssW + 'px';
+    canvas.style.height = cssH + 'px';
+    ctx.scale(dpr, dpr);
+  }
   resize();
   window.addEventListener('resize', resize, { passive: true });
 
@@ -1034,22 +1043,27 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
   document.addEventListener('mousemove', e => { lastX = e.clientX; lastY = e.clientY; });
 
   (function trailLoop() {
-    frameCount++;
-    if (frameCount % INTERVAL === 0) {
-      particles.push({ x: lastX, y: lastY, size: (0.5 + Math.random() * 0.8) * 2.5, life: 0 });
-    }
+    if (!document.hidden) {
+      frameCount++;
+      const spawnThisFrame = frameCount % INTERVAL === 0;
+      if (spawnThisFrame) {
+        particles.push({ x: lastX, y: lastY, size: (0.5 + Math.random() * 0.8) * 2.5, life: 0 });
+      }
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (let i = particles.length - 1; i >= 0; i--) {
-      const p = particles[i];
-      p.life++;
-      const t = p.life / MAX_LIFE;
-      const r = p.size * (1 - t * 0.8);
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(74,130,220,${(0.45 * (1 - t)).toFixed(3)})`;
-      ctx.fill();
-      if (p.life >= MAX_LIFE) particles.splice(i, 1);
+      if (particles.length > 0) {
+        ctx.clearRect(0, 0, cssW, cssH);
+        for (let i = particles.length - 1; i >= 0; i--) {
+          const p = particles[i];
+          p.life++;
+          const t = p.life / MAX_LIFE;
+          const r = p.size * (1 - t * 0.8);
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(74,130,220,${(0.45 * (1 - t)).toFixed(3)})`;
+          ctx.fill();
+          if (p.life >= MAX_LIFE) particles.splice(i, 1);
+        }
+      }
     }
     requestAnimationFrame(trailLoop);
   })();
@@ -1129,6 +1143,7 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
 /* ── MAGNETIC NAV LINKS (overlay) ── */
 (function initMagneticNav() {
   if (isTouch) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   document.querySelectorAll('.lg-strip-name').forEach(el => {
     const strip = el.closest('.lg-strip');
@@ -1151,6 +1166,7 @@ document.querySelectorAll('[data-target]').forEach(el => statObs.observe(el));
 
 /* ── TEXT SCRAMBLE — titres de l'overlay nav au hover ── */
 (function initTextScramble() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
   function scramble(el) {
