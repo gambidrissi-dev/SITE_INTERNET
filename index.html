@@ -139,23 +139,40 @@
       pointer-events: none; /* passe à travers */
     }
 
-    /* Bloc-titre — plus de plaque/flou rectangulaire. Lisibilité assurée
-       par un léger halo crème porté par le texte lui-même (pas de rectangle). */
+    /* Bloc-titre — flou en DÉGRADÉ : un voile flou centré sur le titre dont
+       l'intensité s'estompe en douceur dans toutes les directions (aucun bord,
+       fondu vertical long pour ne jamais former de bande). */
     .hero-plate {
       position: relative;
       display: flex; flex-direction: column; align-items: center;
       pointer-events: none;
       animation: heroPlateIn 1s ease 0.2s both;
     }
-    #slot-hint, #landing-tagline {
-      text-shadow: 0 0 12px rgba(243,239,215,0.92),
-                   0 1px 3px rgba(243,239,215,0.95);
+    .hero-plate > .slot-outer,
+    .hero-plate > .slot-hint,
+    .hero-plate > #landing-tagline { position: relative; z-index: 1; }
+    .hp-soft { position: absolute; inset: -52% -6%; z-index: 0; pointer-events: none; }
+    .hp-soft > span { position: absolute; inset: 0; display: block; }
+    .hp-blur {
+      backdrop-filter: blur(8px) saturate(1.12);
+      -webkit-backdrop-filter: blur(8px) saturate(1.12);
+      -webkit-mask-image: radial-gradient(ellipse 62% 56% at 50% 50%, #000 0%, rgba(0,0,0,0.55) 42%, transparent 76%);
+      mask-image: radial-gradient(ellipse 62% 56% at 50% 50%, #000 0%, rgba(0,0,0,0.55) 42%, transparent 76%);
     }
+    .hp-tint {
+      background: radial-gradient(ellipse 62% 56% at 50% 50%,
+        rgba(243,239,215,0.40) 0%, rgba(243,239,215,0.18) 44%, transparent 76%);
+    }
+    /* Léger halo crème sur le petit texte — renfort, sans cadre */
+    #slot-hint, #landing-tagline { text-shadow: 0 0 10px rgba(243,239,215,0.8); }
     @keyframes heroPlateIn {
       from { opacity: 0; transform: scale(0.985); }
       to   { opacity: 1; transform: scale(1); }
     }
     @media (prefers-reduced-motion: reduce) { .hero-plate { animation: none; } }
+    /* Fades du slot en teinte douce sur les formes (pas de crème opaque) */
+    .hero-plate .slot-outer::before { background: linear-gradient(180deg, rgba(243,239,215,0.62) 0%, transparent 100%); }
+    .hero-plate .slot-outer::after  { background: linear-gradient(0deg,   rgba(243,239,215,0.62) 0%, transparent 100%); }
 
     /* SLOT */
     .slot-outer {
@@ -668,6 +685,7 @@
   <!-- Hero : slot reel + hint -->
   <div id="hero">
     <div class="hero-plate">
+      <div class="hp-soft" aria-hidden="true"><span class="hp-blur"></span><span class="hp-tint"></span></div>
       <div class="slot-outer" id="slot-outer">
         <div class="slot-reel" id="slot-reel"></div>
       </div>
