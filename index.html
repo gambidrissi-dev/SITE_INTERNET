@@ -139,48 +139,23 @@
       pointer-events: none; /* passe à travers */
     }
 
-    /* BLUR DÉGRADÉ derrière le bloc-titre — douceur : le flou et la teinte
-       crème s'estompent progressivement vers les bords (aucun cadre net) */
+    /* Bloc-titre — plus de plaque/flou rectangulaire. Lisibilité assurée
+       par un léger halo crème porté par le texte lui-même (pas de rectangle). */
     .hero-plate {
       position: relative;
       display: flex; flex-direction: column; align-items: center;
-      padding: 54px clamp(48px, 7vw, 108px) 48px;
       pointer-events: none;
       animation: heroPlateIn 1s ease 0.2s both;
     }
-    /* Le contenu passe au-dessus des couches de flou */
-    .hero-plate > .slot-outer,
-    .hero-plate > .slot-hint,
-    .hero-plate > #landing-tagline { position: relative; z-index: 1; }
-    /* Couches de flou progressif — débordent du contenu pour fondre dans les formes */
-    .hp-soft { position: absolute; inset: -24% -12%; z-index: 0; pointer-events: none; }
-    .hp-soft > span { position: absolute; inset: 0; display: block; }
-    .hp-l1 {
-      backdrop-filter: blur(3px) saturate(1.08);
-      -webkit-backdrop-filter: blur(3px) saturate(1.08);
-      -webkit-mask-image: radial-gradient(ellipse 74% 72% at 50% 50%, #000 50%, transparent 100%);
-      mask-image: radial-gradient(ellipse 74% 72% at 50% 50%, #000 50%, transparent 100%);
-    }
-    .hp-l2 {
-      backdrop-filter: blur(11px) saturate(1.22);
-      -webkit-backdrop-filter: blur(11px) saturate(1.22);
-      -webkit-mask-image: radial-gradient(ellipse 56% 58% at 50% 50%, #000 0%, #000 32%, transparent 78%);
-      mask-image: radial-gradient(ellipse 56% 58% at 50% 50%, #000 0%, #000 32%, transparent 78%);
-    }
-    .hp-tint {
-      background: radial-gradient(ellipse 64% 64% at 50% 50%,
-        rgba(243,239,215,0.58) 0%,
-        rgba(243,239,215,0.32) 46%,
-        rgba(243,239,215,0) 76%);
+    #slot-hint, #landing-tagline {
+      text-shadow: 0 0 12px rgba(243,239,215,0.92),
+                   0 1px 3px rgba(243,239,215,0.95);
     }
     @keyframes heroPlateIn {
       from { opacity: 0; transform: scale(0.985); }
       to   { opacity: 1; transform: scale(1); }
     }
     @media (prefers-reduced-motion: reduce) { .hero-plate { animation: none; } }
-    /* Les fades du slot suivent la teinte douce (et non un crème opaque) */
-    .hero-plate .slot-outer::before { background: linear-gradient(180deg, rgba(243,239,215,0.70) 0%, transparent 100%); }
-    .hero-plate .slot-outer::after  { background: linear-gradient(0deg,   rgba(243,239,215,0.70) 0%, transparent 100%); }
 
     /* SLOT */
     .slot-outer {
@@ -693,7 +668,6 @@
   <!-- Hero : slot reel + hint -->
   <div id="hero">
     <div class="hero-plate">
-      <div class="hp-soft" aria-hidden="true"><span class="hp-l1"></span><span class="hp-l2"></span><span class="hp-tint"></span></div>
       <div class="slot-outer" id="slot-outer">
         <div class="slot-reel" id="slot-reel"></div>
       </div>
