@@ -139,6 +139,29 @@
       pointer-events: none; /* passe à travers */
     }
 
+    /* PLAQUE VERRE DÉPOLI derrière le bloc-titre — garde la lisibilité
+       quand les formes passent au centre */
+    .hero-plate {
+      display: flex; flex-direction: column; align-items: center;
+      padding: 40px clamp(36px, 6vw, 88px) 34px;
+      border-radius: 34px;
+      background: rgba(243,239,215,0.38);
+      backdrop-filter: blur(12px) saturate(1.18);
+      -webkit-backdrop-filter: blur(12px) saturate(1.18);
+      border: 1px solid rgba(255,255,255,0.45);
+      box-shadow: 0 14px 54px rgba(26,26,26,0.10);
+      pointer-events: none;
+      animation: heroPlateIn 0.9s ease 0.2s both;
+    }
+    @keyframes heroPlateIn {
+      from { opacity: 0; transform: scale(0.97); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    @media (prefers-reduced-motion: reduce) { .hero-plate { animation: none; } }
+    /* Les fades du slot suivent la teinte de la plaque (et non un crème opaque) */
+    .hero-plate .slot-outer::before { background: linear-gradient(180deg, rgba(243,239,215,0.85) 0%, transparent 100%); }
+    .hero-plate .slot-outer::after  { background: linear-gradient(0deg,   rgba(243,239,215,0.85) 0%, transparent 100%); }
+
     /* SLOT */
     .slot-outer {
       overflow: hidden;
@@ -398,11 +421,13 @@
       padding: 10px 20px; border-radius: 999px;
       border: 1.5px solid rgba(26,26,26,.3);
       color: rgba(26,26,26,.65);
-      background: rgba(243,239,215,.7);
-      backdrop-filter: blur(6px);
+      background: rgba(243,239,215,.86);
+      backdrop-filter: blur(10px) saturate(1.15);
+      -webkit-backdrop-filter: blur(10px) saturate(1.15);
+      box-shadow: 0 4px 18px rgba(26,26,26,.09);
       transition: border-color .2s, color .2s, background .2s;
     }
-    .escape-link:hover { border-color: currentColor; background: rgba(243,239,215,.92); }
+    .escape-link:hover { border-color: currentColor; background: rgba(243,239,215,.97); }
     .escape-link[data-c="collectif"] { color: rgba(26,26,26,.65); border-color: rgba(26,26,26,.30); }
     .escape-link[data-c="studio"]  { color: #4A82DC; border-color: rgba(74,130,220,.45); }
     .escape-link[data-c="atelier"] { color: #5DA16B; border-color: rgba(93,161,107,.45); }
@@ -647,17 +672,19 @@
 
   <!-- Hero : slot reel + hint -->
   <div id="hero">
-    <div class="slot-outer" id="slot-outer">
-      <div class="slot-reel" id="slot-reel"></div>
+    <div class="hero-plate">
+      <div class="slot-outer" id="slot-outer">
+        <div class="slot-reel" id="slot-reel"></div>
+      </div>
+      <div class="slot-hint" id="slot-hint">
+        <span class="hint-dot" style="background:#4A82DC"></span>
+        <span class="hint-dot" style="background:#5DA16B"></span>
+        <span class="hint-dot" style="background:#F1CB4F"></span>
+        <span class="hint-dot" style="background:#BB3B34"></span>
+        <span id="hint-text">survole une forme</span>
+      </div>
+      <p id="landing-tagline">Architecture · Médias — Sud-Ouest</p>
     </div>
-    <div class="slot-hint" id="slot-hint">
-      <span class="hint-dot" style="background:#4A82DC"></span>
-      <span class="hint-dot" style="background:#5DA16B"></span>
-      <span class="hint-dot" style="background:#F1CB4F"></span>
-      <span class="hint-dot" style="background:#BB3B34"></span>
-      <span id="hint-text">survole une forme</span>
-    </div>
-    <p id="landing-tagline">Architecture · Médias — Sud-Ouest</p>
   </div>
 
   <!-- Sortie de secours — apparaît après l'animation du slot -->
@@ -932,15 +959,9 @@
           ok = true;
           cx = -sw * 0.1 + Math.random() * (W + sw * 0.2);
           cy = -sh * 0.1 + Math.random() * (H + sh * 0.2);
-          const ex = (cx - LOGO_CX) / LOGO_RX;
-          const ey = (cy - LOGO_CY) / LOGO_RY;
-          if (ex * ex + ey * ey < 1) { ok = false; continue; }
-          // Zone centrale (hero entier)
-          if (cx > HERO.x1 && cx < HERO.x2 && cy > HERO.y1 && cy < HERO.y2) { ok = false; continue; }
-          // Zone escape-nav
-          if (NAV && cx > NAV.x1 && cx < NAV.x2 && cy > NAV.y1 && cy < NAV.y2) { ok = false; continue; }
-          // Zone landing-nav (logo/burger en haut)
-          if (TOPNAV && cx > TOPNAV.x1 && cx < TOPNAV.x2 && cy > TOPNAV.y1 && cy < TOPNAV.y2) { ok = false; continue; }
+          // Formes réparties sur TOUTE la page : le bloc-titre et les pilules
+          // sont protégés par des plaques en verre dépoli, donc plus aucune
+          // zone d'exclusion centrale (logo / hero / escape-nav).
           for (const p of placed) {
             const d = Math.hypot(cx - p.cx, cy - p.cy);
             if (d < COL_MIN) { ok = false; break; }
