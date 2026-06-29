@@ -118,11 +118,12 @@
       position: absolute;
       pointer-events: auto;
       cursor: none;
-      transition: opacity .2s ease, filter .2s ease;
+      opacity: var(--bs-op, 1); /* atténuée près du centre (fondu par-forme) */
+      transition: opacity .25s ease, filter .2s ease;
     }
     .bs svg { width: 100%; height: auto; display: block; }
     .bss > * { vector-effect: non-scaling-stroke; }
-    .bs:hover { filter: brightness(1.12); }
+    .bs:hover { filter: brightness(1.12); opacity: 1; } /* révèle les formes pâles du centre au survol */
     .bs:focus { outline: none; }
     .bs:focus-visible svg { outline: 2.5px solid currentColor; outline-offset: 4px; border-radius: 2px; }
 
@@ -139,9 +140,9 @@
       pointer-events: none; /* passe à travers */
     }
 
-    /* Bloc-titre — flou en DÉGRADÉ : un voile flou centré sur le titre dont
-       l'intensité s'estompe en douceur dans toutes les directions (aucun bord,
-       fondu vertical long pour ne jamais former de bande). */
+    /* Bloc-titre — aucun voile derrière (créait une délimitation visible).
+       Le centre s'éclaircit via l'opacité par-forme (voir placeBgShapes :
+       --bs-op), donc aucun bord. */
     .hero-plate {
       position: relative;
       display: flex; flex-direction: column; align-items: center;
@@ -151,28 +152,21 @@
     .hero-plate > .slot-outer,
     .hero-plate > .slot-hint,
     .hero-plate > #landing-tagline { position: relative; z-index: 1; }
-    .hp-soft { position: absolute; inset: -52% -6%; z-index: 0; pointer-events: none; }
-    .hp-soft > span { position: absolute; inset: 0; display: block; }
-    .hp-blur {
-      backdrop-filter: blur(8px) saturate(1.12);
-      -webkit-backdrop-filter: blur(8px) saturate(1.12);
-      -webkit-mask-image: radial-gradient(ellipse 62% 56% at 50% 50%, #000 0%, rgba(0,0,0,0.55) 42%, transparent 76%);
-      mask-image: radial-gradient(ellipse 62% 56% at 50% 50%, #000 0%, rgba(0,0,0,0.55) 42%, transparent 76%);
+    /* Lisibilité du petit texte via un halo crème PORTÉ PAR LE TEXTE
+       (pas de voile derrière → aucune délimitation possible) */
+    #slot-hint, #landing-tagline {
+      text-shadow: 0 0 9px rgba(243,239,215,0.95),
+                   0 0 4px rgba(243,239,215,0.98),
+                   0 1px 2px rgba(243,239,215,0.98);
     }
-    .hp-tint {
-      background: radial-gradient(ellipse 62% 56% at 50% 50%,
-        rgba(243,239,215,0.40) 0%, rgba(243,239,215,0.18) 44%, transparent 76%);
-    }
-    /* Léger halo crème sur le petit texte — renfort, sans cadre */
-    #slot-hint, #landing-tagline { text-shadow: 0 0 10px rgba(243,239,215,0.8); }
     @keyframes heroPlateIn {
       from { opacity: 0; transform: scale(0.985); }
       to   { opacity: 1; transform: scale(1); }
     }
     @media (prefers-reduced-motion: reduce) { .hero-plate { animation: none; } }
-    /* Fades du slot en teinte douce sur les formes (pas de crème opaque) */
-    .hero-plate .slot-outer::before { background: linear-gradient(180deg, rgba(243,239,215,0.62) 0%, transparent 100%); }
-    .hero-plate .slot-outer::after  { background: linear-gradient(0deg,   rgba(243,239,215,0.62) 0%, transparent 100%); }
+    /* Fades du slot — crème pour fondre dans le halo */
+    .hero-plate .slot-outer::before { background: linear-gradient(180deg, #F3EFD7 0%, transparent 100%); }
+    .hero-plate .slot-outer::after  { background: linear-gradient(0deg,   #F3EFD7 0%, transparent 100%); }
 
     /* SLOT */
     .slot-outer {
@@ -339,7 +333,7 @@
     /* ── SHAPES FADE-IN ── */
     @keyframes bsFadeIn {
       from { opacity: 0; }
-      to   { opacity: 1; }
+      to   { opacity: var(--bs-op, 1); }
     }
 
     /* ── REDUCED MOTION ── */
@@ -433,13 +427,11 @@
       padding: 10px 20px; border-radius: 999px;
       border: 1.5px solid rgba(26,26,26,.3);
       color: rgba(26,26,26,.65);
-      background: rgba(243,239,215,.86);
-      backdrop-filter: blur(10px) saturate(1.15);
-      -webkit-backdrop-filter: blur(10px) saturate(1.15);
-      box-shadow: 0 4px 18px rgba(26,26,26,.09);
+      background: #F3EFD7;
+      box-shadow: 0 4px 18px rgba(26,26,26,.12);
       transition: border-color .2s, color .2s, background .2s;
     }
-    .escape-link:hover { border-color: currentColor; background: rgba(243,239,215,.97); }
+    .escape-link:hover { border-color: currentColor; background: #fffdf2; }
     .escape-link[data-c="collectif"] { color: rgba(26,26,26,.65); border-color: rgba(26,26,26,.30); }
     .escape-link[data-c="studio"]  { color: #4A82DC; border-color: rgba(74,130,220,.45); }
     .escape-link[data-c="atelier"] { color: #5DA16B; border-color: rgba(93,161,107,.45); }
@@ -685,7 +677,6 @@
   <!-- Hero : slot reel + hint -->
   <div id="hero">
     <div class="hero-plate">
-      <div class="hp-soft" aria-hidden="true"><span class="hp-blur"></span><span class="hp-tint"></span></div>
       <div class="slot-outer" id="slot-outer">
         <div class="slot-reel" id="slot-reel"></div>
       </div>
@@ -995,7 +986,14 @@
         div.setAttribute('aria-label', `${ENV[envKey].name} — ${ENV[envKey].tag}`);
         const fadeDelay = (Math.random() * 0.7 + 0.05).toFixed(2);
         div.dataset.fd = fadeDelay;
-        div.style.cssText = `left:${(cx-sw/2)/W*100}%;top:${(cy-sh/2)/H*100}%;width:${SHAPE_VW}vw;transform:rotate(${rot}deg)${flip};color:${ENV_COLORS[envKey]};animation:bsFadeIn .65s ease ${fadeDelay}s both;`;
+        // Opacité par-forme : atténuée près du centre (centre calme + lisible),
+        // pleine sur les bords. Fondu individuel → aucune délimitation visible.
+        const exn = (cx - W / 2) / (W * 0.32);
+        const eyn = (cy - H / 2) / (H * 0.30);
+        let td = Math.min(1, Math.sqrt(exn * exn + eyn * eyn));
+        const sm = td * td * (3 - 2 * td);            // smoothstep
+        const bsOp = (0.16 + 0.84 * sm).toFixed(3);
+        div.style.cssText = `left:${(cx-sw/2)/W*100}%;top:${(cy-sh/2)/H*100}%;width:${SHAPE_VW}vw;--bs-op:${bsOp};transform:rotate(${rot}deg)${flip};color:${ENV_COLORS[envKey]};animation:bsFadeIn .65s ease ${fadeDelay}s both;`;
         div.innerHTML = `<svg viewBox="0 0 750 450" xmlns="http://www.w3.org/2000/svg"><g fill="currentColor">${SHAPE_SVG[shapeKey]}</g><g class="bss" fill="none" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.5">${SHAPE_SVG[shapeKey]}</g></svg>`;
         fragment.appendChild(div);
       }
